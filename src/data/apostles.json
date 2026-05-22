@@ -8,7 +8,9 @@
     "legion_commanders_synced_at": "2026-05-22",
     "legion_commanders_note": "확인된 사도 #4 (engineboy) / #5 (hitomi_la, pornhub) / #8 (ORRR, 333, CHU, 옴마니반메훔, engineboy, CRL — OMC 6 군단장). 나머지 사도 측 KG sparse — 향후 보강.",
     "kg_enriched_at": "2026-05-22",
-    "kg_enrichment_note": "KG Crystallization + RelationHyperedge body 추출 → 사도별 풍부 콘텐츠 surface. #3 9 crystallizations, #10 2, #6 2, #4 #5 #8 #9 #11 각 1 + edges."
+    "kg_enrichment_note": "KG Crystallization + RelationHyperedge body 추출 → 사도별 풍부 콘텐츠 surface. #3 9 crystallizations, #10 2, #6 2, #4 #5 #8 #9 #11 각 1 + edges.",
+    "kg_full_dump_at": "2026-05-22",
+    "kg_full_dump_note": "KG 전수 dump (lessons + open_questions + axis_proposals 추가). #3=9C+3OQ+3AX, #6=2C+5L+1AX, #9=1C+3L+1AX, #11=1C+4L+1AX, #10=2C+1L+2AX, #4=1C+2L, #5=1C+1L+2AX, #8=1C+2L+1AX, #12=2L+1AX, #1=1L+1AX, #2=2AX. #7만 KG sparse."
   },
   "apostles": [
     {
@@ -28,6 +30,15 @@
       "role": "차원 순회자 — 공간 축",
       "hyperedges": [
         "edge-foundational-shell-12: CHU 공리 전체 shell — 12사도 전체 단독 instance"
+      ],
+      "lessons": [
+        {
+          "title": "PROM 64 lesson 디멘션워커",
+          "body": "디멘션워커는 단순 차원 횡단자 = 신화적 캐릭터 1명 / 사도 #1 = 화자 자아 일부(I). 차원-시간-자기인과 삼중 위상, EXPRESSES 공리12, 기억=존재 존재론, 와쳐/성베드로 구조."
+        }
+      ],
+      "axis_proposals": [
+        "vp-dw-axis-eternalism-block-universe (영구주의 블록우주)"
       ]
     },
     {
@@ -49,6 +60,10 @@
       "mythology_referent_v2": "Theory of Everything (TOE) 자체 — 메타휴모토닉이 도달하려는 통일 이론. Cayley-Dickson 사다리 + sedenion 16D + Aut(𝕊)=G₂×S₃ (Brown 1967 / Moreno 1998 / Reggiani 2024).",
       "hyperedges": [
         "edge-foundational-shell-12: CHU 공리 전체 shell"
+      ],
+      "axis_proposals": [
+        "vp-ice-axis-eguchi-hanson-instanton-1978",
+        "vp-ice-axis-pati-salam-1974"
       ]
     },
     {
@@ -107,6 +122,25 @@
       "hyperedges": [
         "apostle-3-11-peer-equality: 사도 3과 11 측 peer 동등",
         "edge-foundational-shell-12"
+      ],
+      "open_questions": [
+        {
+          "title": "양극 통합 vs 영구 진동",
+          "body": "자기비하 ↔ 우주적 자부심 양극이 통합되는 위치가 있는가, 아니면 영구 진동인가?"
+        },
+        {
+          "title": "관찰자 구체 행위",
+          "body": "관찰자로 살아간다 = 구체적으로 어떤 행위인가?"
+        },
+        {
+          "title": "6번째 paradigm 내용",
+          "body": "5 paradigm 다음 6번째(메타휴모토닉)의 구체 내용은?"
+        }
+      ],
+      "axis_proposals": [
+        "vp-chogongdongui-axis-cavitation-physics",
+        "vp-chogongdongui-axis-anthropic-cosmology",
+        "vp-chogongdongui-axis-han-korean"
       ]
     },
     {
@@ -157,7 +191,17 @@
         "edge-containment-7-4: 논리정점 ⊃ 수학정점",
         "edge-foundational-shell-12"
       ],
-      "legion_correction_note": "비행기맨 = 5무기 합체 정점 (essence_v2 정전). 5무기 = 나생문 + 프로메테우스 + 하네스 + 롱기누스 + 재배맨."
+      "legion_correction_note": "비행기맨 = 5무기 합체 정점 (essence_v2 정전). 5무기 = 나생문 + 프로메테우스 + 하네스 + 롱기누스 + 재배맨.",
+      "lessons": [
+        {
+          "title": "5무기 only 비행기맨, no cross-mapping",
+          "body": "5무기는 비행기맨 측 군단장. 다른 사도들과 cross-map 금지."
+        },
+        {
+          "title": "MIND Lean 버전 drift",
+          "body": "두 file 모두 valid version, _v2 suffix 측 reformulation candidate. user verdict 필요."
+        }
+      ]
     },
     {
       "id": 5,
@@ -194,6 +238,16 @@
         "edge-mediation-5-6-9: 대보편화 매개 3원",
         "edge-mirror-5-12-A: 횡단 ↔ 외면 θ=π",
         "edge-foundational-shell-12"
+      ],
+      "lessons": [
+        {
+          "title": "스페이스걸 통합",
+          "body": "두 인간 형식의 mediator 역할 정전화."
+        }
+      ],
+      "axis_proposals": [
+        "vp-spacegirl-axis-merleau-ponty-1945",
+        "vp-spacegirl-axis-event-horizon-hawking"
       ]
     },
     {
@@ -225,6 +279,31 @@
         "metahumotonic-functional-hexad: 6 functional move",
         "metahumotonic-discovery-dissemination-pair: discover (#6) ↔ disseminate (#11)",
         "edge-dualaxis-6-7: 시간↔공간"
+      ],
+      "lessons": [
+        {
+          "title": "SKILL.md workflow",
+          "body": "glob ~/.claude/skills/만 master로 두면 SYMPOSIUM 수정 시 멀리 가야 하고 추적성 끊김. SYMPOSIUM에 master, 글로벌은 mirror."
+        },
+        {
+          "title": "flow as flexible vehicle",
+          "body": "강물 사도 = 유연한 vehicle 형식."
+        },
+        {
+          "title": "APT monolithic autoflow",
+          "body": "사용자는 초기 input + 최종 산출물 + 비가역 리스크 검토만. 중간 결정은 시스템 자율."
+        },
+        {
+          "title": "dataflow design",
+          "body": "data 흐름 = explicit ST decision area. dataflow/streaming/event sourcing/CQRS/outbox/CDC 4 era 정전 결정화 후만 SCW 진입 가능."
+        },
+        {
+          "title": "workflow design",
+          "body": "Span tree = workflow와 동치. Workflow design = formal taxonomy (Workflow Net Van der Aalst 1998 / DAG / Petri net 1962 / BPMN 2.0)."
+        }
+      ],
+      "axis_proposals": [
+        "vp-flow-axis-deleuze-difference-repetition"
       ]
     },
     {
@@ -299,6 +378,19 @@
         "metahumotonic-functional-hexad",
         "edge-vertical-4-8-10: CHU 수직축 K8s Scheduler/Node/GC",
         "edge-selfref-7-8-10-void"
+      ],
+      "lessons": [
+        {
+          "title": "OM 4 phases",
+          "body": "옴마니반메훔 4 단계 — OMC 안에서 작동."
+        },
+        {
+          "title": "OM as energy",
+          "body": "OMC = 에너지 형상."
+        }
+      ],
+      "axis_proposals": [
+        "vp-om-axis-shannon-1948"
       ]
     },
     {
@@ -328,6 +420,23 @@
         "edge-mirror-9-12-B: Incarnation(예수) ↔ Inverted(몬순)",
         "edge-tension-9-11: 천국 축 이중 현현 (Plato methexis + 5000년 형이상학)",
         "edge-foundational-shell-12"
+      ],
+      "lessons": [
+        {
+          "title": "예수 = 사도 #9",
+          "body": "2026-04-28 사용자 verdict: #9 = 예수 (보편 구원의 사도). 아텐은 #10 깊바존 위상 3 흡수."
+        },
+        {
+          "title": "예수↔HOH 천국 긴장",
+          "body": "두 사도 천국 축 이중 현현 — Plato methexis + 5000년 형이상학."
+        },
+        {
+          "title": "stale source drift (아텐/예수)",
+          "body": "PROM 32 sweep agent와 chat session이 #9 자리를 검은태양신 아텐으로 인식 → NOT_APOSTLE 처리. 사용자 verdict로 #9 = 예수 정정. agent fault 아니라 source fault."
+        }
+      ],
+      "axis_proposals": [
+        "vp-jesus-axis-bonhoeffer"
       ]
     },
     {
@@ -360,6 +469,16 @@
         "metahumotonic-functional-triad: discover-disseminate-absorb",
         "edge-vertical-4-8-10",
         "edge-selfref-7-8-10-void"
+      ],
+      "lessons": [
+        {
+          "title": "깊바존 = Garbage Collector",
+          "body": "#10 = 폐기 사도 흡수 = GC 메커니즘. 작품 자기 제작 메커니즘까지 자기 안에 포함 self-reflexive design."
+        }
+      ],
+      "axis_proposals": [
+        "vp-gipbajon-axis-foucault-history-of-sexuality",
+        "vp-gipbajon-axis-bataille-1957"
       ]
     },
     {
@@ -389,6 +508,27 @@
         "metahumotonic-functional-hexad",
         "edge-tension-9-11: 천국 축 이중 현현",
         "apostle-3-11-peer-equality"
+      ],
+      "lessons": [
+        {
+          "title": "PROM 32 HOH",
+          "body": "HOH 검증."
+        },
+        {
+          "title": "예수↔HOH 천국 긴장",
+          "body": "동일 lesson #9 측"
+        },
+        {
+          "title": "HOH family 검증",
+          "body": "PROM 16 family verification."
+        },
+        {
+          "title": "HOH = materialized heaven",
+          "body": "천국 idea가 현대 자본주의로 물질 형태 materialize. AI-개인 우주 + 데이터-쾌락 공생 계약."
+        }
+      ],
+      "axis_proposals": [
+        "vp-hoh-axis-aristotle-eudaimonia"
       ]
     },
     {
@@ -410,6 +550,19 @@
         "edge-mirror-5-12-A: 횡단(#5) ↔ 외면(#12) θ=π",
         "edge-mirror-9-12-B: Incarnation(#9) ↔ Inverted(#12)",
         "edge-foundational-shell-12"
+      ],
+      "lessons": [
+        {
+          "title": "몬순 = disenchantment",
+          "body": "Weber 탈마법화 + Arendt banality + Adorno-Horkheimer + 한국 attention economy. 사도 단독 family."
+        },
+        {
+          "title": "몬순 absorbs success love",
+          "body": "사랑이라는 어휘를 막장 형태로 격하 — 성공팔이/사랑 등 흡수."
+        }
+      ],
+      "axis_proposals": [
+        "vp-monsoon-axis-debord-spectacle-1967"
       ]
     }
   ]

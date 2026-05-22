@@ -330,6 +330,54 @@ const isOpen = apostle.status?.startsWith('OPEN');
       line-height: 1.5;
     }
 
+    /* Lessons 섹션 */
+    .lessons {
+      margin: 1.4rem 0;
+      padding: 0.9rem 1.1rem;
+      border: 1px solid #d9ceb0;
+      border-left: 3px solid #8a4d00;
+      background: rgba(252, 231, 196, 0.12);
+    }
+    .lessons__head { display:flex; align-items:baseline; gap:0.5rem; margin-bottom:0.6rem; }
+    .lessons__eyebrow { font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:#8a4d00; }
+    .lessons__count { font-size:13px; color:#8a4d00; }
+    .lessons__list { list-style:none; padding:0; margin:0; display:grid; gap:0.6rem; }
+    .lessons__item { border-top:1px dotted #e5d3a8; padding-top:0.5rem; }
+    .lessons__item:first-child { border-top:0; padding-top:0; }
+    .lessons__title { display:block; font-size:12px; color:#5a3a00; margin-bottom:2px; }
+    .lessons__body { font-size:11.5px; color:#3a2d10; line-height:1.5; margin:0; }
+
+    /* Open Questions 섹션 */
+    .open-questions {
+      margin: 1.4rem 0;
+      padding: 0.9rem 1.1rem;
+      border: 1px solid #d9ceb0;
+      border-left: 3px solid #ec4899;
+      background: rgba(252, 231, 243, 0.18);
+    }
+    .open-questions__head { display:flex; align-items:baseline; gap:0.5rem; margin-bottom:0.6rem; }
+    .open-questions__eyebrow { font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9d174d; }
+    .open-questions__count { font-size:13px; color:#9d174d; }
+    .open-questions__list { list-style:none; padding:0; margin:0; display:grid; gap:0.6rem; }
+    .open-questions__item { border-top:1px dotted #f9a8d4; padding-top:0.5rem; }
+    .open-questions__item:first-child { border-top:0; padding-top:0; }
+    .open-questions__title { display:block; font-size:12px; color:#831843; margin-bottom:2px; }
+    .open-questions__body { font-size:11.5px; color:#500724; line-height:1.5; margin:0; }
+
+    /* Axis Proposals 섹션 */
+    .axis-proposals {
+      margin: 1.4rem 0;
+      padding: 0.8rem 1.1rem;
+      border: 1px solid #d9ceb0;
+      border-left: 3px solid #06b6d4;
+      background: rgba(207, 250, 254, 0.18);
+    }
+    .axis-proposals__head { display:flex; align-items:baseline; gap:0.5rem; margin-bottom:0.5rem; }
+    .axis-proposals__eyebrow { font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:#0e7490; }
+    .axis-proposals__count { font-size:13px; color:#0e7490; }
+    .axis-proposals__list { list-style:none; padding:0; margin:0; display:grid; gap:0.3rem; }
+    .axis-proposals__item { font-size:11.5px; color:#155e75; padding:0.25rem 0.5rem; background:rgba(6,182,212,0.08); border-radius:2px; line-height:1.5; }
+
     /* Legion Commanders 섹션 */
     .legion-commanders {
       margin: 2rem 0;
@@ -512,6 +560,57 @@ const isOpen = apostle.status?.startsWith('OPEN');
         <ul class="hyperedges__list">
           {apostle.hyperedges.map((h: string) => (
             <li class="hyperedges__item">{h}</li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {/* Lessons — KG :Lesson 본문 */}
+    {apostle.lessons && apostle.lessons.length > 0 && (
+      <section class="lessons" aria-label="Lessons — KG 결정화 교훈">
+        <header class="lessons__head">
+          <span class="lessons__eyebrow">교훈 · Lessons</span>
+          <span class="lessons__count">{apostle.lessons.length}</span>
+        </header>
+        <ul class="lessons__list">
+          {apostle.lessons.map((l: any) => (
+            <li class="lessons__item">
+              <strong class="lessons__title">{l.title}</strong>
+              {l.body && <p class="lessons__body">{l.body}</p>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {/* Open Questions — KG :OpenQuestion */}
+    {apostle.open_questions && apostle.open_questions.length > 0 && (
+      <section class="open-questions" aria-label="Open Questions">
+        <header class="open-questions__head">
+          <span class="open-questions__eyebrow">열린 질문 · Open Questions</span>
+          <span class="open-questions__count">{apostle.open_questions.length}</span>
+        </header>
+        <ul class="open-questions__list">
+          {apostle.open_questions.map((o: any) => (
+            <li class="open-questions__item">
+              <strong class="open-questions__title">{o.title}</strong>
+              {o.body && <p class="open-questions__body">{o.body}</p>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {/* Axis Proposals — KG :Canonical PROPOSES_AXIS_FOR_APOSTLE */}
+    {apostle.axis_proposals && apostle.axis_proposals.length > 0 && (
+      <section class="axis-proposals" aria-label="Axis Proposals — 학문 정전 axis 후보">
+        <header class="axis-proposals__head">
+          <span class="axis-proposals__eyebrow">축 후보 · Axis Proposals</span>
+          <span class="axis-proposals__count">{apostle.axis_proposals.length}</span>
+        </header>
+        <ul class="axis-proposals__list">
+          {apostle.axis_proposals.map((ax: string) => (
+            <li class="axis-proposals__item">{ax}</li>
           ))}
         </ul>
       </section>
