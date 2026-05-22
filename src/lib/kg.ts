@@ -1,59 +1,75 @@
 /**
- * KG Fetch Utility — 빌드 타임에 Neo4j에서 데이터 가져오기
- * KG: CONTRACT_Web_KGFetch
+ * KG Fetch Utility — 빌드 타임에 Neo4j에서 데이터 가져오기 (옵션) +
+ * 빌드 타임 KG 접근 불가 시(GHA 등)는 `src/data/kg-snapshot.json` fixture 사용.
  *
- * 이 유틸은 Astro 빌드 시에만 실행됨.
- * 런타임(브라우저)에서는 Neo4j 직접 접근 없음.
- * KG가 source of truth, HTML+RDF는 물질화.
+ * KG: CONTRACT_Web_KGFetch
+ * 빌드는 이 두 path 중 하나로 항상 성공.
+ *
+ * 동작:
+ *  - `NEO4J_LIVE=1` 환경 변수가 있으면 bolt 시도 → 실패 시 snapshot fallback
+ *  - 기본(no env)은 snapshot 바로 사용 (GHA / 외부 빌드 호스트)
+ *  - snapshot 갱신: `npm run prebuild:kg` (Mac 등 bolt 닿는 호스트에서)
  */
 
-import neo4j, { type Driver, type Record as Neo4jRecord } from 'neo4j-driver';
+import snapshot from '../data/kg-snapshot.json';
 
-const BOLT_URL = import.meta.env.NEO4J_BOLT || 'bolt://localhost:7687';
-const NEO4J_USER = import.meta.env.NEO4J_USER || 'neo4j';
-const NEO4J_PASS = import.meta.env.NEO4J_PASS || 'neo4jpassword';
+const USE_LIVE = process.env.NEO4J_LIVE === '1' || import.meta.env?.NEO4J_LIVE === '1';
 
-let driver: Driver | null = null;
+const BOLT_URL = (typeof import.meta !== 'undefined' && (import.meta as any).env?.NEO4J_BOLT) || 'bolt://localhost:7687';
+const NEO4J_USER = (typeof import.meta !== 'undefined' && (import.meta as any).env?.NEO4J_USER) || 'neo4j';
+const NEO4J_PASS = (typeof import.meta !== 'undefined' && (import.meta as any).env?.NEO4J_PASS) || 'neo4jpassword';
 
-function getDriver(): Driver {
-  if (!driver) {
+let driver: any = null;
+let driverFailed = false;
+
+async function getDriver() {
+  if (!USE_LIVE || driverFailed) return null;
+  if (driver) return driver;
+  try {
+    const neo4j = (await import('neo4j-driver')).default;
     driver = neo4j.driver(BOLT_URL, neo4j.auth.basic(NEO4J_USER, NEO4J_PASS));
+    return driver;
+  } catch (e) {
+    driverFailed = true;
+    console.warn('[kg] neo4j-driver init failed, using snapshot:', (e as Error).message);
+    return null;
   }
-  return driver;
 }
 
-export async function queryKG<T = any>(
-  cypher: string,
-  params: Record<string, any> = {}
-): Promise<T[]> {
-  const session = getDriver().session();
+async function queryKG<T = any>(cypher: string, params: Record<string, any> = {}): Promise<T[] | null> {
+  const d = await getDriver();
+  if (!d) return null;
+  const session = d.session();
   try {
     const result = await session.run(cypher, params);
-    return result.records.map((r: Neo4jRecord) => {
+    return result.records.map((r: any) => {
       const obj: any = {};
       r.keys.forEach((key: string) => {
         const val = r.get(key);
-        // Neo4j Integer → JS number
         obj[key] = typeof val?.toNumber === 'function' ? val.toNumber() : val;
       });
       return obj as T;
     });
+  } catch (e) {
+    driverFailed = true;
+    console.warn('[kg] query failed, using snapshot:', (e as Error).message);
+    return null;
   } finally {
     await session.close();
   }
 }
 
 /** KG 전체 통계 */
-export async function getKGStats() {
-  const [stats] = await queryKG<{ nodes: number; rels: number }>(`
+export async function getKGStats(): Promise<{ nodes: number; rels: number }> {
+  const live = await queryKG<{ nodes: number; rels: number }>(`
     MATCH (n) WITH count(n) as nodes
     MATCH ()-[r]->() WITH nodes, count(r) as rels
     RETURN nodes, rels
   `);
-  return stats;
+  if (live && live[0]) return live[0];
+  return snapshot.stats;
 }
 
-/** 13개 DomainHub 목록 */
 export interface Domain {
   name: string;
   displayName: string;
@@ -61,18 +77,20 @@ export interface Domain {
   description: string;
 }
 
+/** 도메인 허브 목록 */
 export async function getDomains(): Promise<Domain[]> {
-  return queryKG<Domain>(`
+  const live = await queryKG<Domain>(`
     MATCH (d:DomainHub)
     RETURN d.name as name, d.displayName as displayName,
            d.nodeCount as nodeCount, d.description as description
     ORDER BY d.nodeCount DESC
   `);
+  if (live && live.length) return live;
+  return snapshot.domains as Domain[];
 }
 
-/** 특정 도메인의 상세 정보 — 라벨, 관계타입, 샘플 노드 */
+/** 특정 도메인의 상세 정보 */
 export async function getDomainDetail(domainName: string) {
-  // 도메인 허브 → KG 라벨 매핑
   const labelMap: Record<string, string> = {
     'domain-hub-ai': 'KG_AI',
     'domain-hub-sym': 'KG_SYM',
@@ -90,52 +108,60 @@ export async function getDomainDetail(domainName: string) {
   };
   const kgLabel = labelMap[domainName] || '';
 
-  const [domain] = await queryKG(`
+  const liveDomain = await queryKG(`
     MATCH (d:DomainHub {name: $name})
     RETURN d.name as name, d.displayName as displayName,
            d.nodeCount as nodeCount, d.description as description
   `, { name: domainName });
 
-  // 도메인 내 상위 라벨 (서브타입)
-  const topLabels = await queryKG(`
-    MATCH (n) WHERE $label IN labels(n)
-    WITH [l IN labels(n) WHERE l <> $label] as lbls
-    UNWIND lbls as lbl
-    WITH lbl, count(*) as cnt
-    RETURN lbl, cnt ORDER BY cnt DESC LIMIT 15
-  `, { label: kgLabel });
+  if (liveDomain && liveDomain[0]) {
+    const [topLabels, topRelTypes, sampleNodes, crossDomain] = await Promise.all([
+      queryKG(`
+        MATCH (n) WHERE $label IN labels(n)
+        WITH [l IN labels(n) WHERE l <> $label] as lbls
+        UNWIND lbls as lbl
+        WITH lbl, count(*) as cnt
+        RETURN lbl, cnt ORDER BY cnt DESC LIMIT 15
+      `, { label: kgLabel }),
+      queryKG(`
+        MATCH (n)-[r]->(m) WHERE $label IN labels(n)
+        WITH type(r) as relType, count(*) as cnt
+        RETURN relType, cnt ORDER BY cnt DESC LIMIT 10
+      `, { label: kgLabel }),
+      queryKG(`
+        MATCH (n) WHERE $label IN labels(n) AND n.description IS NOT NULL AND size(n.description) > 20
+        RETURN n.name as name, [l IN labels(n) WHERE l <> $label][0] as type,
+               substring(n.description, 0, 150) as desc
+        ORDER BY rand() LIMIT 8
+      `, { label: kgLabel }),
+      queryKG(`
+        MATCH (b:CrossDomainBridge)-[:BRIDGES]->(d:DomainHub {name: $name})
+        MATCH (b)-[:BRIDGES]->(other:DomainHub)
+        WHERE other.name <> $name
+        RETURN other.name as otherDomain, other.displayName as otherDisplay,
+               b.name as bridge, b.description as bridgeDesc
+        LIMIT 5
+      `, { name: domainName }),
+    ]);
+    return {
+      domain: liveDomain[0],
+      topLabels: topLabels || [],
+      topRelTypes: topRelTypes || [],
+      sampleNodes: sampleNodes || [],
+      crossDomain: crossDomain || [],
+    };
+  }
 
-  // 도메인 내 관계 타입 상위
-  const topRelTypes = await queryKG(`
-    MATCH (n)-[r]->(m) WHERE $label IN labels(n)
-    WITH type(r) as relType, count(*) as cnt
-    RETURN relType, cnt ORDER BY cnt DESC LIMIT 10
-  `, { label: kgLabel });
-
-  // 샘플 노드 (description 있는 것 우선)
-  const sampleNodes = await queryKG(`
-    MATCH (n) WHERE $label IN labels(n) AND n.description IS NOT NULL AND size(n.description) > 20
-    RETURN n.name as name, [l IN labels(n) WHERE l <> $label][0] as type,
-           substring(n.description, 0, 150) as desc
-    ORDER BY rand() LIMIT 8
-  `, { label: kgLabel });
-
-  // CrossDomain 연결
-  const crossDomain = await queryKG(`
-    MATCH (b:CrossDomainBridge)-[:BRIDGES]->(d:DomainHub {name: $name})
-    MATCH (b)-[:BRIDGES]->(other:DomainHub)
-    WHERE other.name <> $name
-    RETURN other.name as otherDomain, other.displayName as otherDisplay,
-           b.name as bridge, b.description as bridgeDesc
-    LIMIT 5
-  `, { name: domainName });
-
-  return { domain, topLabels, topRelTypes, sampleNodes, crossDomain };
+  const fixture = (snapshot.domainDetails as Record<string, any>)[domainName] || {
+    topLabels: [], topRelTypes: [], sampleNodes: [], crossDomain: [],
+  };
+  const domain = (snapshot.domains as Domain[]).find(d => d.name === domainName);
+  return { domain, ...fixture };
 }
 
-/** 12사도 상세 */
+/** 12사도 상세 — legacy, used by ApostleSection */
 export async function getApostle(apostleName: string) {
-  const results = await queryKG(`
+  const live = await queryKG(`
     MATCH (n:Character:KG_CREATIVE {name: $name})
     RETURN n.name as name, n.description as description
     UNION
@@ -146,35 +172,35 @@ export async function getApostle(apostleName: string) {
     RETURN n.name as name, n.description as description
     LIMIT 10
   `, { name: apostleName });
-  return results;
+  return live || [];
 }
 
-/** 12사도 전체 목록 */
+/** 12사도 전체 목록 — legacy */
 export async function getApostles() {
-  const [meta] = await queryKG(`
+  const meta = await queryKG(`
     MATCH (n {name: '메타휴모토닉_12사도'})
     RETURN n.description as description
   `);
-
   const characters = await queryKG(`
     MATCH (n:Character:KG_CREATIVE)
     WHERE n.name IN ['디멘션워커','비행기맨','깊바존','몬순','입체운행구름']
     RETURN n.name as name, n.description as description
   `);
-
   const worldSettings = await queryKG(`
     MATCH (n:WorldSetting:KG_CREATIVE)
     WHERE n.name IN ['인류역사흐름의강물','HOH']
     OR n.name CONTAINS 'SpaceGirl'
     RETURN n.name as name, n.description as description
   `);
-
-  return { meta: meta?.description, characters, worldSettings };
+  return {
+    meta: meta?.[0]?.description,
+    characters: characters || [],
+    worldSettings: worldSettings || [],
+  };
 }
 
-/** 18개 스킬 목록 */
+/** 스킬 목록 — 정적 */
 export async function getSkills() {
-  // 스킬은 파일시스템에서 읽음 (KG가 아닌 SKILL.md 파일)
   return [
     { name: 'apt', description: 'APT v24 orchestrator' },
     { name: 'apt-sa', description: 'SemanticAnchor phase' },
@@ -197,16 +223,13 @@ export async function getSkills() {
   ];
 }
 
-/** 스킬 상세 — SKILL.md 파일 파싱 */
+/** SKILL.md 파일 파싱 — 파일시스템 의존, 빌드 호스트에 SKILL.md 가 없으면 null */
 export async function getSkillDetail(skillName: string) {
-  const fs = await import('fs/promises');
-  const path = await import('path');
-  const skillPath = path.join(process.cwd(), '../../.claude/skills', skillName, 'SKILL.md');
-
   try {
+    const fs = await import('fs/promises');
+    const path = await import('path');
+    const skillPath = path.join(process.cwd(), '../../.claude/skills', skillName, 'SKILL.md');
     const content = await fs.readFile(skillPath, 'utf-8');
-
-    // frontmatter 파싱
     const fmMatch = content.match(/^---\n([\s\S]*?)\n---/);
     const frontmatter: Record<string, string> = {};
     if (fmMatch) {
@@ -215,12 +238,8 @@ export async function getSkillDetail(skillName: string) {
         if (k && v.length) frontmatter[k.trim()] = v.join(':').trim().replace(/^["']|["']$/g, '');
       }
     }
-
-    // body (frontmatter 이후)
     const body = content.replace(/^---\n[\s\S]*?\n---\n?/, '').trim();
-
-    // 섹션 분리
-    const sections: Array<{title: string; content: string}> = [];
+    const sections: Array<{ title: string; content: string }> = [];
     const sectionMatches = body.split(/^## /m);
     for (const sec of sectionMatches) {
       if (!sec.trim()) continue;
@@ -229,14 +248,12 @@ export async function getSkillDetail(skillName: string) {
       const content = lines.slice(1).join('\n').trim();
       if (title) sections.push({ title, content });
     }
-
     return { frontmatter, body: body.slice(0, 2000), sections, raw: content.slice(0, 3000) };
   } catch {
     return null;
   }
 }
 
-/** 빌드 종료 시 드라이버 정리 */
 export async function closeDriver() {
   if (driver) {
     await driver.close();

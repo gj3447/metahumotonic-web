@@ -9,7 +9,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "prebuild:kg": "node scripts/prebuild/dump-kg.mjs"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.2.2",
