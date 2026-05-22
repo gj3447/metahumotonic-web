@@ -55,26 +55,7 @@ const programs = [
 </section>
 
 <section id="programs" class="mh-section mh-programs">
-  {/* KG live stats counter — SharedType: KGStats */}
-  <div class="mh-stats-bar" aria-label="Knowledge Graph Statistics">
-    <div class="mh-stat">
-      <span class="counter" data-count={stats.nodes}>{stats.nodes.toLocaleString()}</span>
-      <span class="mh-stat__label">nodes</span>
-    </div>
-    <div class="mh-stat">
-      <span class="counter" data-count={stats.rels}>{stats.rels.toLocaleString()}</span>
-      <span class="mh-stat__label">relations</span>
-    </div>
-    <div class="mh-stat">
-      <span class="counter" data-count={13}>13</span>
-      <span class="mh-stat__label">domains</span>
-    </div>
-    <div class="mh-stat">
-      <span class="counter" data-count={18}>18</span>
-      <span class="mh-stat__label">skills</span>
-    </div>
-  </div>
-
+  {/* KG live stats bar 측 사용자 verdict 2026-05-22 legacy 제거 */}
   {programs.map(p => (
     <article class="mh-program">
       <span class="mh-program__num">{p.num}</span>

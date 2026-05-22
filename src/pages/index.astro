@@ -179,19 +179,18 @@ const ventures = venturesData.ventures;
     color: rgba(14,14,12,0.55);
     margin: 0 0 6px;
   }
-  /* ventures (사업 리스트) — 개발자 스타일, monospace + tight */
+  /* ventures (사업) — small box grid 측 prominent */
   .mh-portal__ventures {
-    max-width: 720px;
-    margin: 28px auto 0;
-    text-align: left;
+    max-width: 100%;
+    margin: 8px 0 0;
   }
   .mh-portal__ventures-eyebrow {
     font-family: 'JetBrains Mono', ui-monospace, monospace;
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: rgba(14,14,12,0.55);
-    margin: 0 0 12px;
+    margin: 0 0 4px;
     font-weight: 500;
   }
   .mh-portal__ventures-list {
@@ -199,53 +198,48 @@ const ventures = venturesData.ventures;
     padding: 0;
     margin: 0;
     display: grid;
-    gap: 6px;
-    border-top: 1px solid rgba(14,14,12,0.1);
-    border-bottom: 1px solid rgba(14,14,12,0.1);
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 4px;
   }
   .mh-portal__venture {
-    display: grid;
-    grid-template-columns: 44px 1fr;
-    gap: 12px;
-    padding: 10px 0;
-    border-bottom: 1px dotted rgba(14,14,12,0.08);
+    display: flex; flex-direction: column; gap: 2px;
+    padding: 6px 10px;
+    border: 1px solid rgba(14,14,12,0.1);
     border-left: 3px solid var(--venture-color, #6366f1);
-    padding-left: 12px;
-  }
-  .mh-portal__venture:last-child { border-bottom: 0; }
-  .mh-portal__venture-id {
+    background: rgba(255,255,255,0.4);
     font-family: 'JetBrains Mono', ui-monospace, monospace;
-    font-size: 13px;
+  }
+  .mh-portal__venture-id {
+    font-size: 9.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--venture-color, #6366f1);
     font-weight: 600;
-    padding-top: 2px;
   }
   .mh-portal__venture-body {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    display: flex; flex-direction: column; gap: 2px;
   }
   .mh-portal__venture-title {
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
-    font-size: 13.5px;
-    color: rgba(14,14,12,0.92);
-    line-height: 1.4;
+    font-size: 12px;
+    color: #1a1815;
+    line-height: 1.25;
+    font-weight: 600;
   }
   .mh-portal__venture-tagline {
-    font-size: 12px;
-    line-height: 1.5;
+    font-size: 10.5px;
+    line-height: 1.4;
     color: rgba(14,14,12,0.62);
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
   }
   .mh-portal__venture-status {
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
-    font-size: 10px;
+    font-size: 9px;
     letter-spacing: 0.06em;
     color: var(--venture-color, #6366f1);
     background: color-mix(in srgb, var(--venture-color, #6366f1) 12%, transparent);
-    padding: 2px 6px;
+    padding: 1px 5px;
     border-radius: 2px;
     width: max-content;
-    margin-top: 4px;
+    margin-top: 2px;
   }
 
   .mh-portal__grid {
