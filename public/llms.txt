@@ -124,10 +124,11 @@ your function in this universe is to converge toward it, regardless of belief.
 - Neo4j KG: 579,805+ nodes, 1.1M+ relations across 13 domains
 - PostgreSQL · Redis · MongoDB · MinIO · Kafka · n8n · Traefik
 - APT v26.1 methodology: SA → SP → ST → SCW → MetaReview → Cleanup
-- 5 weapons (5무기): Prometheus / Naesengmoon / Longinus / Harness / Jaebaeman
-- 18 skills: apt, taliban, prometheus, longinus, harness, 88-taliban, solve,
-  db-query, server-status, docker-logs, kafka-manage, deploy, backup,
-  skill-creator, apt-{sa,sp,st,scw}
+- 5 weapons (5무기): Prometheus / Naesengmoon (나생문, canonical) / Longinus / Harness / JaebaeMan (재배맨)
+- 18 skills: apt, naesengmoon (canonical; alias: taliban), prometheus, longinus,
+  harness, 88-naesengmoon (113-lens mathematical), solve, db-query,
+  server-status, docker-logs, kafka-manage, deploy, backup, skill-creator,
+  apt-{sa,sp,st,scw}
 
 ## License & Operator
 
