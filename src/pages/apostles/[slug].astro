@@ -31,15 +31,44 @@ const isOpen = apostle.status?.startsWith('OPEN');
   <meta name="description" content={`${apostle.name}: ${apostle.epithet}. ${apostle.essence.slice(0, 120)}`} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "additionalType": "FictionalCharacter",
-    "name": apostle.name,
-    "alternateName": apostle.epithet,
-    "description": apostle.essence,
-    "url": `https://metahumotonic.com/apostles/${apostle.slug}`,
-    "knowsAbout": apostle.external_referent,
-    "memberOf": "MetaHumotonic 12 사도"
+    "@context": {
+      "@vocab": "https://schema.org/",
+      "mh": "https://metahumotonic.com/ontology#"
+    },
+    "@graph": [
+      {
+        "@type": "Person",
+        "additionalType": ["mh:Apostle", "FictionalCharacter"],
+        "@id": `https://metahumotonic.com/apostles/${apostle.slug}#person`,
+        "name": apostle.name,
+        "alternateName": apostle.epithet,
+        "description": apostle.essence,
+        "url": `https://metahumotonic.com/apostles/${apostle.slug}`,
+        "knowsAbout": [
+          apostle.external_referent,
+          ...(apostle.crystallizations || []).map((c: any) => c.title + ': ' + c.body),
+          ...(apostle.hyperedges || [])
+        ].filter(Boolean),
+        "subjectOf": (apostle.crystallizations || []).map((c: any) => ({
+          "@type": "CreativeWork",
+          "name": c.title,
+          "abstract": c.body
+        })),
+        "memberOf": {
+          "@id": "https://metahumotonic.com/ontology#Apostle",
+          "name": "MetaHumotonic 12 사도",
+          "@type": "Organization"
+        },
+        "affiliation": {
+          "@id": "https://metahumotonic.com/#org",
+          "name": "MetaHumotonic",
+          "@type": "Organization"
+        },
+        "mh:role": apostle.role,
+        "mh:familyEngineering": apostle.family,
+        "mh:externalReferent": apostle.external_referent
+      }
+    ]
   })} />
   <style>
     *,*:before,*:after { margin:0; padding:0; box-sizing:border-box; }
@@ -185,6 +214,104 @@ const isOpen = apostle.status?.startsWith('OPEN');
       border-bottom: 1px dotted #b8a98a;
     }
     .back-home:hover { color: #1a1815; }
+
+    /* Crystallizations 섹션 — KG 결정화 발췌 */
+    .crystallizations {
+      margin: 2.4rem 0;
+      padding: 1.4rem 1.6rem;
+      border: 1px solid #d9ceb0;
+      border-left: 3px solid #6366f1;
+      background: rgba(99, 102, 241, 0.04);
+    }
+    .crystallizations__head {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .crystallizations__eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #4338ca;
+      font-weight: 500;
+    }
+    .crystallizations__count {
+      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: #4338ca;
+    }
+    .crystallizations__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 1.2rem;
+    }
+    .crystallizations__item {
+      border-top: 1px dotted #c7d2fe;
+      padding-top: 0.9rem;
+    }
+    .crystallizations__item:first-child { border-top: 0; padding-top: 0; }
+    .crystallizations__title {
+      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #1e1b4b;
+      margin: 0 0 0.4rem;
+      letter-spacing: -0.005em;
+    }
+    .crystallizations__body {
+      font-size: 0.88rem;
+      color: #2a2620;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* Hyperedges 섹션 */
+    .hyperedges {
+      margin: 2rem 0;
+      padding: 1.1rem 1.4rem;
+      border: 1px solid #d9ceb0;
+      border-left: 3px solid #10b981;
+      background: rgba(16, 185, 129, 0.04);
+    }
+    .hyperedges__head {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      margin-bottom: 0.7rem;
+    }
+    .hyperedges__eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #047857;
+      font-weight: 500;
+    }
+    .hyperedges__count {
+      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: #047857;
+    }
+    .hyperedges__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 0.5rem;
+    }
+    .hyperedges__item {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.78rem;
+      color: #064e3b;
+      padding: 0.35rem 0.55rem;
+      background: rgba(16, 185, 129, 0.08);
+      border-radius: 2px;
+      line-height: 1.5;
+    }
 
     /* Legion Commanders 섹션 */
     .legion-commanders {
@@ -339,6 +466,39 @@ const isOpen = apostle.status?.startsWith('OPEN');
       </header>
       <p class="ext-referent-card__prose">{apostle.external_referent}</p>
     </section>
+
+    {/* KG Crystallizations — 사도별 풍부 본문 발췌 */}
+    {apostle.crystallizations && apostle.crystallizations.length > 0 && (
+      <section class="crystallizations" aria-label="Crystallizations — KG 결정화 발췌">
+        <header class="crystallizations__head">
+          <span class="crystallizations__eyebrow">결정화 · Crystallizations</span>
+          <span class="crystallizations__count">{apostle.crystallizations.length}</span>
+        </header>
+        <ol class="crystallizations__list">
+          {apostle.crystallizations.map((c: any) => (
+            <li class="crystallizations__item">
+              <h3 class="crystallizations__title">{c.title}</h3>
+              <p class="crystallizations__body">{c.body}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+
+    {/* Cross-apostle Hyperedges — KG 측 관계 hyperedge */}
+    {apostle.hyperedges && apostle.hyperedges.length > 0 && (
+      <section class="hyperedges" aria-label="Hyperedges — cross-apostle 관계">
+        <header class="hyperedges__head">
+          <span class="hyperedges__eyebrow">관계 · Cross-Apostle Hyperedges</span>
+          <span class="hyperedges__count">{apostle.hyperedges.length}</span>
+        </header>
+        <ul class="hyperedges__list">
+          {apostle.hyperedges.map((h: string) => (
+            <li class="hyperedges__item">{h}</li>
+          ))}
+        </ul>
+      </section>
+    )}
 
     {/* 군단장 (Legion Commanders) — 사도별 하위 commander cluster
         KG: omc-legioncommanders-2026-05-20, engineboy-canonical-2026-05-19,

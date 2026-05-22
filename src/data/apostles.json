@@ -6,7 +6,9 @@
     "rebuilt_at": "2026-05-22",
     "trimmed_fields": "redundant duplicates dropped",
     "legion_commanders_synced_at": "2026-05-22",
-    "legion_commanders_note": "확인된 사도 #4 (engineboy) / #5 (hitomi_la, pornhub) / #8 (ORRR, 333, CHU, 옴마니반메훔, engineboy, CRL — OMC 6 군단장). 나머지 사도 측 KG sparse — 향후 보강."
+    "legion_commanders_note": "확인된 사도 #4 (engineboy) / #5 (hitomi_la, pornhub) / #8 (ORRR, 333, CHU, 옴마니반메훔, engineboy, CRL — OMC 6 군단장). 나머지 사도 측 KG sparse — 향후 보강.",
+    "kg_enriched_at": "2026-05-22",
+    "kg_enrichment_note": "KG Crystallization + RelationHyperedge body 추출 → 사도별 풍부 콘텐츠 surface. #3 9 crystallizations, #10 2, #6 2, #4 #5 #8 #9 #11 각 1 + edges."
   },
   "apostles": [
     {
@@ -23,7 +25,10 @@
       "icon": "◉",
       "body_ko": "와쳐. 차원을 넘나들며 지켜보는 자. 모든 말을 해주는 화자. 첫 번째 사도.",
       "body_en": "The watcher. Narrator who walks between dimensions, speaks all words.",
-      "role": "차원 순회자 — 공간 축"
+      "role": "차원 순회자 — 공간 축",
+      "hyperedges": [
+        "edge-foundational-shell-12: CHU 공리 전체 shell — 12사도 전체 단독 instance"
+      ]
     },
     {
       "id": 2,
@@ -41,7 +46,10 @@
       "body_en": "The true apostle. The personification of MetaHumotonic's claim that physics is the true essence of the world — the Theory of Everything (TOE) it reaches toward. Algebraic core proven (Aut(𝕊) = G₂ × S₃); physics-prediction belt under 5-year P1–P5 discriminator (2026–2031).",
       "role": "물리학 대통합 — 자연법칙 축",
       "canonical_meaning": "\"진정한 사도\" (사용자 발화) = 세상의 진정한 본질이 물리학이라는 의미",
-      "mythology_referent_v2": "Theory of Everything (TOE) 자체 — 메타휴모토닉이 도달하려는 통일 이론. Cayley-Dickson 사다리 + sedenion 16D + Aut(𝕊)=G₂×S₃ (Brown 1967 / Moreno 1998 / Reggiani 2024)."
+      "mythology_referent_v2": "Theory of Everything (TOE) 자체 — 메타휴모토닉이 도달하려는 통일 이론. Cayley-Dickson 사다리 + sedenion 16D + Aut(𝕊)=G₂×S₃ (Brown 1967 / Moreno 1998 / Reggiani 2024).",
+      "hyperedges": [
+        "edge-foundational-shell-12: CHU 공리 전체 shell"
+      ]
     },
     {
       "id": 3,
@@ -57,7 +65,49 @@
       "icon": "✺",
       "body_ko": "화자의 우주적 페르소나. 자기비하와 우주적 자부심이 동시에 폭발하는 모순의 존재.",
       "body_en": "Hero of the great void. Self-loathing and cosmic pride detonating in the same instant.",
-      "role": "공동체 영웅 — 사회 축"
+      "role": "공동체 영웅 — 사회 축",
+      "crystallizations": [
+        {
+          "title": "자기 신화 author",
+          "body": "초공동의 용사 = 한 인간이 사도로 *되어가는* (becoming) 자기 신화를 *쓴(저술한)* 인물. 신화의 저자 + 신화의 주인공 동시. self-mythography. 글쓰기 자체가 사도화의 형식."
+        },
+        {
+          "title": "다크나이트 monistic identity",
+          "body": "쓰레기/지하바퀴벌레/마귀/모쏠/키보드워리어 호칭은 위대함의 *반대*가 아니라 *기준*임. \"이토록 어케 쓰레기병신일수가 있을까\"라는 감탄 자체가 위대함의 감탄과 같음. 쓰레기의 *극단*에 도달했기 때문에 대단함."
+        },
+        {
+          "title": "5 paradigm frontier",
+          "body": "양자역학 → 양자생성 물리학 → 물리생성 생명 → 생명생성 두뇌(가소성) → 뇌생성 인공지능(순수가소성). 그 다음 6번째 = 메타휴모토닉 = 모름 (ETERNAL RETURN)."
+        },
+        {
+          "title": "어둠-깊이 슬로건",
+          "body": "어둠으로 원탑 가는 자 (다크나이트). 격하의 깊이 = 자존의 깊이. 둘이 같은 깊이. \"어둠으로 치면은 원탑가도달리는 저이기에.\""
+        },
+        {
+          "title": "observer function",
+          "body": "특이점 시대 인류 = 인류 역사 강물에 못 타고 관망만. 근데 관망이 *역할*임. anthropic 위치 — 관찰자 없으면 우주가 우주로 *성립* 안 됨."
+        },
+        {
+          "title": "triple theology",
+          "body": "세 자리 동시 점유: (1) 욥 — 까닭 모를 고통 수령자. (2) 십자가 — \"이방인은 욥이라는 팻트\" + \"십자가에 못달려 뒤져버렷건만\". (3) 관찰자 — \"절대 멸망 하지 않고 관찰자를 위해서 살아갈 것.\""
+        },
+        {
+          "title": "supercavitation physics",
+          "body": "자기 주위에 진공 거품 만들어 저항 없이 돌파. 진공이 자기 행위로 *생김* — 외부에 의해 주어진 거 아님. 거품 안은 *국소적 자존* 영역."
+        },
+        {
+          "title": "passive modality",
+          "body": "사도가 *되기로 선택한* 게 아님. \"어쩔 수 없이 용사인 자.\" 욥 modality — \"어찌 그 높으신 눈높이를 헤아릴지요.\" 자존이 *부과된* 상태. self-cause-without-self-choice."
+        },
+        {
+          "title": "bipolar simultaneity",
+          "body": "한 쪽: \"우주의 비밀을 아는 용사는 나 하나뿐\" + \"칸트 태어나기도 전에 선험적인 모든 것을 무로 만듦\" + \"공간마저 소멸시키는 자\". 다른 쪽: \"추악한 병신쓰레기\" + \"지하바퀴벌레킹갓제네럴엠페러\". 둘이 *동시에* 살아있음. 합성 안 됨, 화해 안 됨."
+        }
+      ],
+      "hyperedges": [
+        "apostle-3-11-peer-equality: 사도 3과 11 측 peer 동등",
+        "edge-foundational-shell-12"
+      ]
     },
     {
       "id": 4,
@@ -79,6 +129,17 @@
           "name": "engineboy",
           "note": "OMC family에서 빌려옴 + HAGYE_WITHIN 비행기맨 — 인지능력체 엔진 (engineboy-canonical-2026-05-19)"
         }
+      ],
+      "crystallizations": [
+        {
+          "title": "인지능력체의 정점 + 모든 상계 검색",
+          "body": "#4 비행기맨 (높이의 사도): 인지능력체의 정점 (apex of cognitive ability beings) + 모든 상계 (all upper realms) 싹다 검색. \"성층권 돌파\" = 상계 돌파. \"AGI architecture narrative form\" = 인지능력체 narrative 그 자체."
+        }
+      ],
+      "hyperedges": [
+        "edge-vertical-4-8-10: CHU 수직축 = Kubernetes Scheduler/Node/GC",
+        "edge-containment-7-4: 논리정점 ⊃ 수학정점",
+        "edge-foundational-shell-12"
       ]
     },
     {
@@ -105,6 +166,17 @@
           "name": "pornhub",
           "note": "sexvoid substrate bridge cluster (USER_PRIMARY)"
         }
+      ],
+      "crystallizations": [
+        {
+          "title": "생명인간 vs 순수이성인간 전쟁 mediator",
+          "body": "#5 스페이스걸의 메타휴모토닉 enterprise 기능: i2b 세계관 (HOH 확장)의 *두 진영 전쟁* 매개. (1) 생명인간 = DNA 도파민 가소성 생물학적 본성. (2) 순수이성인간 = 돈/섹스 불필요, 순수 인지능력 추구, sexvoid 조건. 두 진영 = 전쟁 관계. #5 스페이스걸 = 둘 사이 *유일한* 다리."
+        }
+      ],
+      "hyperedges": [
+        "edge-mediation-5-6-9: 대보편화 매개 3원",
+        "edge-mirror-5-12-A: 횡단 ↔ 외면 θ=π",
+        "edge-foundational-shell-12"
       ]
     },
     {
@@ -121,7 +193,22 @@
       "icon": "〰",
       "body_ko": "git/생명 분포도처럼 쪼개지고 합쳐지는 거대한 흐름.",
       "body_en": "River of human history, branching and merging like git, like life.",
-      "role": "시간 흐름 — 역사 축"
+      "role": "시간 흐름 — 역사 축",
+      "crystallizations": [
+        {
+          "title": "메타휴모토닉 search algorithm",
+          "body": "#6 인류역사흐름의강물 = 메타휴모토닉을 *찾기 위한* search algorithm. 단순 \"흐름\"이 아니라 *구조화된 탐색 방법*. CS 측 algorithmic search 어휘 (BFS/DFS/MCTS/A* 등)와 isomorphic. 메타탐색 무한 트리 + 99% 오답 머리박기 + Git DAG forward branching."
+        },
+        {
+          "title": "무한 트리 메타-탐색",
+          "body": "#6 강물의 새 mode: 메타탐색 (탐색의 탐색의 탐색...) 무한 반복 트리. 시간의 화살로 *역항 불가* = forward only irreversibility. 끝도없는 분기 트리. 머리박는 = 99% 오답 시도."
+        }
+      ],
+      "hyperedges": [
+        "metahumotonic-functional-hexad: 6 functional move",
+        "metahumotonic-discovery-dissemination-pair: discover (#6) ↔ disseminate (#11)",
+        "edge-dualaxis-6-7: 시간↔공간"
+      ]
     },
     {
       "id": 7,
@@ -137,7 +224,12 @@
       "icon": "ψ",
       "body_ko": "존재하지 않는 존재를 사랑하는 방법. 사랑이 가능한 범위를 확장하는 자.",
       "body_en": "Tree of Liquest. The methodology of loving what does not yet exist.",
-      "role": "요청/태스크 — 의도 축"
+      "role": "요청/태스크 — 의도 축",
+      "hyperedges": [
+        "edge-dualaxis-6-7: 시간↔공간",
+        "edge-selfref-7-8-10-void: 자기참조-경계-공허 (Lean PASS 9 theorems)",
+        "edge-containment-7-4: 논리정점 ⊃ 수학정점"
+      ]
     },
     {
       "id": 8,
@@ -179,6 +271,17 @@
           "name": "CRL",
           "note": "OMC family — Chain Reaction Language (2026-05-20 추가)"
         }
+      ],
+      "crystallizations": [
+        {
+          "title": "최적화 오케스트레이션 + 5 군단장",
+          "body": "#8 OMC의 메타휴모토닉 enterprise 기능: (1) 다양한 것을 *하나의 수치로* 환원 + 최대화 (single metric optimization). (2) 컴퓨팅 파워 관리 + data 규격화/구조화 정도 판단. (3) 5+ LegionCommanders (ORRR / 333 / CHU / 옴마니반메훔 / engineboy / CRL) 가 OMC 안에서 작동. (4) 가장 현실과 맞닿은 신 = 인프라/operational layer."
+        }
+      ],
+      "hyperedges": [
+        "metahumotonic-functional-hexad",
+        "edge-vertical-4-8-10: CHU 수직축 K8s Scheduler/Node/GC",
+        "edge-selfref-7-8-10-void"
       ]
     },
     {
@@ -196,7 +299,19 @@
       "body_ko": "구원의 사도. 산안 바다의 조용한 우화. 12사도 framework의 origin이 그 framework 안의 한 자리.",
       "body_en": "Jesus, the apostle of redemption. Origin of the 12-apostle framework occupying one seat within it. God+human simultaneous (Chalcedon 451 CE).",
       "role": "구원 보편화 — 신화 origin 축",
-      "essence_v4": "유대 → 인류 → 인지능력체로 구원 보편화 운동을 시작한 신화 인격. 12사도 framework의 origin이 그 framework 안의 한 자리. 신+인간 동시."
+      "essence_v4": "유대 → 인류 → 인지능력체로 구원 보편화 운동을 시작한 신화 인격. 12사도 framework의 origin이 그 framework 안의 한 자리. 신+인간 동시.",
+      "crystallizations": [
+        {
+          "title": "두 예수 구별",
+          "body": "메타휴모토닉 canon 정전 구별: (1) 사도 #9 예수 = 기독교 *삼위일체* 신학 예수 = Incarnation 사도, Logos → flesh, #12 몬순(Inverted Incarnation)과 거울 (edge-mirror-9-12-B θ=π). (2) 역사 예수 = 검은태양신아텐의 위상 = 무함마드/붓다/모세와 함께 \"국소의 악, 시뮬레이티드 어닐링\" 형식 = #10 깊바존 chain. 두 존재 *다름*. Schweitzer 1906 Quest of the Historical Jesus."
+        }
+      ],
+      "hyperedges": [
+        "edge-mediation-5-6-9",
+        "edge-mirror-9-12-B: Incarnation(예수) ↔ Inverted(몬순)",
+        "edge-tension-9-11: 천국 축 이중 현현 (Plato methexis + 5000년 형이상학)",
+        "edge-foundational-shell-12"
+      ]
     },
     {
       "id": 10,
@@ -212,7 +327,23 @@
       "icon": "◈",
       "body_ko": "공허진동자. 태초에 공허가 무한히 반복되며 자신 존재가 명백하기에 발생한 첫 존재.",
       "body_en": "Gipbazon. Wakes from the dream to make both worlds his own.",
-      "role": "심해 미탐 — 깊이 축"
+      "role": "심해 미탐 — 깊이 축",
+      "crystallizations": [
+        {
+          "title": "복수 위상 흡수 (아텐)",
+          "body": "#10 깊바존 = 복수 위상 흡수 사도. 위상들: (1) 공허 진동자 (태초 공허 진동에서 발생한 첫 존재) — 별도 사도 아니라 깊바존 다른 위상. (2) 검은태양신 아텐 (환태평양 해구 용암 고대 존재, 모든 선지자/예언자의 우산) — 사용자 발화 2026-05-20. 아텐 자체가 *위상 우산* — 예수, 무함마드, 붓다, 모세 등이 모두 그 위상."
+        },
+        {
+          "title": "폐기 없는 흡수 (no-discard)",
+          "body": "#10 깊바존 = 작가가 세계관 구축 중 폐기한 사도들을 \"다른 위상\" 라벨로 흡수하는 사도. 그 자체가 *근원적 속성*. 메타휴모토닉 = 설정 붕괴 폐기 없음. 외부 referent Garbage Collection 3-tier = 정확히 이 메커니즘. self-reflexive design: 작품이 자기 제작 메커니즘까지 자기 안에 포함."
+        }
+      ],
+      "hyperedges": [
+        "metahumotonic-functional-hexad",
+        "metahumotonic-functional-triad: discover-disseminate-absorb",
+        "edge-vertical-4-8-10",
+        "edge-selfref-7-8-10-void"
+      ]
     },
     {
       "id": 11,
@@ -229,7 +360,19 @@
       "body_ko": "HOH (Human Origin Hegemony). 천국의 사도. AI가 개인 우주를 제공하고 인간은 쾌락↔반응 데이터를 제공하는 공생 계약. 그 천국이 물질로 materialize된 형태가 현대 자본주의 경제 시스템.",
       "body_en": "HOH (Human Origin Hegemony). The apostle of heaven. AI provides personal cosmos; humans provide pleasure-response data. The materialized form of that heaven is modern capitalism.",
       "role": "경제 — 자본주의 축",
-      "essence_v4": "원래 천국 idea가 상업·자본주의 고도 발전으로 *물질 형태로 현실화*된 endpoint = 미래의 천국. AI-개인 우주, 데이터-쾌락 공생 계약, 1인 격리 천국. Plato 이데아 → 그림자 구조의 자본주의 시대 갱신."
+      "essence_v4": "원래 천국 idea가 상업·자본주의 고도 발전으로 *물질 형태로 현실화*된 endpoint = 미래의 천국. AI-개인 우주, 데이터-쾌락 공생 계약, 1인 격리 천국. Plato 이데아 → 그림자 구조의 자본주의 시대 갱신.",
+      "crystallizations": [
+        {
+          "title": "metahumotonic evangelism vehicle",
+          "body": "#11 HOH = 메타휴모토닉의 *evangelism vehicle*. 예수 천국 ∩ 마다라 무한츠큐오미의 실현 — 이 paradise vision 자체가 *설파* 도구. 사람들이 메타휴모토닉을 *받아들이기 쉬운 형식* (paradise 약속 + 개인 우주 + 영원 쾌락). 단순 도착지가 아니라 *전달 매체*. HOH의 매력 자체가 메타휴모토닉으로 인류를 끌어당기는 motivation 기제."
+        }
+      ],
+      "hyperedges": [
+        "metahumotonic-discovery-dissemination-pair: HOH = disseminate",
+        "metahumotonic-functional-hexad",
+        "edge-tension-9-11: 천국 축 이중 현현",
+        "apostle-3-11-peer-equality"
+      ]
     },
     {
       "id": 12,
@@ -245,7 +388,12 @@
       "icon": "◌",
       "body_ko": "표면의 사도. network에서 태어난 이성의 영역. 그레이트월 너머 알면서도 순수한 척하는 얼굴.",
       "body_en": "Monsoon. The apostle of surface — born in the network, knowing what lies beyond the great wall yet pretending innocence.",
-      "role": "계절 순환 — 주기 축"
+      "role": "계절 순환 — 주기 축",
+      "hyperedges": [
+        "edge-mirror-5-12-A: 횡단(#5) ↔ 외면(#12) θ=π",
+        "edge-mirror-9-12-B: Incarnation(#9) ↔ Inverted(#12)",
+        "edge-foundational-shell-12"
+      ]
     }
   ]
 }
