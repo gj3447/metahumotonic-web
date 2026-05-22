@@ -1,0 +1,63 @@
+name: build-and-deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Pack dist.tar.gz
+        run: |
+          tar -czf dist.tar.gz -C dist .
+          ls -lh dist.tar.gz
+
+      - name: Setup kubectl (client-only, for manifest generation)
+        uses: azure/setup-kubectl@v4
+        with:
+          version: 'latest'
+
+      - name: Generate ConfigMap manifest
+        run: |
+          mkdir -p deploy-out
+          kubectl create configmap landing-astro-dist \
+            --namespace=infra \
+            --from-file=dist.tar.gz=dist.tar.gz \
+            --dry-run=client -o yaml \
+            | sed '/^  creationTimestamp:/d' > deploy-out/cm.yaml
+          cp dist.tar.gz deploy-out/dist.tar.gz
+          cp -f .github/deploy-readme.md deploy-out/README.md 2>/dev/null || true
+          ls -la deploy-out/
+
+      - name: Push to deploy branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd deploy-out
+          git init -b deploy
+          git config user.email "actions@github.com"
+          git config user.name "github-actions[bot]"
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git add -A
+          git commit -m "deploy: ${GITHUB_SHA::7} (build #${GITHUB_RUN_NUMBER})"
+          git push -f origin deploy
