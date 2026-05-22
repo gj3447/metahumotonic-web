@@ -1,9 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 128 128">
-    <path d="M50.4 78.5a75.1 75.1 0 0 0-28.5 6.9l24.2-65.7c.7-2 1.9-3.2 3.4-3.2h29c1.5 0 2.7 1.2 3.4 3.2l24.2 65.7s-11.6-7-28.5-7L67 45.5c-.4-1.7-1.6-2.8-2.9-2.8-1.3 0-2.5 1.1-2.9 2.7L50.4 78.5Zm-1.1 28.2Zm-4.2-20.2c-2 6.6-.6 15.8 4.2 20.2a17.5 17.5 0 0 1 .2-.7 5.5 5.5 0 0 1 5.7-4.5c2.8.1 4.3 1.5 4.7 4.7.2 1.1.2 2.3.2 3.5v.4c0 2.7.7 5.2 2.2 7.4a13 13 0 0 0 5.7 4.9v-.3l-.2-.3c-1.8-5.6-.5-9.5 4.4-12.8l1.5-1a73 73 0 0 0 3.2-2.2 16 16 0 0 0 6.8-11.4c.3-2 .1-4-.6-6l-.8.6-1.6 1a37 37 0 0 1-22.4 2.7c-5-.7-9.7-2-13.2-6.2Z" />
-    <style>
-        path { fill: #000; }
-        @media (prefers-color-scheme: dark) {
-            path { fill: #FFF; }
-        }
-    </style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- metahumotonic 정전 심볼 — 2x2 그리드 4 형광 그라데이션 원형 -->
+  <!-- KG: MetaHumotonicSymbol id=metahumotonic-symbol-2x2-fluorescent-2026-05-22 -->
+  <defs>
+    <radialGradient id="g1" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#fde047"/>
+      <stop offset="30%" stop-color="#f472b6"/>
+      <stop offset="70%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </radialGradient>
+    <radialGradient id="g2" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#67e8f9"/>
+      <stop offset="35%" stop-color="#a78bfa"/>
+      <stop offset="75%" stop-color="#f472b6"/>
+      <stop offset="100%" stop-color="#d946a1"/>
+    </radialGradient>
+    <radialGradient id="g3" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#f5f5dc"/>
+      <stop offset="30%" stop-color="#FFD700"/>
+      <stop offset="65%" stop-color="#f472b6"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </radialGradient>
+    <radialGradient id="g4" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="35%" stop-color="#67e8f9"/>
+      <stop offset="70%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.2"/>
+    </filter>
+  </defs>
+  <!-- 4 원형 2x2 배치 — 14px radius, 16/48 centers, 3.5px gap -->
+  <g filter="url(#glow)" opacity="0.55">
+    <circle cx="16" cy="16" r="14" fill="url(#g1)"/>
+    <circle cx="48" cy="16" r="14" fill="url(#g2)"/>
+    <circle cx="16" cy="48" r="14" fill="url(#g3)"/>
+    <circle cx="48" cy="48" r="14" fill="url(#g4)"/>
+  </g>
+  <circle cx="16" cy="16" r="12" fill="url(#g1)"/>
+  <circle cx="48" cy="16" r="12" fill="url(#g2)"/>
+  <circle cx="16" cy="48" r="12" fill="url(#g3)"/>
+  <circle cx="48" cy="48" r="12" fill="url(#g4)"/>
 </svg>
