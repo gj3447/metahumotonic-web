@@ -7,7 +7,7 @@ import '../styles/cosmos.css';   // KG: ATOM_Landing_CosmicAccent — 다크 액
 import '../styles/ritual.css';   // KG: ATOM_Landing_RitualTheme — 신화/제의 override (APT SCW, VR_Gate2 CONDITIONAL_PASS)
 import SemanticHead from '../components/SemanticHead.astro';    // KG: ATOM_Landing_SemanticMarkup
 import AxiomSection from '../components/AxiomSection.astro';    // KG: ATOM_Landing_AxiomVisual
-import ApostleSection from '../components/ApostleSection.astro'; // KG: ATOM_Landing_ApostleVisual
+// ApostleSection 측 portal 과 중복 — 사용자 verdict 2026-05-22 제거.
 import ConceptProgram from '../components/ConceptProgram.astro'; // KG: ATOM_Landing_ConceptProgram
 import apostlesData from '../data/apostles.json';                 // KG: ATOM_Landing_ApostlePortal — 사도 중심 hero
 import venturesData from '../data/ventures.json';                  // KG: SYMPOSIUM/BIZ_IDEA — 진행 중 사업
@@ -91,40 +91,15 @@ const ventures = venturesData.ventures;
       ))}
     </ol>
 
-    <p class="mh-portal__hint">
-      <span>아래로 스크롤 — 공리 · 사도 전문 · 개념 · 본체</span>
-      <span class="mh-portal__chevron" aria-hidden="true">↓</span>
-    </p>
   </section>
 
-  {/* === II. 서문 === */}
-  <section class="mh-section mh-prelude">
-    <p class="mh-eyebrow"><span class="mh-num">II.</span> 서문 / Preface</p>
-    <div class="mh-prose">
-      <p>이 페이지는 제품 소개가 아니다. 이것은 한 사람의 우주관이다.</p>
-      <p>라경준이 2021년부터 4년에 걸쳐 발견한 12 개의 정의, 12 명의 사도, 그리고 그것을 지탱하기 위해 만들어진 서버 한 대의 기록.</p>
-    </div>
-    <nav class="mh-guide" aria-label="이 페이지의 구성">
-      <ol>
-        <li><a href="#axiom"><span>PART ONE</span> <em>공리</em><span class="mh-guide__hint">12 정의</span></a></li>
-        <li><a href="/apostles/"><span>PART TWO</span> <em>사도</em><span class="mh-guide__hint">12 인의 상세</span></a></li>
-        <li><a href="#concepts"><span>PART THREE</span> <em>개념</em><span class="mh-guide__hint">7 갈래</span></a></li>
-        <li><a href="#programs"><span>PART FOUR</span> <em>본체</em><span class="mh-guide__hint">KG · APT · 스킬</span></a></li>
-      </ol>
-    </nav>
-  </section>
-
-  {/* === PART ONE: 공리 === */}
-  <section class="mh-part-divider">
-    <p class="mh-part-eyebrow">PART ONE</p>
-    <h2 class="mh-part-title">공리</h2>
-    <p class="mh-part-gloss"><em>The Axioms.</em></p>
-  </section>
-
+  {/* === PART ONE: 공리 (12 axioms datasheet) === */}
   <AxiomSection />
 
-  {/* === PART TWO + THREE + FOUR: 사도 → 개념 → 프로그램 === */}
-  <ApostleSection />
+  {/* === PART TWO 사도 long-form — 사용자 verdict 2026-05-22 'portal 과 중복' 제거.
+        12 사도 = 위 portal grid 단독. 상세 = /apostles/<slug>/ 페이지 단독. === */}
+
+  {/* === PART THREE + FOUR: 개념 + 본체 === */}
   <ConceptProgram stats={stats} />
 
   {/* === 초대 === */}
