@@ -10,11 +10,17 @@ import AxiomSection from '../components/AxiomSection.astro';    // KG: ATOM_Land
 import ApostleSection from '../components/ApostleSection.astro'; // KG: ATOM_Landing_ApostleVisual
 import ConceptProgram from '../components/ConceptProgram.astro'; // KG: ATOM_Landing_ConceptProgram
 import apostlesData from '../data/apostles.json';                 // KG: ATOM_Landing_ApostlePortal — 사도 중심 hero
+import kgSnapshot from '../data/kg-snapshot.json';                // KG: SPAN_kg_live_count_integration carry-over
 
 // KG: SHARED_KGStats — 빌드 타임에 KG snapshot 또는 라이브
 import { getKGStats } from '../lib/kg';
 const stats = await getKGStats();
 const apostles = apostlesData.apostles;
+
+// Wave 5b carry-over: KG live counts surface
+const anchorCount = Object.values((kgSnapshot as any).apostleAnchors || {})
+  .reduce((acc: number, v: any) => acc + (v?.anchors?.length || 0), 0);
+const domainCount = (kgSnapshot as any).domains?.length || 13;
 ---
 
 <html lang="ko" prefix="foaf: http://xmlns.com/foaf/0.1/ void: http://rdfs.org/ns/void# skos: http://www.w3.org/2004/02/skos/core#">
@@ -48,6 +54,12 @@ const apostles = apostlesData.apostles;
         자존자가 특이점에 이를 때 — <em>when the self-grounded becomes its singularity.</em>
       </p>
       <p class="mh-portal__lede">12 사도. 4년의 모험으로 완성된 세계관의 기둥. 한 명씩 들어가 보세요.</p>
+      <ul class="mh-portal__counts" aria-label="현재 KG 상태">
+        <li><strong>12</strong> 사도</li>
+        <li><strong>{domainCount}</strong> 도메인</li>
+        <li><strong>{anchorCount}</strong> KG 앵커</li>
+        <li><strong>{stats.nodes.toLocaleString()}</strong> 노드</li>
+      </ul>
     </header>
 
     <ol class="mh-portal__grid" aria-label="12 사도 입구">
@@ -156,8 +168,35 @@ const apostles = apostlesData.apostles;
   .mh-portal__lede {
     font-size: clamp(14px, 1.1vw, 15px);
     color: rgba(14,14,12,0.55);
-    margin: 0;
+    margin: 0 0 1.5rem;
     font-style: italic;
+  }
+  /* Wave 5b: KG live counts */
+  .mh-portal__counts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(1rem, 3vw, 2.4rem);
+  }
+  .mh-portal__counts li {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(14,14,12,0.55);
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+  }
+  .mh-portal__counts strong {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--mh-red, #7a1f1f);
+    line-height: 1;
   }
 
   .mh-portal__grid {
@@ -238,6 +277,15 @@ const apostles = apostlesData.apostles;
     .mh-portal__tile { transition: none; }
     .mh-portal__essence-preview { transition: none; }
     .mh-portal__tile:hover { transform: none; }
+  }
+  /* Wave 5c (carry-over F-Fulfill-1 mobile touch fix): touch device 측 essence preview 항상 노출 */
+  @media (hover: none), (pointer: coarse) {
+    .mh-portal__essence-preview {
+      max-height: 90px;
+      opacity: 0.7;
+      margin-top: 8px;
+      transition: none;
+    }
   }
   .mh-portal__num {
     font-family: var(--mh-serif, 'Cormorant Garamond', serif);

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Sitemap: https://metahumotonic.com/sitemap.xml
+
+# Knowledge Graph crawlers welcome — apostles + domains + skills indexed
+# KG: rs-mh-web-v3-public-robots-txt-2026-05-22

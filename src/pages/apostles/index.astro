@@ -1,6 +1,9 @@
 ---
 // KG: ATOM_Web_ApostleIndex
+// KG: rs-mh-web-v3-src-pages-apostles-index_astro-2026-05-22
+// Wave 5b (F-Fulfill-2 carry-over): family-badge per card
 import apostlesData from '../../data/apostles.json';
+import FamilyBadge from '../../components/FamilyBadge.astro';  // KG: CONTRACT_FamilyBadge_v1
 const apostles = apostlesData.apostles;
 ---
 
@@ -112,10 +115,16 @@ const apostles = apostlesData.apostles;
     }
     .card-tag {
       display: inline-block;
-      margin-top: 0.5rem;
       font-size: 0.7rem;
       letter-spacing: 0.05em;
       color: #8a4d00;
+    }
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.6rem;
     }
 
     .footer-line {
@@ -142,12 +151,15 @@ const apostles = apostlesData.apostles;
 
     <section class="grid">
       {apostles.map(a => (
-        <a class="card" href={`/apostles/${a.slug}`}>
+        <a class="card" href={`/apostles/${a.slug}`} aria-label={`${a.num}. ${a.name} — ${a.epithet}`}>
           <span class="card-num">{a.num}.<span class="card-icon" aria-hidden="true">{a.icon}</span></span>
           <h2 class="card-name">{a.name}</h2>
           <p class="card-epithet">{a.epithet}</p>
           <p class="card-essence">{a.essence}</p>
-          {a.status?.startsWith('OPEN') && <span class="card-tag">verdict 대기</span>}
+          <div class="card-meta">
+            {a.family && <FamilyBadge family={a.family} apostleId={a.id} />}
+            {a.status?.startsWith('OPEN') && <span class="card-tag">verdict 대기</span>}
+          </div>
         </a>
       ))}
     </section>
