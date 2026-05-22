@@ -71,79 +71,76 @@ const isOpen = apostle.status?.startsWith('OPEN');
     ]
   })} />
   <style>
-    /* 개발자 스타일 전환 2026-05-22 — 사용자 verdict 'monospace + 정보 밀도' */
+    /* 개발자 스타일 datasheet — 사용자 verdict '아직도 여백 뒤지게 많다' */
     *,*:before,*:after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
     body {
       font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
       background: #faf6ec;
       color: #1a1815;
-      line-height: 1.55;
-      font-size: 14px;
+      line-height: 1.45;
+      font-size: 13px;
       -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; }
 
-    .wrap { max-width: 760px; margin: 0 auto; padding: clamp(1rem, 3vw, 2rem) clamp(0.8rem, 3vw, 1.6rem) 4rem; }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 12px 14px 24px; }
 
     .crumb {
-      font-size: 11px;
+      font-size: 10.5px;
       letter-spacing: 0.05em;
       color: #8a8273;
       text-transform: uppercase;
-      margin-bottom: 1.4rem;
+      margin-bottom: 8px;
+      padding-bottom: 4px;
       border-bottom: 1px dotted #d9ceb0;
-      padding-bottom: 0.6rem;
     }
-    .crumb a { color: #8a8273; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
-    .crumb a:hover { border-color: currentColor; }
-    .crumb-sep { margin: 0 0.4rem; opacity: 0.5; }
+    .crumb a { color: #8a8273; text-decoration: none; }
+    .crumb a:hover { color: #1a1815; }
+    .crumb-sep { margin: 0 0.3rem; opacity: 0.5; }
 
-    /* Header — tight monospace */
+    /* Header — 최소 여백 */
     header {
       display: grid;
-      grid-template-columns: 60px 1fr;
-      gap: 8px 14px;
+      grid-template-columns: 40px 1fr;
+      gap: 2px 10px;
       align-items: baseline;
-      padding-bottom: 0.8rem;
+      padding-bottom: 6px;
       border-bottom: 1px solid #d9ceb0;
-      margin-bottom: 1.2rem;
+      margin-bottom: 8px;
     }
     .num {
       grid-row: 1 / 3;
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: 28px;
+      font-size: 22px;
       line-height: 1;
       color: #c0b48f;
       font-weight: 500;
       text-align: right;
-      padding-top: 4px;
+      padding-top: 3px;
     }
     .icon {
       display: inline-block;
-      font-size: 14px;
-      margin-left: 4px;
+      font-size: 12px;
+      margin-left: 3px;
       opacity: 0.55;
     }
     h1 {
-      font-size: 22px;
+      font-size: 17px;
       font-weight: 600;
       line-height: 1.2;
-      letter-spacing: 0;
       color: #1a1815;
     }
     .epithet {
       grid-column: 2;
-      font-size: 12px;
+      font-size: 11px;
       color: #6b6357;
-      margin-top: 2px;
     }
     .open-tag {
       display: inline-block;
-      margin-left: 0.6rem;
-      padding: 1px 6px;
-      font-size: 10px;
-      letter-spacing: 0.08em;
+      margin-left: 6px;
+      padding: 0 5px;
+      font-size: 9.5px;
+      letter-spacing: 0.06em;
       color: #8a4d00;
       background: #fce7c4;
       border-radius: 2px;
@@ -151,327 +148,151 @@ const isOpen = apostle.status?.startsWith('OPEN');
       text-transform: uppercase;
     }
 
-    hr { border: 0; height: 1px; background: #d9ceb0; margin: 1.4rem 0; }
+    hr { border: 0; height: 1px; background: #d9ceb0; margin: 8px 0; }
 
-    /* Body — 자연체 prose는 짧게 */
+    /* Body — inline tight */
     .body-ko {
-      font-size: 13.5px;
-      line-height: 1.6;
+      font-size: 12.5px;
+      line-height: 1.5;
       color: #2a2620;
-      margin: 1rem 0 0.6rem;
-      padding-left: 12px;
+      margin: 6px 0 4px;
+      padding-left: 8px;
       border-left: 2px solid #d9ceb0;
     }
     .body-en {
-      font-size: 12px;
+      font-size: 11px;
       color: #6b6357;
-      line-height: 1.55;
-      padding-left: 12px;
+      line-height: 1.5;
+      padding-left: 8px;
       border-left: 2px solid #d9ceb0;
       opacity: 0.85;
     }
 
-    /* Canonical cards — tight monospace dl */
+    /* Canonical cards — datasheet dl */
     .canon-grid {
       display: grid;
-      grid-template-columns: 110px 1fr;
-      gap: 4px 14px;
+      grid-template-columns: 100px 1fr;
+      gap: 2px 12px;
       align-items: baseline;
-      margin: 1.2rem 0;
-      font-size: 12px;
+      margin: 8px 0;
+      font-size: 11.5px;
     }
     .canon-label {
-      font-size: 10.5px;
+      font-size: 10px;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: #8a8273;
       white-space: nowrap;
     }
-    .canon-val { font-size: 12px; color: #2a2620; line-height: 1.5; }
+    .canon-val { font-size: 11.5px; color: #2a2620; line-height: 1.45; }
     .canon-val.essence { color: #4a4338; }
-    .canon-val.referent { font-size: 11.5px; color: #2a2620; }
-    .canon-val.family { font-size: 11.5px; color: #6b6357; }
-    .canon-val.path { font-size: 11px; color: #8a8273; word-break: break-all; }
+    .canon-val.referent { font-size: 11px; color: #2a2620; }
+    .canon-val.family { font-size: 11px; color: #6b6357; }
+    .canon-val.path { font-size: 10.5px; color: #8a8273; word-break: break-all; }
 
-    /* Pager — tight */
+    /* Pager — flat dense */
     .pager {
       display: flex;
       justify-content: space-between;
-      gap: 1rem;
-      margin-top: 2.4rem;
-      padding-top: 0.8rem;
+      gap: 8px;
+      margin-top: 12px;
+      padding-top: 6px;
       border-top: 1px solid #d9ceb0;
-      font-size: 12px;
+      font-size: 11px;
     }
-    .pager a {
-      flex: 1;
-      text-decoration: none;
-      color: #4a4338;
-      padding: 0.4rem 0;
-      transition: color 0.2s;
-    }
-    .pager a:hover { color: #1a1815; }
-    .pager .dir {
-      display: block;
-      font-size: 10px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #8a8273;
-      margin-bottom: 2px;
-    }
-    .pager .label { font-size: 12.5px; }
-    .pager .next { text-align: right; }
+    .pager a { flex:1; text-decoration:none; color:#4a4338; padding:2px 0; }
+    .pager a:hover { color:#1a1815; }
+    .pager .dir { display:block; font-size:9.5px; letter-spacing:0.06em; text-transform:uppercase; color:#8a8273; }
+    .pager .label { font-size:11.5px; }
+    .pager .next { text-align:right; }
 
-    .back-home {
-      display: inline-block;
-      margin-top: 3rem;
-      font-size: 0.85rem;
-      color: #6b6357;
-      text-decoration: none;
-      border-bottom: 1px dotted #b8a98a;
-    }
-    .back-home:hover { color: #1a1815; }
+    .back-home { display:inline-block; margin-top:10px; font-size:10.5px; color:#6b6357; text-decoration:none; border-bottom:1px dotted #b8a98a; }
+    .back-home:hover { color:#1a1815; }
 
-    /* Crystallizations 섹션 — KG 결정화 발췌 */
+    /* Crystallizations — datasheet dense */
     .crystallizations {
-      margin: 2.4rem 0;
-      padding: 1.4rem 1.6rem;
+      margin: 10px 0;
+      padding: 8px 10px;
       border: 1px solid #d9ceb0;
       border-left: 3px solid #6366f1;
-      background: rgba(99, 102, 241, 0.04);
+      background: rgba(99,102,241,0.04);
     }
-    .crystallizations__head {
-      display: flex;
-      align-items: baseline;
-      gap: 0.6rem;
-      margin-bottom: 1rem;
-    }
-    .crystallizations__eyebrow {
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #4338ca;
-      font-weight: 500;
-    }
-    .crystallizations__count {
-      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-      font-style: italic;
-      font-size: 1.2rem;
-      color: #4338ca;
-    }
-    .crystallizations__list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 1.2rem;
-    }
-    .crystallizations__item {
-      border-top: 1px dotted #c7d2fe;
-      padding-top: 0.9rem;
-    }
-    .crystallizations__item:first-child { border-top: 0; padding-top: 0; }
-    .crystallizations__title {
-      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: #1e1b4b;
-      margin: 0 0 0.4rem;
-      letter-spacing: -0.005em;
-    }
-    .crystallizations__body {
-      font-size: 0.88rem;
-      color: #2a2620;
-      line-height: 1.65;
-      margin: 0;
-    }
+    .crystallizations__head { display:flex; align-items:baseline; gap:6px; margin-bottom:5px; }
+    .crystallizations__eyebrow { font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#4338ca; font-weight:500; }
+    .crystallizations__count { font-size:12px; color:#4338ca; }
+    .crystallizations__list { list-style:none; padding:0; margin:0; display:grid; gap:5px; }
+    .crystallizations__item { border-top:1px dotted #c7d2fe; padding-top:4px; }
+    .crystallizations__item:first-child { border-top:0; padding-top:0; }
+    .crystallizations__title { display:block; font-size:11.5px; color:#1e1b4b; margin-bottom:1px; font-weight:600; }
+    .crystallizations__body { font-size:11px; color:#2a2620; line-height:1.45; margin:0; }
 
-    /* Hyperedges 섹션 */
+    /* Hyperedges — single line list */
     .hyperedges {
-      margin: 2rem 0;
-      padding: 1.1rem 1.4rem;
+      margin: 8px 0;
+      padding: 6px 10px;
       border: 1px solid #d9ceb0;
       border-left: 3px solid #10b981;
-      background: rgba(16, 185, 129, 0.04);
+      background: rgba(16,185,129,0.04);
     }
-    .hyperedges__head {
-      display: flex;
-      align-items: baseline;
-      gap: 0.6rem;
-      margin-bottom: 0.7rem;
-    }
-    .hyperedges__eyebrow {
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #047857;
-      font-weight: 500;
-    }
-    .hyperedges__count {
-      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-      font-style: italic;
-      font-size: 1.1rem;
-      color: #047857;
-    }
-    .hyperedges__list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 0.5rem;
-    }
-    .hyperedges__item {
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: 0.78rem;
-      color: #064e3b;
-      padding: 0.35rem 0.55rem;
-      background: rgba(16, 185, 129, 0.08);
-      border-radius: 2px;
-      line-height: 1.5;
-    }
+    .hyperedges__head { display:flex; align-items:baseline; gap:6px; margin-bottom:4px; }
+    .hyperedges__eyebrow { font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#047857; font-weight:500; }
+    .hyperedges__count { font-size:12px; color:#047857; }
+    .hyperedges__list { list-style:none; padding:0; margin:0; display:grid; gap:2px; }
+    .hyperedges__item { font-size:10.5px; color:#064e3b; padding:2px 5px; background:rgba(16,185,129,0.08); border-radius:2px; line-height:1.4; }
 
-    /* Lessons 섹션 */
-    .lessons {
-      margin: 1.4rem 0;
-      padding: 0.9rem 1.1rem;
-      border: 1px solid #d9ceb0;
-      border-left: 3px solid #8a4d00;
-      background: rgba(252, 231, 196, 0.12);
-    }
-    .lessons__head { display:flex; align-items:baseline; gap:0.5rem; margin-bottom:0.6rem; }
-    .lessons__eyebrow { font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:#8a4d00; }
-    .lessons__count { font-size:13px; color:#8a4d00; }
-    .lessons__list { list-style:none; padding:0; margin:0; display:grid; gap:0.6rem; }
-    .lessons__item { border-top:1px dotted #e5d3a8; padding-top:0.5rem; }
+    /* Lessons — datasheet */
+    .lessons { margin:8px 0; padding:6px 10px; border:1px solid #d9ceb0; border-left:3px solid #8a4d00; background:rgba(252,231,196,0.12); }
+    .lessons__head { display:flex; align-items:baseline; gap:6px; margin-bottom:4px; }
+    .lessons__eyebrow { font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#8a4d00; }
+    .lessons__count { font-size:12px; color:#8a4d00; }
+    .lessons__list { list-style:none; padding:0; margin:0; display:grid; gap:4px; }
+    .lessons__item { border-top:1px dotted #e5d3a8; padding-top:3px; }
     .lessons__item:first-child { border-top:0; padding-top:0; }
-    .lessons__title { display:block; font-size:12px; color:#5a3a00; margin-bottom:2px; }
-    .lessons__body { font-size:11.5px; color:#3a2d10; line-height:1.5; margin:0; }
+    .lessons__title { display:block; font-size:11px; color:#5a3a00; font-weight:600; }
+    .lessons__body { font-size:10.5px; color:#3a2d10; line-height:1.4; margin:0; }
 
-    /* Open Questions 섹션 */
-    .open-questions {
-      margin: 1.4rem 0;
-      padding: 0.9rem 1.1rem;
-      border: 1px solid #d9ceb0;
-      border-left: 3px solid #ec4899;
-      background: rgba(252, 231, 243, 0.18);
-    }
-    .open-questions__head { display:flex; align-items:baseline; gap:0.5rem; margin-bottom:0.6rem; }
-    .open-questions__eyebrow { font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9d174d; }
-    .open-questions__count { font-size:13px; color:#9d174d; }
-    .open-questions__list { list-style:none; padding:0; margin:0; display:grid; gap:0.6rem; }
-    .open-questions__item { border-top:1px dotted #f9a8d4; padding-top:0.5rem; }
+    /* Open Questions */
+    .open-questions { margin:8px 0; padding:6px 10px; border:1px solid #d9ceb0; border-left:3px solid #ec4899; background:rgba(252,231,243,0.18); }
+    .open-questions__head { display:flex; align-items:baseline; gap:6px; margin-bottom:4px; }
+    .open-questions__eyebrow { font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#9d174d; }
+    .open-questions__count { font-size:12px; color:#9d174d; }
+    .open-questions__list { list-style:none; padding:0; margin:0; display:grid; gap:4px; }
+    .open-questions__item { border-top:1px dotted #f9a8d4; padding-top:3px; }
     .open-questions__item:first-child { border-top:0; padding-top:0; }
-    .open-questions__title { display:block; font-size:12px; color:#831843; margin-bottom:2px; }
-    .open-questions__body { font-size:11.5px; color:#500724; line-height:1.5; margin:0; }
+    .open-questions__title { display:block; font-size:11px; color:#831843; font-weight:600; }
+    .open-questions__body { font-size:10.5px; color:#500724; line-height:1.4; margin:0; }
 
-    /* Axis Proposals 섹션 */
-    .axis-proposals {
-      margin: 1.4rem 0;
-      padding: 0.8rem 1.1rem;
-      border: 1px solid #d9ceb0;
-      border-left: 3px solid #06b6d4;
-      background: rgba(207, 250, 254, 0.18);
-    }
-    .axis-proposals__head { display:flex; align-items:baseline; gap:0.5rem; margin-bottom:0.5rem; }
-    .axis-proposals__eyebrow { font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:#0e7490; }
-    .axis-proposals__count { font-size:13px; color:#0e7490; }
-    .axis-proposals__list { list-style:none; padding:0; margin:0; display:grid; gap:0.3rem; }
-    .axis-proposals__item { font-size:11.5px; color:#155e75; padding:0.25rem 0.5rem; background:rgba(6,182,212,0.08); border-radius:2px; line-height:1.5; }
+    /* Axis Proposals */
+    .axis-proposals { margin:8px 0; padding:6px 10px; border:1px solid #d9ceb0; border-left:3px solid #06b6d4; background:rgba(207,250,254,0.18); }
+    .axis-proposals__head { display:flex; align-items:baseline; gap:6px; margin-bottom:4px; }
+    .axis-proposals__eyebrow { font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#0e7490; }
+    .axis-proposals__count { font-size:12px; color:#0e7490; }
+    .axis-proposals__list { list-style:none; padding:0; margin:0; display:grid; gap:2px; }
+    .axis-proposals__item { font-size:10.5px; color:#155e75; padding:2px 5px; background:rgba(6,182,212,0.08); border-radius:2px; line-height:1.4; }
 
-    /* Legion Commanders 섹션 */
-    .legion-commanders {
-      margin: 2rem 0;
-      padding: 1.2rem 1.4rem;
-      border: 1px solid #d9ceb0;
-      border-left: 3px solid #8a4d00;
-      background: rgba(252, 231, 196, 0.18);
-    }
-    .legion-commanders__head {
-      display: flex;
-      align-items: baseline;
-      gap: 0.6rem;
-      margin-bottom: 0.8rem;
-    }
-    .legion-commanders__eyebrow {
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #8a4d00;
-      font-weight: 500;
-    }
-    .legion-commanders__count {
-      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-      font-style: italic;
-      font-size: 1.1rem;
-      color: #8a4d00;
-    }
-    .legion-commanders__list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 0.6rem;
-    }
-    .legion-commanders__item {
-      display: grid;
-      grid-template-columns: max-content 1fr;
-      gap: 0.6rem 1rem;
-      align-items: baseline;
-      font-size: 0.85rem;
-    }
-    .legion-commanders__name {
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: 0.82rem;
-      color: #2a2620;
-      background: rgba(192, 180, 143, 0.25);
-      padding: 0.1rem 0.45rem;
-      border-radius: 2px;
-    }
-    .legion-commanders__note {
-      color: #4a4338;
-      line-height: 1.5;
-      font-size: 0.78rem;
-    }
-    @media (max-width: 540px) {
-      .legion-commanders__item { grid-template-columns: 1fr; }
-    }
+    /* Legion Commanders — datasheet */
+    .legion-commanders { margin:8px 0; padding:6px 10px; border:1px solid #d9ceb0; border-left:3px solid #8a4d00; background:rgba(252,231,196,0.18); }
+    .legion-commanders__head { display:flex; align-items:baseline; gap:6px; margin-bottom:4px; }
+    .legion-commanders__eyebrow { font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#8a4d00; font-weight:500; }
+    .legion-commanders__count { font-size:12px; color:#8a4d00; }
+    .legion-commanders__list { list-style:none; padding:0; margin:0; display:grid; gap:3px; }
+    .legion-commanders__item { display:grid; grid-template-columns:max-content 1fr; gap:4px 8px; align-items:baseline; }
+    .legion-commanders__name { font-size:10.5px; color:#2a2620; background:rgba(192,180,143,0.25); padding:1px 5px; border-radius:2px; }
+    .legion-commanders__note { color:#4a4338; line-height:1.4; font-size:10.5px; }
 
-    /* Wave 6: ExternalReferentCard — KG: CONTRACT_ExternalReferentCard_v1 */
-    .ext-referent-card {
-      margin: 2.4rem 0 1.2rem;
-      padding: 1.4rem 1.6rem;
-      border: 1px solid #d9ceb0;
-      background: #f8f3e6;
-      border-radius: 2px;
-      position: relative;
-    }
-    .ext-referent-card__head {
-      display: flex;
-      align-items: center;
-      margin-bottom: 0.6rem;
-    }
-    .ext-referent-card__eyebrow {
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #8a4d00;
-      font-weight: 500;
-    }
-    .ext-referent-card__prose {
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: 0.85rem;
-      line-height: 1.65;
-      color: #2a2620;
-      margin: 0;
-      word-break: break-word;
-    }
-    .family-badge { margin-top: 0.8rem; }
+    /* ExternalReferentCard — datasheet */
+    .ext-referent-card { margin:8px 0; padding:6px 10px; border:1px solid #d9ceb0; border-left:3px solid #8a4d00; background:#f8f3e6; }
+    .ext-referent-card__head { margin-bottom:3px; }
+    .ext-referent-card__eyebrow { font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#8a4d00; }
+    .ext-referent-card__prose { font-size:11px; line-height:1.45; color:#2a2620; margin:0; word-break:break-word; }
+    .family-badge { margin-top:4px; }
 
     @media (max-width: 540px) {
-      .canon-grid { grid-template-columns: 1fr; gap: 0.2rem 0; }
-      .canon-label { padding-top: 0.8rem; }
-      .pager { flex-direction: column; gap: 1rem; }
+      .canon-grid { grid-template-columns: 1fr; gap: 1px 0; }
+      .canon-label { padding-top: 4px; }
+      .pager { flex-direction: column; gap: 6px; }
       .pager .next { text-align: left; }
+      .legion-commanders__item { grid-template-columns: 1fr; }
     }
   </style>
 </head>
