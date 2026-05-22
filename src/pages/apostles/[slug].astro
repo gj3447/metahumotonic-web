@@ -1,0 +1,249 @@
+---
+// KG: ATOM_Web_ApostleDetail
+// 12사도 개별 상세 페이지. data/apostles.json 정전 (KG 미러).
+import apostlesData from '../../data/apostles.json';
+
+export async function getStaticPaths() {
+  return apostlesData.apostles.map((a, i) => ({
+    params: { slug: a.slug },
+    props: {
+      apostle: a,
+      prev: apostlesData.apostles[(i - 1 + apostlesData.apostles.length) % apostlesData.apostles.length],
+      next: apostlesData.apostles[(i + 1) % apostlesData.apostles.length],
+    },
+  }));
+}
+
+const { apostle, prev, next } = Astro.props;
+const isOpen = apostle.status?.startsWith('OPEN');
+---
+
+<html lang="ko" prefix="foaf: http://xmlns.com/foaf/0.1/ schema: https://schema.org/">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{apostle.num}. {apostle.name} — MetaHumotonic</title>
+  <meta name="description" content={`${apostle.name}: ${apostle.epithet}. ${apostle.essence.slice(0, 120)}`} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "additionalType": "FictionalCharacter",
+    "name": apostle.name,
+    "alternateName": apostle.epithet,
+    "description": apostle.essence,
+    "url": `https://metahumotonic.com/apostles/${apostle.slug}`,
+    "knowsAbout": apostle.external_referent,
+    "memberOf": "MetaHumotonic 12 사도"
+  })} />
+  <style>
+    *,*:before,*:after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #faf6ec;
+      color: #1a1815;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+
+    .wrap { max-width: 760px; margin: 0 auto; padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 2.5rem) 6rem; }
+
+    .crumb {
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      color: #8a8273;
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+    }
+    .crumb a { color: #8a8273; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+    .crumb a:hover { border-color: currentColor; }
+    .crumb-sep { margin: 0 0.6rem; opacity: 0.5; }
+
+    /* Header */
+    .num {
+      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+      font-style: italic;
+      font-size: clamp(3.5rem, 8vw, 5.5rem);
+      line-height: 1;
+      color: #c0b48f;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+    .icon {
+      display: inline-block;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-left: 0.5rem;
+      opacity: 0.55;
+      vertical-align: super;
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 500;
+      line-height: 1.1;
+      margin-top: 0.8rem;
+      letter-spacing: -0.01em;
+    }
+    .epithet {
+      font-size: 1.05rem;
+      color: #6b6357;
+      margin-top: 0.6rem;
+      font-style: italic;
+    }
+    .open-tag {
+      display: inline-block;
+      margin-left: 0.8rem;
+      padding: 0.15rem 0.55rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: #8a4d00;
+      background: #fce7c4;
+      border-radius: 2px;
+      vertical-align: middle;
+      text-transform: uppercase;
+    }
+
+    hr { border: 0; height: 1px; background: #d9ceb0; margin: 2.5rem 0; }
+
+    /* Body */
+    .body-ko {
+      font-size: 1.1rem;
+      line-height: 1.75;
+      color: #2a2620;
+      margin: 2rem 0 1.2rem;
+    }
+    .body-en {
+      font-size: 0.95rem;
+      color: #6b6357;
+      font-style: italic;
+      line-height: 1.7;
+    }
+
+    /* Canonical cards */
+    .canon-grid {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 0.5rem 1.5rem;
+      align-items: baseline;
+      margin: 2rem 0;
+    }
+    .canon-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #8a8273;
+      padding-top: 0.15rem;
+      white-space: nowrap;
+    }
+    .canon-val { font-size: 0.95rem; color: #2a2620; }
+    .canon-val.essence { font-style: italic; color: #4a4338; }
+    .canon-val.referent { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.83rem; }
+    .canon-val.family { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.83rem; color: #6b6357; }
+    .canon-val.path { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.78rem; color: #8a8273; word-break: break-all; }
+
+    /* Footer nav */
+    .pager {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-top: 5rem;
+      padding-top: 2rem;
+      border-top: 1px solid #d9ceb0;
+    }
+    .pager a {
+      flex: 1;
+      text-decoration: none;
+      color: #4a4338;
+      padding: 0.8rem 0;
+      transition: color 0.2s;
+    }
+    .pager a:hover { color: #1a1815; }
+    .pager .dir {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8a8273;
+      margin-bottom: 0.4rem;
+    }
+    .pager .label { font-size: 1rem; font-style: italic; }
+    .pager .next { text-align: right; }
+
+    .back-home {
+      display: inline-block;
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      color: #6b6357;
+      text-decoration: none;
+      border-bottom: 1px dotted #b8a98a;
+    }
+    .back-home:hover { color: #1a1815; }
+
+    @media (max-width: 540px) {
+      .canon-grid { grid-template-columns: 1fr; gap: 0.2rem 0; }
+      .canon-label { padding-top: 0.8rem; }
+      .pager { flex-direction: column; gap: 1rem; }
+      .pager .next { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <nav class="crumb">
+      <a href="/">metahumotonic</a>
+      <span class="crumb-sep">›</span>
+      <a href="/apostles/">사도</a>
+      <span class="crumb-sep">›</span>
+      <span>{apostle.name}</span>
+    </nav>
+
+    <header>
+      <div class="num">{apostle.num}.<span class="icon" aria-hidden="true">{apostle.icon}</span></div>
+      <h1>
+        {apostle.name}
+        {isOpen && <span class="open-tag">사용자 verdict 대기</span>}
+      </h1>
+      <p class="epithet">{apostle.epithet}</p>
+    </header>
+
+    <hr />
+
+    <p class="body-ko">{apostle.body_ko}</p>
+    <p class="body-en">{apostle.body_en}</p>
+
+    <hr />
+
+    <dl class="canon-grid">
+      <dt class="canon-label">본질</dt>
+      <dd class="canon-val essence">{apostle.essence}</dd>
+
+      <dt class="canon-label">외부 정전</dt>
+      <dd class="canon-val referent">{apostle.external_referent}</dd>
+
+      <dt class="canon-label">공학 family</dt>
+      <dd class="canon-val family">{apostle.family}</dd>
+
+      <dt class="canon-label">사용자 정전 경로</dt>
+      <dd class="canon-val path">{apostle.mind_path}</dd>
+
+      <dt class="canon-label">이해 상태</dt>
+      <dd class="canon-val">{apostle.status}</dd>
+    </dl>
+
+    <nav class="pager">
+      <a href={`/apostles/${prev.slug}`} class="prev">
+        <span class="dir">← {prev.num}</span>
+        <span class="label">{prev.name}</span>
+      </a>
+      <a href={`/apostles/${next.slug}`} class="next">
+        <span class="dir">{next.num} →</span>
+        <span class="label">{next.name}</span>
+      </a>
+    </nav>
+
+    <a href="/apostles/" class="back-home">← 12 사도 전체</a>
+  </main>
+</body>
+</html>
