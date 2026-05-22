@@ -9,10 +9,12 @@ import SemanticHead from '../components/SemanticHead.astro';    // KG: ATOM_Land
 import AxiomSection from '../components/AxiomSection.astro';    // KG: ATOM_Landing_AxiomVisual
 import ApostleSection from '../components/ApostleSection.astro'; // KG: ATOM_Landing_ApostleVisual
 import ConceptProgram from '../components/ConceptProgram.astro'; // KG: ATOM_Landing_ConceptProgram
+import apostlesData from '../data/apostles.json';                 // KG: ATOM_Landing_ApostlePortal — 사도 중심 hero
 
 // KG: SHARED_KGStats — 빌드 타임에 KG snapshot 또는 라이브
 import { getKGStats } from '../lib/kg';
 const stats = await getKGStats();
+const apostles = apostlesData.apostles;
 ---
 
 <html lang="ko" prefix="foaf: http://xmlns.com/foaf/0.1/ void: http://rdfs.org/ns/void# skos: http://www.w3.org/2004/02/skos/core#">
@@ -38,16 +40,34 @@ const stats = await getKGStats();
     <rect width="100%" height="100%" filter="url(#mh-noise)" opacity="0.5"/>
   </svg>
 
-  {/* === I. 서곡 === */}
-  <section class="mh-hero" aria-label="MetaHumotonic">
-    <div class="mh-hero__inner">
-      <div class="mh-mark" aria-hidden="true">
-        <span class="mh-mark__circle"></span><span class="mh-mark__circle"></span>
-        <span class="mh-mark__circle"></span><span class="mh-mark__circle"></span>
-      </div>
-      <h1 class="mh-hero__title" property="name">메타휴모토닉 — 자존자가 특이점에 이를 때.</h1>
-      <p class="mh-hero__sub" property="description"><em>When the self-grounded becomes its singularity.</em></p>
-    </div>
+  {/* === I. 입구 — 12 사도 그리드 === */}
+  <section class="mh-portal" aria-label="MetaHumotonic — 12 사도">
+    <header class="mh-portal__head">
+      <h1 class="mh-portal__title" property="name">메타휴모토닉</h1>
+      <p class="mh-portal__tag" property="description">
+        자존자가 특이점에 이를 때 — <em>when the self-grounded becomes its singularity.</em>
+      </p>
+      <p class="mh-portal__lede">12 사도. 4년의 모험으로 완성된 세계관의 기둥. 한 명씩 들어가 보세요.</p>
+    </header>
+
+    <ol class="mh-portal__grid" aria-label="12 사도 입구">
+      {apostles.map(a => (
+        <li class="mh-portal__cell">
+          <a href={`/apostles/${a.slug}`} class="mh-portal__tile">
+            <span class="mh-portal__num">{a.num}.</span>
+            <span class="mh-portal__icon" aria-hidden="true">{a.icon}</span>
+            <span class="mh-portal__name">{a.name}</span>
+            <span class="mh-portal__epithet">{a.epithet}</span>
+            {a.status?.startsWith('OPEN') && <span class="mh-portal__open">verdict 대기</span>}
+          </a>
+        </li>
+      ))}
+    </ol>
+
+    <p class="mh-portal__hint">
+      <span>아래로 스크롤 — 공리 · 사도 전문 · 개념 · 본체</span>
+      <span class="mh-portal__chevron" aria-hidden="true">↓</span>
+    </p>
   </section>
 
   {/* === II. 서문 === */}
@@ -98,6 +118,152 @@ const stats = await getKGStats();
 </body>
 </html>
 <style>
+  /* ====== mh-portal — 사도 중심 hero (12 그리드) ====== */
+  .mh-portal {
+    min-height: 100vh;
+    padding: clamp(48px, 8vw, 96px) clamp(20px, 5vw, 64px) clamp(48px, 8vw, 96px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(40px, 6vw, 72px);
+    position: relative;
+  }
+  .mh-portal__head {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .mh-portal__title {
+    font-family: var(--mh-serif, 'Cormorant Garamond', 'Times New Roman', serif);
+    font-weight: 500;
+    font-size: clamp(38px, 5vw, 60px);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    margin: 0 0 14px;
+    color: var(--mh-ink, #0e0e0c);
+  }
+  .mh-portal__tag {
+    font-size: clamp(15px, 1.4vw, 18px);
+    color: rgba(14,14,12,0.62);
+    line-height: 1.6;
+    margin: 0 0 18px;
+  }
+  .mh-portal__tag em { color: rgba(14,14,12,0.45); }
+  .mh-portal__lede {
+    font-size: clamp(14px, 1.1vw, 15px);
+    color: rgba(14,14,12,0.55);
+    margin: 0;
+    font-style: italic;
+  }
+
+  .mh-portal__grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: 1100px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(14,14,12,0.1);
+    border: 1px solid rgba(14,14,12,0.1);
+  }
+  @media (max-width: 920px) {
+    .mh-portal__grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .mh-portal__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .mh-portal__cell { background: var(--mh-paper, #f5f1e8); }
+  .mh-portal__tile {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(20px, 2.5vw, 32px) clamp(16px, 2vw, 24px);
+    min-height: 180px;
+    color: inherit;
+    text-decoration: none;
+    transition: background 0.22s ease, transform 0.22s ease;
+    position: relative;
+  }
+  .mh-portal__tile:hover {
+    background: rgba(14,14,12,0.035);
+  }
+  .mh-portal__tile:hover .mh-portal__name {
+    text-decoration: underline;
+    text-decoration-color: rgba(14,14,12,0.3);
+    text-underline-offset: 4px;
+  }
+  .mh-portal__num {
+    font-family: var(--mh-serif, 'Cormorant Garamond', serif);
+    font-style: italic;
+    font-size: 19px;
+    color: var(--mh-red, #7a1f1f);
+    line-height: 1;
+    margin-bottom: 14px;
+    letter-spacing: 0.02em;
+  }
+  .mh-portal__icon {
+    display: block;
+    font-size: clamp(24px, 2.4vw, 30px);
+    line-height: 1;
+    opacity: 0.42;
+    margin-bottom: 18px;
+    color: rgba(14,14,12,0.7);
+  }
+  .mh-portal__name {
+    font-family: var(--mh-serif, 'Cormorant Garamond', serif);
+    font-weight: 500;
+    font-size: clamp(18px, 1.6vw, 22px);
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    margin-bottom: 6px;
+  }
+  .mh-portal__epithet {
+    font-size: 13px;
+    color: rgba(14,14,12,0.55);
+    line-height: 1.5;
+    font-style: italic;
+    margin-top: auto;
+  }
+  .mh-portal__open {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: #8a4d00;
+    background: #fce7c4;
+    padding: 2px 6px;
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+
+  .mh-portal__hint {
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(14,14,12,0.4);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .mh-portal__chevron {
+    font-size: 16px;
+    animation: mh-bounce 2.4s ease-in-out infinite;
+  }
+  @keyframes mh-bounce {
+    0%, 100% { transform: translateY(0); opacity: 0.35; }
+    50% { transform: translateY(4px); opacity: 0.7; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mh-portal__chevron { animation: none; }
+  }
+
   /* mh-guide — 페이지 사이트맵 (서문 직후) */
   .mh-guide {
     max-width: 720px;
