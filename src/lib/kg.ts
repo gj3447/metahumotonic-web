@@ -36,7 +36,7 @@ async function getDriver() {
   }
 }
 
-async function queryKG<T = any>(cypher: string, params: Record<string, any> = {}): Promise<T[] | null> {
+export async function queryKG<T = any>(cypher: string, params: Record<string, any> = {}): Promise<T[] | null> {
   const d = await getDriver();
   if (!d) return null;
   const session = d.session();

@@ -66,7 +66,7 @@ export const GET: APIRoute = async () => {
              coalesce(s.category, 'Custom') AS category
       ORDER BY name
     `);
-    if (rows.length > 0) {
+    if (rows && rows.length > 0) {
       skills = rows
         .filter(r => r.name)
         .map(r => ({ name: r.name, description: r.description, category: r.category }));
