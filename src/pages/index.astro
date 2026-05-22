@@ -3,8 +3,8 @@
 //     ATOM_Landing_SemanticMarkup, ATOM_Landing_CosmosRefactor, ATOM_Landing_CosmicAccent
 //     SA: MetaHumotonic_Landing_v2 | SCW Phase | 12공리+12사도 구조 유지
 import '../styles/landing.css';  // KG: ATOM_Landing_CosmosRefactor — 크림 테마 정본
-import '../styles/cosmos.css';   // KG: ATOM_Landing_CosmicAccent — 다크 액센트
-import '../styles/ritual.css';   // KG: ATOM_Landing_RitualTheme — 신화/제의 override (APT SCW, VR_Gate2 CONDITIONAL_PASS)
+// cosmos.css + ritual.css 측 dark theme override 사용자 verdict 2026-05-22 제거.
+// datasheet light cream theme 측 단일 유지 (landing.css). 검은 bg + 검은 text 충돌 해소.
 import SemanticHead from '../components/SemanticHead.astro';    // KG: ATOM_Landing_SemanticMarkup
 import AxiomSection from '../components/AxiomSection.astro';    // KG: ATOM_Landing_AxiomVisual
 // ApostleSection 측 portal 과 중복 — 사용자 verdict 2026-05-22 제거.
