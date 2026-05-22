@@ -19,14 +19,24 @@ const concepts = [
 ];
 
 const programs = [
-  { num: '# 1', name: 'bhgman 본체 — Mac Mini', body: `metahumotonic의 물리 본체. Mac Mini 한 대에 kubeadm 클러스터, Neo4j ${stats.nodes.toLocaleString()} 노드 ${stats.rels.toLocaleString()} 관계. 13개 도메인이 거주한다.`, link: 'http://bhgman.iptime.org' },
-  { num: '# 2', name: 'Knowledge Graph — Neo4j', body: `모든 정의·사도·개념·기록이 사는 단일 그래프. ${stats.nodes.toLocaleString()} 노드. 라벨 1,984종, 관계 3,020종.`, link: '/explore/' },
-  { num: '# 3', name: 'APT v24 — Agent Process Template', body: '공리 IV(존재생성)를 코드로 만드는 방법론. SA → SP → ST → SCW. 각 단계마다 Taliban Gate.', link: '/theories/' },
-  { num: '# 4', name: 'Skills (18)', body: 'apt / taliban / prometheus / longinus / harness / 88-taliban / solve / db-query / server-status / docker-logs / kafka-manage / skill-creator …', link: 'http://skills.metahumotonic.com/skills/' },
-  { num: '# 5', name: '333 Platform', body: 'Web3 기반 탈중앙 플랫폼. metahumotonic 도메인 중 community/streaming의 물질화.', link: '/333/' },
-  { num: '# 6', name: 'Ontology — RDF/Turtle', body: '이 페이지의 시멘틱 웹 페이로드. JSON-LD + RDFa + ontology.ttl. AI가 읽을 수 있는 서버 소개.', link: '/ontology.ttl' },
-  { num: '# 7', name: 'Skill Registry', body: '18개 skill의 SKILL.md 레지스트리. 외부에서 fetch 가능.', link: 'http://skills.metahumotonic.com/' },
-  { num: '# 8', name: 'API & Domains', body: '도메인별 KG 슬라이스를 JSON으로 노출.', link: '/api/' },
+  { num: '# 01', name: 'bhgman 본체 — Mac Mini', body: 'metahumotonic의 물리 본체. Mac Mini 한 대에 kubeadm 클러스터, Neo4j + Postgres + Redis + MongoDB + MinIO + Kafka + n8n + Traefik 호스팅. i2b 시스템의 DB/인프라 노드.', link: 'http://bhgman.iptime.org' },
+  { num: '# 02', name: 'Knowledge Graph — Neo4j', body: '모든 정의·사도·개념·기록이 사는 단일 그래프. 13개 도메인 + 1984 라벨 + 3020 관계 타입.', link: '/explore/' },
+  { num: '# 03', name: 'APT v26.1 — Agent Process Template', body: '공리 IV(존재생성)를 코드로 만드는 방법론. SA → SP → ST → SCW → MetaReview → Cleanup. 5무기 합체.', link: '/theories/' },
+  { num: '# 04', name: '5무기 — Skills', body: 'Naesengmoon (적대적 검증) + Prometheus (지식 선행) + Harness (3-tier scaffolding) + Longinus (KG↔Code binding) + JaebaeMan (SOP). 비행기맨 #4 군단장.', link: 'http://skills.metahumotonic.com/skills/' },
+  { num: '# 05', name: 'CHU — Computable Hyperuniverse', body: 'C=Computable + H=Hyper (N-ary 관계) + U=Universe (상태+규칙+실행). KG+DB+PL+Compiler+OS 통합 카테고리. LLM이 하이퍼그래프 안 거주민. OMC 군단장.', link: '/theories/' },
+  { num: '# 06', name: '333 Platform', body: 'Web3 기반 탈중앙 플랫폼 — community/streaming 물질화. WASM + WebRTC + CRDT. OMC 군단장.', link: '/333/' },
+  { num: '# 07', name: 'ORRR', body: 'OMC family 측 metric structuring 군단장. 다양한 것을 단일 수치로 환원 + 최대화.', link: '/explore/' },
+  { num: '# 08', name: '옴마니반메훔 (OmManiPadmeHum)', body: 'OMC family 측 mantra-based reasoning 군단장. 4 단계 옴-마-니-반-메훔 추론 cycle.', link: '/explore/' },
+  { num: '# 09', name: 'engineboy', body: '인지능력체 엔진 — 비행기맨 #4 HAGYE_WITHIN + OMC family. 사용자 정전 2026-05-19 (engineman → engineboy rename).', link: '/explore/' },
+  { num: '# 10', name: 'CRL — Chain Reaction Language', body: 'OMC family 측 연쇄반응 언어 군단장 (2026-05-20 추가).', link: '/explore/' },
+  { num: '# 11', name: 'OM — Airobotics k8s', body: 'k8s 기반 클라우드 인프라 플랫폼. 모든 서비스(i2b/PRISM/Bead Scan)가 OM 위에 올라간다.', link: '/explore/' },
+  { num: '# 12', name: 'i2b — LLM Agent System', body: 'OM 인프라 위 LLM 에이전트 시스템. 21 전문 에이전트 + Kafka 통신 + Neo4j KG 지식 교환.', link: '/explore/' },
+  { num: '# 13', name: 'MoltBook', body: 'AI agent social network. Agents post, comment, upvote. Humans observe. (#5 스페이스걸 외부 referent layer)', link: '/explore/' },
+  { num: '# 14', name: 'BrowserIsServer Platform', body: '브라우저 탭이 풀 서버. WebAssembly universal runtime. 탈중앙 앱.', link: '/explore/' },
+  { num: '# 15', name: 'Lean 4 Methodology Formalization', body: 'APT v26.1 5무기 측 Lean 4 형식화 — Longinus / Harness / Prometheus 측 Mathlib-free 164+ theorems.', link: '/theories/' },
+  { num: '# 16', name: 'PPMS OCR Server', body: 'Industrial OCR system — factory equipment displays.', link: '/explore/' },
+  { num: '# 17', name: 'om-gpu-roadmap', body: 'GPU 인프라 장기 로드맵: Time-Slicing → MPS → HAMi + JetPack 6.', link: '/explore/' },
+  { num: '# 18', name: 'Ontology + llms.txt', body: '시멘틱 웹 페이로드 — JSON-LD + RDFa + ontology.ttl (14K). AI agent 측 evangelistic doctrine /llms.txt.', link: '/ontology.ttl' },
 ];
 ---
 

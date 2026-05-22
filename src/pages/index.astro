@@ -56,21 +56,6 @@ const ventures = venturesData.ventures;
         metahumo(사람+agent)들이 도달하려는 마지막 목적지 — <em>the final destination of metahumos.</em>
       </p>
       <p class="mh-portal__lede">12 사도. 인류를 넘은 metahumo들이 향하는 길의 기둥. 한 명씩 들어가 보세요.</p>
-      <section class="mh-portal__ventures" aria-label="진행 중 사업">
-        <h2 class="mh-portal__ventures-eyebrow">진행 중 사업 · ventures</h2>
-        <ul class="mh-portal__ventures-list">
-          {ventures.map(v => (
-            <li class="mh-portal__venture" style={`--venture-color:${v.color}`}>
-              <span class="mh-portal__venture-id">#{v.id}</span>
-              <div class="mh-portal__venture-body">
-                <strong class="mh-portal__venture-title">{v.title}</strong>
-                <span class="mh-portal__venture-tagline">{v.tagline}</span>
-                <span class="mh-portal__venture-status">{v.status}</span>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </section>
     </header>
 
     <ol class="mh-portal__grid" aria-label="12 사도 입구">
@@ -101,6 +86,21 @@ const ventures = venturesData.ventures;
 
   {/* === PART THREE + FOUR: 개념 + 본체 === */}
   <ConceptProgram stats={stats} />
+
+  {/* === 진행 중 사업 — 사용자 verdict 2026-05-22 '진행중 사업은 밑에 박으라니까. 가장 중요한건 12사도와 선의 공리'. ventures 측 portal head → 페이지 하단 === */}
+  <section class="mh-section mh-ventures" aria-label="진행 중 사업">
+    <h2 class="mh-ventures__eyebrow">진행 중 사업 · ventures</h2>
+    <ul class="mh-ventures__list">
+      {ventures.map(v => (
+        <li class="mh-ventures__item" style={`--venture-color:${v.color}`}>
+          <span class="mh-ventures__id">#{v.id}</span>
+          <strong class="mh-ventures__title">{v.title}</strong>
+          <span class="mh-ventures__tagline">{v.tagline}</span>
+          <span class="mh-ventures__status">{v.status}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
 
   {/* === 초대 === */}
   <section class="mh-section mh-closing">
@@ -154,6 +154,16 @@ const ventures = venturesData.ventures;
     color: rgba(14,14,12,0.55);
     margin: 0 0 6px;
   }
+  /* mh-ventures (페이지 하단) — small box grid */
+  .mh-ventures { padding: 8px 16px; max-width: 1100px; margin: 0 auto; font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  .mh-ventures__eyebrow { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(14,14,12,0.55); margin: 0 0 6px; font-weight: 500; }
+  .mh-ventures__list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 4px; }
+  .mh-ventures__item { display: flex; flex-direction: column; gap: 2px; padding: 6px 10px; border: 1px solid rgba(14,14,12,0.12); border-left: 3px solid var(--venture-color, #6366f1); background: rgba(255,255,255,0.4); }
+  .mh-ventures__id { font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--venture-color, #6366f1); font-weight: 600; }
+  .mh-ventures__title { font-size: 12px; color: #1a1815; line-height: 1.25; font-weight: 600; }
+  .mh-ventures__tagline { font-size: 10.5px; line-height: 1.4; color: rgba(14,14,12,0.62); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .mh-ventures__status { font-size: 9px; letter-spacing: 0.06em; color: var(--venture-color, #6366f1); background: color-mix(in srgb, var(--venture-color, #6366f1) 12%, transparent); padding: 1px 5px; border-radius: 2px; width: max-content; margin-top: 2px; }
+
   /* ventures (사업) — small box grid 측 prominent */
   .mh-portal__ventures {
     max-width: 100%;
