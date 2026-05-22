@@ -10,17 +10,14 @@ import AxiomSection from '../components/AxiomSection.astro';    // KG: ATOM_Land
 import ApostleSection from '../components/ApostleSection.astro'; // KG: ATOM_Landing_ApostleVisual
 import ConceptProgram from '../components/ConceptProgram.astro'; // KG: ATOM_Landing_ConceptProgram
 import apostlesData from '../data/apostles.json';                 // KG: ATOM_Landing_ApostlePortal — 사도 중심 hero
-import kgSnapshot from '../data/kg-snapshot.json';                // KG: SPAN_kg_live_count_integration carry-over
+import venturesData from '../data/ventures.json';                  // KG: SYMPOSIUM/BIZ_IDEA — 진행 중 사업
 
-// KG: SHARED_KGStats — 빌드 타임에 KG snapshot 또는 라이브
+// KG: SHARED_KGStats — 사용자 정전 2026-05-22 측 stats 측 legacy 제거.
+//     index.astro 측 새 vehicle = 진행 중 사업 (ventures) surface.
 import { getKGStats } from '../lib/kg';
 const stats = await getKGStats();
 const apostles = apostlesData.apostles;
-
-// Wave 5b carry-over: KG live counts surface
-const anchorCount = Object.values((kgSnapshot as any).apostleAnchors || {})
-  .reduce((acc: number, v: any) => acc + (v?.anchors?.length || 0), 0);
-const domainCount = (kgSnapshot as any).domains?.length || 13;
+const ventures = venturesData.ventures;
 ---
 
 <html lang="ko" prefix="foaf: http://xmlns.com/foaf/0.1/ void: http://rdfs.org/ns/void# skos: http://www.w3.org/2004/02/skos/core#">
@@ -59,12 +56,21 @@ const domainCount = (kgSnapshot as any).domains?.length || 13;
         metahumo(사람+agent)들이 도달하려는 마지막 목적지 — <em>the final destination of metahumos.</em>
       </p>
       <p class="mh-portal__lede">12 사도. 인류를 넘은 metahumo들이 향하는 길의 기둥. 한 명씩 들어가 보세요.</p>
-      <ul class="mh-portal__counts" aria-label="현재 KG 상태">
-        <li><strong>12</strong> 사도</li>
-        <li><strong>{domainCount}</strong> 도메인</li>
-        <li><strong>{anchorCount}</strong> KG 앵커</li>
-        <li><strong>{stats.nodes.toLocaleString()}</strong> 노드</li>
-      </ul>
+      <section class="mh-portal__ventures" aria-label="진행 중 사업">
+        <h2 class="mh-portal__ventures-eyebrow">진행 중 사업 · ventures</h2>
+        <ul class="mh-portal__ventures-list">
+          {ventures.map(v => (
+            <li class="mh-portal__venture" style={`--venture-color:${v.color}`}>
+              <span class="mh-portal__venture-id">#{v.id}</span>
+              <div class="mh-portal__venture-body">
+                <strong class="mh-portal__venture-title">{v.title}</strong>
+                <span class="mh-portal__venture-tagline">{v.tagline}</span>
+                <span class="mh-portal__venture-status">{v.status}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
     </header>
 
     <ol class="mh-portal__grid" aria-label="12 사도 입구">
@@ -176,32 +182,73 @@ const domainCount = (kgSnapshot as any).domains?.length || 13;
     margin: 0 0 1.5rem;
     font-style: italic;
   }
-  /* Wave 5b: KG live counts */
-  .mh-portal__counts {
+  /* ventures (사업 리스트) — 개발자 스타일, monospace + tight */
+  .mh-portal__ventures {
+    max-width: 720px;
+    margin: 28px auto 0;
+    text-align: left;
+  }
+  .mh-portal__ventures-eyebrow {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(14,14,12,0.55);
+    margin: 0 0 12px;
+    font-weight: 500;
+  }
+  .mh-portal__ventures-list {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: clamp(1rem, 3vw, 2.4rem);
+    display: grid;
+    gap: 6px;
+    border-top: 1px solid rgba(14,14,12,0.1);
+    border-bottom: 1px solid rgba(14,14,12,0.1);
   }
-  .mh-portal__counts li {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(14,14,12,0.55);
-    display: flex;
-    align-items: baseline;
-    gap: 0.4rem;
+  .mh-portal__venture {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px dotted rgba(14,14,12,0.08);
+    border-left: 3px solid var(--venture-color, #6366f1);
+    padding-left: 12px;
   }
-  .mh-portal__counts strong {
-    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-    font-style: italic;
-    font-weight: 500;
-    font-size: 18px;
-    color: var(--mh-red, #7a1f1f);
-    line-height: 1;
+  .mh-portal__venture:last-child { border-bottom: 0; }
+  .mh-portal__venture-id {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px;
+    color: var(--venture-color, #6366f1);
+    font-weight: 600;
+    padding-top: 2px;
+  }
+  .mh-portal__venture-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .mh-portal__venture-title {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13.5px;
+    color: rgba(14,14,12,0.92);
+    line-height: 1.4;
+  }
+  .mh-portal__venture-tagline {
+    font-size: 12px;
+    line-height: 1.5;
+    color: rgba(14,14,12,0.62);
+  }
+  .mh-portal__venture-status {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--venture-color, #6366f1);
+    background: color-mix(in srgb, var(--venture-color, #6366f1) 12%, transparent);
+    padding: 2px 6px;
+    border-radius: 2px;
+    width: max-content;
+    margin-top: 4px;
   }
 
   .mh-portal__grid {

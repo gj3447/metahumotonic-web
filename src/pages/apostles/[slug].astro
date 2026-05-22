@@ -71,66 +71,78 @@ const isOpen = apostle.status?.startsWith('OPEN');
     ]
   })} />
   <style>
+    /* 개발자 스타일 전환 2026-05-22 — 사용자 verdict 'monospace + 정보 밀도' */
     *,*:before,*:after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
       background: #faf6ec;
       color: #1a1815;
-      line-height: 1.65;
+      line-height: 1.55;
+      font-size: 14px;
       -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; }
 
-    .wrap { max-width: 760px; margin: 0 auto; padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 2.5rem) 6rem; }
+    .wrap { max-width: 760px; margin: 0 auto; padding: clamp(1rem, 3vw, 2rem) clamp(0.8rem, 3vw, 1.6rem) 4rem; }
 
     .crumb {
-      font-size: 0.78rem;
+      font-size: 11px;
       letter-spacing: 0.05em;
       color: #8a8273;
       text-transform: uppercase;
-      margin-bottom: 3rem;
+      margin-bottom: 1.4rem;
+      border-bottom: 1px dotted #d9ceb0;
+      padding-bottom: 0.6rem;
     }
     .crumb a { color: #8a8273; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
     .crumb a:hover { border-color: currentColor; }
-    .crumb-sep { margin: 0 0.6rem; opacity: 0.5; }
+    .crumb-sep { margin: 0 0.4rem; opacity: 0.5; }
 
-    /* Header */
+    /* Header — tight monospace */
+    header {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 8px 14px;
+      align-items: baseline;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid #d9ceb0;
+      margin-bottom: 1.2rem;
+    }
     .num {
-      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-      font-style: italic;
-      font-size: clamp(3.5rem, 8vw, 5.5rem);
+      grid-row: 1 / 3;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 28px;
       line-height: 1;
       color: #c0b48f;
-      font-weight: 400;
-      letter-spacing: -0.02em;
+      font-weight: 500;
+      text-align: right;
+      padding-top: 4px;
     }
     .icon {
       display: inline-block;
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      margin-left: 0.5rem;
+      font-size: 14px;
+      margin-left: 4px;
       opacity: 0.55;
-      vertical-align: super;
     }
     h1 {
-      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-      font-size: clamp(2.2rem, 5vw, 3.6rem);
-      font-weight: 500;
-      line-height: 1.1;
-      margin-top: 0.8rem;
-      letter-spacing: -0.01em;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: 0;
+      color: #1a1815;
     }
     .epithet {
-      font-size: 1.05rem;
+      grid-column: 2;
+      font-size: 12px;
       color: #6b6357;
-      margin-top: 0.6rem;
-      font-style: italic;
+      margin-top: 2px;
     }
     .open-tag {
       display: inline-block;
-      margin-left: 0.8rem;
-      padding: 0.15rem 0.55rem;
-      font-size: 0.7rem;
+      margin-left: 0.6rem;
+      padding: 1px 6px;
+      font-size: 10px;
       letter-spacing: 0.08em;
       color: #8a4d00;
       background: #fce7c4;
@@ -139,70 +151,75 @@ const isOpen = apostle.status?.startsWith('OPEN');
       text-transform: uppercase;
     }
 
-    hr { border: 0; height: 1px; background: #d9ceb0; margin: 2.5rem 0; }
+    hr { border: 0; height: 1px; background: #d9ceb0; margin: 1.4rem 0; }
 
-    /* Body */
+    /* Body — 자연체 prose는 짧게 */
     .body-ko {
-      font-size: 1.1rem;
-      line-height: 1.75;
+      font-size: 13.5px;
+      line-height: 1.6;
       color: #2a2620;
-      margin: 2rem 0 1.2rem;
+      margin: 1rem 0 0.6rem;
+      padding-left: 12px;
+      border-left: 2px solid #d9ceb0;
     }
     .body-en {
-      font-size: 0.95rem;
+      font-size: 12px;
       color: #6b6357;
-      font-style: italic;
-      line-height: 1.7;
+      line-height: 1.55;
+      padding-left: 12px;
+      border-left: 2px solid #d9ceb0;
+      opacity: 0.85;
     }
 
-    /* Canonical cards */
+    /* Canonical cards — tight monospace dl */
     .canon-grid {
       display: grid;
-      grid-template-columns: max-content 1fr;
-      gap: 0.5rem 1.5rem;
+      grid-template-columns: 110px 1fr;
+      gap: 4px 14px;
       align-items: baseline;
-      margin: 2rem 0;
+      margin: 1.2rem 0;
+      font-size: 12px;
     }
     .canon-label {
-      font-size: 0.78rem;
+      font-size: 10.5px;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: #8a8273;
-      padding-top: 0.15rem;
       white-space: nowrap;
     }
-    .canon-val { font-size: 0.95rem; color: #2a2620; }
-    .canon-val.essence { font-style: italic; color: #4a4338; }
-    .canon-val.referent { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.83rem; }
-    .canon-val.family { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.83rem; color: #6b6357; }
-    .canon-val.path { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.78rem; color: #8a8273; word-break: break-all; }
+    .canon-val { font-size: 12px; color: #2a2620; line-height: 1.5; }
+    .canon-val.essence { color: #4a4338; }
+    .canon-val.referent { font-size: 11.5px; color: #2a2620; }
+    .canon-val.family { font-size: 11.5px; color: #6b6357; }
+    .canon-val.path { font-size: 11px; color: #8a8273; word-break: break-all; }
 
-    /* Footer nav */
+    /* Pager — tight */
     .pager {
       display: flex;
       justify-content: space-between;
-      gap: 1.5rem;
-      margin-top: 5rem;
-      padding-top: 2rem;
+      gap: 1rem;
+      margin-top: 2.4rem;
+      padding-top: 0.8rem;
       border-top: 1px solid #d9ceb0;
+      font-size: 12px;
     }
     .pager a {
       flex: 1;
       text-decoration: none;
       color: #4a4338;
-      padding: 0.8rem 0;
+      padding: 0.4rem 0;
       transition: color 0.2s;
     }
     .pager a:hover { color: #1a1815; }
     .pager .dir {
       display: block;
-      font-size: 0.72rem;
+      font-size: 10px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: #8a8273;
-      margin-bottom: 0.4rem;
+      margin-bottom: 2px;
     }
-    .pager .label { font-size: 1rem; font-style: italic; }
+    .pager .label { font-size: 12.5px; }
     .pager .next { text-align: right; }
 
     .back-home {

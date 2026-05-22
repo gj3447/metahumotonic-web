@@ -1,0 +1,53 @@
+{
+  "_meta": {
+    "source": "SYMPOSIUM/BIZ_IDEA/INDEX.md",
+    "note": "진행 중 사업 아이디어 — KG 기반 (status active/parked/ratified).",
+    "synced_at": "2026-05-22"
+  },
+  "ventures": [
+    {
+      "id": "001",
+      "slug": "distributed-llm-inference-mining",
+      "title": "분산 LLM 추론 마이닝",
+      "tagline": "컨텍스트 윈도우당 토큰 발행 — 분산 추론 마이닝 네트워크.",
+      "status": "PARKED_WITH_HOOKS",
+      "status_note": "PROM 16 reality check 완료 (16/16 HIGH/MEDIUM). 7 ResumptionHook KG 등록 — TAO ETF / Gensyn Verde mainnet / paying customer 등 트리거 대기.",
+      "since": "2026-04-29",
+      "tags": ["AI infra", "분산 컴퓨팅", "토큰 경제"],
+      "color": "#6366f1"
+    },
+    {
+      "id": "002",
+      "slug": "magic-adaptability",
+      "title": "마법 적응력 (Magic Adaptability)",
+      "tagline": "Clarke 3rd Law 기반 신조어 카테고리 창조 + 정의 점유(Definition Capture).",
+      "status": "PROM_16_VERIFIED",
+      "status_note": "PROM 16 reality check + 3중 나생문 검증 완료. 36 node + 130 edge KG 결정화. OQ1-OQ4 + 4 canonical trigger 사용자 verdict 대기.",
+      "since": "2026-05-19",
+      "tags": ["마케팅", "카테고리 창조", "정의 점유"],
+      "color": "#10b981"
+    },
+    {
+      "id": "003",
+      "slug": "success-grift-copy-saas",
+      "title": "성공팔이 카피 SaaS",
+      "tagline": "002 dark twin — 단어 창조 + 정의 점유 + 트렌드 packaging, value-frame swap (학문 → 탐욕 펌프).",
+      "status": "USER_RATIFIED_ENTER",
+      "status_note": "OQ4 user verdict A 진입 + self-aware metalayer 채택 (Hormozi 식 'grift 임' frame). 002와 DARK_VARIANT_OF + ISOMORPHIC_MECHANISM_OF. dispatch trigger 대기.",
+      "since": "2026-05-19",
+      "tags": ["SaaS", "마케팅", "self-aware grift"],
+      "color": "#f59e0b"
+    },
+    {
+      "id": "004",
+      "slug": "google-moat-audit",
+      "title": "Google moat 분석",
+      "tagline": "Alphabet 4축 moat audit — A1 Data Flywheel · A2 Distribution Monopoly · A3 Vertical Integration · A4 Time Cashcow.",
+      "status": "PHASE_1_5_DEEP_DIVE",
+      "status_note": "80 ResearchFinding (64+16) backfilled / 5 cycle / 2 Naesengmoon + 1 Longinus verdict / 7-pillar Provisional / A3 vertical-integration softening trend 측 3 crack signal.",
+      "since": "2026-05-21",
+      "tags": ["전략 분석", "moat audit", "외부 기업"],
+      "color": "#ef4444"
+    }
+  ]
+}
