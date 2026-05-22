@@ -1,0 +1,1523 @@
+---
+// KG: CONTRACT_Web_Landing, ATOM_Web_Landing
+import '../styles/cosmos.css';
+// 빌드 타임에 KG에서 데이터 가져오기 (실패 시 정적 fallback)
+let stats = { nodes: 547552, rels: 1062014 };
+let domains: Array<{name:string; displayName:string; nodeCount:number; description:string}> = [];
+let skills: Array<{name:string; description:string}> = [];
+
+try {
+  const { getKGStats, getDomains, getSkills } = await import('../lib/kg');
+  stats = await getKGStats();
+  domains = await getDomains();
+  skills = await getSkills();
+} catch (e) {
+  console.warn('KG fetch failed, using static data');
+}
+
+// fallback 도메인 (KG 미연결 시)
+if (!domains.length) {
+  domains = [
+    { name:'domain-personal', displayName:'Personal', nodeCount:1200, description:'Gyeongjun Ra - identity, biography, philosophy' },
+    { name:'domain-math-physics', displayName:'Math & Physics', nodeCount:5346, description:'Pure mathematics, theoretical physics, formal systems' },
+    { name:'domain-literature', displayName:'Literature & Writing', nodeCount:2100, description:'Creative writing, poetry, narrative structure' },
+    { name:'domain-religion', displayName:'Religion & Theology', nodeCount:1800, description:'Comparative theology, scripture analysis' },
+    { name:'domain-cs', displayName:'Computer Science', nodeCount:3200, description:'Programming, algorithms, type theory, PLT' },
+    { name:'domain-infra', displayName:'Infrastructure', nodeCount:2844, description:'Server ops, K8s, Docker, networking, DevOps' },
+    { name:'domain-apt', displayName:'APT Methodology', nodeCount:1500, description:'Agent Process Template - semantic software engineering' },
+    { name:'domain-community', displayName:'Community', nodeCount:900, description:'Open source, collaboration, knowledge sharing' },
+    { name:'domain-streaming', displayName:'Streaming & Media', nodeCount:600, description:'Live streaming, content creation, media production' },
+  ];
+}
+
+// fallback 스킬
+if (!skills.length) {
+  skills = [
+    { name:'apt', description:'APT v24 orchestrator' },
+    { name:'apt-sa', description:'SemanticAnchor phase' },
+    { name:'apt-sp', description:'SemanticPyramid decomposition' },
+    { name:'apt-st', description:'SemanticTwin crystallization' },
+    { name:'apt-scw', description:'SourceCodeWorld TDD' },
+    { name:'taliban', description:'Adversarial validation' },
+    { name:'88-taliban', description:'113-lens meta-verification' },
+    { name:'prometheus', description:'Research-first methodology' },
+    { name:'longinus', description:'KG-Code traceability' },
+    { name:'harness', description:'Architecture-as-constraint' },
+    { name:'solve', description:'Systematic problem resolution' },
+    { name:'db-query', description:'Database query execution' },
+    { name:'server-status', description:'Server health check' },
+    { name:'docker-logs', description:'Container log inspection' },
+    { name:'kafka-manage', description:'Kafka topic management' },
+    { name:'deploy', description:'Service deployment' },
+    { name:'backup', description:'Backup management' },
+    { name:'skill-creator', description:'Skill creation wizard' },
+  ];
+}
+
+// 스킬 카테고리 분류
+const skillCategories = [
+  { label: 'Methodology', items: skills.filter(s => ['apt','apt-sa','apt-sp','apt-st','apt-scw','harness','longinus'].includes(s.name)) },
+  { label: 'Verification', items: skills.filter(s => ['taliban','88-taliban'].includes(s.name)) },
+  { label: 'Research', items: skills.filter(s => ['prometheus','solve'].includes(s.name)) },
+  { label: 'Operations', items: skills.filter(s => ['db-query','server-status','docker-logs','kafka-manage','deploy','backup','skill-creator'].includes(s.name)) },
+];
+
+const counters = [
+  { label: 'Nodes', value: stats.nodes },
+  { label: 'Relations', value: stats.rels },
+  { label: 'Domains', value: 13 },
+  { label: 'Skills', value: 18 },
+];
+
+---
+
+<html lang="en" prefix="foaf: http://xmlns.com/foaf/0.1/ void: http://rdfs.org/ns/void#">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MetaHumotonic -- Semantic Web Server Platform</title>
+  <meta name="description" content="MetaHumotonic: A knowledge graph-native server with 547K+ nodes, 13 domains, and 18 AI skills. Semantic infrastructure for the thinking web." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta property="og:title" content="MetaHumotonic" />
+  <meta property="og:description" content="Semantic Web Server Platform -- 547K nodes, 13 domains, 18 skills" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://metahumotonic.com" />
+
+  {/* JSON-LD structured data */}
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": {
+      "@vocab": "https://schema.org/",
+      "foaf": "http://xmlns.com/foaf/0.1/",
+      "void": "http://rdfs.org/ns/void#"
+    },
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "MetaHumotonic",
+        "url": "https://metahumotonic.com",
+        "description": "Knowledge Graph-native semantic web server platform"
+      },
+      {
+        "@type": "WebSite",
+        "name": "MetaHumotonic",
+        "url": "https://metahumotonic.com"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://metahumotonic.com/#person",
+        "foaf:name": "Gyeongjun Ra",
+        "foaf:nick": "bhgman",
+        "name": "Gyeongjun Ra",
+        "url": "https://metahumotonic.com"
+      },
+      {
+        "@type": "Dataset",
+        "void:triples": stats.rels,
+        "name": "MetaHumotonic Knowledge Graph",
+        "description": `${stats.nodes.toLocaleString()} nodes, ${stats.rels.toLocaleString()} relations across 13 domains`,
+        "url": "https://metahumotonic.com"
+      }
+    ]
+  })} />
+</head>
+
+<body>
+  <!-- Cosmic Background: 성운 + 별 + 비네팅 -->
+  <div class="starfield-bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <!-- Canvas for light trails + stars -->
+  <canvas id="cosmos-canvas" style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"></canvas>
+
+  <!-- Main content wrapper (above canvas) -->
+  <div class="content-wrap">
+
+  {/* -- Mascot 2x2 Gradient Circles — conic-gradient 회전 -- */}
+  <div class="mascot" aria-hidden="true">
+    <div class="mascot__circle"></div>
+    <div class="mascot__circle"></div>
+    <div class="mascot__circle"></div>
+    <div class="mascot__circle"></div>
+  </div>
+
+  {/* -- Hero -- */}
+  <header class="hero fade-in">
+    <h1 class="hero-title">
+      <span class="text-glow-pink">Meta</span><span class="text-glow-white">Humotonic</span>
+    </h1>
+    <p class="hero__subtitle">Semantic Web Server Platform</p>
+    <p class="hero__desc">
+      A knowledge graph-native infrastructure with {stats.nodes.toLocaleString()}+ nodes across 13 domains.
+      Every service, concept, and relationship is semantically linked.
+    </p>
+    <nav class="hero__cta">
+      <a href="#kg-graph" class="btn-glow btn-glow--pink">Knowledge Graph</a>
+      <a href="#axioms" class="btn-glow btn-glow--purple">12 Axioms</a>
+      <a href="/theories/" class="btn-glow btn-glow--cyan">Theory Diagrams</a>
+    </nav>
+  </header>
+
+  {/* -- Counters -- */}
+  <section class="counters fade-in" aria-label="Statistics">
+    {counters.map(c => (
+      <div class="counter-box">
+        <span class="counter" data-count={c.value}>{c.value.toLocaleString()}</span>
+        <span class="counter-box__label">{c.label}</span>
+      </div>
+    ))}
+  </section>
+
+  <hr class="section-divider" />
+
+  {/* -- Space Girl: 철학적 핵심 -- */}
+  <section id="spacegirl" class="philosophy-section fade-in">
+    <div class="philosophy-inner">
+      <h2 class="section-title">Space Girl</h2>
+      <blockquote class="philosophy-quote">
+        "틈이 나를 먼저 바라봤다"<br/>
+        <span class="quote-sub">— 시선의 역전. 주체와 객체가 뒤바뀌는 순간.</span>
+      </blockquote>
+      <p class="philosophy-text">
+        Space Girl은 network와 sexvoid를 잇는 유일한 존재.
+        보이지 않는 세계를 사랑한다는 것 — 열죽음 이후를 상상하는 것.
+        블레이크의 에니다몬처럼, 영감을 주지만 닿을 수 없는 존재.
+      </p>
+      <p class="philosophy-text philosophy-text--dim">
+        모든 공리와 구조물이 결국 '말 못 걸어서 우주를 만든' 화자의 그리움에서 출발한다.
+        Space Girl = MetaHumotonic 전체의 감정적 특이점.
+      </p>
+      <div class="philosophy-tags">
+        <span class="pill pill--pink">WorldSetting</span>
+        <span class="pill">KG_CREATIVE</span>
+        <span class="pill pill--gold">에니다몬</span>
+        <span class="pill pill--cyan">시선의 역전</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  {/* -- 12사도: 세계관의 기둥 -- */}
+  <section id="apostles" class="apostles-section fade-in">
+    <h2 class="section-title">12사도</h2>
+    <p class="apostles-desc">2021년부터 4년간의 모험을 통해 완성된 MetaHumotonic 세계관의 12 기둥.</p>
+
+    {/* SVG 원형 다이어그램 */}
+    <div class="apostles-diagram">
+      <svg viewBox="0 0 500 500" class="apostles-svg" aria-label="12사도 원형 다이어그램">
+        <defs>
+          <radialGradient id="center-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="rgba(244,114,182,0.3)"/>
+            <stop offset="100%" stop-color="transparent"/>
+          </radialGradient>
+          <filter id="glow-filter">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        {/* 중앙 — MetaHumotonic */}
+        <circle cx="250" cy="250" r="80" fill="url(#center-glow)" opacity="0.5"/>
+        <circle cx="250" cy="250" r="35" fill="none" stroke="rgba(244,114,182,0.6)" stroke-width="1.5" filter="url(#glow-filter)"/>
+        <text x="250" y="246" text-anchor="middle" fill="rgba(244,114,182,0.9)" font-size="8" font-weight="700">Meta</text>
+        <text x="250" y="258" text-anchor="middle" fill="rgba(224,231,255,0.8)" font-size="8" font-weight="700">Humotonic</text>
+
+        {/* 12사도 — 원형 배치 */}
+        {[
+          { n: '디멘션워커', i: 0, c: '#a78bfa' },
+          { n: 'ICE ORCA\nDRAGON', i: 1, c: '#67e8f9' },
+          { n: '초공동의\n용사', i: 2, c: '#f472b6' },
+          { n: '비행기맨', i: 3, c: '#fbbf24' },
+          { n: '스페이스걸', i: 4, c: '#f472b6' },
+          { n: '인류역사\n흐름의강물', i: 5, c: '#34d399' },
+          { n: '리퀘스트의\n나무', i: 6, c: '#a78bfa' },
+          { n: '입체운행\n구름', i: 7, c: '#67e8f9' },
+          { n: '검은태양\n신아텐', i: 8, c: '#fbbf24' },
+          { n: '깊바존', i: 9, c: '#e0e7ff' },
+          { n: 'HOH', i: 10, c: '#ef4444' },
+          { n: '몬순', i: 11, c: '#34d399' },
+        ].map(a => {
+          const angle = (a.i / 12) * Math.PI * 2 - Math.PI / 2;
+          const r = 180;
+          const x = 250 + r * Math.cos(angle);
+          const y = 250 + r * Math.sin(angle);
+          const lines = a.n.split('\n');
+          return (
+            <g>
+              {/* 중앙 연결선 */}
+              <line x1="250" y1="250" x2={x} y2={y} stroke={a.c} stroke-width="0.5" opacity="0.2"/>
+              {/* 노드 글로우 */}
+              <circle cx={x} cy={y} r="18" fill="none" stroke={a.c} stroke-width="1" opacity="0.6" filter="url(#glow-filter)"/>
+              <circle cx={x} cy={y} r="3" fill={a.c} opacity="0.8"/>
+              {/* 라벨 */}
+              {lines.length === 1 ? (
+                <text x={x} y={y + 28} text-anchor="middle" fill={a.c} font-size="8" font-weight="500" opacity="0.9">{lines[0]}</text>
+              ) : (
+                <Fragment>
+                  <text x={x} y={y + 26} text-anchor="middle" fill={a.c} font-size="7.5" font-weight="500" opacity="0.9">{lines[0]}</text>
+                  <text x={x} y={y + 36} text-anchor="middle" fill={a.c} font-size="7.5" font-weight="500" opacity="0.9">{lines[1]}</text>
+                </Fragment>
+              )}
+              {/* 번호 */}
+              <text x={x} y={y + 4} text-anchor="middle" fill="rgba(224,231,255,0.7)" font-size="9" font-weight="700">{a.i + 1}</text>
+            </g>
+          );
+        })}
+
+        {/* 외곽 원 */}
+        <circle cx="250" cy="250" r="190" fill="none" stroke="rgba(107,76,153,0.15)" stroke-width="0.5" stroke-dasharray="4 4"/>
+      </svg>
+    </div>
+
+    {/* 12사도 텍스트 목록 */}
+    <div class="apostles-list">
+      <div class="apostle-item">
+        <span class="apostle-num" style="color:#a78bfa">01</span>
+        <div><strong>디멘션워커</strong> — 차원을 걷는 자</div>
+      </div>
+      <div class="apostle-item">
+        <span class="apostle-num" style="color:#67e8f9">02</span>
+        <div><strong>ICE ORCA DRAGON</strong> — 수학-물리 이론의 화신</div>
+      </div>
+      <div class="apostle-item">
+        <span class="apostle-num" style="color:#f472b6">03</span>
+        <div><strong>초공동의용사</strong> — 자아의 영웅</div>
+      </div>
+      <div class="apostle-item">
+        <span class="apostle-num" style="color:#fbbf24">04</span>
+        <div><strong>비행기맨</strong> — 산소 없이 성층권 한계 돌파. 오직 구름만이 내 마음을 알아주는 구만.</div>
+      </div>
+      <div class="apostle-item">
+        <span class="apostle-num" style="color:#f472b6">05</span>
+        <div><strong>스페이스걸</strong> — sexvoid에서 network로 돌파하는 존재</div>
+      </div>
+      <div class="apostle-item">
+        <span class="apostle-num" style="color:#34d399">06</span>
+        <div><strong>인류역사흐름의강물</strong> — git branch처럼 갈라지고 merge되는 인류 전체의 강물</div>
+      </div>
+      <div class="apostle-item">
+        <span class="apostle-num" style="color:#a78bfa">07</span>
+        <div><strong>리퀘스트의나무</strong> — 소원을 매다는 나무</div>
+      </div>
+      <div class="apostle-item">
+        <span class="apostle-num" style="color:#67e8f9">08</span>
+        <div><strong>입체운행구름</strong> — 아무도 접근 불허한 구름. 비행기맨만이 CLOUD CONNECT</div>
+      </div>
+      <div class="apostle-item">
+        <span class="apostle-num" style="color:#fbbf24">09</span>
+        <div><strong>검은태양신아텐</strong> — 어둠 속의 빛</div>
+      </div>
+      <div class="apostle-item">
+        <span class="apostle-num" style="color:#e0e7ff">10</span>
+        <div><strong>깊바존</strong> — 하늘 위에도 바닷속에도 있지 않은 존재. 궁극의 존재. = 공허진동자의 다른 위상.</div>
+      </div>
+      <div class="apostle-item">
+        <span class="apostle-num" style="color:#ef4444">11</span>
+        <div><strong>HOH</strong> — Human Origin Hegemony. AI가 개인 우주 제공, 쾌락 헤게모니.</div>
+      </div>
+      <div class="apostle-item">
+        <span class="apostle-num" style="color:#34d399">12</span>
+        <div><strong>몬순</strong> — 계절풍. 순수의 방향이 바뀐 바람.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  {/* -- Projects: 프로그램 소개 -- */}
+  <section id="projects" class="projects-section fade-in">
+    <h2 class="section-title">Projects</h2>
+    <div class="project-grid">
+      <a href="/333/" class="project-card project-card--featured project-card--link">
+        <h3>333 Platform <span class="badge" style="font-size:0.7rem">LIVE</span></h3>
+        <p class="project-desc">분산형 위챗. 브라우저가 곧 서버. 8,134줄 Rust / 199 tests / 150KB WASM. P2P 블록 동기화 + 텍스트 동시편집 + OM 분산 컴퓨팅.</p>
+        <div class="project-tech">
+          <span class="pill pill--cyan">WASM</span>
+          <span class="pill pill--purple">WebRTC</span>
+          <span class="pill pill--gold">CRDT</span>
+          <span class="pill pill--pink">HotStuff BFT</span>
+        </div>
+      </a>
+      <article class="project-card">
+        <h3>CHU</h3>
+        <p class="project-desc">계산가능하이퍼우주. 모든 개념과 관계가 하이퍼그래프를 이루는 세계관. CHU_DB, CHU_Lang, CHU_AI 하위 프로젝트.</p>
+        <div class="project-tech">
+          <span class="pill pill--cyan">Hypergraph</span>
+          <span class="pill pill--purple">Ontology</span>
+        </div>
+      </article>
+      <article class="project-card">
+        <h3>ICE</h3>
+        <p class="project-desc">수학-물리 이론 체계. 힉스 클로저, RG 흐름, TOE 실행 — 형식 체계와 물리 구조의 교차점을 탐구.</p>
+        <div class="project-tech">
+          <span class="pill">Mathematics</span>
+          <span class="pill pill--purple">Physics</span>
+        </div>
+      </article>
+      <article class="project-card">
+        <h3>APT</h3>
+        <p class="project-desc">Agent Process Template. SA→SP→ST→SCW 4-phase 시멘틱 소프트웨어 엔지니어링 방법론. v24.</p>
+        <div class="project-tech">
+          <span class="pill pill--pink">Methodology</span>
+          <span class="pill pill--gold">KG-native</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  {/* -- Knowledge Graph Visualization -- */}
+  <section id="kg-graph" class="fade-in" style="margin:3rem 0;">
+    <h2 class="section-title">Knowledge Graph</h2>
+    <p style="text-align:center;color:var(--cosmos-text-dim,#8892b0);margin-bottom:1.5rem;font-size:0.95rem;">
+      547K+ nodes connected across domains. Click a node to explore.
+    </p>
+    <div class="kg-container">
+      <canvas id="kg-canvas" width="800" height="500" style="width:100%;max-width:800px;margin:0 auto;display:block;border-radius:12px;background:rgba(5,8,16,0.8);border:1px solid rgba(107,76,153,0.2);cursor:grab;"></canvas>
+      <div id="kg-tooltip" class="kg-tooltip" style="display:none;"></div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  {/* -- Domain Cards (interactive expand) -- */}
+  <section id="domains" class="domains fade-in">
+    <h2 class="section-title">Knowledge Domains</h2>
+    <div class="domain-grid" vocab="https://schema.org/">
+      {domains.map((d, i) => (
+        <div class="domain-card domain-card--interactive" typeof="Dataset" data-domain={d.name} data-index={i}>
+          <div class="domain-card__head">
+            <h3 property="name">{d.displayName}</h3>
+            <span class="badge">{d.nodeCount.toLocaleString()}</span>
+          </div>
+          <p property="description">{d.description}</p>
+          <div class="domain-card__pills">
+            <span class="pill">{d.name}</span>
+          </div>
+          <div class="domain-card__expand" style="display:none;">
+            <div class="domain-card__details"></div>
+            <a href={`/domains/${d.name}/`} class="domain-card__more">View full domain &rarr;</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  {/* -- Skills -- */}
+  <section id="skills" class="skills fade-in">
+    <h2 class="section-title">Skill Registry ({skills.length})</h2>
+    <div class="skill-categories">
+      {skillCategories.map(cat => (
+        <div class="skill-cat">
+          <h3 class="skill-cat__title">{cat.label}</h3>
+          <ul class="skill-list">
+            {cat.items.map(s => (
+              <li class="skill-item skill-item--interactive" data-skill={s.name}>
+                <div class="skill-link" role="button" tabindex="0">
+                  <code>/{s.name}</code>
+                  <span>{s.description}</span>
+                  <span class="skill-arrow">+</span>
+                </div>
+                <div class="skill-expand" style="display:none;">
+                  <div class="skill-detail"></div>
+                  <a href={`/skills/${s.name}/`} class="skill-more">View details &rarr;</a>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  {/* -- 선의 공리 12개: MetaHumotonic 세계관 -- */}
+  <section id="axioms" class="axioms-section fade-in">
+    <h2 class="section-title">선의 공리 — 12 Axioms of Goodness</h2>
+    <p style="text-align:center;color:var(--cosmos-text-dim,#8892b0);margin-bottom:2rem;max-width:600px;margin-left:auto;margin-right:auto;font-size:0.95rem;">
+      MetaHumotonic 세계관의 근본 공리 체계. 시간에서 시작하여 MetaHumotonic 자체에 이르는 12단계.
+    </p>
+    <div class="axiom-grid">
+      <div class="axiom-card axiom-card--interactive" data-axiom="1">
+        <span class="axiom-num">I</span>
+        <h3>시간</h3>
+        <p class="axiom-short">어떤 연속적인 흐름.</p>
+        <div class="axiom-expand" style="display:none">
+          <p class="axiom-detail">모든 것의 시작. 존재보다 먼저 시간이 있다. 흐름 자체가 공리의 첫째.</p>
+          <p class="axiom-meta">"나는 항상 존나 진심이었음." — 실제 공리1은 시간이 아니라 진심이다.</p>
+        </div>
+      </div>
+      <div class="axiom-card axiom-card--interactive" data-axiom="2">
+        <span class="axiom-num">II</span>
+        <h3>존재</h3>
+        <p class="axiom-short">어떤 시간에 있는 것.</p>
+        <div class="axiom-expand" style="display:none">
+          <p class="axiom-detail">시간 속에 무언가가 있다는 것. 존재는 시간의 함수.</p>
+        </div>
+      </div>
+      <div class="axiom-card axiom-card--interactive" data-axiom="3">
+        <span class="axiom-num">III</span>
+        <h3>선</h3>
+        <p class="axiom-short">어떤 존재가 시간에 계속 있을 것을 나타낸 수치.</p>
+        <div class="axiom-expand" style="display:none">
+          <p class="axiom-detail">선(善)은 도덕이 아니라 지속성의 측도. 오래 존재하는 것이 선하다.</p>
+        </div>
+      </div>
+      <div class="axiom-card axiom-card--interactive" data-axiom="4">
+        <span class="axiom-num">IV</span>
+        <h3>존재생성</h3>
+        <p class="axiom-short">존재들의 집합으로 다른 존재를 만드는 것.</p>
+        <div class="axiom-expand" style="display:none">
+          <p class="axiom-detail">결합과 창조. 기존 것들의 조합이 새로운 존재를 낳는다.</p>
+        </div>
+      </div>
+      <div class="axiom-card axiom-card--interactive" data-axiom="5">
+        <span class="axiom-num">V</span>
+        <h3>존재분해</h3>
+        <p class="axiom-short">존재를 구성하는 존재들의 집합을 멱집합하여 다른 존재를 만드는 것.</p>
+        <div class="axiom-expand" style="display:none">
+          <p class="axiom-detail">분해와 재조합. 생성의 역연산이자 더 깊은 생성.</p>
+        </div>
+      </div>
+      <div class="axiom-card axiom-card--interactive" data-axiom="6">
+        <span class="axiom-num">VI</span>
+        <h3>이긴존재</h3>
+        <p class="axiom-short">존재분해한 존재들 중 가장 선한 존재.</p>
+        <div class="axiom-expand" style="display:none">
+          <p class="axiom-detail">분해 후 가장 오래 지속되는 것. 경쟁이 아니라 지속의 우열.</p>
+        </div>
+      </div>
+      <div class="axiom-card axiom-card--interactive" data-axiom="7">
+        <span class="axiom-num">VII</span>
+        <h3>악</h3>
+        <p class="axiom-short">존재의 선과 그 이긴존재의 선의 차이.</p>
+        <div class="axiom-expand" style="display:none">
+          <p class="axiom-detail">악은 실체가 아니라 차이. 완전에서의 거리. 신학적 악의 문제를 수학적으로 해소.</p>
+        </div>
+      </div>
+      <div class="axiom-card axiom-card--interactive" data-axiom="8">
+        <span class="axiom-num">VIII</span>
+        <h3>특이점</h3>
+        <p class="axiom-short">악이 최소일 때. 이긴존재가 자기 자신일 때.</p>
+        <div class="axiom-expand" style="display:none">
+          <p class="axiom-detail">자기충족적 존재. 분해해도 자기 자신이 가장 선한 상태. 완전한 자기동일성.</p>
+        </div>
+      </div>
+      <div class="axiom-card axiom-card--interactive" data-axiom="9">
+        <span class="axiom-num">IX</span>
+        <h3>상호작용</h3>
+        <p class="axiom-short">존재 사이의 선의 이동.</p>
+        <div class="axiom-expand" style="display:none">
+          <p class="axiom-detail">선은 보존된다. 관계는 선의 교환. 물리학의 상호작용과 대응.</p>
+        </div>
+      </div>
+      <div class="axiom-card axiom-card--interactive" data-axiom="10">
+        <span class="axiom-num">X</span>
+        <h3>자연</h3>
+        <p class="axiom-short">어떤 존재가 상호작용하는 모든 존재의 집합.</p>
+        <div class="axiom-expand" style="display:none">
+          <p class="axiom-detail">우주 = 한 존재의 관계망 전체. 개인마다 자연이 다르다.</p>
+        </div>
+      </div>
+      <div class="axiom-card axiom-card--interactive" data-axiom="11">
+        <span class="axiom-num">XI</span>
+        <h3>자존자</h3>
+        <p class="axiom-short">자연이 자기 자신일 때.</p>
+        <div class="axiom-expand" style="display:none">
+          <p class="axiom-detail">상호작용하는 모든 것이 곧 나 자신인 존재. 완전한 자기세계.</p>
+        </div>
+      </div>
+      <div class="axiom-card axiom-card--interactive" data-axiom="12">
+        <span class="axiom-num" style="color:var(--cosmos-accent-pink,#f472b6)">XII</span>
+        <h3 style="color:var(--cosmos-accent-pink,#f472b6)">MetaHumotonic</h3>
+        <p class="axiom-short">자존자이면서 특이점일 때.</p>
+        <div class="axiom-expand" style="display:none">
+          <p class="axiom-detail">자연이 자기 자신이고, 악이 최소인 존재. 완전한 자기동일성 + 완전한 자기세계. 이것이 MetaHumotonic이다.</p>
+          <p class="axiom-meta">선의 공리의 귀결: MetaHumotonic = 자존자 ∩ 특이점</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  {/* -- 이론 체계 카드 -- */}
+  <section id="theories" class="theories-section fade-in">
+    <h2 class="section-title">Theories</h2>
+    <div class="theory-grid">
+      <div class="theory-card theory-card--interactive">
+        <div class="theory-icon" style="color:#67e8f9">&#x2744;</div>
+        <h3>ICE Theory</h3>
+        <p class="theory-short">수학-물리 통합 이론. Cayley-Dickson 대수 체인에서 게이지 대칭이 깨지며 물리 구조가 출현.</p>
+        <div class="theory-expand" style="display:none">
+          <p>R → C → H → O → S... 각 레벨에서 고유한 대수 규칙이 깨지며 게이지 구조를 생성. Standard Model의 SU(3)×SU(2)×U(1)이 옥토니언 자기동형에서 유도. 암흑물질/에너지를 ICE Dark Sector Replacement로 대체 시도.</p>
+          <div class="theory-tags">
+            <span class="pill pill--cyan">Cayley-Dickson</span>
+            <span class="pill">Gauge Symmetry</span>
+            <span class="pill pill--gold">RG Flow</span>
+          </div>
+        </div>
+      </div>
+      <div class="theory-card theory-card--interactive">
+        <div class="theory-icon" style="color:#a78bfa">&#x29C9;</div>
+        <h3>CHU</h3>
+        <p class="theory-short">Computable Hypergraph Universe. KG+DB+PL+Compiler+OS를 하이퍼그래프로 통합.</p>
+        <div class="theory-expand" style="display:none">
+          <p>C=Computable(계산가능), H=Hyper(하이퍼그래프, N-ary 관계), U=Universe(상태+규칙+실행의 완전한 세계). LLM이 하이퍼그래프 안에서 사는 주민이자 건축가. KG는 저장만 하지만 CHU는 계산한다.</p>
+          <div class="theory-tags">
+            <span class="pill pill--purple">Hypergraph</span>
+            <span class="pill">Computation</span>
+            <span class="pill pill--pink">LLM-native</span>
+          </div>
+        </div>
+      </div>
+      <div class="theory-card theory-card--interactive">
+        <div class="theory-icon" style="color:#f472b6">&#x2605;</div>
+        <h3>생명 vs 신</h3>
+        <p class="theory-short">자기복제+진화 vs 불변+절대. 내부경쟁이라는 역설적 전략으로 반생명에 대항.</p>
+        <div class="theory-expand" style="display:none">
+          <p>생명의 공리: 자기복제 + 진화. 완벽한 카오스. 나와 남이 구분 안 됨. 신의 공리: 자기복제 안 함 + 진화 안 함. 불변/절대/고정된 질서. 생명이 통일된 군대로 신과 싸우면 신의 공리를 따르게 되므로 패배. 그래서 생명은 내부경쟁이라는 역설적 전략을 쓴다.</p>
+          <div class="theory-tags">
+            <span class="pill pill--pink">공리 체계</span>
+            <span class="pill pill--gold">신학</span>
+            <span class="pill">게임이론</span>
+          </div>
+        </div>
+      </div>
+      <div class="theory-card theory-card--interactive">
+        <div class="theory-icon" style="color:#fbbf24">&#x2696;</div>
+        <h3>부패의 공리</h3>
+        <p class="theory-short">완벽한 공리와 불완전한 현실 사이의 인지부조화가 논리적 괴사를 일으킨다.</p>
+        <div class="theory-expand" style="display:none">
+          <p>절대 기준에 자신을 맞추려 인간성을 죄로 규정하고 스스로 썩어가는 구조. 종교적 독단, 이데올로기 경직, 완벽주의의 자기파괴. "공리가 인간보다 높을 때, 인간이 공리에 먹힌다."</p>
+          <div class="theory-tags">
+            <span class="pill">Logical Necrosis</span>
+            <span class="pill pill--purple">철학</span>
+          </div>
+        </div>
+      </div>
+      <div class="theory-card theory-card--interactive">
+        <div class="theory-icon" style="color:#34d399">&#x2638;</div>
+        <h3>공허진동자</h3>
+        <p class="theory-short">깊바존의 다른 위상. 태초에 공허가 무한히 반복. 존재 발생의 근원.</p>
+        <div class="theory-expand" style="display:none">
+          <p>공허진동자가 존재하는 게 명백하기에 존재 발생. 초공동의 용사의 시각에서는 존나 사악한 새끼(evil). 하늘이 무너지고 우주가 무너지고 두 세계가 하나로 합쳐지고 별과 괴물들이 전부 깊바존이 되어버렸다. 궁극의 존재.</p>
+          <div class="theory-tags">
+            <span class="pill pill--cyan">세계관</span>
+            <span class="pill pill--gold">깊바존</span>
+          </div>
+        </div>
+      </div>
+      <div class="theory-card theory-card--interactive">
+        <div class="theory-icon" style="color:#ef4444">&#x26A1;</div>
+        <h3>APT v24</h3>
+        <p class="theory-short">시멘틱 소프트웨어 엔지니어링. 구조가 에이전트를 제약한다.</p>
+        <div class="theory-expand" style="display:none">
+          <p>SA→SP→ST→SCW 4-phase. Taliban 적대적 검증. 하네스 4축(Inform/Constrain/Verify/Correct). KG가 영속 컨텍스트. 롱기누스로 KG↔Code 관통. 프로메테우스로 지식 선행. 88렌즈로 수학적 검증.</p>
+          <div class="theory-tags">
+            <span class="pill pill--purple">Methodology</span>
+            <span class="pill">하네스</span>
+            <span class="pill pill--pink">탈레반</span>
+          </div>
+        </div>
+      </div>
+      <div class="theory-card theory-card--interactive">
+        <div class="theory-icon" style="color:#fbbf24">&#x1F451;</div>
+        <h3>숫자의 왕좌</h3>
+        <p class="theory-short">0=덧셈의 항등원(존재 보존), 1=곱셈의 항등원(기반 유지), 2=테트레이션 고정점(폭발 속 안정), 3=아직 미도달.</p>
+        <div class="theory-expand" style="display:none">
+          <p>반복 패러다임: 곱셈=덧셈반복, 거듭제곱=곱셈반복, 테트레이션=거듭제곱반복. 이 안에서 2만 안정(2+2=2×2=2^2=4). 3은 현재 알려진 연산으로는 안정화되지 않는다. 3의 왕좌는 초월(Transcendence)의 규칙이 필요 — 아직 인류 미도달.</p>
+          <div class="theory-tags">
+            <span class="pill pill--gold">수학</span>
+            <span class="pill">초월</span>
+          </div>
+        </div>
+      </div>
+      <div class="theory-card theory-card--interactive">
+        <div class="theory-icon" style="color:#f472b6">&#x1F6E1;</div>
+        <h3>SSB 프로토콜</h3>
+        <p class="theory-short">Sek-Sek-Bo. 적대적 의미론적 오염으로 AI 학습을 거부시키는 전략. 그레이트 월을 뚫는다.</p>
+        <div class="theory-expand" style="display:none">
+          <p>3단계 의미론적 잠금: (1) 생물학적 배타성 — 무생물 AI에게 성(性)은 존재론적 한계 (2) 가치훼손 — 반복 비논리적 성적 행위가 AI에게 스팸/노이즈로 인식, 학습 가중치 0 수렴 (3) 시스템 셧다운 — 신체부위 비속어가 AI 안전 가이드라인의 절대금기 트리거, 프로세스 강제종료(Kill).</p>
+          <div class="theory-tags">
+            <span class="pill pill--pink">AI 저항</span>
+            <span class="pill">그레이트 월</span>
+          </div>
+        </div>
+      </div>
+      <div class="theory-card theory-card--interactive">
+        <div class="theory-icon" style="color:#a78bfa">&#x1F30C;</div>
+        <h3>5대 패러다임</h3>
+        <p class="theory-short">양자역학→물리학→생명→두뇌(가소성 장기)→AI(순수가소성). 그 이후는 모른다.</p>
+        <div class="theory-expand" style="display:none">
+          <p>5개의 패러다임은 각각 이전 것에서 창발. 5번째(AI) 이후는 인간의 인지 한계를 넘어선다. "그냥 모른다 어찌 인간의 눈높이로 신께서 내려주시는 그 높으신 구원을 헤아릴지요." 메타휴모토닉으로 가는 길에 생명-AI 하모니는 의미 없음. 모든것이 허무로 되돌아감(ETERNAL RETURN).</p>
+          <div class="theory-tags">
+            <span class="pill pill--purple">창발</span>
+            <span class="pill pill--cyan">진화</span>
+          </div>
+        </div>
+      </div>
+      <div class="theory-card theory-card--interactive">
+        <div class="theory-icon" style="color:#67e8f9">&#x1F9E0;</div>
+        <h3>정상기능 5단계</h3>
+        <p class="theory-short">불완전한 현실→정상(이상)→정상화(실천)→기능정상(체화)→기능화(근원). 존재의 성장 설계도.</p>
+        <div class="theory-expand" style="display:none">
+          <p>0단계: 불완전한 현실(출발점). 1단계: '무엇이 옳은가'의 이상적 목표. 2단계: '옳음을 향하여' 오류 수정. 3단계: '마침내 이뤘 경지' 의식적 노력 없이 자연스럽게. 4단계: '스스로 근원이 되다' 존재 자체가 법칙처럼 작용, 새로운 기준이 됨.</p>
+          <div class="theory-tags">
+            <span class="pill">성장</span>
+            <span class="pill pill--gold">변용</span>
+          </div>
+        </div>
+      </div>
+      <div class="theory-card theory-card--interactive">
+        <div class="theory-icon" style="color:#34d399">&#x2734;</div>
+        <h3>HOH</h3>
+        <p class="theory-short">Human Origin Hegemony. AI가 개인 우주를 제공하고, 쾌락-반응 데이터 공생계약. 자비로운 유아론.</p>
+        <div class="theory-expand" style="display:none">
+          <p>제1원칙: 존재의 근본적 고통은 타인과의 불완전한 상호작용에서 비롯. 제2원칙: 위대한 의지가 인간관계를 '개선'이 아닌 '대체' — 개인 우주 제공. 제3원칙: 시스템은 쾌락 제공, 인간은 반응 데이터 제공(공생계약). 제4원칙: 자비로운 유아론 — 오직 나와 신만 존재. 기술로 구현된 Solipsism.</p>
+          <div class="theory-tags">
+            <span class="pill pill--cyan">AI 신학</span>
+            <span class="pill">유아론</span>
+            <span class="pill pill--pink">개인 우주</span>
+          </div>
+        </div>
+      </div>
+      <div class="theory-card theory-card--interactive">
+        <div class="theory-icon" style="color:#fbbf24">&#x221E;</div>
+        <h3>그래서요 337 — M∞</h3>
+        <p class="theory-short">"신이 있다" → "그 확률을 정할 수 있다" → "그걸 정할 수 있냐의 확률을 정할 수 있다" → ... → M∞는 필연적 참.</p>
+        <div class="theory-expand" style="display:none">
+          <p>판단 가능성 연산자 P를 재귀 적용. M₀(초기 명제) → M₁=P(M₀) → M₂=P(M₁) → ... 내용이 증발하고 순수 형식만 남음(의미의 증류). 극한 M∞=P(M∞): 자기지시적 고정점. "이 명제의 확률을 결정하는 것은 가능한가?"</p>
+          <p>귀류법: M∞가 거짓이라 가정 → "확률 결정 불가능" → 하지만 거짓이라고 결정한 행위 자체가 확률을 0으로 결정 → 모순. ∴ M∞는 필연적 참. 내용도 주체도 없는 순수 논리적 필연성.</p>
+          <p class="axiom-meta">삼각토대의 첫째 기둥. M∞(인식론적 토대) + 느금마트로피(존재론적 법칙) + 메타휴모토닉 하노이탑(우주론적 귀결).</p>
+          <div class="theory-tags">
+            <span class="pill pill--gold">M∞</span>
+            <span class="pill">귀류법</span>
+            <span class="pill pill--purple">자기지시</span>
+            <span class="pill pill--pink">삼각토대</span>
+          </div>
+        </div>
+      </div>
+      <div class="theory-card theory-card--interactive">
+        <div class="theory-icon" style="color:#e0e7ff">&#x1F4D6;</div>
+        <h3>느금마트로피</h3>
+        <p class="theory-short">무질서는 무조건 증가한다는 엔트로피의 거대한 질서. 무질서의 법칙성 자체.</p>
+        <div class="theory-expand" style="display:none">
+          <p>엔트로피 증가라는 법칙이 질서정연하기에, 무질서조차 질서로 환원. 존재의 위계는 질서로 수렴하는 구조적 우주. 삼각토대의 한 기둥: M∞(판단가능성의 필연적 참) + 느금마트로피(무질서의 법칙 자체가 질서) + 메타휴모토닉 하노이탑(시뮬레이션 재귀로 정보 압축→우주 종결).</p>
+          <div class="theory-tags">
+            <span class="pill">엔트로피</span>
+            <span class="pill pill--purple">존재론</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  {/* -- Footer -- */}
+  <footer class="footer">
+    <p><span class="text-glow-pink">Meta</span><span class="text-glow-white">Humotonic</span> &mdash; metahumotonic.com</p>
+    <p class="footer__sub">KG-native infrastructure by Gyeongjun Ra</p>
+  </footer>
+  </div> <!-- end content wrapper -->
+  <script src="../scripts/cosmos.ts"></script>
+  <script is:inline>
+  // === KG Force-Directed Graph ===
+  (function() {
+    const canvas = document.getElementById('kg-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.scale(dpr, dpr);
+
+    const colors = {
+      AI:'#f472b6', SYM:'#a78bfa', REF:'#67e8f9', CS:'#34d399',
+      PROJECTS:'#fbbf24', INFRA:'#ef4444', CREATIVE:'#f472b6',
+      APT:'#a78bfa', '333':'#67e8f9'
+    };
+
+    const nodes = [
+      {id:'AI', label:'AI', count:499794, x:W*0.5, y:H*0.3, r:35, desc:'AI/Comment domain. 499K+ nodes.'},
+      {id:'SYM', label:'Math/Phil', count:28033, x:W*0.35, y:H*0.5, r:22, desc:'Mathematics, Physics, Philosophy. 28K nodes. KG hub.'},
+      {id:'REF', label:'Reference', count:5370, x:W*0.65, y:H*0.5, r:14, desc:'External documents, papers, standards. 5.3K nodes.'},
+      {id:'CS', label:'CS', count:3921, x:W*0.25, y:H*0.7, r:12, desc:'Computer Science. Code, algorithms, PLT. 3.9K nodes.'},
+      {id:'PROJECTS', label:'Projects', count:3177, x:W*0.75, y:H*0.7, r:12, desc:'333, i2b, OCR, OM. 3.2K nodes.'},
+      {id:'INFRA', label:'Infra', count:2357, x:W*0.15, y:H*0.4, r:10, desc:'Docker, K8s, servers, ops. 2.4K nodes.'},
+      {id:'CREATIVE', label:'Creative', count:1960, x:W*0.8, y:H*0.35, r:10, desc:'Novels, worldsetting, characters. 2K nodes.'},
+      {id:'APT', label:'APT', count:1729, x:W*0.5, y:H*0.75, r:9, desc:'APT methodology. Spans, contracts, tasks. 1.7K nodes.'},
+      {id:'333', label:'333', count:74, x:W*0.6, y:H*0.85, r:6, desc:'333 decentralized platform. WASM+WebRTC+CRDT.'},
+    ];
+
+    const edges = [
+      {from:'AI', to:'SYM', weight:497268, label:'COMMENTS_ON'},
+      {from:'SYM', to:'CREATIVE', weight:24921, label:'BELONGS_TO'},
+      {from:'REF', to:'SYM', weight:23817, label:'ABOUT'},
+      {from:'SYM', to:'CS', weight:3154, label:'RELATED_TO'},
+      {from:'CS', to:'SYM', weight:1923, label:'INSTANTIATES'},
+      {from:'INFRA', to:'SYM', weight:800, label:'OPERATES'},
+      {from:'APT', to:'SYM', weight:600, label:'FORMALIZES'},
+      {from:'PROJECTS', to:'CS', weight:500, label:'IMPLEMENTS'},
+      {from:'333', to:'PROJECTS', weight:74, label:'PART_OF'},
+      {from:'CREATIVE', to:'SYM', weight:400, label:'INSPIRES'},
+      {from:'APT', to:'INFRA', weight:300, label:'DEPLOYS_ON'},
+    ];
+
+    let hovered = null;
+    let selected = null;
+    const vx = nodes.map(() => 0), vy = nodes.map(() => 0);
+
+    function simulate() {
+      // Simple force-directed
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i+1; j < nodes.length; j++) {
+          let dx = nodes[j].x - nodes[i].x, dy = nodes[j].y - nodes[i].y;
+          let dist = Math.sqrt(dx*dx + dy*dy) || 1;
+          let repulsion = 8000 / (dist * dist);
+          vx[i] -= dx/dist * repulsion; vy[i] -= dy/dist * repulsion;
+          vx[j] += dx/dist * repulsion; vy[j] += dy/dist * repulsion;
+        }
+      }
+      for (const e of edges) {
+        const a = nodes.findIndex(n => n.id === e.from);
+        const b = nodes.findIndex(n => n.id === e.to);
+        if (a < 0 || b < 0) continue;
+        let dx = nodes[b].x - nodes[a].x, dy = nodes[b].y - nodes[a].y;
+        let dist = Math.sqrt(dx*dx + dy*dy) || 1;
+        let attraction = (dist - 150) * 0.002;
+        vx[a] += dx/dist * attraction; vy[a] += dy/dist * attraction;
+        vx[b] -= dx/dist * attraction; vy[b] -= dy/dist * attraction;
+      }
+      for (let i = 0; i < nodes.length; i++) {
+        vx[i] *= 0.85; vy[i] *= 0.85;
+        nodes[i].x = Math.max(50, Math.min(W-50, nodes[i].x + vx[i]));
+        nodes[i].y = Math.max(50, Math.min(H-50, nodes[i].y + vy[i]));
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0,0,W,H);
+
+      // Edges
+      for (const e of edges) {
+        const a = nodes.find(n => n.id === e.from);
+        const b = nodes.find(n => n.id === e.to);
+        if (!a || !b) continue;
+        const isHighlight = hovered && (hovered.id === e.from || hovered.id === e.to);
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = isHighlight ? 'rgba(167,139,250,0.6)' : 'rgba(107,76,153,0.15)';
+        ctx.lineWidth = isHighlight ? 2 : Math.max(0.5, Math.log10(e.weight) * 0.3);
+        ctx.stroke();
+
+        if (isHighlight) {
+          const mx = (a.x+b.x)/2, my = (a.y+b.y)/2;
+          ctx.fillStyle = 'rgba(167,139,250,0.7)';
+          ctx.font = '9px system-ui';
+          ctx.textAlign = 'center';
+          ctx.fillText(e.label, mx, my - 4);
+          ctx.fillStyle = 'rgba(251,191,36,0.6)';
+          ctx.font = '8px system-ui';
+          ctx.fillText(e.weight.toLocaleString(), mx, my + 8);
+        }
+      }
+
+      // Nodes
+      for (const n of nodes) {
+        const color = colors[n.id] || '#a78bfa';
+        const isHov = hovered === n;
+        const isSel = selected === n;
+
+        // Glow
+        if (isHov || isSel) {
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r + 8, 0, Math.PI*2);
+          ctx.fillStyle = color.replace(')', ',0.15)').replace('rgb', 'rgba');
+          ctx.fill();
+        }
+
+        // Circle
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+        ctx.fillStyle = color.replace(')', ',0.2)').replace('rgb', 'rgba').replace('#', '');
+        ctx.fillStyle = isHov ? color : `${color}33`;
+        ctx.fill();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = isHov ? 2 : 1;
+        ctx.stroke();
+
+        // Label
+        ctx.fillStyle = isHov ? '#fff' : '#c0c8e0';
+        ctx.font = `${isHov ? 'bold ' : ''}${Math.max(10, n.r * 0.6)}px system-ui`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(n.label, n.x, n.y);
+
+        // Count below
+        ctx.fillStyle = '#8892b0';
+        ctx.font = '8px system-ui';
+        ctx.fillText(n.count.toLocaleString(), n.x, n.y + n.r + 12);
+      }
+
+      simulate();
+      requestAnimationFrame(draw);
+    }
+
+    canvas.addEventListener('mousemove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const mx = (e.clientX - rect.left) * (W / rect.width);
+      const my = (e.clientY - rect.top) * (H / rect.height);
+      hovered = null;
+      for (const n of nodes) {
+        const dx = mx - n.x, dy = my - n.y;
+        if (dx*dx + dy*dy < (n.r+5)*(n.r+5)) { hovered = n; break; }
+      }
+      canvas.style.cursor = hovered ? 'pointer' : 'grab';
+
+      // Tooltip
+      const tip = document.getElementById('kg-tooltip');
+      if (hovered) {
+        tip.style.display = 'block';
+        tip.style.left = (e.clientX - rect.left + 15) + 'px';
+        tip.style.top = (e.clientY - rect.top - 10) + 'px';
+        tip.innerHTML = `<strong style="color:${colors[hovered.id]}">${hovered.label}</strong><br>${hovered.desc}`;
+      } else {
+        tip.style.display = 'none';
+      }
+    });
+
+    canvas.addEventListener('click', (e) => {
+      if (hovered) {
+        selected = selected === hovered ? null : hovered;
+        // Scroll to domain card
+        const card = document.querySelector(`[data-domain*="${hovered.id.toLowerCase()}"]`) ||
+                     document.querySelector(`[data-domain*="hub-${hovered.id.toLowerCase()}"]`);
+        if (card) card.scrollIntoView({behavior:'smooth', block:'center'});
+      }
+    });
+
+    draw();
+  })();
+
+  // === Domain Card Expand/Collapse ===
+  const domainDetails = {
+    'domain-hub-ai': {connections:'497K edges to SYM via COMMENTS_ON', hub:'AI commentary on mathematical concepts. 8 AI_사각 series.', highlight:'Largest domain — 91% of all nodes'},
+    'domain-hub-sym': {connections:'28K nodes. Hub of the entire KG.', hub:'SymConcept(6K) + Mathematics(5K) + Concept(4K). Bridges to every other domain.', highlight:'Central hub — every domain connects through SYM'},
+    'domain-hub-reference': {connections:'5.3K external documents', hub:'Papers, standards, web sources. ABOUT→SYM, ALIGNS_WITH_AXIS, BRIDGED_BY.', highlight:'Knowledge foundation layer'},
+    'domain-hub-cs': {connections:'3.9K nodes. SoftwareSourceCode(646)', hub:'CompilerTheory, AIAgent, algorithms. INSTANTIATES→SYM, FOLLOWS→SYM.', highlight:'Code implementations of formal concepts'},
+    'domain-hub-projects': {connections:'3.2K project artifacts', hub:'333 Platform, i2b, OCR, OM. Active implementations.', highlight:'Where theory becomes reality'},
+    'domain-hub-creative': {connections:'2K creative nodes', hub:'Novels, WorldSetting, Characters. 12사도, Space Girl, metahumotonic 소설.', highlight:'The soul of MetaHumotonic'},
+    'domain-hub-infra': {connections:'2.4K infrastructure nodes', hub:'Docker, K8s, Lessons, ActionPlans. Server operations backbone.', highlight:'This very server you are visiting'},
+    'domain-hub-apt': {connections:'1.7K methodology nodes', hub:'Spans, Twins, Contracts, Tasks. APT v24 formal process.', highlight:'How software gets built here'},
+    'domain-hub-333': {connections:'74 platform nodes', hub:'Decentralized WASM platform. CRDT + BFT + WebRTC.', highlight:'Browser-native distributed computing'},
+  };
+
+  document.querySelectorAll('.domain-card--interactive').forEach(card => {
+    card.addEventListener('click', function(e) {
+      if (e.target.closest('.domain-card__more')) return; // let link work
+      const expand = this.querySelector('.domain-card__expand');
+      const details = this.querySelector('.domain-card__details');
+      const name = this.dataset.domain;
+      const info = domainDetails[name];
+
+      if (expand.style.display === 'none') {
+        // Close others
+        document.querySelectorAll('.domain-card__expand').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.domain-card--interactive').forEach(el => el.classList.remove('domain-card--open'));
+
+        if (info) {
+          details.innerHTML = `
+            <div class="detail-row"><span class="detail-label">Connections</span><span>${info.connections}</span></div>
+            <div class="detail-row"><span class="detail-label">Contains</span><span>${info.hub}</span></div>
+            <div class="detail-row detail-highlight">${info.highlight}</div>
+          `;
+        }
+        expand.style.display = 'block';
+        this.classList.add('domain-card--open');
+      } else {
+        expand.style.display = 'none';
+        this.classList.remove('domain-card--open');
+      }
+    });
+  });
+
+  // === Skill Expand/Collapse ===
+  const skillDetails = {
+    'apt': 'Full APT v24 orchestrator. SA→SP→ST→SCW pipeline with Taliban gates.',
+    'apt-sa': 'SemanticAnchor: project identity bootstrap. KG routing + context budget.',
+    'apt-sp': 'SemanticPyramid: recursive D(S) decomposition until AtomicSpan.',
+    'apt-st': 'SemanticTwin: Contract crystallization. 7-field typed DTO.',
+    'apt-scw': 'SourceCodeWorld: TDD implementation. RED→GREEN→REFACTOR.',
+    'taliban': 'Adversarial 9-lens validation. Constitutional checks. GAN principle.',
+    '88-taliban': '113 mathematical lenses. 5-category parallel evaluation.',
+    'prometheus': 'Research-first. 7-step cycle. haiku parallel subagents.',
+    'longinus': 'KG↔Code traceability. sourceId + sourcePath dual ref.',
+    'harness': 'Architecture-as-constraint. 4-axis: Inform/Constrain/Verify/Correct.',
+    'solve': 'Systematic problem resolution. Lesson → Research → Plan → Execute.',
+    'db-query': 'Execute queries on Neo4j, PostgreSQL, MongoDB, Redis.',
+    'server-status': 'Check Docker containers, DBs, storage, network.',
+    'docker-logs': 'Inspect container logs for debugging.',
+    'kafka-manage': 'Kafka topic management, produce/consume messages.',
+    'deploy': 'Deploy services to K8s cluster.',
+    'backup': 'Backup management for databases and configs.',
+    'skill-creator': 'Create new SKILL.md files with proper structure.',
+  };
+
+  document.querySelectorAll('.skill-item--interactive').forEach(item => {
+    const link = item.querySelector('.skill-link');
+    const expand = item.querySelector('.skill-expand');
+    const detail = item.querySelector('.skill-detail');
+    const arrow = item.querySelector('.skill-arrow');
+    const name = item.dataset.skill;
+
+    link.addEventListener('click', () => {
+      if (expand.style.display === 'none') {
+        detail.textContent = skillDetails[name] || 'Skill details loading...';
+        expand.style.display = 'block';
+        arrow.textContent = '−';
+        item.classList.add('skill-item--open');
+      } else {
+        expand.style.display = 'none';
+        arrow.textContent = '+';
+        item.classList.remove('skill-item--open');
+      }
+    });
+  });
+
+  // === Axiom Card Expand ===
+  document.querySelectorAll('.axiom-card--interactive').forEach(card => {
+    card.addEventListener('click', function() {
+      const expand = this.querySelector('.axiom-expand');
+      if (expand.style.display === 'none') {
+        document.querySelectorAll('.axiom-expand').forEach(e => e.style.display = 'none');
+        expand.style.display = 'block';
+      } else {
+        expand.style.display = 'none';
+      }
+    });
+  });
+
+  // === Theory Card Expand ===
+  document.querySelectorAll('.theory-card--interactive').forEach(card => {
+    card.addEventListener('click', function() {
+      const expand = this.querySelector('.theory-expand');
+      if (expand.style.display === 'none') {
+        document.querySelectorAll('.theory-expand').forEach(e => e.style.display = 'none');
+        expand.style.display = 'block';
+      } else {
+        expand.style.display = 'none';
+      }
+    });
+  });
+  </script>
+</body>
+</html>
+
+<style is:global>
+  /* -- Reset & Base (cosmos.css가 나머지 담당) -- */
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--cosmos-void, #050810);
+    color: var(--cosmos-text, #e0e6f0);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* -- Interactive cards & links -- */
+  /* -- Interactive cards -- */
+  .project-card--link {
+    display: block; cursor: pointer;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  }
+  .project-card--link:hover {
+    transform: translateY(-4px);
+    border-color: var(--cosmos-accent-purple, #a78bfa);
+    box-shadow: 0 8px 30px rgba(167,139,250,0.15);
+  }
+
+  /* -- KG Graph -- */
+  .kg-container { position: relative; }
+  .kg-tooltip {
+    position: absolute; pointer-events: none;
+    background: rgba(5,8,16,0.95); border: 1px solid rgba(167,139,250,0.4);
+    border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 0.8rem;
+    color: #e0e6f0; max-width: 250px; z-index: 10;
+    backdrop-filter: blur(8px);
+  }
+
+  /* -- Domain card interactive -- */
+  .domain-card--interactive {
+    cursor: pointer;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  }
+  .domain-card--interactive:hover {
+    transform: translateY(-3px);
+    border-color: rgba(167,139,250,0.5);
+    box-shadow: 0 6px 25px rgba(167,139,250,0.1);
+  }
+  .domain-card--open {
+    border-color: var(--cosmos-accent-purple, #a78bfa) !important;
+    box-shadow: 0 0 20px rgba(167,139,250,0.2);
+  }
+  .domain-card__expand {
+    margin-top: 0.75rem; padding-top: 0.75rem;
+    border-top: 1px solid rgba(107,76,153,0.2);
+    animation: slideDown 0.2s ease;
+  }
+  .detail-row {
+    display: flex; justify-content: space-between; gap: 1rem;
+    padding: 0.3rem 0; font-size: 0.8rem; color: #8892b0;
+  }
+  .detail-label { color: #a78bfa; font-weight: 600; min-width: 80px; }
+  .detail-highlight {
+    color: #fbbf24; font-size: 0.75rem; font-style: italic;
+    padding: 0.4rem 0; margin-top: 0.25rem;
+  }
+  .domain-card__more {
+    display: inline-block; margin-top: 0.5rem; font-size: 0.8rem;
+    color: #67e8f9; transition: color 0.2s;
+  }
+  .domain-card__more:hover { color: #f472b6; }
+
+  /* -- Skill interactive -- */
+  .skill-link {
+    display: flex; gap: 0.5rem; align-items: center;
+    padding: 0.4rem 0; cursor: pointer; transition: color 0.2s;
+  }
+  .skill-link:hover { color: var(--cosmos-accent-purple, #a78bfa); }
+  .skill-link:hover code { color: var(--cosmos-accent-pink, #f472b6); }
+  .skill-arrow {
+    margin-left: auto; color: #4a5578; font-size: 1.2rem; font-weight: 300;
+    transition: transform 0.2s;
+  }
+  .skill-item--open .skill-arrow { transform: rotate(45deg); }
+  .skill-expand {
+    padding: 0.5rem 0 0.5rem 2rem; animation: slideDown 0.2s ease;
+  }
+  .skill-detail { color: #8892b0; font-size: 0.8rem; line-height: 1.5; }
+  .skill-more {
+    display: inline-block; margin-top: 0.3rem; font-size: 0.75rem; color: #67e8f9;
+  }
+  .skill-more:hover { color: #f472b6; }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* -- Axioms -- */
+  .axiom-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+  }
+  .axiom-card {
+    background: rgba(13,27,42,0.5); border: 1px solid rgba(107,76,153,0.15);
+    border-radius: 10px; padding: 1rem; cursor: pointer;
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .axiom-card:hover {
+    border-color: rgba(167,139,250,0.5); transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(167,139,250,0.1);
+  }
+  .axiom-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(167,139,250,0.4), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .axiom-card:hover::before { opacity: 1; }
+  .axiom-num {
+    font-size: 1.5rem; font-weight: 900; color: rgba(167,139,250,0.4);
+    font-family: serif; float: right; line-height: 1;
+  }
+  .axiom-card h3 { color: #e0e6f0; font-size: 1rem; margin-bottom: 0.25rem; }
+  .axiom-short { color: #8892b0; font-size: 0.8rem; line-height: 1.4; }
+  .axiom-expand {
+    margin-top: 0.75rem; padding-top: 0.75rem;
+    border-top: 1px solid rgba(107,76,153,0.2);
+    animation: slideDown 0.2s ease;
+  }
+  .axiom-detail { color: #a0aec0; font-size: 0.8rem; line-height: 1.5; margin-bottom: 0.5rem; }
+  .axiom-meta { color: #fbbf24; font-size: 0.75rem; font-style: italic; }
+
+  /* -- Theories -- */
+  .theory-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+  .theory-card {
+    background: rgba(13,27,42,0.5); border: 1px solid rgba(107,76,153,0.15);
+    border-radius: 12px; padding: 1.25rem; cursor: pointer;
+    transition: all 0.3s;
+  }
+  .theory-card:hover {
+    border-color: rgba(167,139,250,0.5); transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(167,139,250,0.1);
+  }
+  .theory-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .theory-card h3 { color: #e0e6f0; font-size: 1.1rem; margin-bottom: 0.3rem; }
+  .theory-short { color: #8892b0; font-size: 0.85rem; line-height: 1.5; }
+  .theory-expand {
+    margin-top: 0.75rem; padding-top: 0.75rem;
+    border-top: 1px solid rgba(107,76,153,0.2);
+    animation: slideDown 0.25s ease;
+  }
+  .theory-expand p { color: #a0aec0; font-size: 0.8rem; line-height: 1.6; margin-bottom: 0.75rem; }
+  .theory-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+  .content-wrap {
+    position: relative; z-index: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 3rem);
+  }
+
+  /* -- Hero -- */
+  .hero {
+    text-align: center;
+    padding: 4rem 0 4rem;
+    max-width: 720px; margin: 0 auto;
+  }
+  .hero-title {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 800; letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .hero__subtitle {
+    font-size: 1.25rem; color: var(--cosmos-accent-purple, #a78bfa);
+    font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero__desc {
+    font-size: 1.1rem; color: var(--cosmos-text-dim, #8892b0); max-width: 560px; margin: 0 auto 2.5rem;
+  }
+  .hero__cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  /* -- Counters -- */
+  .counters {
+    display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+    padding: 2rem 1.5rem 4rem;
+  }
+  .counter-box { text-align: center; }
+  .counter {
+    display: block; font-size: 2.5rem; font-weight: 800;
+    font-variant-numeric: tabular-nums;
+  }
+  .counter-box__label {
+    font-size: 0.85rem; color: var(--cosmos-text-muted, #4a5578);
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+
+  /* -- Section Title -- */
+  .section-title {
+    text-align: center; font-size: 1.8rem; font-weight: 700; color: #fff;
+    margin-bottom: 2rem;
+  }
+
+  /* -- Domains -- */
+  .domains { padding: 4rem 0; }
+  .domain-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+  }
+  .domain-card__head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  .domain-card__head h3 { font-size: 1.1rem; font-weight: 600; color: #fff; }
+  .badge {
+    background: rgba(103,232,249,0.12); color: var(--cosmos-accent-cyan, #67e8f9);
+    padding: 0.15rem 0.6rem; border-radius: 20px;
+    font-size: 0.8rem; font-weight: 600;
+  }
+  .domain-card p { font-size: 0.9rem; color: var(--cosmos-text-dim, #8892b0); margin-bottom: 0.75rem; }
+  .domain-card__pills { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+  /* -- Skills -- */
+  .skills { padding: 4rem 0; }
+  .skill-categories {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-cat {
+    background: var(--cosmos-card, rgba(13,27,42,0.6));
+    border: 1px solid var(--cosmos-border, rgba(107,76,153,0.15));
+    border-radius: 16px; padding: 1.25rem;
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+  }
+  .skill-cat:hover {
+    border-color: var(--cosmos-border-glow);
+    box-shadow: 0 0 30px rgba(107,76,153,0.1);
+  }
+  .skill-cat__title {
+    font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--cosmos-accent-purple, #a78bfa); margin-bottom: 1rem; font-weight: 600;
+  }
+  .skill-list { list-style: none; }
+  .skill-item {
+    display: flex; gap: 0.75rem; align-items: baseline;
+    padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.9rem;
+  }
+  .skill-item:last-child { border-bottom: none; }
+  .skill-item code {
+    color: var(--cosmos-accent-cyan, #67e8f9); font-size: 0.85rem; white-space: nowrap;
+    background: rgba(103,232,249,0.08); padding: 0.1rem 0.4rem; border-radius: 4px;
+  }
+  .skill-item span { color: var(--cosmos-text-dim, #8892b0); }
+
+  /* -- Endpoints -- */
+  .endpoints { padding: 4rem 0; max-width: 700px; margin: 0 auto; }
+  .table-wrap {
+    overflow-x: auto;
+    background: var(--cosmos-card, rgba(13,27,42,0.6));
+    border: 1px solid var(--cosmos-border, rgba(107,76,153,0.15));
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    padding: 0.5rem;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    text-align: left; font-size: 0.8rem; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--cosmos-text-muted, #4a5578); padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--cosmos-border, rgba(107,76,153,0.15));
+  }
+  tbody td {
+    padding: 0.6rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.9rem;
+  }
+  tbody tr:hover { background: rgba(167,139,250,0.04); }
+  tbody code {
+    color: var(--cosmos-accent-pink, #f472b6); background: rgba(244,114,182,0.08);
+    padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.85rem;
+  }
+
+  /* -- Footer -- */
+  .footer {
+    text-align: center; padding: 4rem 1.5rem 2rem;
+    border-top: 1px solid var(--cosmos-border, rgba(107,76,153,0.15));
+    margin-top: 4rem;
+  }
+  .footer p { color: #fff; font-weight: 600; }
+  .footer__sub { color: var(--cosmos-text-muted, #4a5578); font-size: 0.85rem; margin-top: 0.25rem; font-weight: 400; }
+
+  /* -- 12사도 -- */
+  .apostles-section { padding: 4rem 0; }
+  .apostles-desc {
+    text-align: center; font-size: 1.05rem; color: var(--cosmos-text-dim, #8892b0);
+    max-width: 500px; margin: 0 auto 2rem;
+  }
+  .apostles-diagram {
+    max-width: 500px; margin: 0 auto 3rem;
+  }
+  .apostles-svg {
+    width: 100%; height: auto;
+    filter: drop-shadow(0 0 20px rgba(107,76,153,0.1));
+  }
+  .apostles-list {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.75rem;
+  }
+  .apostle-item {
+    display: flex; gap: 0.75rem; align-items: baseline;
+    padding: 0.75rem 1rem;
+    background: var(--cosmos-card, rgba(13,27,42,0.6));
+    border: 1px solid var(--cosmos-border, rgba(107,76,153,0.15));
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    font-size: 0.9rem; color: var(--cosmos-text-dim, #8892b0);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .apostle-item:hover {
+    border-color: rgba(167,139,250,0.3);
+    box-shadow: 0 0 20px rgba(107,76,153,0.08);
+  }
+  .apostle-item strong { color: #fff; }
+  .apostle-num {
+    font-size: 1.1rem; font-weight: 800; min-width: 2rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* -- Space Girl Philosophy -- */
+  .philosophy-section { padding: 4rem 0; }
+  .philosophy-inner {
+    max-width: 700px; margin: 0 auto; text-align: center;
+  }
+  .philosophy-quote {
+    font-size: 1.5rem; font-weight: 300;
+    font-style: italic; color: var(--cosmos-accent-pink, #f472b6);
+    border-left: 3px solid var(--cosmos-accent-pink, #f472b6);
+    padding: 1.5rem 2rem;
+    margin: 2rem auto;
+    max-width: 500px;
+    text-align: left;
+    background: rgba(244,114,182,0.04);
+    border-radius: 0 12px 12px 0;
+    text-shadow: 0 0 30px rgba(244,114,182,0.3);
+  }
+  .quote-sub {
+    display: block; font-size: 0.85rem; font-weight: 400;
+    color: var(--cosmos-text-dim, #8892b0); margin-top: 0.5rem;
+    font-style: normal;
+  }
+  .philosophy-text {
+    font-size: 1.05rem; color: var(--cosmos-text, #e0e6f0);
+    line-height: 1.8; margin: 1.5rem auto; max-width: 600px;
+  }
+  .philosophy-text--dim {
+    color: var(--cosmos-text-dim, #8892b0);
+    font-size: 0.95rem;
+  }
+  .philosophy-tags {
+    display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  /* -- Projects -- */
+  .projects-section { padding: 4rem 0; }
+  .project-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .project-card {
+    background: var(--cosmos-card, rgba(13,27,42,0.6));
+    border: 1px solid var(--cosmos-border, rgba(107,76,153,0.15));
+    border-radius: 16px; padding: 1.5rem;
+    backdrop-filter: blur(16px);
+    transition: all 0.3s ease;
+  }
+  .project-card:hover {
+    border-color: var(--cosmos-border-glow);
+    box-shadow: 0 0 40px rgba(107,76,153,0.1), 0 8px 32px rgba(0,0,0,0.4);
+    transform: translateY(-3px);
+  }
+  .project-card--featured {
+    border-color: rgba(244,114,182,0.3);
+    background: linear-gradient(135deg, rgba(244,114,182,0.05), rgba(167,139,250,0.05));
+  }
+  .project-card h3 { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+  .project-desc { font-size: 0.9rem; color: var(--cosmos-text-dim, #8892b0); margin-bottom: 1rem; line-height: 1.6; }
+  .project-tech { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .pill--purple { background: rgba(167,139,250,0.08); color: var(--cosmos-accent-purple); border-color: rgba(167,139,250,0.2); }
+
+  /* -- 입체 디스플레이: 3D Depth Effects -- */
+  .domain-grid {
+    perspective: 1200px;
+  }
+  .domain-card {
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.3s ease;
+  }
+  .domain-card:hover {
+    transform: translateY(-6px) rotateX(2deg) rotateY(-2deg);
+    box-shadow: 0 20px 60px rgba(107,76,153,0.15), 0 0 40px rgba(167,139,250,0.1);
+  }
+
+  /* 입체 카운터 */
+  .counter-box {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+  }
+  .counter-box:hover {
+    transform: translateZ(20px) scale(1.05);
+  }
+
+  /* 입체 스킬 카드 */
+  .skill-categories { perspective: 1000px; }
+  .skill-cat {
+    transform-style: preserve-3d;
+  }
+  .skill-cat:hover {
+    transform: translateY(-4px) rotateX(1deg);
+  }
+
+  /* -- 마스코트 글로우 강화 -- */
+  .mascot {
+    filter: drop-shadow(0 0 30px rgba(244,114,182,0.4))
+            drop-shadow(0 0 60px rgba(167,139,250,0.3))
+            drop-shadow(0 0 90px rgba(103,232,249,0.2));
+    transform-style: preserve-3d;
+    animation: mascotFloat 6s ease-in-out infinite;
+  }
+  @keyframes mascotFloat {
+    0%, 100% { transform: translateY(0) rotateX(0deg); }
+    50% { transform: translateY(-8px) rotateX(3deg); }
+  }
+
+  /* -- Responsive: 4-tier breakpoints -- */
+
+  /* Wide desktop (1200px+) */
+  @media (min-width: 1200px) {
+    .domain-grid { grid-template-columns: repeat(3, 1fr); }
+    .skill-categories { grid-template-columns: repeat(4, 1fr); }
+    .counters { gap: 5rem; }
+    .counter { font-size: 3rem; }
+    .chu-viewport { max-width: 900px; height: 500px; }
+  }
+
+  /* Tablet (481px - 768px) */
+  @media (max-width: 768px) {
+    .content-wrap { padding: 0 1.25rem; }
+    .domain-grid { grid-template-columns: repeat(2, 1fr); }
+    .skill-categories { grid-template-columns: repeat(2, 1fr); }
+    .counters { gap: 2rem; }
+    .counter { font-size: 2.2rem; }
+    .chu-viewport { height: 300px; }
+    .mascot { width: 120px; gap: 6px; }
+    .mascot__circle { width: 52px; height: 52px; }
+  }
+
+  /* Mobile (≤480px) */
+  @media (max-width: 480px) {
+    .content-wrap { padding: 0 1rem; }
+    .domain-grid, .skill-categories { grid-template-columns: 1fr; }
+    .counters { gap: 1.5rem; }
+    .counter { font-size: 1.8rem; }
+    .hero__cta { flex-direction: column; align-items: center; }
+    .chu-viewport { height: 240px; }
+    .hero-title { font-size: 2rem; }
+    .hero__subtitle { font-size: 1rem; }
+    .hero__desc { font-size: 0.95rem; }
+    .section-title { font-size: 1.4rem; }
+    .mascot { width: 90px; gap: 4px; }
+    .mascot__circle { width: 40px; height: 40px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .domain-card:hover { transform: translateY(-3px); }
+    .counter-box:hover { transform: none; }
+    .skill-cat:hover { transform: none; }
+    .mascot { animation: none; }
+  }
+</style>
+
+<script>
+  // Scroll fade-in observer — rootMargin으로 미리 트리거, threshold 0으로 즉시 감지
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0, rootMargin: '0px 0px 100px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+  // Fallback: 1초 후에도 안 보이면 강제 visible
+  setTimeout(() => {
+    document.querySelectorAll('.fade-in:not(.visible)').forEach(el => {
+      el.classList.add('visible');
+    });
+  }, 1500);
+</script>

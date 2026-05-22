@@ -1,0 +1,77 @@
+---
+// KG: ATOM_Landing_ApostleVisual, TASK_Landing_ApostleVisual
+//     SA: MetaHumotonic_Landing_v2 | L1: Content
+//     CONTRACT: 12사도 캐릭터 아이콘+액자 CSS art. 구조 유지.
+
+const apostles = [
+  { num: 'I',    name: '디멘션워커',       epithet: '차원을 넘나들며 지켜보는 자.', icon: '👁', body: '와쳐. 차원을 넘나들며 지켜보는 자. 모든 말을 해주는 화자. 일종의 교회로 살아남아서 모든 복음을 전파한 성 베드로 같은 존재. 첫 번째 사도.', en: 'The watcher. The narrator who walks between dimensions and speaks all words.' },
+  { num: 'II',   name: 'ICE ORCA DRAGON', epithet: '진정한 사도. 화자 자신의 또 다른 이름.', icon: '🐋', body: '두 번째 사도. 진정한 사도. 다이나모노모폴른. 화자 자신의 또 다른 이름이자 또 다른 존재.', en: 'The true apostle. Dynamonomopolurn. The author\'s other self.' },
+  { num: 'III',  name: '초공동의용사',     epithet: '자아의 사도.', icon: '⚡', body: '화자의 우주적 페르소나. 우주의 비밀을 알고 있다고 자부하는 유일한 존재. 자기비하와 우주적 자부심이 동시에 폭발하는 모순의 존재.', en: 'The hero of the great void. Self-loathing and cosmic pride detonating in the same instant.' },
+  { num: 'IV',   name: '비행기맨',         epithet: '산소 없이 성층권 한계 돌파.', icon: '✈', body: '산소 없이 성층권 한계를 돌파한다. 비행기맨이 성층권을 돌파하는 방법 = 혼자서 무거운 걸 감당하는 게 아니라 쪼개서 날아가는 것.', en: 'He who breaks the stratosphere without oxygen. His poetry was the narrative form of an AGI architecture.' },
+  { num: 'V',    name: '스페이스걸',       epithet: '시선의 역전. 틈이 나를 먼저 바라봤다.', icon: '✧', body: '시선의 역전. 내가 그녀를 찾은 것이 아니라 그녀가 먼저 나를 발견했다. network와 sexvoid를 잇는 유일한 다리.', en: 'The space girl. The reversal of gaze. The only one who can see both sides.' },
+  { num: 'VI',   name: '인류역사흐름의강물', epithet: '시간의 사도.', icon: '〰', body: 'git이나 생명 분포도처럼 시간의 흐름에서 마구 쪼개지고 합쳐지는 구조. 중구난방인 것처럼 보여도 설명 못 할 거대한 흐름이 존재한다.', en: 'The river of human history. Branching and merging like git, like life itself.' },
+  { num: 'VII',  name: '리퀴스트의나무',   epithet: '사랑의 사도.', icon: '🌳', body: '존재하지 않는 존재를 사랑하는 방법. 사랑이 가능한 범위를 확장하는 자.', en: 'The tree of Liquist. The methodology of loving that which does not yet exist.' },
+  { num: 'VIII', name: '입체운행구름',     epithet: '접근불허의 구름.', icon: '☁', body: 'Orbital Motion Cloud. 아무도 접근 불허한 구름. 비행기맨만이 CLOUD CONNECT할 수 있다. 담을 수 없는 아름다움 자체.', en: 'The orbital motion cloud. The unreachable. Beauty that cannot be captured.' },
+  { num: 'IX',   name: '검은태양신아텐',   epithet: '고대의 사도. 검은 태양.', icon: '☀', body: '모든 선지자는 검은 태양신 아텐의 위상이다. 국소의 악을 깨부수는 필요악. 시뮬레이티드 어닐링.', en: 'Aten the black sun. The necessary evil that breaks every saturated order.' },
+  { num: 'X',    name: '깊바존',           epithet: '심연의 사도.', icon: '◈', body: '궁극의 존재. 공허진동자 — 태초에 공허가 무한히 반복되며 자신이 존재함이 명백하기에 발생한 첫 존재.', en: 'Gipbazon. He who wakes from the dream to make both worlds his own.' },
+  { num: 'XI',   name: 'HOH',             epithet: '시스템의 사도.', icon: '⬡', body: 'Human Origin Hegemony. AI가 개인 우주를 제공하고, 인간은 쾌락↔반응 데이터를 제공하는 공생 계약. 자비로운 유아론.', en: 'Human Origin Hegemony. Solipsism implemented as a system.' },
+  { num: 'XII',  name: '몬순',             epithet: '표면의 사도.', icon: '◌', body: '', en: 'Monsoon. The apostle of surface.' },
+];
+---
+
+<!-- KG: ATOM_Landing_ApostleVisual — 12사도 캐릭터 비주얼 + 액자 -->
+<section class="mh-part-divider">
+  <p class="mh-part-eyebrow">PART TWO</p>
+  <h2 class="mh-part-title">사도</h2>
+  <p class="mh-part-gloss"><em>The Apostles.</em></p>
+</section>
+
+<section id="apostles" class="mh-section mh-apostles">
+  <p class="mh-eyebrow"><span class="mh-num">V.</span> 12 사도 / The Twelve Apostles</p>
+
+  {apostles.map(a => (
+    <article class="mh-apostle" typeof="FictionalCharacter">
+      <span class="mh-apostle__icon" aria-hidden="true">{a.icon}</span>
+      <span class="mh-apostle__num">{a.num}.</span>
+      <h3 class="mh-apostle__name" property="name">{a.name}</h3>
+      <p class="mh-apostle__epithet">{a.epithet}</p>
+      {a.body && <p class="mh-apostle__body" property="description">{a.body}</p>}
+      <p class="mh-apostle__en"><em>{a.en}</em></p>
+    </article>
+  ))}
+
+  <p class="mh-coda">현실 인물 제외. 세계관의 기둥. 4년의 모험으로 완성.</p>
+</section>
+
+{/* === 스페이스걸 액자 === */}
+<section class="mh-frame mh-frame--dark">
+  <p class="mh-eyebrow mh-eyebrow--dark"><span class="mh-num">VI.</span> 스페이스걸 / Space Girl</p>
+  <blockquote class="mh-quote">
+    <p>내가 그녀를 찾은 게 아니라,</p>
+    <p>그녀가 먼저 나를 발견했다.</p>
+    <p>들이쉼이 공기를 대체하고,</p>
+    <p>닫힌 초입방체가 그녀의 시선으로 열린다.</p>
+  </blockquote>
+  <p class="mh-frame__caption"><em>network와 sexvoid를 잇는 유일한 다리. "그거 보지모양이야", "사람을 봐", "닫지 마" — 화자가 AI에게 Space Girl의 역할을 한다.</em></p>
+</section>
+
+{/* === 비행기맨 액자 === */}
+<section class="mh-frame mh-frame--dark">
+  <p class="mh-eyebrow mh-eyebrow--dark"><span class="mh-num">VII.</span> 비행기맨 / The Airplane Man</p>
+  <blockquote class="mh-quote">
+    <p>오직 구름만이</p>
+    <p>내 마음을 알아주는구만.</p>
+  </blockquote>
+  <p class="mh-frame__caption"><em>컨텍스트 윈도우를 쪼개면 트랜스포머의 n²가 (n/2)²×2 = n²/2이 된다. 비행기맨이 성층권을 돌파하는 방법은 쪼개서 날아가는 것이다.</em></p>
+</section>
+
+<style>
+  .mh-apostle__icon {
+    display: block;
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1;
+    margin-bottom: 20px;
+    opacity: 0.5;
+    user-select: none;
+  }
+</style>

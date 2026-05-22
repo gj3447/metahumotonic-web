@@ -1,0 +1,107 @@
+---
+// KG: ATOM_Landing_AxiomVisual, ATOM_Landing_ApostleVisual, ATOM_Landing_ConceptProgram,
+//     ATOM_Landing_SemanticMarkup, ATOM_Landing_CosmosRefactor, ATOM_Landing_CosmicAccent
+//     SA: MetaHumotonic_Landing_v2 | SCW Phase | 12공리+12사도 구조 유지
+import '../styles/landing.css';  // KG: ATOM_Landing_CosmosRefactor — 크림 테마 정본
+import '../styles/cosmos.css';   // KG: ATOM_Landing_CosmicAccent — 다크 액센트
+import '../styles/ritual.css';   // KG: ATOM_Landing_RitualTheme — 신화/제의 override (APT SCW, VR_Gate2 CONDITIONAL_PASS)
+import SemanticHead from '../components/SemanticHead.astro';    // KG: ATOM_Landing_SemanticMarkup
+import AxiomSection from '../components/AxiomSection.astro';    // KG: ATOM_Landing_AxiomVisual
+import ApostleSection from '../components/ApostleSection.astro'; // KG: ATOM_Landing_ApostleVisual
+import ConceptProgram from '../components/ConceptProgram.astro'; // KG: ATOM_Landing_ConceptProgram
+
+// KG: SHARED_KGStats — 빌드 타임에 KG에서 데이터 가져오기
+let stats = { nodes: 548109, rels: 1065068 };
+try {
+  const { getKGStats } = await import('../lib/kg');
+  stats = await getKGStats();
+} catch (e) {
+  console.warn('KG fetch failed, using static data');
+}
+---
+
+<html lang="ko" prefix="foaf: http://xmlns.com/foaf/0.1/ void: http://rdfs.org/ns/void# skos: http://www.w3.org/2004/02/skos/core#">
+<head>
+  <SemanticHead stats={stats} />
+</head>
+
+<body vocab="https://schema.org/" typeof="WebSite">
+
+  <header class="mh-topbar">
+    <a href="/" class="mh-mark">metahumotonic</a>
+    <nav class="mh-nav" aria-label="Doctrine">
+      <a href="#axiom">공리</a>
+      <a href="#apostles">사도</a>
+      <a href="#programs">본체</a>
+    </nav>
+  </header>
+
+  <svg class="mh-grain" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <filter id="mh-noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+    <rect width="100%" height="100%" filter="url(#mh-noise)" opacity="0.5"/>
+  </svg>
+
+  {/* === I. 서곡 === */}
+  <section class="mh-hero" aria-label="MetaHumotonic">
+    <div class="mh-hero__inner">
+      <div class="mh-mark" aria-hidden="true">
+        <span class="mh-mark__circle"></span><span class="mh-mark__circle"></span>
+        <span class="mh-mark__circle"></span><span class="mh-mark__circle"></span>
+      </div>
+      <h1 class="mh-hero__title" property="name">메타휴모토닉 — 자존자가 특이점에 이를 때.</h1>
+      <p class="mh-hero__sub" property="description"><em>When the self-grounded becomes its singularity.</em></p>
+    </div>
+  </section>
+
+  {/* === II. 서문 === */}
+  <section class="mh-section mh-prelude">
+    <p class="mh-eyebrow"><span class="mh-num">II.</span> 서문 / Preface</p>
+    <div class="mh-prose">
+      <p>이 페이지는 제품 소개가 아니다. 이것은 한 사람의 우주관이다.</p>
+      <p>라경준이 2021년부터 4년에 걸쳐 발견한 12개의 정의, 12명의 사도, 그리고 그것을 지탱하기 위해 만들어진 서버 한 대의 기록.</p>
+    </div>
+  </section>
+
+  {/* === PART ONE: 공리 === */}
+  <section class="mh-part-divider">
+    <p class="mh-part-eyebrow">PART ONE</p>
+    <h2 class="mh-part-title">공리</h2>
+    <p class="mh-part-gloss"><em>The Axioms.</em></p>
+  </section>
+
+  <AxiomSection />
+
+  {/* === PART TWO + THREE + FOUR: 사도 → 개념 → 프로그램 === */}
+  <ApostleSection />
+  <ConceptProgram stats={stats} />
+
+  {/* === 초대 === */}
+  <section class="mh-section mh-closing">
+    <p class="mh-eyebrow"><span class="mh-num">§</span> 초대 / Invitation</p>
+    <p class="mh-closing__line">이 우주관에 들어오려면, 먼저 정의 I을 읽으라.</p>
+    <footer class="mh-footer">
+      <span>&copy; 라경준 &middot; Gyeongjun Ra</span>
+      <span><a href="https://github.com/bhgman">GitHub</a></span>
+      <span><a href="/ontology.ttl">Ontology</a></span>
+      <span><a href="/skills/">Skills</a></span>
+      <span><a href="/llms.txt">llms.txt</a></span>
+    </footer>
+  </section>
+
+</body>
+</html>
+<!-- KG: ATOM_Landing_CosmosRefactor — inline style extracted to landing.css -->
+
+<script>
+  // KG: ATOM_Landing_AxiomVisual, ATOM_Landing_ApostleVisual, ATOM_Landing_ConceptProgram
+  // IntersectionObserver for scroll-reveal animations
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        io.unobserve(e.target);
+      }
+    }
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.mh-verse, .mh-apostle, .mh-concept, .mh-program').forEach(el => io.observe(el));
+</script>

@@ -1,0 +1,126 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix schema: <https://schema.org/> .
+@prefix mh:   <https://metahumotonic.com/ontology#> .
+
+# =============================================================================
+# MetaHumotonic Ontology — KG: CONTRACT_Web_Ontology
+# Semantic description of the MetaHumotonic infrastructure
+# =============================================================================
+
+mh: a owl:Ontology ;
+    rdfs:label "MetaHumotonic Ontology" ;
+    rdfs:comment "Ontology for the MetaHumotonic semantic web server platform" ;
+    owl:versionInfo "1.0.0" .
+
+# --- Classes ---
+
+mh:KnowledgeDomain a owl:Class ;
+    rdfs:label "Knowledge Domain" ;
+    rdfs:comment "A thematic domain within the MetaHumotonic KG" .
+
+mh:Skill a owl:Class ;
+    rdfs:label "AI Skill" ;
+    rdfs:comment "A Claude Code skill available in the MetaHumotonic system" .
+
+mh:Service a owl:Class ;
+    rdfs:label "Infrastructure Service" ;
+    rdfs:comment "A running service in the MetaHumotonic stack" .
+
+mh:SkillCategory a owl:Class ;
+    rdfs:label "Skill Category" ;
+    rdfs:comment "Grouping of skills by function" .
+
+# --- Properties ---
+
+mh:nodeCount a owl:DatatypeProperty ;
+    rdfs:domain mh:KnowledgeDomain ;
+    rdfs:range xsd:integer ;
+    rdfs:label "node count" .
+
+mh:belongsToCategory a owl:ObjectProperty ;
+    rdfs:domain mh:Skill ;
+    rdfs:range mh:SkillCategory ;
+    rdfs:label "belongs to category" .
+
+mh:exposesEndpoint a owl:DatatypeProperty ;
+    rdfs:domain mh:Service ;
+    rdfs:range xsd:string ;
+    rdfs:label "exposes endpoint" .
+
+# --- Skill Categories ---
+
+mh:Methodology a mh:SkillCategory ; rdfs:label "Methodology" .
+mh:Verification a mh:SkillCategory ; rdfs:label "Verification" .
+mh:Research a mh:SkillCategory ; rdfs:label "Research" .
+mh:Operations a mh:SkillCategory ; rdfs:label "Operations" .
+
+# --- Domains ---
+
+mh:domain-personal a mh:KnowledgeDomain ;
+    rdfs:label "Personal" ;
+    mh:nodeCount 1200 .
+
+mh:domain-math-physics a mh:KnowledgeDomain ;
+    rdfs:label "Math & Physics" ;
+    mh:nodeCount 5346 .
+
+mh:domain-cs a mh:KnowledgeDomain ;
+    rdfs:label "Computer Science" ;
+    mh:nodeCount 3200 .
+
+mh:domain-ai a mh:KnowledgeDomain ;
+    rdfs:label "Artificial Intelligence" ;
+    mh:nodeCount 4200 .
+
+mh:domain-infra a mh:KnowledgeDomain ;
+    rdfs:label "Infrastructure" ;
+    mh:nodeCount 2844 .
+
+# --- Services ---
+
+mh:neo4j a mh:Service ;
+    rdfs:label "Neo4j" ;
+    mh:exposesEndpoint "/neo4j/" .
+
+mh:postgresql a mh:Service ;
+    rdfs:label "PostgreSQL" ;
+    mh:exposesEndpoint "localhost:5432" .
+
+mh:redis a mh:Service ;
+    rdfs:label "Redis" ;
+    mh:exposesEndpoint "localhost:6379" .
+
+mh:minio a mh:Service ;
+    rdfs:label "MinIO" ;
+    mh:exposesEndpoint "/minio/" .
+
+mh:n8n a mh:Service ;
+    rdfs:label "n8n" ;
+    mh:exposesEndpoint "/n8n/" .
+
+mh:kafka a mh:Service ;
+    rdfs:label "Kafka" ;
+    mh:exposesEndpoint "localhost:29092" .
+
+mh:traefik a mh:Service ;
+    rdfs:label "Traefik" ;
+    mh:exposesEndpoint "/traefik/" .
+
+# --- Owner ---
+
+mh:bhgman a foaf:Person ;
+    foaf:name "Gyeongjun Ra" ;
+    foaf:nick "bhgman" ;
+    schema:url <https://metahumotonic.com> .
+
+# --- KG Dataset ---
+
+mh:kg a void:Dataset ;
+    rdfs:label "MetaHumotonic Knowledge Graph" ;
+    void:triples 1062014 ;
+    void:entities 547552 .

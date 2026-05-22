@@ -1,0 +1,115 @@
+---
+// KG: ATOM_Landing_ConceptProgram, TASK_Landing_ConceptProgram
+//     SA: MetaHumotonic_Landing_v2 | L1: Content
+//     CONTRACT: 개념 다이어그램 + 프로그램 KG 라이브 통계. SharedType: KGStats, DomainColorMap.
+
+interface Props {
+  stats: { nodes: number; rels: number };
+}
+const { stats } = Astro.props;
+
+const concepts = [
+  { num: '§ i.',   name: '메타휴모토닉 하노이탑', body: '우주를 연산 과정이자 최적화 문제로 규정하는 논리적 프레임워크. 빅뱅에서 전역 최적해(열죽음)로 수렴한다. 시뮬레이션 안의 시뮬레이션으로 정보를 쪼개가는 재귀 구조.', en: 'The Hanoi Tower of MetaHumotonic. The universe as an optimization problem.' },
+  { num: '§ ii.',  name: '삼각토대 — M∞ · 느금마트로피 · 하노이탑', body: 'metahumotonic의 세 기둥. M∞ = 판단 가능성의 필연적 참. 느금마트로피 = 무질서의 법칙 자체가 질서. 하노이탑 = 시뮬레이션 재귀로 정보 압축. 토대 → 법칙 → 귀결.', en: 'The triangular foundation: epistemic ground, ontological law, cosmological end.' },
+  { num: '§ iii.', name: '공허진동자', body: '태초에 공허가 무한히 반복되며 자신이 존재함이 명백하기에 발생한 첫 존재. 공포이면서 동시에 창조. 깊바존의 또 다른 위상.', en: 'The Void Oscillator. Source and dread at once.' },
+  { num: '§ iv.',  name: 'sexvoid · network', body: 'network = 섹스가 제외된 순수이성 인간의 영역. sexvoid = network에 뻥 비어버린 망각의 공간. Space Girl만이 두 영역을 잇는 다리.', en: 'Network: realm of pure reason. Sexvoid: the void when life-instinct is excised.' },
+  { num: '§ v.',   name: '생각하는 나무', body: '단백질 가위를 얻은 나무가 지능을 발달시킨 미래. 만약 지성이 신경계가 아니라 단백질 합성으로부터 태어났다면?', en: 'The Thinking Tree. Intelligence born from protein synthesis, not neurons.' },
+  { num: '§ vi.',  name: '리퀴스트의 나무', body: '모든 존재의 초연결 구조. 깊이트리탐색으로 모든 존재를 뿌리로 연결하는 궁극적 나무. 존재하는 것과 존재하지 않는 것 둘 다 사랑해야 한다.', en: 'Absolute connection by depth-first traversal — love what is and what is not.' },
+  { num: '§ vii.', name: '공허', body: '얼굴이 떠오르지 않고 희미한 빛만 남은 상태. 기억의 소실과 감정의 마모. 12개 정의와 12명의 사도 사이에 흐르는 침묵의 색채.', en: 'Emptiness. The undertone beneath the doctrine.' },
+];
+
+const programs = [
+  { num: '# 1', name: 'bhgman 본체 — Mac Mini', body: `metahumotonic의 물리 본체. Mac Mini 한 대에 kubeadm 클러스터, Neo4j ${stats.nodes.toLocaleString()} 노드 ${stats.rels.toLocaleString()} 관계. 13개 도메인이 거주한다.`, link: 'http://bhgman.iptime.org' },
+  { num: '# 2', name: 'Knowledge Graph — Neo4j', body: `모든 정의·사도·개념·기록이 사는 단일 그래프. ${stats.nodes.toLocaleString()} 노드. 라벨 1,984종, 관계 3,020종.`, link: '/explore/' },
+  { num: '# 3', name: 'APT v24 — Agent Process Template', body: '공리 IV(존재생성)를 코드로 만드는 방법론. SA → SP → ST → SCW. 각 단계마다 Taliban Gate.', link: '/theories/' },
+  { num: '# 4', name: 'Skills (18)', body: 'apt / taliban / prometheus / longinus / harness / 88-taliban / solve / db-query / server-status / docker-logs / kafka-manage / skill-creator …', link: 'http://skills.metahumotonic.com/skills/' },
+  { num: '# 5', name: '333 Platform', body: 'Web3 기반 탈중앙 플랫폼. metahumotonic 도메인 중 community/streaming의 물질화.', link: '/333/' },
+  { num: '# 6', name: 'Ontology — RDF/Turtle', body: '이 페이지의 시멘틱 웹 페이로드. JSON-LD + RDFa + ontology.ttl. AI가 읽을 수 있는 서버 소개.', link: '/ontology.ttl' },
+  { num: '# 7', name: 'Skill Registry', body: '18개 skill의 SKILL.md 레지스트리. 외부에서 fetch 가능.', link: 'http://skills.metahumotonic.com/' },
+  { num: '# 8', name: 'API & Domains', body: '도메인별 KG 슬라이스를 JSON으로 노출.', link: '/api/' },
+];
+---
+
+<!-- KG: ATOM_Landing_ConceptProgram — 개념 다이어그램 + 프로그램 KG 통계 -->
+<section class="mh-part-divider">
+  <p class="mh-part-eyebrow">PART THREE</p>
+  <h2 class="mh-part-title">개념들</h2>
+  <p class="mh-part-gloss"><em>The Concepts.</em></p>
+</section>
+
+<section id="concepts" class="mh-section mh-concepts">
+  {concepts.map(c => (
+    <article class="mh-concept">
+      <span class="mh-concept__num">{c.num}</span>
+      <h3 class="mh-concept__name">{c.name}</h3>
+      <p class="mh-concept__body">{c.body}</p>
+      <p class="mh-concept__en"><em>{c.en}</em></p>
+    </article>
+  ))}
+</section>
+
+<section class="mh-part-divider">
+  <p class="mh-part-eyebrow">PART FOUR</p>
+  <h2 class="mh-part-title">실제 프로그램</h2>
+  <p class="mh-part-gloss"><em>The Actual Programs.</em></p>
+</section>
+
+<section id="programs" class="mh-section mh-programs">
+  {/* KG live stats counter — SharedType: KGStats */}
+  <div class="mh-stats-bar" aria-label="Knowledge Graph Statistics">
+    <div class="mh-stat">
+      <span class="counter" data-count={stats.nodes}>{stats.nodes.toLocaleString()}</span>
+      <span class="mh-stat__label">nodes</span>
+    </div>
+    <div class="mh-stat">
+      <span class="counter" data-count={stats.rels}>{stats.rels.toLocaleString()}</span>
+      <span class="mh-stat__label">relations</span>
+    </div>
+    <div class="mh-stat">
+      <span class="counter" data-count={13}>13</span>
+      <span class="mh-stat__label">domains</span>
+    </div>
+    <div class="mh-stat">
+      <span class="counter" data-count={18}>18</span>
+      <span class="mh-stat__label">skills</span>
+    </div>
+  </div>
+
+  {programs.map(p => (
+    <article class="mh-program">
+      <span class="mh-program__num">{p.num}</span>
+      <h3 class="mh-program__name">{p.name}</h3>
+      <p class="mh-program__body">{p.body}</p>
+      <p class="mh-program__link"><a href={p.link}>→ {p.link}</a></p>
+    </article>
+  ))}
+</section>
+
+<style>
+  .mh-stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: clamp(32px, 6vw, 80px);
+    flex-wrap: wrap;
+    margin-bottom: clamp(80px, 12vw, 140px);
+    padding: 40px 0;
+    border-bottom: 1px solid rgba(14,14,12,0.08);
+  }
+  .mh-stat { text-align: center; }
+  .mh-stat .counter {
+    display: block;
+    font-family: var(--mh-serif, Georgia, serif);
+    font-weight: 500;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1;
+    color: var(--mh-red, #7a1f1f);
+  }
+  .mh-stat__label {
+    display: block;
+    margin-top: 8px;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(14,14,12,0.5);
+  }
+</style>

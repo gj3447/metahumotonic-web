@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="ko" prefix="og: https://ogp.me/ns#" vocab="https://schema.org/" typeof="WebPage">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MetaHumotonic — Semantic Web Server Platform</title>
+  <meta name="description" content="AI-powered Semantic Web server platform with Neo4j Knowledge Graph (547K+ nodes, 1M+ relations), 13 domains, MCP integration, and 18 agent skills.">
+
+  <!-- OpenGraph -->
+  <meta property="og:title" content="MetaHumotonic">
+  <meta property="og:description" content="Semantic Web server platform — Knowledge Graph 547K nodes, 13 Domains, MCP, 18 AI Agent Skills">
+  <meta property="og:url" content="https://metahumotonic.com">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MetaHumotonic">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="MetaHumotonic">
+  <meta name="twitter:description" content="Semantic Web server — KG 547K nodes + MCP + 18 AI Skills">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://metahumotonic.com">
+
+  <!-- KG: TASK_Landing_LinkedDataFiles, CONTRACT_Landing_LinkedDataFiles — Linked Data alternates -->
+  <link rel="alternate" type="text/turtle" href="/ontology.ttl" title="MetaHumotonic Ontology (RDF Turtle)">
+  <link rel="alternate" type="text/turtle" href="/void.ttl" title="MetaHumotonic VOID Dataset Description">
+
+  <!-- Theme -->
+  <meta name="theme-color" content="#050a18">
+
+  <!-- Cosmic Theme CSS -->
+  <link rel="stylesheet" href="/css/landing.css">
+  <!-- # KG: TASK_Landing_CosmicAccent, CONTRACT_Landing_CosmicAccent -->
+  <link rel="stylesheet" href="/css/cosmos.css">
+  <link rel="stylesheet" href="/css/ritual.css?v=bf126108">
+
+  <!-- KG: TASK_Landing_SemanticMarkup, CONTRACT_Landing_SemanticMarkup -->
+  <!-- # KG: CONTRACT_Landing_SemanticWeb — JSON-LD @graph (expanded: DCAT, 11 services, FOAF group) -->
+  <script type="application/ld+json">
+  {
+    "@context": {
+      "@vocab": "https://schema.org/",
+      "foaf": "http://xmlns.com/foaf/0.1/",
+      "void": "http://rdfs.org/ns/void#",
+      "doap": "http://usefulinc.com/ns/doap#",
+      "dcat": "http://www.w3.org/ns/dcat#"
+    },
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://metahumotonic.com/#org",
+        "name": "MetaHumotonic",
+        "url": "https://metahumotonic.com",
+        "description": "AI-powered Semantic Web server platform"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://metahumotonic.com/#website",
+        "name": "MetaHumotonic",
+        "url": "https://metahumotonic.com",
+        "description": "Semantic Web server platform with Neo4j Knowledge Graph, MCP integration, and AI agent skills",
+        "publisher": { "@id": "https://metahumotonic.com/#org" },
+        "inLanguage": ["en", "ko"]
+      },
+      {
+        "@type": "foaf:Person",
+        "@id": "https://metahumotonic.com/#person",
+        "foaf:name": "Ra Gyeongjun",
+        "foaf:nick": "bhgman",
+        "name": "Ra Gyeongjun",
+        "description": "NE1A developer. MetaHumotonic server operator. Knowledge Graph architect.",
+        "url": "https://metahumotonic.com",
+        "sameAs": []
+      },
+      {
+        "@type": "void:Dataset",
+        "@id": "https://metahumotonic.com/#kg",
+        "name": "MetaHumotonic Knowledge Graph",
+        "description": "Neo4j-backed knowledge graph spanning 13 domains: mathematics, physics, philosophy, literature, theology, CS, infrastructure, and more.",
+        "void:triples": 1062014,
+        "void:entities": 547552,
+        "void:distinctSubjects": 547552,
+        "void:properties": 3020,
+        "url": "https://metahumotonic.com/neo4j/"
+      },
+      {
+        "@type": "doap:Project",
+        "@id": "https://metahumotonic.com/#project",
+        "doap:name": "MetaHumotonic",
+        "name": "MetaHumotonic Server",
+        "description": "Self-hosted semantic web platform combining graph databases, message brokers, object storage, and AI agent skills into a unified knowledge infrastructure.",
+        "doap:programming-language": ["Cypher", "SQL", "Python", "JavaScript"],
+        "doap:os": ["macOS", "Docker", "Kubernetes"]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://metahumotonic.com/#platform",
+        "name": "MetaHumotonic Server",
+        "applicationCategory": ["DeveloperApplication", "BusinessApplication"],
+        "operatingSystem": ["macOS", "Linux", "Docker", "Kubernetes"],
+        "description": "Self-hosted semantic web platform combining graph databases, message brokers, object storage, and AI agent skills into a unified knowledge infrastructure.",
+        "author": { "@id": "https://metahumotonic.com/#person" },
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "featureList": [
+          "Neo4j Knowledge Graph (547K+ nodes, 1M+ relations)",
+          "Model Context Protocol (MCP) Gateway",
+          "18 AI Agent Skills across 4 categories",
+          "13 Knowledge Domains",
+          "PostgreSQL + Redis + MongoDB",
+          "MinIO S3-compatible Storage",
+          "Apache Kafka (KRaft)",
+          "n8n Workflow Automation",
+          "Traefik Reverse Proxy"
+        ]
+      },
+      {
+        "@type": "WebAPI",
+        "@id": "https://metahumotonic.com/#mcp",
+        "name": "MetaHumotonic MCP Gateway",
+        "description": "Model Context Protocol endpoint — connect AI agents to Neo4j, PostgreSQL, Redis, MongoDB, MinIO",
+        "url": "https://metahumotonic.com/mcp/",
+        "documentation": "https://metahumotonic.com/llms.txt",
+        "provider": { "@id": "https://metahumotonic.com/#org" }
+      },
+      {
+        "@type": "DataCatalog",
+        "@id": "https://metahumotonic.com/#skills",
+        "name": "Agent Skill Registry",
+        "description": "18 AI agent skills: APT methodology, Taliban verification, Prometheus research, Longinus tracing, and more",
+        "url": "https://metahumotonic.com/skills/",
+        "provider": { "@id": "https://metahumotonic.com/#org" },
+        "dataset": [
+          { "@type": "Dataset", "name": "apt", "description": "APT v24 development methodology orchestrator", "url": "https://metahumotonic.com/skills/apt/SKILL.md" },
+          { "@type": "Dataset", "name": "taliban", "description": "Adversarial validation — 9-lens quality gate", "url": "https://metahumotonic.com/skills/taliban/SKILL.md" },
+          { "@type": "Dataset", "name": "88-taliban", "description": "113-lens mathematical meta-verification", "url": "https://metahumotonic.com/skills/88-taliban/SKILL.md" },
+          { "@type": "Dataset", "name": "prometheus", "description": "Research-first problem solving — 7-step cycle", "url": "https://metahumotonic.com/skills/prometheus/SKILL.md" },
+          { "@type": "Dataset", "name": "longinus", "description": "KG-to-source-code traceability binding", "url": "https://metahumotonic.com/skills/longinus/SKILL.md" },
+          { "@type": "Dataset", "name": "harness", "description": "Architecture-as-constraint design philosophy", "url": "https://metahumotonic.com/skills/harness/SKILL.md" },
+          { "@type": "Dataset", "name": "solve", "description": "7-step systematic problem resolution", "url": "https://metahumotonic.com/skills/solve/SKILL.md" }
+        ]
+      },
+      {
+        "@type": "dcat:Catalog",
+        "@id": "https://metahumotonic.com/#dcat-catalog",
+        "name": "MetaHumotonic Knowledge Graph Catalog",
+        "description": "DCAT catalog entry for the MetaHumotonic KG — 548K+ nodes, 1M+ relations across 13 domains",
+        "dcat:dataset": { "@id": "https://metahumotonic.com/#kg" },
+        "publisher": { "@id": "https://metahumotonic.com/#org" },
+        "url": "https://metahumotonic.com/neo4j/"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://metahumotonic.com/#svc-neo4j",
+        "name": "Neo4j",
+        "url": "https://metahumotonic.com/neo4j/",
+        "description": "Graph database — 548K+ nodes, 1M+ relations, Bolt + HTTP"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://metahumotonic.com/#svc-postgresql",
+        "name": "PostgreSQL",
+        "url": "https://metahumotonic.com/pgadmin/",
+        "description": "Relational database — maindb, n8n, system databases"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://metahumotonic.com/#svc-redis",
+        "name": "Redis",
+        "url": "https://metahumotonic.com/redis/",
+        "description": "In-memory cache and pub/sub broker"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://metahumotonic.com/#svc-mongodb",
+        "name": "MongoDB",
+        "url": "https://metahumotonic.com/mongo/",
+        "description": "Document database for flexible schema storage"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://metahumotonic.com/#svc-minio",
+        "name": "MinIO",
+        "url": "https://metahumotonic.com/minio/",
+        "description": "S3-compatible object storage — apt-docs, claude-skills, ice-data buckets"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://metahumotonic.com/#svc-kafka",
+        "name": "Apache Kafka",
+        "url": "https://metahumotonic.com/kafka/",
+        "description": "Event streaming platform in KRaft mode"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://metahumotonic.com/#svc-n8n",
+        "name": "n8n",
+        "url": "https://metahumotonic.com/n8n/",
+        "description": "Visual workflow automation — integrations, feedback pipelines, scheduled jobs"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://metahumotonic.com/#svc-grafana",
+        "name": "Grafana",
+        "url": "https://metahumotonic.com/grafana/",
+        "description": "Observability dashboard — Prometheus metrics, Loki logs, health visualization"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://metahumotonic.com/#svc-prometheus",
+        "name": "Prometheus",
+        "url": "https://metahumotonic.com/prometheus/",
+        "description": "Metrics collection and alerting — node-exporter, kube-state-metrics"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://metahumotonic.com/#svc-headscale",
+        "name": "Headscale",
+        "url": "https://headscale.metahumotonic.com",
+        "description": "Self-hosted Tailscale control plane — VPN mesh for 3 nodes"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://metahumotonic.com/#svc-ollama",
+        "name": "Ollama",
+        "url": "https://metahumotonic.com/ollama/",
+        "description": "Local LLM inference on DGX GPU worker — model serving for AI agent skills"
+      },
+      {
+        "@type": "foaf:Group",
+        "@id": "https://metahumotonic.com/#community",
+        "foaf:name": "MetaHumotonic Community",
+        "name": "MetaHumotonic Community",
+        "description": "Open community — contributors, feedback providers, knowledge graph curators",
+        "url": "https://metahumotonic.com"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            mh: { 50:'#f0fdf4', 100:'#dcfce7', 400:'#4ade80', 500:'#22c55e', 600:'#16a34a', 900:'#0f172a', 950:'#020617' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- # KG: CONTRACT_Landing_CosmosRefactor — inline styles extracted to css/landing.css -->
+  <!-- KG: CONTRACT_Feedback_FormUI — Liquid Glass form styles -->
+  <link rel="stylesheet" href="/css/feedback-form.css">
+</head>
+<body style="background:#050a18; color:#e8eaf6;" class="antialiased">
+
+  <!-- Cosmic Background -->
+  <div class="starfield-bg" aria-hidden="true"></div>
+
+  <!-- KG: ATOM_LightVisual_PrismDispersion — WebGL 프리즘 무지개 씬 (z-index:1, fullscreen) -->
+  <canvas id="webgl-scene"
+          style="position:fixed;inset:0;z-index:1;pointer-events:none;"
+          role="img"
+          aria-label="Three prisms slowly rotating in deep space, refracting starlight into a cosmic rainbow."></canvas>
+
+  <!-- Legacy starfield twinkling (main.js, z-index:0 하위) -->
+  <canvas id="light-trails" style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.35;" aria-hidden="true"></canvas>
+
+  <!-- Header -->
+  <header role="banner" class="border-b sticky top-0 z-50" style="border-color:rgba(120,130,200,0.12); backdrop-filter:blur(16px); background:rgba(5,10,24,0.8);">
+    <nav role="navigation" aria-label="Main" class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="text-xl font-bold tracking-tight" style="color:#a78bfa;">
+        <span style="color:#f472b6;">Meta</span><span style="color:#e0e7ff;">Humotonic</span>
+      </a>
+      <div class="flex gap-6 text-sm" style="color:#9fa8da;">
+        <a href="#axioms" class="hover:text-white transition">Axioms</a>
+        <a href="#domains" class="hover:text-white transition">Domains</a>
+        <a href="#skills" class="hover:text-white transition">Skills</a>
+        <a href="#endpoints" class="hover:text-white transition">API</a>
+        <a href="/llms.txt" class="hover:text-white transition">llms.txt</a>
+      </div>
+    </nav>
+  </header>
+
+  <main role="main" style="position:relative; z-index:1;">
+
+    <!-- Hero -->
+    <section class="max-w-6xl mx-auto px-6 pt-20 pb-16 text-center" property="mainEntity" typeof="WebSite">
+
+      <!-- Mascot: 2x2 Glowing Circles -->
+      <div class="mascot" aria-label="MetaHumotonic Logo">
+        <div class="mascot__circle"></div>
+        <div class="mascot__circle"></div>
+        <div class="mascot__circle"></div>
+        <div class="mascot__circle"></div>
+      </div>
+
+      <h1 class="hero-title mb-4" property="name">
+        <span class="text-glow-pink">Meta</span><span style="color:#e0e7ff;">Humotonic</span>
+      </h1>
+      <p class="text-xl md:text-2xl mb-2" style="color:#9fa8da;" property="description">
+        Semantic Web Server Platform
+      </p>
+      <p class="text-lg mb-10" style="color:#6670a0;">
+        Knowledge Graph with 547K+ nodes across 13 domains. 18 AI agent skills. Machine-readable by design.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="/skills/" class="btn-glow btn-glow--pink">Browse Skills</a>
+        <a href="/llms.txt" class="btn-glow btn-glow--purple">llms.txt</a>
+        <a href="#domains" class="btn-glow btn-glow--cyan">Explore Domains</a>
+      </div>
+    </section>
+
+    <!-- KG: TASK_Landing_ConceptProgram, CONTRACT_Landing_ConceptProgram — Animated Counters + Programs -->
+    <section class="max-w-6xl mx-auto px-6 py-12">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="text-center">
+          <div class="counter-value text-3xl md:text-4xl font-bold text-white" data-count="547552">547,552</div>
+          <div class="text-sm text-gray-500 mt-1">Nodes</div>
+        </div>
+        <div class="text-center">
+          <div class="counter-value text-3xl md:text-4xl font-bold text-white" data-count="1062014">1,062,014</div>
+          <div class="text-sm text-gray-500 mt-1">Relations</div>
+        </div>
+        <div class="text-center">
+          <div class="counter-value text-3xl md:text-4xl font-bold text-mh-500" data-count="13">13</div>
+          <div class="text-sm text-gray-500 mt-1">Domains</div>
+        </div>
+        <div class="text-center">
+          <div class="counter-value text-3xl md:text-4xl font-bold text-mh-500" data-count="18">18</div>
+          <div class="text-sm text-gray-500 mt-1">Skills</div>
+        </div>
+      </div>
+      <!-- Programs subsection — KG: CONTRACT_Landing_ConceptProgram -->
+      <h3 class="text-lg font-semibold mt-10 mb-4" style="color:#9fa8da;">Programs</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="card-cosmos p-4 flex items-start gap-3" style="border-left:3px solid #a78bfa;">
+          <div>
+            <div class="font-bold text-white text-sm">APT <span class="pill text-xs ml-1">Active</span></div>
+            <div class="text-xs text-gray-400 mt-1">Development methodology. SA-SP-ST-SCW with Taliban gates.</div>
+          </div>
+        </div>
+        <div class="card-cosmos p-4 flex items-start gap-3" style="border-left:3px solid #f472b6;">
+          <div>
+            <div class="font-bold text-white text-sm">333 Platform <span class="pill pill--pink text-xs ml-1">Active</span></div>
+            <div class="text-xs text-gray-400 mt-1">Web3 decentralized app. BFT + RTS + CRDT. 480 tests.</div>
+          </div>
+        </div>
+        <div class="card-cosmos p-4 flex items-start gap-3" style="border-left:3px solid #67e8f9;">
+          <div>
+            <div class="font-bold text-white text-sm">ICE-ORCA <span class="pill pill--cyan text-xs ml-1">Research</span></div>
+            <div class="text-xs text-gray-400 mt-1">Algebraic TOE gap analysis. Observable-quantity bridge.</div>
+          </div>
+        </div>
+        <div class="card-cosmos p-4 flex items-start gap-3" style="border-left:3px solid #FFD700;">
+          <div>
+            <div class="font-bold text-white text-sm">CHU <span class="pill pill--gold text-xs ml-1">Research</span></div>
+            <div class="text-xs text-gray-400 mt-1">Prometheus N=64 parallel research. 21 KG findings.</div>
+          </div>
+        </div>
+        <div class="card-cosmos p-4 flex items-start gap-3" style="border-left:3px solid #4ade80;">
+          <div>
+            <div class="font-bold text-white text-sm">Minecraft-WASM <span class="pill pill--neutral text-xs ml-1">Planned</span></div>
+            <div class="text-xs text-gray-400 mt-1">Browser-based Minecraft via WebAssembly. Experimental.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KG: TASK_Landing_KGPreview, CONTRACT_Landing_KGPreview -->
+    <section class="max-w-6xl mx-auto px-6 py-16">
+      <h2 class="text-2xl font-bold mb-2">Knowledge Graph Preview</h2>
+      <p class="text-gray-500 mb-6">Live visualization of 548K+ nodes across 13 domains.</p>
+      <div style="position:relative;width:100%;height:400px;border:1px solid rgba(120,130,200,0.15);border-radius:12px;overflow:hidden;background:rgba(5,10,24,0.6);">
+        <canvas id="kg-preview" style="width:100%;height:100%;"></canvas>
+      </div>
+    </section>
+
+    <!-- KG: TASK_Landing_AxiomVisual, CONTRACT_Landing_AxiomVisual -->
+    <section id="axioms" class="max-w-6xl mx-auto px-6 py-16">
+      <h2 class="text-2xl font-bold mb-2">12 Axioms</h2>
+      <p class="text-gray-500 mb-8">Foundational principles of MetaHumotonic.</p>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <!-- A1 -->
+        <div class="card-cosmos prism-glow p-5 text-center">
+          <svg class="mx-auto mb-3" width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="16" stroke="#f472b6" stroke-width="1.5"/><circle cx="20" cy="20" r="6" fill="#f472b6" opacity="0.4"/></svg>
+          <div class="text-xs text-gray-500 mb-1">I</div>
+          <div class="font-bold text-white text-sm">知行合一</div>
+          <div class="text-xs text-gray-400 mt-1">Knowledge-Action Unity</div>
+        </div>
+        <!-- A2 -->
+        <div class="card-cosmos prism-glow p-5 text-center">
+          <svg class="mx-auto mb-3" width="40" height="40" viewBox="0 0 40 40" fill="none"><polygon points="20,4 36,36 4,36" stroke="#a78bfa" stroke-width="1.5" fill="none"/></svg>
+          <div class="text-xs text-gray-500 mb-1">II</div>
+          <div class="font-bold text-white text-sm">萬物歸一</div>
+          <div class="text-xs text-gray-400 mt-1">All Returns to One</div>
+        </div>
+        <!-- A3 -->
+        <div class="card-cosmos prism-glow p-5 text-center">
+          <svg class="mx-auto mb-3" width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="8" y="8" width="24" height="24" rx="4" stroke="#67e8f9" stroke-width="1.5" fill="none"/><line x1="20" y1="8" x2="20" y2="32" stroke="#67e8f9" stroke-width="1" opacity="0.5"/><line x1="8" y1="20" x2="32" y2="20" stroke="#67e8f9" stroke-width="1" opacity="0.5"/></svg>
+          <div class="text-xs text-gray-500 mb-1">III</div>
+          <div class="font-bold text-white text-sm">格物致知</div>
+          <div class="text-xs text-gray-400 mt-1">Investigate to Know</div>
+        </div>
+        <!-- A4 -->
+        <div class="card-cosmos prism-glow p-5 text-center">
+          <svg class="mx-auto mb-3" width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="14" stroke="#FFD700" stroke-width="1.5" fill="none"/><path d="M14 20 L20 14 L26 20 L20 26Z" stroke="#FFD700" stroke-width="1.5" fill="none"/></svg>
+          <div class="text-xs text-gray-500 mb-1">IV</div>
+          <div class="font-bold text-white text-sm">道法自然</div>
+          <div class="text-xs text-gray-400 mt-1">The Way Follows Nature</div>
+        </div>
+        <!-- A5 -->
+        <div class="card-cosmos prism-glow p-5 text-center">
+          <svg class="mx-auto mb-3" width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 4 L20 36" stroke="#f472b6" stroke-width="1.5"/><path d="M4 20 L36 20" stroke="#a78bfa" stroke-width="1.5"/><circle cx="20" cy="20" r="8" stroke="#67e8f9" stroke-width="1" fill="none"/></svg>
+          <div class="text-xs text-gray-500 mb-1">V</div>
+          <div class="font-bold text-white text-sm">十字交匯</div>
+          <div class="text-xs text-gray-400 mt-1">Crossroads Convergence</div>
+        </div>
+        <!-- A6 -->
+        <div class="card-cosmos prism-glow p-5 text-center">
+          <svg class="mx-auto mb-3" width="40" height="40" viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="20" rx="16" ry="10" stroke="#a78bfa" stroke-width="1.5" fill="none"/><ellipse cx="20" cy="20" rx="16" ry="10" stroke="#f472b6" stroke-width="1" fill="none" transform="rotate(60 20 20)" opacity="0.6"/><ellipse cx="20" cy="20" rx="16" ry="10" stroke="#67e8f9" stroke-width="1" fill="none" transform="rotate(120 20 20)" opacity="0.6"/></svg>
+          <div class="text-xs text-gray-500 mb-1">VI</div>
+          <div class="font-bold text-white text-sm">三位一體</div>
+          <div class="text-xs text-gray-400 mt-1">Triune Unity</div>
+        </div>
+        <!-- A7 -->
+        <div class="card-cosmos prism-glow p-5 text-center">
+          <svg class="mx-auto mb-3" width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M8 32 Q20 4 32 32" stroke="#67e8f9" stroke-width="1.5" fill="none"/><circle cx="20" cy="16" r="3" fill="#67e8f9" opacity="0.5"/></svg>
+          <div class="text-xs text-gray-500 mb-1">VII</div>
+          <div class="font-bold text-white text-sm">否極泰來</div>
+          <div class="text-xs text-gray-400 mt-1">Reversal at the Extreme</div>
+        </div>
+        <!-- A8 -->
+        <div class="card-cosmos prism-glow p-5 text-center">
+          <svg class="mx-auto mb-3" width="40" height="40" viewBox="0 0 40 40" fill="none"><polygon points="20,6 34,16 30,32 10,32 6,16" stroke="#FFD700" stroke-width="1.5" fill="none"/></svg>
+          <div class="text-xs text-gray-500 mb-1">VIII</div>
+          <div class="font-bold text-white text-sm">五行循環</div>
+          <div class="text-xs text-gray-400 mt-1">Five-Phase Cycle</div>
+        </div>
+        <!-- A9 -->
+        <div class="card-cosmos prism-glow p-5 text-center">
+          <svg class="mx-auto mb-3" width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="15" cy="20" r="10" stroke="#f472b6" stroke-width="1.5" fill="none"/><circle cx="25" cy="20" r="10" stroke="#a78bfa" stroke-width="1.5" fill="none"/></svg>
+          <div class="text-xs text-gray-500 mb-1">IX</div>
+          <div class="font-bold text-white text-sm">陰陽互根</div>
+          <div class="text-xs text-gray-400 mt-1">Yin-Yang Mutual Root</div>
+        </div>
+        <!-- A10 -->
+        <div class="card-cosmos prism-glow p-5 text-center">
+          <svg class="mx-auto mb-3" width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="6" width="28" height="28" stroke="#67e8f9" stroke-width="1.5" fill="none" transform="rotate(45 20 20)"/></svg>
+          <div class="text-xs text-gray-500 mb-1">X</div>
+          <div class="font-bold text-white text-sm">不易流行</div>
+          <div class="text-xs text-gray-400 mt-1">Immutable yet Flowing</div>
+        </div>
+        <!-- A11 -->
+        <div class="card-cosmos prism-glow p-5 text-center">
+          <svg class="mx-auto mb-3" width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M10 30 C10 10 30 10 30 30" stroke="#a78bfa" stroke-width="1.5" fill="none"/><path d="M10 30 C10 20 30 20 30 30" stroke="#f472b6" stroke-width="1" fill="none" opacity="0.5"/></svg>
+          <div class="text-xs text-gray-500 mb-1">XI</div>
+          <div class="font-bold text-white text-sm">弘益人間</div>
+          <div class="text-xs text-gray-400 mt-1">Benefit All Humanity</div>
+        </div>
+        <!-- A12 -->
+        <div class="card-cosmos prism-glow p-5 text-center">
+          <svg class="mx-auto mb-3" width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="16" stroke="#FFD700" stroke-width="1" fill="none" stroke-dasharray="4 3"/><circle cx="20" cy="20" r="10" stroke="#FFD700" stroke-width="1" fill="none"/><circle cx="20" cy="20" r="4" fill="#FFD700" opacity="0.4"/></svg>
+          <div class="text-xs text-gray-500 mb-1">XII</div>
+          <div class="font-bold text-white text-sm">天人合一</div>
+          <div class="text-xs text-gray-400 mt-1">Heaven-Human Oneness</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KG: TASK_Landing_ApostleVisual, CONTRACT_Landing_ApostleVisual -->
+    <section class="max-w-6xl mx-auto px-6 py-16">
+      <h2 class="text-2xl font-bold mb-2">12 Apostles</h2>
+      <p class="text-gray-500 mb-8">Core methodologies and tools.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <a href="/skills/apt/SKILL.md" class="card-cosmos p-5 group transition hover:border-purple-500/30">
+          <div class="text-2xl mb-2">&#9670;</div>
+          <div class="font-bold text-white group-hover:text-purple-300">APT</div>
+          <div class="text-xs text-purple-400">The Architect</div>
+          <div class="text-xs text-gray-500 mt-2">Development methodology orchestrator. SA-SP-ST-SCW lifecycle.</div>
+        </a>
+        <a href="/skills/taliban/SKILL.md" class="card-cosmos p-5 group transition hover:border-pink-500/30">
+          <div class="text-2xl mb-2">&#9876;</div>
+          <div class="font-bold text-white group-hover:text-pink-300">Taliban</div>
+          <div class="text-xs text-pink-400">The Immune System</div>
+          <div class="text-xs text-gray-500 mt-2">Adversarial validation. 9-lens quality gate. Anti-rubber-stamp.</div>
+        </a>
+        <a href="/skills/prometheus/SKILL.md" class="card-cosmos p-5 group transition hover:border-cyan-500/30">
+          <div class="text-2xl mb-2">&#9832;</div>
+          <div class="font-bold text-white group-hover:text-cyan-300">Prometheus</div>
+          <div class="text-xs text-cyan-400">The Fire-Bringer</div>
+          <div class="text-xs text-gray-500 mt-2">Research-first problem solving. N-parallel haiku subagents.</div>
+        </a>
+        <a href="/skills/longinus/SKILL.md" class="card-cosmos p-5 group transition hover:border-yellow-500/30">
+          <div class="text-2xl mb-2">&#8982;</div>
+          <div class="font-bold text-white group-hover:text-yellow-300">Longinus</div>
+          <div class="text-xs text-yellow-400">The Spear</div>
+          <div class="text-xs text-gray-500 mt-2">KG-to-source traceability. 7-layer reference model.</div>
+        </a>
+        <a href="/skills/harness/SKILL.md" class="card-cosmos p-5 group transition hover:border-purple-500/30">
+          <div class="text-2xl mb-2">&#9881;</div>
+          <div class="font-bold text-white group-hover:text-purple-300">Harness</div>
+          <div class="text-xs text-purple-400">The Constraint</div>
+          <div class="text-xs text-gray-500 mt-2">Architecture-as-constraint. 4-axis model. Structure over willpower.</div>
+        </a>
+        <div class="card-cosmos p-5">
+          <div class="text-2xl mb-2">&#127793;</div>
+          <div class="font-bold text-white">JaebaeMan</div>
+          <div class="text-xs text-green-400">The Cultivator</div>
+          <div class="text-xs text-gray-500 mt-2">Subagent runtime protocol. KG seed management.</div>
+        </div>
+        <a href="/skills/solve/SKILL.md" class="card-cosmos p-5 group transition hover:border-cyan-500/30">
+          <div class="text-2xl mb-2">&#9883;</div>
+          <div class="font-bold text-white group-hover:text-cyan-300">Solve</div>
+          <div class="text-xs text-cyan-400">The Debugger</div>
+          <div class="text-xs text-gray-500 mt-2">7-step systematic problem resolution cycle.</div>
+        </a>
+        <a href="/neo4j/" class="card-cosmos p-5 group transition hover:border-green-500/30">
+          <div class="text-2xl mb-2">&#9673;</div>
+          <div class="font-bold text-white group-hover:text-green-300">Neo4j KG</div>
+          <div class="text-xs text-green-400">The Memory</div>
+          <div class="text-xs text-gray-500 mt-2">548K+ nodes, 1M+ relations. Source of truth.</div>
+        </a>
+        <div class="card-cosmos p-5">
+          <div class="text-2xl mb-2">&#8644;</div>
+          <div class="font-bold text-white">Traefik</div>
+          <div class="text-xs text-blue-400">The Gateway</div>
+          <div class="text-xs text-gray-500 mt-2">Reverse proxy. 16 routes. TLS termination.</div>
+        </div>
+        <div class="card-cosmos p-5">
+          <div class="text-2xl mb-2">&#128279;</div>
+          <div class="font-bold text-white">Headscale</div>
+          <div class="text-xs text-indigo-400">The Mesh</div>
+          <div class="text-xs text-gray-500 mt-2">Self-hosted VPN control plane. 3-node Tailscale mesh.</div>
+        </div>
+        <div class="card-cosmos p-5">
+          <div class="text-2xl mb-2">&#9878;</div>
+          <div class="font-bold text-white">333 Platform</div>
+          <div class="text-xs text-pink-400">The Decentralizer</div>
+          <div class="text-xs text-gray-500 mt-2">Web3 decentralized app. BFT + RTS + CRDT.</div>
+        </div>
+        <a href="/n8n/" class="card-cosmos p-5 group transition hover:border-orange-500/30">
+          <div class="text-2xl mb-2">&#9889;</div>
+          <div class="font-bold text-white group-hover:text-orange-300">n8n</div>
+          <div class="text-xs text-orange-400">The Automator</div>
+          <div class="text-xs text-gray-500 mt-2">Visual workflow automation. Feedback pipelines.</div>
+        </a>
+      </div>
+
+      <!-- KG: CONTRACT_Landing_ApostleVisual — SpaceGirl & AirplaneMan cosmic frames -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+        <div class="mh-frame--dark rounded-xl p-6 text-center">
+          <svg class="mx-auto mb-3" width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="18" r="10" stroke="#f472b6" stroke-width="1.5" fill="none"/><path d="M8 42 C8 32 16 26 24 26 C32 26 40 32 40 42" stroke="#f472b6" stroke-width="1.5" fill="none"/><circle cx="24" cy="8" r="3" fill="#FFD700" opacity="0.6"/></svg>
+          <div class="font-bold text-white">SpaceGirl</div>
+          <div class="text-xs text-pink-400">Cosmic Navigator</div>
+          <div class="text-xs text-gray-500 mt-2">Guides through the stellar knowledge graph, charting paths between domains.</div>
+        </div>
+        <div class="mh-frame--dark rounded-xl p-6 text-center">
+          <svg class="mx-auto mb-3" width="48" height="48" viewBox="0 0 48 48" fill="none"><path d="M6 28 L24 12 L42 28" stroke="#67e8f9" stroke-width="1.5" fill="none"/><path d="M18 28 L24 22 L30 28" stroke="#a78bfa" stroke-width="1.5" fill="none"/><rect x="20" y="28" width="8" height="10" stroke="#67e8f9" stroke-width="1" fill="none"/></svg>
+          <div class="font-bold text-white">AirplaneMan</div>
+          <div class="text-xs text-cyan-400">Infrastructure Pilot</div>
+          <div class="text-xs text-gray-500 mt-2">Deploys and orchestrates services across the kubeadm cluster at altitude.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- # KG: CONTRACT_Landing_Content — 9 Domain Cards -->
+    <section id="domains" class="max-w-6xl mx-auto px-6 py-16">
+      <h2 class="text-2xl font-bold mb-2">Knowledge Domains</h2>
+      <p class="text-gray-500 mb-8">13 domains in the KG, organized into 9 sections below.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+        <!-- 1. Ra Gyeongjun (Person) — KG: CONTRACT_Landing_ConceptProgram domain color -->
+        <article class="domain-card bg-gray-900/80 border border-gray-800 rounded-xl p-6" typeof="Dataset" style="border-left:3px solid #e0e7ff;">
+          <div class="flex items-center gap-3 mb-3">
+            <h3 class="font-semibold text-lg text-white" property="name">Ra Gyeongjun</h3>
+          </div>
+          <p class="text-sm text-gray-400 mb-3" property="description">
+            NE1A developer. Server operator. Knowledge Graph architect. Builder of the APT methodology and MetaHumotonic platform.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="pill">foaf:Person</span>
+            <span class="pill">NE1A</span>
+            <span class="pill">bhgman</span>
+          </div>
+        </article>
+
+        <!-- 2. Mathematics, Physics, Philosophy (SYM) -->
+        <article class="domain-card bg-gray-900/80 border border-gray-800 rounded-xl p-6" typeof="Dataset" style="border-left:3px solid #a78bfa;">
+          <div class="flex items-center gap-3 mb-3">
+            <h3 class="font-semibold text-lg text-white" property="name">Mathematics / Physics / Philosophy</h3>
+            <span class="node-badge">SYM 29K</span>
+          </div>
+          <p class="text-sm text-gray-400 mb-3" property="description">
+            Symbolic concepts, mathematical structures, physical laws, and philosophical frameworks. The largest domain cluster in the KG.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="pill">SymConcept</span>
+            <span class="pill">Mathematics</span>
+            <span class="pill">Physics</span>
+            <span class="pill">Philosophy</span>
+            <span class="pill">Axiom</span>
+            <span class="pill">Theorem</span>
+          </div>
+        </article>
+
+        <!-- 3. Literature & Creative Writing -->
+        <article class="domain-card bg-gray-900/80 border border-gray-800 rounded-xl p-6" typeof="Dataset" style="border-left:3px solid #f472b6;">
+          <div class="flex items-center gap-3 mb-3">
+            <h3 class="font-semibold text-lg text-white" property="name">Literature & Creative Writing</h3>
+            <span class="node-badge">Creative 2K</span>
+          </div>
+          <p class="text-sm text-gray-400 mb-3" property="description">
+            Original literary works, narrative structures, character ontologies, and creative writing methodologies.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="pill">Story</span>
+            <span class="pill">Character</span>
+            <span class="pill">Narrative</span>
+            <span class="pill">Poetry</span>
+          </div>
+        </article>
+
+        <!-- 4. Religion & Theology -->
+        <article class="domain-card bg-gray-900/80 border border-gray-800 rounded-xl p-6" typeof="Dataset" style="border-left:3px solid #FFD700;">
+          <div class="flex items-center gap-3 mb-3">
+            <h3 class="font-semibold text-lg text-white" property="name">Religion & Theology</h3>
+          </div>
+          <p class="text-sm text-gray-400 mb-3" property="description">
+            Theological concepts, scriptural analysis, religious philosophy, and cross-tradition comparative studies.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="pill">Theology</span>
+            <span class="pill">Scripture</span>
+            <span class="pill">Doctrine</span>
+          </div>
+        </article>
+
+        <!-- 5. Projects & CS -->
+        <article class="domain-card bg-gray-900/80 border border-gray-800 rounded-xl p-6" typeof="Dataset" style="border-left:3px solid #67e8f9;">
+          <div class="flex items-center gap-3 mb-3">
+            <h3 class="font-semibold text-lg text-white" property="name">Projects & Computer Science</h3>
+            <span class="node-badge">7.7K</span>
+          </div>
+          <p class="text-sm text-gray-400 mb-3" property="description">
+            Software projects (APT, 333, CHU, OpenClaw), algorithms, data structures, programming languages, and system design patterns.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="pill">Project</span>
+            <span class="pill">Algorithm</span>
+            <span class="pill">DataStructure</span>
+            <span class="pill">Language</span>
+            <span class="pill">333</span>
+            <span class="pill">OpenClaw</span>
+          </div>
+        </article>
+
+        <!-- 6. Infrastructure -->
+        <article class="domain-card bg-gray-900/80 border border-gray-800 rounded-xl p-6" typeof="Dataset" style="border-left:3px solid #4ade80;">
+          <div class="flex items-center gap-3 mb-3">
+            <h3 class="font-semibold text-lg text-white" property="name">Infrastructure</h3>
+            <span class="node-badge">INFRA 2.4K</span>
+          </div>
+          <p class="text-sm text-gray-400 mb-3" property="description">
+            Server configurations, Docker/K8s orchestration, networking, storage, monitoring, and the workspace ontology itself.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="pill">Docker</span>
+            <span class="pill">Kubernetes</span>
+            <span class="pill">Traefik</span>
+            <span class="pill">Neo4j</span>
+            <span class="pill">PostgreSQL</span>
+            <span class="pill">MinIO</span>
+            <span class="pill">Kafka</span>
+          </div>
+        </article>
+
+        <!-- 7. APT Methodology -->
+        <article class="domain-card bg-gray-900/80 border border-gray-800 rounded-xl p-6" typeof="Dataset" style="border-left:3px solid #a78bfa;">
+          <div class="flex items-center gap-3 mb-3">
+            <h3 class="font-semibold text-lg text-white" property="name">APT Methodology</h3>
+            <span class="node-badge">1.7K</span>
+          </div>
+          <p class="text-sm text-gray-400 mb-3" property="description">
+            The APT development methodology: SA (anchor), SP (pyramid), ST (twin), SCW (code world). Includes Taliban verification, Prometheus research, Longinus tracing, and Harness architecture.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="pill">APT</span>
+            <span class="pill">SemanticAnchor</span>
+            <span class="pill">SemanticPyramid</span>
+            <span class="pill">SemanticTwin</span>
+            <span class="pill">SourceCodeWorld</span>
+            <span class="pill">Taliban</span>
+            <span class="pill">Prometheus</span>
+          </div>
+        </article>
+
+        <!-- 8. Community -->
+        <article class="domain-card bg-gray-900/80 border border-gray-800 rounded-xl p-6" typeof="Dataset" style="border-left:3px solid #00CED1;">
+          <div class="flex items-center gap-3 mb-3">
+            <h3 class="font-semibold text-lg text-white" property="name">Community</h3>
+          </div>
+          <p class="text-sm text-gray-400 mb-3" property="description">
+            Collaboration networks, contributor graphs, shared knowledge bases, and community-driven feedback loops.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="pill">Contributor</span>
+            <span class="pill">Feedback</span>
+            <span class="pill">Discussion</span>
+          </div>
+        </article>
+
+        <!-- 9. Streaming & Video -->
+        <article class="domain-card bg-gray-900/80 border border-gray-800 rounded-xl p-6" typeof="Dataset" style="border-left:3px solid #f472b6;">
+          <div class="flex items-center gap-3 mb-3">
+            <h3 class="font-semibold text-lg text-white" property="name">Streaming & Video</h3>
+          </div>
+          <p class="text-sm text-gray-400 mb-3" property="description">
+            Live streaming infrastructure, video content metadata, media processing pipelines, and broadcast tooling.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="pill">Stream</span>
+            <span class="pill">Video</span>
+            <span class="pill">Media</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- # KG: CONTRACT_Landing_Content — Skills Registry (18 skills, 4-category tabs) -->
+    <!-- KG: TASK_Landing_SemanticMarkup — RDFa typeof="SoftwareApplication" on skill cards -->
+    <section id="skills" class="max-w-6xl mx-auto px-6 py-16" typeof="SoftwareApplication" resource="https://metahumotonic.com/#platform">
+      <h2 class="text-2xl font-bold mb-2">Agent Skills</h2>
+      <p class="text-gray-500 mb-6">18 AI agent skills. Each fetchable at <code class="text-mh-500 text-sm">/skills/{name}/SKILL.md</code></p>
+
+      <!-- Tabs -->
+      <div class="flex flex-wrap gap-2 mb-6" role="tablist">
+        <button class="skill-tab active" role="tab" aria-selected="true" data-tab="all">All (18)</button>
+        <button class="skill-tab" role="tab" aria-selected="false" data-tab="methodology">Methodology</button>
+        <button class="skill-tab" role="tab" aria-selected="false" data-tab="infra">Infrastructure</button>
+        <button class="skill-tab" role="tab" aria-selected="false" data-tab="verification">Verification</button>
+        <button class="skill-tab" role="tab" aria-selected="false" data-tab="utility">Utility</button>
+      </div>
+
+      <!-- All Skills -->
+      <div class="skill-panel active" data-panel="all">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <!-- Methodology -->
+          <a href="/skills/apt/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/apt</span>
+              <span class="pill">methodology</span>
+            </div>
+            <div class="text-sm text-gray-400 mt-1">APT v24 development methodology orchestrator</div>
+          </a>
+          <a href="/skills/apt-sa/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/apt-sa</span>
+              <span class="pill">methodology</span>
+            </div>
+            <div class="text-sm text-gray-400 mt-1">SemanticAnchor — project identity bootstrap</div>
+          </a>
+          <a href="/skills/apt-sp/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/apt-sp</span>
+              <span class="pill">methodology</span>
+            </div>
+            <div class="text-sm text-gray-400 mt-1">SemanticPyramid — recursive Span decomposition</div>
+          </a>
+          <a href="/skills/apt-st/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/apt-st</span>
+              <span class="pill">methodology</span>
+            </div>
+            <div class="text-sm text-gray-400 mt-1">SemanticTwin — Contract + Task crystallization</div>
+          </a>
+          <a href="/skills/apt-scw/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/apt-scw</span>
+              <span class="pill">methodology</span>
+            </div>
+            <div class="text-sm text-gray-400 mt-1">SourceCodeWorld — TDD implementation</div>
+          </a>
+          <a href="/skills/harness/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/harness</span>
+              <span class="pill">methodology</span>
+            </div>
+            <div class="text-sm text-gray-400 mt-1">Architecture-as-constraint design philosophy</div>
+          </a>
+          <a href="/skills/longinus/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/longinus</span>
+              <span class="pill">methodology</span>
+            </div>
+            <div class="text-sm text-gray-400 mt-1">KG-to-source traceability binding</div>
+          </a>
+          <a href="/skills/prometheus/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/prometheus</span>
+              <span class="pill">methodology</span>
+            </div>
+            <div class="text-sm text-gray-400 mt-1">Research-first problem solving — 7-step cycle</div>
+          </a>
+          <!-- Verification -->
+          <a href="/skills/taliban/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/taliban</span>
+              <span class="pill">verification</span>
+            </div>
+            <div class="text-sm text-gray-400 mt-1">Adversarial validation — 9-lens quality gate</div>
+          </a>
+          <a href="/skills/88-taliban/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/88-taliban</span>
+              <span class="pill">verification</span>
+            </div>
+            <div class="text-sm text-gray-400 mt-1">113-lens mathematical meta-verification</div>
+          </a>
+          <!-- Infrastructure -->
+          <a href="/skills/server-status/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/server-status</span>
+              <span class="pill">infra</span>
+            </div>
+            <div class="text-sm text-gray-400 mt-1">Full server health check</div>
+          </a>
+          <a href="/skills/docker-logs/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/docker-logs</span>
+              <span class="pill">infra</span>
+            </div>
+            <div class="text-sm text-gray-400 mt-1">Docker container log viewer</div>
+          </a>
+          <a href="/skills/db-query/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/db-query</span>
+              <span class="pill">infra</span>
+            </div>
+            <div class="text-sm text-gray-400 mt-1">Multi-DB query runner (Neo4j, PG, Mongo, Redis)</div>
+          </a>
+          <a href="/skills/kafka-manage/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/kafka-manage</span>
+              <span class="pill">infra</span>
+            </div>
+            <div class="text-sm text-gray-400 mt-1">Kafka topic management and messaging</div>
+          </a>
+          <!-- Utility -->
+          <a href="/skills/solve/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/solve</span>
+              <span class="pill">utility</span>
+            </div>
+            <div class="text-sm text-gray-400 mt-1">7-step systematic problem resolution</div>
+          </a>
+          <a href="/skills/skill-creator/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/skill-creator</span>
+              <span class="pill">utility</span>
+            </div>
+            <div class="text-sm text-gray-400 mt-1">Create and refine new agent skills</div>
+          </a>
+          <a href="/skills/deploy/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/deploy</span>
+              <span class="pill">utility</span>
+            </div>
+            <div class="text-sm text-gray-400 mt-1">Service deployment automation</div>
+          </a>
+          <a href="/skills/backup/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/backup</span>
+              <span class="pill">utility</span>
+            </div>
+            <div class="text-sm text-gray-400 mt-1">Data backup and restore</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Methodology Panel -->
+      <div class="skill-panel" data-panel="methodology">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <a href="/skills/apt/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/apt</div>
+            <div class="text-sm text-gray-400 mt-1">APT v24 development methodology orchestrator</div>
+          </a>
+          <a href="/skills/apt-sa/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/apt-sa</div>
+            <div class="text-sm text-gray-400 mt-1">SemanticAnchor — project identity bootstrap</div>
+          </a>
+          <a href="/skills/apt-sp/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/apt-sp</div>
+            <div class="text-sm text-gray-400 mt-1">SemanticPyramid — recursive Span decomposition</div>
+          </a>
+          <a href="/skills/apt-st/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/apt-st</div>
+            <div class="text-sm text-gray-400 mt-1">SemanticTwin — Contract + Task crystallization</div>
+          </a>
+          <a href="/skills/apt-scw/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/apt-scw</div>
+            <div class="text-sm text-gray-400 mt-1">SourceCodeWorld — TDD implementation</div>
+          </a>
+          <a href="/skills/harness/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/harness</div>
+            <div class="text-sm text-gray-400 mt-1">Architecture-as-constraint design philosophy</div>
+          </a>
+          <a href="/skills/longinus/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/longinus</div>
+            <div class="text-sm text-gray-400 mt-1">KG-to-source traceability binding</div>
+          </a>
+          <a href="/skills/prometheus/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/prometheus</div>
+            <div class="text-sm text-gray-400 mt-1">Research-first problem solving — 7-step cycle</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Infrastructure Panel -->
+      <div class="skill-panel" data-panel="infra">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <a href="/skills/server-status/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/server-status</div>
+            <div class="text-sm text-gray-400 mt-1">Full server health check</div>
+          </a>
+          <a href="/skills/docker-logs/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/docker-logs</div>
+            <div class="text-sm text-gray-400 mt-1">Docker container log viewer</div>
+          </a>
+          <a href="/skills/db-query/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/db-query</div>
+            <div class="text-sm text-gray-400 mt-1">Multi-DB query runner (Neo4j, PG, Mongo, Redis)</div>
+          </a>
+          <a href="/skills/kafka-manage/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/kafka-manage</div>
+            <div class="text-sm text-gray-400 mt-1">Kafka topic management and messaging</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Verification Panel -->
+      <div class="skill-panel" data-panel="verification">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <a href="/skills/taliban/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/taliban</div>
+            <div class="text-sm text-gray-400 mt-1">Adversarial validation — 9-lens quality gate</div>
+          </a>
+          <a href="/skills/88-taliban/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/88-taliban</div>
+            <div class="text-sm text-gray-400 mt-1">113-lens mathematical meta-verification</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Utility Panel -->
+      <div class="skill-panel" data-panel="utility">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <a href="/skills/solve/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/solve</div>
+            <div class="text-sm text-gray-400 mt-1">7-step systematic problem resolution</div>
+          </a>
+          <a href="/skills/skill-creator/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/skill-creator</div>
+            <div class="text-sm text-gray-400 mt-1">Create and refine new agent skills</div>
+          </a>
+          <a href="/skills/deploy/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/deploy</div>
+            <div class="text-sm text-gray-400 mt-1">Service deployment automation</div>
+          </a>
+          <a href="/skills/backup/SKILL.md" class="group bg-gray-900/80 border border-gray-800 hover:border-mh-600 rounded-lg p-4 transition">
+            <div class="font-mono text-sm text-mh-500 group-hover:text-mh-400">/backup</div>
+            <div class="text-sm text-gray-400 mt-1">Data backup and restore</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Endpoints Table -->
+    <!-- KG: TASK_Landing_SemanticMarkup — RDFa property="offers" on endpoints -->
+    <section id="endpoints" class="max-w-6xl mx-auto px-6 py-16" property="offers" typeof="Offer">
+      <h2 class="text-2xl font-bold mb-8">Endpoints</h2>
+      <div class="bg-gray-900/80 border border-gray-800 rounded-xl overflow-hidden">
+        <table class="w-full text-sm">
+          <thead class="border-b border-gray-800">
+            <tr class="text-left text-gray-400">
+              <th class="px-5 py-3">Path</th>
+              <th class="px-5 py-3">Description</th>
+              <th class="px-5 py-3">Type</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-800">
+            <tr><td class="px-5 py-3 font-mono text-mh-500">/</td><td class="px-5 py-3 text-gray-300">This page (HTML + JSON-LD + RDFa)</td><td class="px-5 py-3 text-gray-500">Semantic Web</td></tr>
+            <tr><td class="px-5 py-3 font-mono text-mh-500">/llms.txt</td><td class="px-5 py-3 text-gray-300">LLM-readable site description</td><td class="px-5 py-3 text-gray-500">Markdown</td></tr>
+            <tr><td class="px-5 py-3 font-mono text-mh-500">/skills/</td><td class="px-5 py-3 text-gray-300">Skill registry (18 skills, 4 categories)</td><td class="px-5 py-3 text-gray-500">JSON</td></tr>
+            <tr><td class="px-5 py-3 font-mono text-mh-500">/skills/{name}/SKILL.md</td><td class="px-5 py-3 text-gray-300">Individual skill definition</td><td class="px-5 py-3 text-gray-500">Markdown</td></tr>
+            <tr><td class="px-5 py-3 font-mono text-mh-500">/mcp/</td><td class="px-5 py-3 text-gray-300">MCP Gateway (AI agent protocol)</td><td class="px-5 py-3 text-gray-500">MCP/SSE</td></tr>
+            <tr><td class="px-5 py-3 font-mono text-mh-500">/neo4j/</td><td class="px-5 py-3 text-gray-300">Neo4j Browser (547K nodes, 1M+ relations)</td><td class="px-5 py-3 text-gray-500">Web App</td></tr>
+            <tr><td class="px-5 py-3 font-mono text-mh-500">/n8n/</td><td class="px-5 py-3 text-gray-300">Workflow automation</td><td class="px-5 py-3 text-gray-500">Web App</td></tr>
+            <tr><td class="px-5 py-3 font-mono text-mh-500">/minio/</td><td class="px-5 py-3 text-gray-300">MinIO Console (S3 storage)</td><td class="px-5 py-3 text-gray-500">Web App</td></tr>
+            <tr><td class="px-5 py-3 font-mono text-mh-500">/traefik/</td><td class="px-5 py-3 text-gray-300">Traefik Dashboard</td><td class="px-5 py-3 text-gray-500">Web App</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer role="contentinfo" class="border-t border-gray-800 mt-16">
+    <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
+      <span>MetaHumotonic &mdash; metahumotonic.com &mdash; Ra Gyeongjun</span>
+      <div class="flex gap-4">
+        <a href="/robots.txt" class="hover:text-gray-300 transition">robots.txt</a>
+        <a href="/sitemap.xml" class="hover:text-gray-300 transition">sitemap</a>
+        <a href="/.well-known/security.txt" class="hover:text-gray-300 transition">security.txt</a>
+        <a href="/llms.txt" class="hover:text-gray-300 transition">llms.txt</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Progressive Enhancement: Tab switching (JS enhances, not required) -->
+  <script>
+    // Skill tab switching
+    document.querySelectorAll('.skill-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        var target = this.getAttribute('data-tab');
+        // Update tabs
+        document.querySelectorAll('.skill-tab').forEach(function(t) {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        this.classList.add('active');
+        this.setAttribute('aria-selected', 'true');
+        // Update panels
+        document.querySelectorAll('.skill-panel').forEach(function(p) {
+          p.classList.remove('active');
+        });
+        var panel = document.querySelector('[data-panel="' + target + '"]');
+        if (panel) panel.classList.add('active');
+      });
+    });
+
+    // Animated counters (Progressive Enhancement — static numbers shown by default in HTML)
+    function animateCounters() {
+      var counters = document.querySelectorAll('[data-count]');
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          var target = parseInt(el.getAttribute('data-count'), 10);
+          var duration = 2000;
+          var start = 0;
+          var startTime = null;
+          function step(timestamp) {
+            if (!startTime) startTime = timestamp;
+            var progress = Math.min((timestamp - startTime) / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            var current = Math.floor(eased * target);
+            el.textContent = current.toLocaleString();
+            if (progress < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+          observer.unobserve(el);
+        });
+      }, { threshold: 0.3 });
+      counters.forEach(function(c) { observer.observe(c); });
+    }
+    if ('IntersectionObserver' in window) {
+      animateCounters();
+    }
+  </script>
+
+  <!-- # KG: TASK_Landing_Starfield, CONTRACT_Landing_Starfield — canvas starfield -->
+  <script src="/js/starfield.js" defer></script>
+
+  <!-- Light Trails + Counters + KG Preview (legacy) -->
+  <script src="/js/main.js" defer></script>
+
+  <!-- KG: feedback + WebGL scene root — 섹션 마운트 포인트 -->
+  <section aria-labelledby="fb-title" style="position:relative;z-index:5;">
+    <div id="mh-feedback-root"></div>
+  </section>
+
+  <!-- KG: CONTRACT_LightVisual_OglDeployment — ogl 라이브러리 -->
+  <script src="/js/ogl.umd.js"></script>
+
+  <!-- KG: CONTRACT_LightVisual_WebGLLifecycle -->
+  <script src="/js/webgl-lifecycle.js" defer></script>
+
+  <!-- KG: CONTRACT_LightVisual_PrismDispersion + bootstrap -->
+  <script src="/js/prism-scene.js" defer></script>
+
+  <!-- KG: CONTRACT_Feedback_FormUI -->
+  <script src="/js/feedback-form.js" defer></script>
+
+  <!-- KG: CONTRACT_Landing_KGPreview -->
+  <script src="/js/kg-preview.js" defer></script>
+
+  <!-- KG: boot — MHPrismScene + MHFeedbackForm mount on DOMContentLoaded -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var canvas = document.getElementById('webgl-scene');
+      if (canvas && window.MHPrismScene && typeof window.ogl === 'object') {
+        window.MHPrismScene.init(canvas).catch(function (e) {
+          console.warn('[landing] prism scene init failed', e);
+        });
+      } else if (!window.ogl) {
+        console.warn('[landing] ogl not loaded, skipping WebGL scene');
+      }
+      var fbRoot = document.getElementById('mh-feedback-root');
+      if (fbRoot && window.MHFeedbackForm) {
+        window.MHFeedbackForm.mount(fbRoot);
+      }
+    });
+  </script>
+</body>
+</html>

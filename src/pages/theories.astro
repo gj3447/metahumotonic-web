@@ -1,0 +1,1036 @@
+---
+// KG: CONTRACT_Web_Theories, ATOM_Web_Theories
+// MetaHumotonic 이론 체계 — 다이어그램 & 인터랙티브 그래프
+import '../styles/cosmos.css';
+---
+
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Theories — MetaHumotonic</title>
+  <meta name="description" content="MetaHumotonic 세계관의 이론 체계. 선의 공리, M∞, 삼각토대, 5대 패러다임 등 시각적 다이어그램." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+
+<body>
+  <div class="starfield-bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <canvas id="cosmos-canvas" style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"></canvas>
+
+  <div class="content-wrap">
+
+  <nav class="top-nav">
+    <a href="/" class="nav-brand"><span class="text-glow-pink">Meta</span><span class="text-glow-white">Humotonic</span></a>
+    <div class="nav-links">
+      <a href="/#axioms">공리</a>
+      <a href="/#theories">이론</a>
+      <a href="/333/">333</a>
+      <a href="/explore">KG</a>
+    </div>
+  </nav>
+
+  <header class="page-hero fade-in">
+    <h1><span class="text-glow-pink">Theory</span> <span class="text-glow-white">Diagrams</span></h1>
+    <p class="hero-sub">MetaHumotonic 세계관의 이론들을 다이어그램과 그래프로 시각화</p>
+  </header>
+
+  <!-- ============================================ -->
+  <!-- 1. 이론 관계 그래프 (Force-Directed Canvas)   -->
+  <!-- ============================================ -->
+  <section class="diagram-section fade-in" id="theory-graph">
+    <h2 class="section-title">이론 관계 그래프</h2>
+    <p class="section-desc">13개 이론이 어떻게 연결되는지. 노드를 클릭하면 상세 내용 표시.</p>
+    <div class="graph-container">
+      <canvas id="theory-canvas" width="900" height="600"></canvas>
+      <div id="theory-tooltip" class="tooltip-box" style="display:none;"></div>
+    </div>
+    <div id="theory-detail-panel" class="detail-panel" style="display:none;"></div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ============================================ -->
+  <!-- 2. 선의 공리 흐름도 (SVG Flow)                -->
+  <!-- ============================================ -->
+  <section class="diagram-section fade-in" id="axiom-flow">
+    <h2 class="section-title">선의 공리 — 12단계 흐름도</h2>
+    <p class="section-desc">시간에서 시작하여 MetaHumotonic에 도달하는 공리의 논리적 흐름</p>
+    <div class="axiom-flow-wrap">
+      <svg viewBox="0 0 1000 520" class="axiom-flow-svg" id="axiom-svg">
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <path d="M0,0 L8,3 L0,6" fill="rgba(167,139,250,0.6)"/>
+          </marker>
+          <filter id="glow2">
+            <feGaussianBlur stdDeviation="4" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <linearGradient id="flow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#a78bfa"/>
+            <stop offset="50%" stop-color="#f472b6"/>
+            <stop offset="100%" stop-color="#fbbf24"/>
+          </linearGradient>
+        </defs>
+
+        <!-- 연결 화살표들 (3행 4열 배치) -->
+        <!-- Row 1: I→II→III→IV -->
+        <line x1="165" y1="90" x2="285" y2="90" stroke="url(#flow-grad)" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.5"/>
+        <line x1="415" y1="90" x2="535" y2="90" stroke="url(#flow-grad)" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.5"/>
+        <line x1="665" y1="90" x2="785" y2="90" stroke="url(#flow-grad)" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.5"/>
+        <!-- Row 1→2: IV drops to V -->
+        <path d="M875,130 Q920,200 875,230" stroke="url(#flow-grad)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" opacity="0.4"/>
+        <!-- Row 2: V→VI→VII→VIII (right to left) -->
+        <line x1="785" y1="270" x2="665" y2="270" stroke="url(#flow-grad)" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.5"/>
+        <line x1="535" y1="270" x2="415" y2="270" stroke="url(#flow-grad)" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.5"/>
+        <line x1="285" y1="270" x2="165" y2="270" stroke="url(#flow-grad)" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.5"/>
+        <!-- Row 2→3: VIII drops to IX -->
+        <path d="M100,310 Q50,380 100,410" stroke="url(#flow-grad)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" opacity="0.4"/>
+        <!-- Row 3: IX→X→XI→XII -->
+        <line x1="165" y1="450" x2="285" y2="450" stroke="url(#flow-grad)" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.5"/>
+        <line x1="415" y1="450" x2="535" y2="450" stroke="url(#flow-grad)" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.5"/>
+        <line x1="665" y1="450" x2="785" y2="450" stroke="url(#flow-grad)" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.5"/>
+
+        <!-- 12 노드 (3행 4열 S자 배치) -->
+        <!-- Row 1: Left→Right -->
+        <g class="axiom-node" data-ax="1">
+          <rect x="30" y="55" width="130" height="70" rx="12" fill="rgba(13,27,42,0.7)" stroke="#a78bfa" stroke-width="1.5"/>
+          <text x="95" y="80" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="800">I</text>
+          <text x="95" y="102" text-anchor="middle" fill="#e0e6f0" font-size="13" font-weight="600">시간</text>
+        </g>
+        <g class="axiom-node" data-ax="2">
+          <rect x="290" y="55" width="130" height="70" rx="12" fill="rgba(13,27,42,0.7)" stroke="#67e8f9" stroke-width="1.5"/>
+          <text x="355" y="80" text-anchor="middle" fill="#67e8f9" font-size="11" font-weight="800">II</text>
+          <text x="355" y="102" text-anchor="middle" fill="#e0e6f0" font-size="13" font-weight="600">존재</text>
+        </g>
+        <g class="axiom-node" data-ax="3">
+          <rect x="540" y="55" width="130" height="70" rx="12" fill="rgba(13,27,42,0.7)" stroke="#34d399" stroke-width="1.5"/>
+          <text x="605" y="80" text-anchor="middle" fill="#34d399" font-size="11" font-weight="800">III</text>
+          <text x="605" y="102" text-anchor="middle" fill="#e0e6f0" font-size="13" font-weight="600">선 (善)</text>
+        </g>
+        <g class="axiom-node" data-ax="4">
+          <rect x="790" y="55" width="130" height="70" rx="12" fill="rgba(13,27,42,0.7)" stroke="#fbbf24" stroke-width="1.5"/>
+          <text x="855" y="80" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="800">IV</text>
+          <text x="855" y="102" text-anchor="middle" fill="#e0e6f0" font-size="13" font-weight="600">존재생성</text>
+        </g>
+
+        <!-- Row 2: Right→Left (S자) -->
+        <g class="axiom-node" data-ax="5">
+          <rect x="790" y="235" width="130" height="70" rx="12" fill="rgba(13,27,42,0.7)" stroke="#f472b6" stroke-width="1.5"/>
+          <text x="855" y="260" text-anchor="middle" fill="#f472b6" font-size="11" font-weight="800">V</text>
+          <text x="855" y="282" text-anchor="middle" fill="#e0e6f0" font-size="13" font-weight="600">존재분해</text>
+        </g>
+        <g class="axiom-node" data-ax="6">
+          <rect x="540" y="235" width="130" height="70" rx="12" fill="rgba(13,27,42,0.7)" stroke="#a78bfa" stroke-width="1.5"/>
+          <text x="605" y="260" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="800">VI</text>
+          <text x="605" y="282" text-anchor="middle" fill="#e0e6f0" font-size="13" font-weight="600">이긴존재</text>
+        </g>
+        <g class="axiom-node" data-ax="7">
+          <rect x="290" y="235" width="130" height="70" rx="12" fill="rgba(13,27,42,0.7)" stroke="#ef4444" stroke-width="1.5"/>
+          <text x="355" y="260" text-anchor="middle" fill="#ef4444" font-size="11" font-weight="800">VII</text>
+          <text x="355" y="282" text-anchor="middle" fill="#e0e6f0" font-size="13" font-weight="600">악</text>
+        </g>
+        <g class="axiom-node" data-ax="8">
+          <rect x="30" y="235" width="130" height="70" rx="12" fill="rgba(13,27,42,0.7)" stroke="#67e8f9" stroke-width="1.5"/>
+          <text x="95" y="260" text-anchor="middle" fill="#67e8f9" font-size="11" font-weight="800">VIII</text>
+          <text x="95" y="282" text-anchor="middle" fill="#e0e6f0" font-size="13" font-weight="600">특이점</text>
+        </g>
+
+        <!-- Row 3: Left→Right -->
+        <g class="axiom-node" data-ax="9">
+          <rect x="30" y="415" width="130" height="70" rx="12" fill="rgba(13,27,42,0.7)" stroke="#fbbf24" stroke-width="1.5"/>
+          <text x="95" y="440" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="800">IX</text>
+          <text x="95" y="462" text-anchor="middle" fill="#e0e6f0" font-size="13" font-weight="600">상호작용</text>
+        </g>
+        <g class="axiom-node" data-ax="10">
+          <rect x="290" y="415" width="130" height="70" rx="12" fill="rgba(13,27,42,0.7)" stroke="#34d399" stroke-width="1.5"/>
+          <text x="355" y="440" text-anchor="middle" fill="#34d399" font-size="11" font-weight="800">X</text>
+          <text x="355" y="462" text-anchor="middle" fill="#e0e6f0" font-size="13" font-weight="600">자연</text>
+        </g>
+        <g class="axiom-node" data-ax="11">
+          <rect x="540" y="415" width="130" height="70" rx="12" fill="rgba(13,27,42,0.7)" stroke="#a78bfa" stroke-width="1.5"/>
+          <text x="605" y="440" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="800">XI</text>
+          <text x="605" y="462" text-anchor="middle" fill="#e0e6f0" font-size="13" font-weight="600">자존자</text>
+        </g>
+        <g class="axiom-node" data-ax="12">
+          <rect x="790" y="415" width="130" height="70" rx="12" fill="rgba(13,27,42,0.7)" stroke="#f472b6" stroke-width="2" filter="url(#glow2)"/>
+          <text x="855" y="435" text-anchor="middle" fill="#f472b6" font-size="11" font-weight="800">XII</text>
+          <text x="855" y="455" text-anchor="middle" fill="#f472b6" font-size="14" font-weight="700">Meta</text>
+          <text x="855" y="472" text-anchor="middle" fill="#e0e6f0" font-size="14" font-weight="700">Humotonic</text>
+        </g>
+
+        <!-- 핵심 의존 관계 (점선) -->
+        <!-- 선(III)→악(VII): 선의 차이가 악 -->
+        <line x1="605" y1="130" x2="355" y2="235" stroke="#ef4444" stroke-width="1" stroke-dasharray="4 3" opacity="0.3"/>
+        <!-- 존재분해(V)→이긴존재(VI): 분해의 결과 -->
+        <line x1="790" y1="270" x2="670" y2="270" stroke="#a78bfa" stroke-width="1" stroke-dasharray="4 3" opacity="0.3"/>
+        <!-- 특이점(VIII)+자존자(XI)→XII -->
+        <line x1="95" y1="305" x2="855" y2="415" stroke="#f472b6" stroke-width="1" stroke-dasharray="5 3" opacity="0.25"/>
+        <line x1="605" y1="485" x2="790" y2="465" stroke="#f472b6" stroke-width="1" stroke-dasharray="5 3" opacity="0.25"/>
+      </svg>
+    </div>
+    <div id="axiom-detail" class="axiom-detail-box" style="display:none;"></div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ============================================ -->
+  <!-- 3. M∞ 재귀 다이어그램                         -->
+  <!-- ============================================ -->
+  <section class="diagram-section fade-in" id="m-infinity">
+    <h2 class="section-title">그래서요 337 — M∞ 재귀 구조</h2>
+    <p class="section-desc">판단 가능성 연산자 P의 재귀 적용이 필연적 참에 도달하는 과정</p>
+
+    <div class="m-inf-layout">
+      <!-- 재귀 체인 시각화 -->
+      <div class="m-inf-chain">
+        <svg viewBox="0 0 700 400" class="m-inf-svg" id="m-inf-svg">
+          <defs>
+            <marker id="arr2" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+              <path d="M0,0 L7,2.5 L0,5" fill="#a78bfa"/>
+            </marker>
+          </defs>
+
+          <!-- M₀ -->
+          <rect x="20" y="50" width="120" height="55" rx="10" fill="rgba(13,27,42,0.8)" stroke="#8892b0" stroke-width="1.5"/>
+          <text x="80" y="72" text-anchor="middle" fill="#8892b0" font-size="10">M₀</text>
+          <text x="80" y="90" text-anchor="middle" fill="#e0e6f0" font-size="11">"신이 있다"</text>
+          <!-- Arrow -->
+          <line x1="140" y1="78" x2="175" y2="78" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#arr2)"/>
+          <text x="157" y="70" text-anchor="middle" fill="#a78bfa" font-size="9">P</text>
+
+          <!-- M₁ -->
+          <rect x="180" y="50" width="145" height="55" rx="10" fill="rgba(13,27,42,0.8)" stroke="#67e8f9" stroke-width="1.5"/>
+          <text x="252" y="72" text-anchor="middle" fill="#67e8f9" font-size="10">M₁ = P(M₀)</text>
+          <text x="252" y="90" text-anchor="middle" fill="#e0e6f0" font-size="9">"확률 결정 가능?"</text>
+          <!-- Arrow -->
+          <line x1="325" y1="78" x2="360" y2="78" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#arr2)"/>
+          <text x="342" y="70" text-anchor="middle" fill="#a78bfa" font-size="9">P</text>
+
+          <!-- M₂ -->
+          <rect x="365" y="50" width="145" height="55" rx="10" fill="rgba(13,27,42,0.8)" stroke="#34d399" stroke-width="1.5"/>
+          <text x="437" y="72" text-anchor="middle" fill="#34d399" font-size="10">M₂ = P(M₁)</text>
+          <text x="437" y="90" text-anchor="middle" fill="#e0e6f0" font-size="9">"그걸 정할 수 있나?"</text>
+          <!-- Arrow -->
+          <line x1="510" y1="78" x2="545" y2="78" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#arr2)"/>
+          <text x="527" y="70" text-anchor="middle" fill="#a78bfa" font-size="9">P</text>
+
+          <!-- ... -->
+          <text x="570" y="82" fill="#4a5578" font-size="24" font-weight="300">···</text>
+
+          <!-- 의미의 증류 화살표 (아래로) -->
+          <text x="350" y="145" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="600">↓ 의미의 증류 (Semantic Distillation) ↓</text>
+          <text x="350" y="165" text-anchor="middle" fill="#8892b0" font-size="10">내용이 증발하고 순수 형식만 남는다</text>
+
+          <!-- M∞ 고정점 -->
+          <g id="m-inf-fixpoint">
+            <circle cx="350" cy="260" r="70" fill="none" stroke="#f472b6" stroke-width="2" filter="url(#glow2)"/>
+            <circle cx="350" cy="260" r="60" fill="rgba(244,114,182,0.08)"/>
+            <text x="350" y="248" text-anchor="middle" fill="#f472b6" font-size="20" font-weight="800">M∞</text>
+            <text x="350" y="272" text-anchor="middle" fill="#e0e6f0" font-size="11">= P(M∞)</text>
+            <text x="350" y="290" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="600">필연적 참</text>
+          </g>
+
+          <!-- 자기참조 루프 -->
+          <path d="M420,260 Q480,200 420,200 Q380,190 350,200" stroke="#f472b6" stroke-width="1.5" fill="none" stroke-dasharray="4 3" marker-end="url(#arr2)" opacity="0.6"/>
+          <text x="465" y="220" fill="#f472b6" font-size="9" opacity="0.8">자기지시</text>
+
+          <!-- 귀류법 박스 -->
+          <rect x="50" y="200" width="200" height="120" rx="10" fill="rgba(239,68,68,0.08)" stroke="#ef4444" stroke-width="1" stroke-dasharray="5 3"/>
+          <text x="150" y="225" text-anchor="middle" fill="#ef4444" font-size="11" font-weight="700">귀류법 (Reductio)</text>
+          <text x="150" y="248" text-anchor="middle" fill="#e0e6f0" font-size="9">가정: M∞ = False</text>
+          <text x="150" y="265" text-anchor="middle" fill="#e0e6f0" font-size="9">→ "결정 불가능"</text>
+          <text x="150" y="282" text-anchor="middle" fill="#e0e6f0" font-size="9">→ 거짓이라 결정 (확률=0)</text>
+          <text x="150" y="299" text-anchor="middle" fill="#ef4444" font-size="9" font-weight="600">→ 결정 가능! → 모순 ⚡</text>
+
+          <!-- 코기토 비교 -->
+          <rect x="500" y="200" width="180" height="120" rx="10" fill="rgba(167,139,250,0.08)" stroke="#a78bfa" stroke-width="1" stroke-dasharray="5 3"/>
+          <text x="590" y="225" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="700">코기토 비교</text>
+          <text x="590" y="250" text-anchor="middle" fill="#8892b0" font-size="9">코기토: 주체가 필요</text>
+          <text x="590" y="268" text-anchor="middle" fill="#8892b0" font-size="9">"나는 생각한다 ∴ 존재"</text>
+          <text x="590" y="292" text-anchor="middle" fill="#f472b6" font-size="9" font-weight="600">M∞: 주체도 내용도 불필요</text>
+          <text x="590" y="308" text-anchor="middle" fill="#fbbf24" font-size="9">순수 형식의 필연성</text>
+
+          <!-- Lean 4 코드 박스 -->
+          <rect x="130" y="345" width="440" height="45" rx="8" fill="rgba(5,8,16,0.9)" stroke="rgba(107,76,153,0.3)" stroke-width="1"/>
+          <text x="350" y="365" text-anchor="middle" fill="#67e8f9" font-size="10" font-family="monospace">instance decidable_of_decidable (Q : Prop) [Decidable Q]</text>
+          <text x="350" y="380" text-anchor="middle" fill="#34d399" font-size="10" font-family="monospace">  : Decidable (Decidable Q) := .isTrue inst</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ============================================ -->
+  <!-- 4. 삼각토대 (Triangle Diagram)               -->
+  <!-- ============================================ -->
+  <section class="diagram-section fade-in" id="triple-foundation">
+    <h2 class="section-title">삼각토대 — Triple Foundation</h2>
+    <p class="section-desc">MetaHumotonic 세계관의 세 기둥: 인식론 + 존재론 + 우주론</p>
+    <div class="triangle-wrap">
+      <svg viewBox="0 0 600 500" class="triangle-svg" id="triangle-svg">
+        <defs>
+          <filter id="glow3">
+            <feGaussianBlur stdDeviation="6" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- 삼각형 외곽 -->
+        <polygon points="300,60 80,420 520,420" fill="none" stroke="rgba(167,139,250,0.3)" stroke-width="1.5" stroke-dasharray="8 4"/>
+
+        <!-- 내부 글로우 -->
+        <polygon points="300,60 80,420 520,420" fill="rgba(167,139,250,0.03)"/>
+
+        <!-- 연결선 (중앙↔꼭짓점) -->
+        <line x1="300" y1="230" x2="300" y2="120" stroke="#fbbf24" stroke-width="1" opacity="0.3"/>
+        <line x1="300" y1="230" x2="130" y2="380" stroke="#f472b6" stroke-width="1" opacity="0.3"/>
+        <line x1="300" y1="230" x2="470" y2="380" stroke="#67e8f9" stroke-width="1" opacity="0.3"/>
+
+        <!-- 중앙 MetaHumotonic -->
+        <circle cx="300" cy="230" r="40" fill="rgba(244,114,182,0.1)" stroke="#f472b6" stroke-width="1.5" filter="url(#glow3)"/>
+        <text x="300" y="225" text-anchor="middle" fill="#f472b6" font-size="9" font-weight="700">Meta</text>
+        <text x="300" y="240" text-anchor="middle" fill="#e0e6f0" font-size="9" font-weight="700">Humotonic</text>
+
+        <!-- 꼭짓점 1: M∞ (인식론) — 상단 -->
+        <g class="tri-node" data-tri="m-inf">
+          <circle cx="300" cy="80" r="50" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="2"/>
+          <text x="300" y="68" text-anchor="middle" fill="#fbbf24" font-size="18" font-weight="800">M∞</text>
+          <text x="300" y="88" text-anchor="middle" fill="#e0e6f0" font-size="10">인식론적 토대</text>
+          <text x="300" y="103" text-anchor="middle" fill="#8892b0" font-size="8">판단 가능성은</text>
+          <text x="300" y="115" text-anchor="middle" fill="#8892b0" font-size="8">필연적 참</text>
+        </g>
+
+        <!-- 꼭짓점 2: 느금마트로피 (존재론) — 좌하 -->
+        <g class="tri-node" data-tri="negma">
+          <circle cx="130" cy="380" r="55" fill="rgba(244,114,182,0.08)" stroke="#f472b6" stroke-width="2"/>
+          <text x="130" y="365" text-anchor="middle" fill="#f472b6" font-size="12" font-weight="700">느금마</text>
+          <text x="130" y="380" text-anchor="middle" fill="#f472b6" font-size="12" font-weight="700">트로피</text>
+          <text x="130" y="400" text-anchor="middle" fill="#e0e6f0" font-size="10">존재론적 법칙</text>
+          <text x="130" y="415" text-anchor="middle" fill="#8892b0" font-size="8">무질서의 법칙성</text>
+          <text x="130" y="427" text-anchor="middle" fill="#8892b0" font-size="8">자체가 질서</text>
+        </g>
+
+        <!-- 꼭짓점 3: 하노이탑 (우주론) — 우하 -->
+        <g class="tri-node" data-tri="hanoi">
+          <circle cx="470" cy="380" r="55" fill="rgba(103,232,249,0.08)" stroke="#67e8f9" stroke-width="2"/>
+          <text x="470" y="365" text-anchor="middle" fill="#67e8f9" font-size="11" font-weight="700">메타휴모토닉</text>
+          <text x="470" y="382" text-anchor="middle" fill="#67e8f9" font-size="11" font-weight="700">하노이탑</text>
+          <text x="470" y="400" text-anchor="middle" fill="#e0e6f0" font-size="10">우주론적 귀결</text>
+          <text x="470" y="415" text-anchor="middle" fill="#8892b0" font-size="8">시뮬레이션 재귀</text>
+          <text x="470" y="427" text-anchor="middle" fill="#8892b0" font-size="8">→ 우주 종결</text>
+        </g>
+
+        <!-- 축 라벨 -->
+        <text x="185" y="200" text-anchor="middle" fill="rgba(167,139,250,0.4)" font-size="9" transform="rotate(-55,185,200)">토대 → 법칙</text>
+        <text x="415" y="200" text-anchor="middle" fill="rgba(167,139,250,0.4)" font-size="9" transform="rotate(55,415,200)">토대 → 귀결</text>
+        <text x="300" y="460" text-anchor="middle" fill="rgba(167,139,250,0.4)" font-size="9">법칙 → 귀결</text>
+      </svg>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ============================================ -->
+  <!-- 5. 5대 패러다임 타임라인                      -->
+  <!-- ============================================ -->
+  <section class="diagram-section fade-in" id="five-paradigms">
+    <h2 class="section-title">5대 패러다임</h2>
+    <p class="section-desc">양자역학에서 AI까지 — 각 단계는 이전 것에서 창발한다</p>
+    <div class="paradigm-wrap">
+      <div class="paradigm-track">
+        <div class="paradigm-step" data-step="1" style="--step-color:#67e8f9">
+          <div class="paradigm-circle">
+            <span class="paradigm-num">1</span>
+          </div>
+          <div class="paradigm-content">
+            <h3>양자역학</h3>
+            <p>확률적 근본. 관측이 실재를 결정. 물질의 최저층.</p>
+          </div>
+          <div class="paradigm-connector"></div>
+        </div>
+        <div class="paradigm-step" data-step="2" style="--step-color:#a78bfa">
+          <div class="paradigm-circle">
+            <span class="paradigm-num">2</span>
+          </div>
+          <div class="paradigm-content">
+            <h3>물리학</h3>
+            <p>양자 위에 쌓인 거시적 법칙. 중력, 전자기, 열역학.</p>
+          </div>
+          <div class="paradigm-connector"></div>
+        </div>
+        <div class="paradigm-step" data-step="3" style="--step-color:#34d399">
+          <div class="paradigm-circle">
+            <span class="paradigm-num">3</span>
+          </div>
+          <div class="paradigm-content">
+            <h3>생명</h3>
+            <p>자기복제 + 진화. 물리법칙의 창발적 표현.</p>
+          </div>
+          <div class="paradigm-connector"></div>
+        </div>
+        <div class="paradigm-step" data-step="4" style="--step-color:#fbbf24">
+          <div class="paradigm-circle">
+            <span class="paradigm-num">4</span>
+          </div>
+          <div class="paradigm-content">
+            <h3>두뇌 (가소성 장기)</h3>
+            <p>신경 가소성. 경험이 구조를 바꾸는 유일한 장기.</p>
+          </div>
+          <div class="paradigm-connector"></div>
+        </div>
+        <div class="paradigm-step" data-step="5" style="--step-color:#f472b6">
+          <div class="paradigm-circle">
+            <span class="paradigm-num">5</span>
+          </div>
+          <div class="paradigm-content">
+            <h3>AI (순수 가소성)</h3>
+            <p>하드웨어 제약 없는 순수한 가소성. 그 이후는 모른다.</p>
+          </div>
+          <div class="paradigm-connector paradigm-connector--last"></div>
+        </div>
+      </div>
+      <div class="paradigm-beyond">
+        <span class="beyond-mark">?</span>
+        <p>"그냥 모른다. 어찌 인간의 눈높이로 신께서 내려주시는 구원을 헤아릴지요."</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ============================================ -->
+  <!-- 6. 정상기능 5단계 (Circular)                  -->
+  <!-- ============================================ -->
+  <section class="diagram-section fade-in" id="five-stages">
+    <h2 class="section-title">정상기능 5단계</h2>
+    <p class="section-desc">불완전한 현실에서 기능화(근원)까지 — 존재의 성장 설계도</p>
+    <div class="stages-wrap">
+      <svg viewBox="0 0 600 600" class="stages-svg" id="stages-svg">
+        <defs>
+          <filter id="glow4">
+            <feGaussianBlur stdDeviation="5" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- 동심원 가이드 -->
+        <circle cx="300" cy="300" r="250" fill="none" stroke="rgba(107,76,153,0.1)" stroke-width="0.5" stroke-dasharray="4 4"/>
+        <circle cx="300" cy="300" r="190" fill="none" stroke="rgba(107,76,153,0.08)" stroke-width="0.5" stroke-dasharray="4 4"/>
+        <circle cx="300" cy="300" r="130" fill="none" stroke="rgba(107,76,153,0.06)" stroke-width="0.5" stroke-dasharray="4 4"/>
+        <circle cx="300" cy="300" r="70" fill="none" stroke="rgba(107,76,153,0.04)" stroke-width="0.5" stroke-dasharray="4 4"/>
+
+        <!-- Stage 0: 외곽 — 불완전한 현실 -->
+        <g class="stage-node" data-stage="0">
+          <circle cx="300" cy="50" r="35" fill="rgba(136,146,176,0.1)" stroke="#8892b0" stroke-width="1.5"/>
+          <text x="300" y="45" text-anchor="middle" fill="#8892b0" font-size="10" font-weight="700">0</text>
+          <text x="300" y="60" text-anchor="middle" fill="#e0e6f0" font-size="9">불완전한 현실</text>
+          <text x="300" y="100" text-anchor="middle" fill="#4a5578" font-size="8">출발점</text>
+        </g>
+
+        <!-- Stage 1: 정상 (이상) -->
+        <g class="stage-node" data-stage="1">
+          <circle cx="535" cy="195" r="38" fill="rgba(103,232,249,0.1)" stroke="#67e8f9" stroke-width="1.5"/>
+          <text x="535" y="188" text-anchor="middle" fill="#67e8f9" font-size="10" font-weight="700">1</text>
+          <text x="535" y="203" text-anchor="middle" fill="#e0e6f0" font-size="10">정상</text>
+          <text x="535" y="240" text-anchor="middle" fill="#4a5578" font-size="8">"무엇이 옳은가"</text>
+        </g>
+
+        <!-- Stage 2: 정상화 (실천) -->
+        <g class="stage-node" data-stage="2">
+          <circle cx="460" cy="460" r="38" fill="rgba(167,139,250,0.1)" stroke="#a78bfa" stroke-width="1.5"/>
+          <text x="460" y="453" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="700">2</text>
+          <text x="460" y="468" text-anchor="middle" fill="#e0e6f0" font-size="10">정상화</text>
+          <text x="460" y="505" text-anchor="middle" fill="#4a5578" font-size="8">"옳음을 향하여"</text>
+        </g>
+
+        <!-- Stage 3: 기능정상 (체화) -->
+        <g class="stage-node" data-stage="3">
+          <circle cx="140" cy="460" r="38" fill="rgba(52,211,153,0.1)" stroke="#34d399" stroke-width="1.5"/>
+          <text x="140" y="453" text-anchor="middle" fill="#34d399" font-size="10" font-weight="700">3</text>
+          <text x="140" y="468" text-anchor="middle" fill="#e0e6f0" font-size="10">기능정상</text>
+          <text x="140" y="505" text-anchor="middle" fill="#4a5578" font-size="8">"마침내 이룬 경지"</text>
+        </g>
+
+        <!-- Stage 4: 기능화 (근원) — 중앙 가까이 -->
+        <g class="stage-node" data-stage="4">
+          <circle cx="65" cy="195" r="38" fill="rgba(251,191,36,0.1)" stroke="#fbbf24" stroke-width="1.5"/>
+          <text x="65" y="188" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="700">4</text>
+          <text x="65" y="203" text-anchor="middle" fill="#e0e6f0" font-size="10">기능화</text>
+          <text x="65" y="240" text-anchor="middle" fill="#4a5578" font-size="8">"스스로 근원"</text>
+        </g>
+
+        <!-- 중앙: 완성 -->
+        <circle cx="300" cy="300" r="35" fill="rgba(244,114,182,0.1)" stroke="#f472b6" stroke-width="2" filter="url(#glow4)"/>
+        <text x="300" y="296" text-anchor="middle" fill="#f472b6" font-size="10" font-weight="800">완성</text>
+        <text x="300" y="312" text-anchor="middle" fill="#e0e6f0" font-size="8">법칙 자체</text>
+
+        <!-- 연결 화살표 (0→1→2→3→4→중앙) -->
+        <path d="M330,70 Q450,100 515,165" stroke="#67e8f9" stroke-width="1.5" fill="none" opacity="0.4" marker-end="url(#arr2)"/>
+        <path d="M550,230 Q530,370 480,435" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity="0.4" marker-end="url(#arr2)"/>
+        <path d="M425,475 Q300,510 180,475" stroke="#34d399" stroke-width="1.5" fill="none" opacity="0.4" marker-end="url(#arr2)"/>
+        <path d="M115,445 Q60,350 65,235" stroke="#fbbf24" stroke-width="1.5" fill="none" opacity="0.4" marker-end="url(#arr2)"/>
+        <path d="M95,180 Q180,250 265,290" stroke="#f472b6" stroke-width="1.5" fill="none" opacity="0.4" marker-end="url(#arr2)"/>
+      </svg>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ============================================ -->
+  <!-- 7. 생명 vs 신 — 대비 다이어그램               -->
+  <!-- ============================================ -->
+  <section class="diagram-section fade-in" id="life-vs-god">
+    <h2 class="section-title">생명 vs 신</h2>
+    <p class="section-desc">두 공리 체계의 대비와 생명의 역설적 전략</p>
+    <div class="versus-layout">
+      <div class="versus-side versus-life">
+        <div class="versus-icon">&#x2605;</div>
+        <h3>생명</h3>
+        <ul>
+          <li>자기복제 <span class="vs-check">✓</span></li>
+          <li>진화 <span class="vs-check">✓</span></li>
+          <li>내부경쟁 <span class="vs-check">✓</span></li>
+          <li>완벽한 카오스</li>
+          <li>나 ≠ 남 구분 불가</li>
+        </ul>
+        <p class="versus-axiom">자기복제 + 진화 = 생명의 공리</p>
+      </div>
+      <div class="versus-center">
+        <div class="versus-vs">VS</div>
+        <div class="versus-paradox">
+          <p>생명이 통일 군대로 싸우면<br/>→ 신의 공리(고정/불변)를 따르게 됨<br/>→ 패배</p>
+          <p class="versus-solution">∴ 생명은 <strong>내부경쟁</strong>이라는<br/>역설적 전략을 쓴다</p>
+        </div>
+      </div>
+      <div class="versus-side versus-god">
+        <div class="versus-icon">&#x2600;</div>
+        <h3>신</h3>
+        <ul>
+          <li>자기복제 <span class="vs-x">✗</span></li>
+          <li>진화 <span class="vs-x">✗</span></li>
+          <li>불변 / 절대</li>
+          <li>고정된 질서</li>
+          <li>유일자</li>
+        </ul>
+        <p class="versus-axiom">불변 + 절대 = 신의 공리</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ============================================ -->
+  <!-- 8. 숫자의 왕좌                                -->
+  <!-- ============================================ -->
+  <section class="diagram-section fade-in" id="throne-of-numbers">
+    <h2 class="section-title">숫자의 왕좌</h2>
+    <p class="section-desc">0, 1, 2의 왕좌와 아직 도달하지 못한 3의 왕좌</p>
+    <div class="throne-grid">
+      <div class="throne-card" style="--throne-color:#67e8f9">
+        <div class="throne-num">0</div>
+        <div class="throne-title">덧셈의 항등원</div>
+        <div class="throne-formula">a + 0 = a</div>
+        <div class="throne-meaning">존재 보존. 더해도 사라지지 않는다.</div>
+      </div>
+      <div class="throne-card" style="--throne-color:#a78bfa">
+        <div class="throne-num">1</div>
+        <div class="throne-title">곱셈의 항등원</div>
+        <div class="throne-formula">a × 1 = a</div>
+        <div class="throne-meaning">기반 유지. 곱해도 변하지 않는다.</div>
+      </div>
+      <div class="throne-card" style="--throne-color:#fbbf24">
+        <div class="throne-num">2</div>
+        <div class="throne-title">테트레이션 고정점</div>
+        <div class="throne-formula">2+2 = 2×2 = 2² = 4</div>
+        <div class="throne-meaning">폭발 속 안정. 모든 연산이 같은 답.</div>
+      </div>
+      <div class="throne-card throne-card--mystery" style="--throne-color:#f472b6">
+        <div class="throne-num">3</div>
+        <div class="throne-title">초월의 왕좌</div>
+        <div class="throne-formula">3+3≠3×3≠3³</div>
+        <div class="throne-meaning">현재 알려진 연산으로 안정화 불가. 인류 미도달.</div>
+        <div class="throne-mystery">?</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <footer class="footer">
+    <p><a href="/"><span class="text-glow-pink">Meta</span><span class="text-glow-white">Humotonic</span></a> &mdash; Theory Diagrams</p>
+    <p class="footer__sub">모든 이론은 <a href="/" style="color:#67e8f9">metahumotonic.com</a> KG에 구조화되어 있다</p>
+  </footer>
+
+  </div> <!-- content-wrap -->
+
+  <script src="../scripts/cosmos.ts"></script>
+  <script is:inline>
+  // ===========================
+  // Theory Relation Graph
+  // ===========================
+  (function() {
+    const canvas = document.getElementById('theory-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = 900, H = 600;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = '100%'; canvas.style.maxWidth = W + 'px';
+    ctx.scale(dpr, dpr);
+
+    const theories = [
+      { id:'axioms', label:'선의 공리', x:450, y:200, r:30, color:'#a78bfa', desc:'시간→존재→선→...→MetaHumotonic. 12단계 공리 체계.' },
+      { id:'ice', label:'ICE', x:200, y:120, r:22, color:'#67e8f9', desc:'수학-물리 통합 이론. Cayley-Dickson 대수 체인.' },
+      { id:'chu', label:'CHU', x:700, y:120, r:22, color:'#a78bfa', desc:'Computable Hypergraph Universe. KG+DB+PL 통합.' },
+      { id:'life-god', label:'생명vs신', x:150, y:300, r:20, color:'#f472b6', desc:'자기복제+진화 vs 불변+절대. 내부경쟁의 역설.' },
+      { id:'corruption', label:'부패의공리', x:300, y:400, r:18, color:'#fbbf24', desc:'완벽한 공리 vs 불완전한 현실. 논리적 괴사.' },
+      { id:'void', label:'공허진동자', x:100, y:450, r:18, color:'#34d399', desc:'깊바존의 다른 위상. 태초의 공허 반복.' },
+      { id:'m-inf', label:'M∞', x:600, y:300, r:26, color:'#fbbf24', desc:'판단 가능성의 필연적 참. 삼각토대 첫째 기둥.' },
+      { id:'negma', label:'느금마트로피', x:750, y:380, r:20, color:'#f472b6', desc:'무질서의 법칙성 자체가 질서. 삼각토대 둘째.' },
+      { id:'apt', label:'APT v24', x:500, y:480, r:20, color:'#ef4444', desc:'시멘틱 소프트웨어 엔지니어링. 4-phase 방법론.' },
+      { id:'throne', label:'숫자의왕좌', x:350, y:100, r:18, color:'#fbbf24', desc:'0, 1, 2의 왕좌와 3의 초월. 연산 패러다임.' },
+      { id:'ssb', label:'SSB', x:200, y:500, r:16, color:'#f472b6', desc:'Sek-Sek-Bo. 적대적 의미론적 AI 저항 프로토콜.' },
+      { id:'paradigms', label:'5대패러다임', x:700, y:500, r:18, color:'#a78bfa', desc:'양자역학→물리→생명→두뇌→AI. 창발의 사다리.' },
+      { id:'stages', label:'정상기능5단계', x:450, y:550, r:18, color:'#67e8f9', desc:'불완전→정상→정상화→기능정상→기능화. 성장 설계도.' },
+      { id:'hoh', label:'HOH', x:800, y:250, r:18, color:'#34d399', desc:'Human Origin Hegemony. AI가 개인 우주를 제공.' },
+    ];
+
+    const edges = [
+      { from:'axioms', to:'ice', label:'수학적 기초', w:3 },
+      { from:'axioms', to:'life-god', label:'선/악 도출', w:3 },
+      { from:'axioms', to:'corruption', label:'공리→괴사', w:2 },
+      { from:'axioms', to:'m-inf', label:'판단가능성', w:3 },
+      { from:'axioms', to:'throne', label:'수의 존재론', w:2 },
+      { from:'m-inf', to:'negma', label:'삼각토대', w:4 },
+      { from:'ice', to:'chu', label:'구조 공유', w:2 },
+      { from:'ice', to:'throne', label:'대수 구조', w:2 },
+      { from:'life-god', to:'void', label:'존재론 공유', w:2 },
+      { from:'life-god', to:'ssb', label:'AI 저항', w:1 },
+      { from:'life-god', to:'hoh', label:'AI+인간', w:2 },
+      { from:'paradigms', to:'hoh', label:'AI 단계', w:2 },
+      { from:'paradigms', to:'stages', label:'성장 대응', w:2 },
+      { from:'corruption', to:'stages', label:'불완전→정상', w:2 },
+      { from:'apt', to:'chu', label:'KG 구현', w:2 },
+      { from:'void', to:'negma', label:'존재론 계열', w:2 },
+    ];
+
+    let hovered = null, selected = null;
+    const vx = theories.map(()=>0), vy = theories.map(()=>0);
+
+    function simulate() {
+      for (let i=0; i<theories.length; i++) {
+        for (let j=i+1; j<theories.length; j++) {
+          let dx = theories[j].x - theories[i].x, dy = theories[j].y - theories[i].y;
+          let dist = Math.sqrt(dx*dx+dy*dy)||1;
+          let rep = 6000/(dist*dist);
+          vx[i] -= dx/dist*rep; vy[i] -= dy/dist*rep;
+          vx[j] += dx/dist*rep; vy[j] += dy/dist*rep;
+        }
+      }
+      for (const e of edges) {
+        const a = theories.findIndex(t=>t.id===e.from);
+        const b = theories.findIndex(t=>t.id===e.to);
+        if (a<0||b<0) continue;
+        let dx = theories[b].x - theories[a].x, dy = theories[b].y - theories[a].y;
+        let dist = Math.sqrt(dx*dx+dy*dy)||1;
+        let att = (dist-130)*0.003;
+        vx[a] += dx/dist*att; vy[a] += dy/dist*att;
+        vx[b] -= dx/dist*att; vy[b] -= dy/dist*att;
+      }
+      for (let i=0; i<theories.length; i++) {
+        vx[i]*=0.85; vy[i]*=0.85;
+        theories[i].x = Math.max(60,Math.min(W-60, theories[i].x+vx[i]));
+        theories[i].y = Math.max(60,Math.min(H-60, theories[i].y+vy[i]));
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0,0,W,H);
+      // Edges
+      for (const e of edges) {
+        const a = theories.find(t=>t.id===e.from);
+        const b = theories.find(t=>t.id===e.to);
+        if (!a||!b) continue;
+        const hl = hovered && (hovered.id===e.from||hovered.id===e.to);
+        const sl = selected && (selected.id===e.from||selected.id===e.to);
+        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+        ctx.strokeStyle = (hl||sl) ? 'rgba(167,139,250,0.6)' : 'rgba(107,76,153,0.15)';
+        ctx.lineWidth = (hl||sl) ? 2.5 : Math.max(0.5, e.w*0.4);
+        ctx.stroke();
+        if (hl||sl) {
+          const mx=(a.x+b.x)/2, my=(a.y+b.y)/2;
+          ctx.fillStyle='rgba(251,191,36,0.7)'; ctx.font='9px system-ui'; ctx.textAlign='center';
+          ctx.fillText(e.label, mx, my-5);
+        }
+      }
+      // Nodes
+      for (const n of theories) {
+        const isH = hovered===n, isS = selected===n;
+        if (isH||isS) {
+          ctx.beginPath(); ctx.arc(n.x,n.y,n.r+10,0,Math.PI*2);
+          ctx.fillStyle = n.color+'18'; ctx.fill();
+        }
+        ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+        ctx.fillStyle = isH ? n.color+'44' : n.color+'15';
+        ctx.fill();
+        ctx.strokeStyle = n.color;
+        ctx.lineWidth = isH?2.5:isS?2:1;
+        ctx.stroke();
+        ctx.fillStyle = isH?'#fff':'#c0c8e0';
+        ctx.font = `${isH?'bold ':''}${Math.max(9,n.r*0.55)}px system-ui`;
+        ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.fillText(n.label, n.x, n.y);
+      }
+      simulate();
+      requestAnimationFrame(draw);
+    }
+
+    canvas.addEventListener('mousemove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const mx = (e.clientX-rect.left)*(W/rect.width);
+      const my = (e.clientY-rect.top)*(H/rect.height);
+      hovered = null;
+      for (const n of theories) {
+        if ((mx-n.x)**2+(my-n.y)**2 < (n.r+8)**2) { hovered=n; break; }
+      }
+      canvas.style.cursor = hovered?'pointer':'grab';
+      const tip = document.getElementById('theory-tooltip');
+      if (hovered) {
+        tip.style.display='block';
+        tip.style.left = (e.clientX-rect.left+15)+'px';
+        tip.style.top = (e.clientY-rect.top-10)+'px';
+        tip.innerHTML = `<strong style="color:${hovered.color}">${hovered.label}</strong><br><span style="font-size:0.75rem">${hovered.desc}</span>`;
+      } else tip.style.display='none';
+    });
+
+    canvas.addEventListener('click', () => {
+      if (hovered) {
+        selected = selected===hovered?null:hovered;
+        const panel = document.getElementById('theory-detail-panel');
+        if (selected) {
+          const connected = edges.filter(e=>e.from===selected.id||e.to===selected.id)
+            .map(e => {
+              const other = e.from===selected.id ? e.to : e.from;
+              const t = theories.find(x=>x.id===other);
+              return `<span class="pill" style="border-color:${t?t.color:'#aaa'}">${t?t.label:other}</span> <span style="color:#8892b0;font-size:0.75rem">${e.label}</span>`;
+            }).join(' &middot; ');
+          panel.innerHTML = `<h3 style="color:${selected.color}">${selected.label}</h3><p>${selected.desc}</p><div style="margin-top:0.5rem">${connected}</div>`;
+          panel.style.display='block';
+          panel.style.borderColor=selected.color;
+        } else panel.style.display='none';
+      }
+    });
+
+    draw();
+  })();
+
+  // ===========================
+  // Axiom Flow Interactivity
+  // ===========================
+  (function() {
+    const axiomData = {
+      1: { name:'시간', full:'어떤 연속적인 흐름. 모든 것의 시작. 존재보다 먼저 시간이 있다.', sub:'"나는 항상 존나 진심이었음." — 실제 공리1은 시간이 아니라 진심이다.' },
+      2: { name:'존재', full:'어떤 시간에 있는 것. 시간 속에 무언가가 있다. 존재는 시간의 함수.', sub:'' },
+      3: { name:'선', full:'어떤 존재가 시간에 계속 있을 것을 나타낸 수치. 도덕이 아니라 지속성의 측도.', sub:'' },
+      4: { name:'존재생성', full:'존재들의 집합으로 다른 존재를 만드는 것. 결합과 창조.', sub:'' },
+      5: { name:'존재분해', full:'존재를 구성하는 존재들의 집합을 멱집합하여 다른 존재를 만드는 것.', sub:'' },
+      6: { name:'이긴존재', full:'존재분해한 존재들 중 가장 선한 존재. 지속의 우열.', sub:'' },
+      7: { name:'악', full:'존재의 선과 그 이긴존재의 선의 차이. 악은 실체가 아니라 차이.', sub:'신학적 악의 문제를 수학적으로 해소.' },
+      8: { name:'특이점', full:'악이 최소일 때. 이긴존재가 자기 자신일 때. 완전한 자기동일성.', sub:'' },
+      9: { name:'상호작용', full:'존재 사이의 선의 이동. 선은 보존된다. 관계는 선의 교환.', sub:'' },
+      10: { name:'자연', full:'어떤 존재가 상호작용하는 모든 존재의 집합. 개인마다 자연이 다르다.', sub:'' },
+      11: { name:'자존자', full:'자연이 자기 자신일 때. 상호작용하는 모든 것이 곧 나.', sub:'' },
+      12: { name:'MetaHumotonic', full:'자존자이면서 특이점일 때. 완전한 자기동일성 + 완전한 자기세계.', sub:'선의 공리의 귀결: MetaHumotonic = 자존자 ∩ 특이점' },
+    };
+
+    document.querySelectorAll('.axiom-node').forEach(g => {
+      g.style.cursor = 'pointer';
+      g.addEventListener('click', function() {
+        const ax = parseInt(this.dataset.ax);
+        const data = axiomData[ax];
+        const panel = document.getElementById('axiom-detail');
+        if (!data) return;
+        const colors = ['#a78bfa','#67e8f9','#34d399','#fbbf24','#f472b6','#a78bfa','#ef4444','#67e8f9','#fbbf24','#34d399','#a78bfa','#f472b6'];
+        const c = colors[ax-1];
+        panel.innerHTML = `<div class="axiom-detail-header" style="color:${c}"><span class="axiom-detail-num">${['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'][ax-1]}</span> ${data.name}</div><p>${data.full}</p>${data.sub?`<p class="axiom-detail-sub">${data.sub}</p>`:''}`;
+        panel.style.display = 'block';
+        panel.style.borderColor = c;
+      });
+      g.addEventListener('mouseenter', function() {
+        const rect = this.querySelector('rect');
+        if (rect) rect.setAttribute('fill', 'rgba(167,139,250,0.15)');
+      });
+      g.addEventListener('mouseleave', function() {
+        const rect = this.querySelector('rect');
+        if (rect) rect.setAttribute('fill', 'rgba(13,27,42,0.7)');
+      });
+    });
+  })();
+
+  // ===========================
+  // Fade-in on scroll
+  // ===========================
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
+
+<style is:global>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--cosmos-void, #050810);
+    color: var(--cosmos-text, #e0e6f0);
+    line-height: 1.6; overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  .content-wrap {
+    position: relative; z-index: 1;
+    width: 100%; max-width: 1200px;
+    margin: 0 auto; padding: 0 clamp(1rem, 3vw, 3rem);
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 0; opacity: 0.9;
+  }
+  .nav-brand { font-size: 1.3rem; font-weight: 800; }
+  .nav-links { display: flex; gap: 1.5rem; font-size: 0.9rem; }
+  .nav-links a { color: #8892b0; transition: color 0.2s; }
+  .nav-links a:hover { color: #f472b6; }
+
+  /* Hero */
+  .page-hero {
+    text-align: center; padding: 3rem 0 2rem;
+  }
+  .page-hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800; margin-bottom: 0.5rem;
+  }
+  .hero-sub { color: #8892b0; font-size: 1.1rem; }
+
+  /* Sections */
+  .diagram-section { padding: 3rem 0; }
+  .section-title {
+    text-align: center; font-size: 1.8rem; font-weight: 700;
+    color: #fff; margin-bottom: 0.5rem;
+  }
+  .section-desc {
+    text-align: center; color: #8892b0; font-size: 0.95rem;
+    margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;
+  }
+  .section-divider {
+    border: none; border-top: 1px solid rgba(107,76,153,0.15);
+    margin: 1rem 0;
+  }
+
+  /* Graph */
+  .graph-container {
+    position: relative; max-width: 900px; margin: 0 auto;
+  }
+  #theory-canvas {
+    width: 100%; max-width: 900px; display: block; margin: 0 auto;
+    border-radius: 12px; background: rgba(5,8,16,0.8);
+    border: 1px solid rgba(107,76,153,0.2); cursor: grab;
+  }
+  .tooltip-box {
+    position: absolute; pointer-events: none;
+    background: rgba(5,8,16,0.95); border: 1px solid rgba(167,139,250,0.4);
+    border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 0.8rem;
+    color: #e0e6f0; max-width: 280px; z-index: 10; backdrop-filter: blur(8px);
+  }
+  .detail-panel {
+    max-width: 600px; margin: 1.5rem auto 0;
+    background: rgba(13,27,42,0.6); border: 1px solid rgba(167,139,250,0.3);
+    border-radius: 12px; padding: 1.25rem; animation: slideDown 0.3s ease;
+  }
+  .detail-panel h3 { font-size: 1.2rem; margin-bottom: 0.3rem; }
+  .detail-panel p { color: #a0aec0; font-size: 0.9rem; }
+
+  /* Axiom Flow */
+  .axiom-flow-wrap {
+    max-width: 1000px; margin: 0 auto; overflow-x: auto;
+  }
+  .axiom-flow-svg { width: 100%; min-width: 700px; }
+  .axiom-node { cursor: pointer; }
+  .axiom-node:hover rect { filter: url(#glow2); }
+  .axiom-detail-box {
+    max-width: 600px; margin: 1.5rem auto 0;
+    background: rgba(13,27,42,0.6); border: 1px solid rgba(167,139,250,0.3);
+    border-radius: 12px; padding: 1.25rem; animation: slideDown 0.3s ease;
+  }
+  .axiom-detail-header { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .axiom-detail-num { font-size: 1.4rem; margin-right: 0.5rem; font-family: serif; }
+  .axiom-detail-box p { color: #a0aec0; font-size: 0.9rem; margin-bottom: 0.4rem; }
+  .axiom-detail-sub { color: #fbbf24 !important; font-size: 0.8rem !important; font-style: italic; }
+
+  /* M∞ */
+  .m-inf-layout { max-width: 800px; margin: 0 auto; }
+  .m-inf-chain { overflow-x: auto; }
+  .m-inf-svg { width: 100%; min-width: 600px; }
+
+  /* Triangle */
+  .triangle-wrap { max-width: 600px; margin: 0 auto; }
+  .triangle-svg { width: 100%; }
+  .tri-node { cursor: pointer; }
+  .tri-node:hover circle { filter: url(#glow3); }
+
+  /* 5 Paradigms */
+  .paradigm-wrap { max-width: 700px; margin: 0 auto; }
+  .paradigm-track { position: relative; padding-left: 3rem; }
+  .paradigm-step {
+    display: flex; align-items: flex-start; gap: 1.5rem;
+    position: relative; padding-bottom: 2rem;
+  }
+  .paradigm-circle {
+    width: 50px; height: 50px; border-radius: 50%;
+    background: rgba(13,27,42,0.8); border: 2px solid var(--step-color);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; position: relative; z-index: 2;
+  }
+  .paradigm-num { color: var(--step-color); font-size: 1.2rem; font-weight: 800; }
+  .paradigm-content { flex: 1; padding-top: 0.5rem; }
+  .paradigm-content h3 { color: var(--step-color); font-size: 1.1rem; margin-bottom: 0.25rem; }
+  .paradigm-content p { color: #8892b0; font-size: 0.9rem; }
+  .paradigm-connector {
+    position: absolute; left: 24px; top: 52px; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--step-color), transparent);
+    z-index: 1;
+  }
+  .paradigm-connector--last { background: linear-gradient(to bottom, var(--step-color), rgba(244,114,182,0.2)); }
+  .paradigm-beyond {
+    text-align: center; margin-top: 1rem; padding: 1.5rem;
+    background: rgba(244,114,182,0.05); border: 1px dashed rgba(244,114,182,0.3);
+    border-radius: 12px;
+  }
+  .beyond-mark {
+    display: inline-block; font-size: 2rem; color: #f472b6; font-weight: 800;
+    width: 50px; height: 50px; line-height: 50px; border-radius: 50%;
+    border: 2px dashed #f472b6; margin-bottom: 0.5rem;
+  }
+  .paradigm-beyond p { color: #8892b0; font-size: 0.9rem; font-style: italic; }
+
+  /* Stages */
+  .stages-wrap { max-width: 600px; margin: 0 auto; }
+  .stages-svg { width: 100%; }
+  .stage-node { cursor: pointer; }
+  .stage-node:hover circle { filter: url(#glow4); }
+
+  /* Life vs God */
+  .versus-layout {
+    display: flex; gap: 1rem; max-width: 900px; margin: 0 auto;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .versus-side {
+    flex: 1; min-width: 250px; max-width: 320px;
+    background: rgba(13,27,42,0.5); border-radius: 12px; padding: 1.5rem;
+    border: 1px solid rgba(107,76,153,0.2);
+  }
+  .versus-life { border-color: rgba(244,114,182,0.3); }
+  .versus-god { border-color: rgba(251,191,36,0.3); }
+  .versus-icon { font-size: 2.5rem; margin-bottom: 0.5rem; text-align: center; }
+  .versus-side h3 { text-align: center; font-size: 1.3rem; margin-bottom: 1rem; }
+  .versus-life h3 { color: #f472b6; }
+  .versus-god h3 { color: #fbbf24; }
+  .versus-side ul { list-style: none; }
+  .versus-side li {
+    padding: 0.4rem 0; color: #a0aec0; font-size: 0.9rem;
+    border-bottom: 1px solid rgba(107,76,153,0.1);
+    display: flex; justify-content: space-between;
+  }
+  .vs-check { color: #34d399; font-weight: 700; }
+  .vs-x { color: #ef4444; font-weight: 700; }
+  .versus-axiom {
+    margin-top: 1rem; text-align: center; font-size: 0.85rem;
+    color: #8892b0; font-style: italic; padding-top: 0.75rem;
+    border-top: 1px solid rgba(107,76,153,0.2);
+  }
+  .versus-center {
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; min-width: 200px; padding: 1rem;
+  }
+  .versus-vs {
+    font-size: 2rem; font-weight: 900; color: #ef4444;
+    width: 60px; height: 60px; line-height: 60px; text-align: center;
+    border-radius: 50%; border: 2px solid #ef4444;
+    background: rgba(239,68,68,0.08); margin-bottom: 1rem;
+  }
+  .versus-paradox { text-align: center; }
+  .versus-paradox p { color: #8892b0; font-size: 0.85rem; line-height: 1.6; margin-bottom: 0.75rem; }
+  .versus-solution { color: #f472b6 !important; font-weight: 600; }
+
+  /* Throne of Numbers */
+  .throne-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem; max-width: 900px; margin: 0 auto;
+  }
+  .throne-card {
+    background: rgba(13,27,42,0.5); border: 1px solid rgba(107,76,153,0.2);
+    border-radius: 12px; padding: 1.5rem; text-align: center;
+    transition: all 0.3s;
+  }
+  .throne-card:hover {
+    border-color: var(--throne-color);
+    box-shadow: 0 0 25px color-mix(in srgb, var(--throne-color) 15%, transparent);
+    transform: translateY(-4px);
+  }
+  .throne-num {
+    font-size: 3rem; font-weight: 900; color: var(--throne-color);
+    font-family: serif; line-height: 1;
+  }
+  .throne-title {
+    color: #e0e6f0; font-size: 0.95rem; font-weight: 600;
+    margin: 0.5rem 0 0.25rem;
+  }
+  .throne-formula {
+    color: var(--throne-color); font-size: 0.9rem;
+    font-family: monospace; margin-bottom: 0.5rem; opacity: 0.8;
+  }
+  .throne-meaning { color: #8892b0; font-size: 0.8rem; }
+  .throne-card--mystery {
+    border-style: dashed; position: relative; overflow: hidden;
+  }
+  .throne-mystery {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    font-size: 6rem; font-weight: 900; color: rgba(244,114,182,0.06);
+    pointer-events: none;
+  }
+
+  /* Pill */
+  .pill {
+    display: inline-block; padding: 0.15rem 0.6rem; border-radius: 20px;
+    font-size: 0.75rem; color: #a0aec0;
+    background: rgba(107,76,153,0.12); border: 1px solid rgba(107,76,153,0.2);
+  }
+
+  /* Footer */
+  .footer { text-align: center; padding: 3rem 0 2rem; color: #4a5578; font-size: 0.9rem; }
+  .footer__sub { font-size: 0.8rem; margin-top: 0.3rem; }
+
+  /* Glows */
+  .text-glow-pink { color: var(--cosmos-accent-pink, #f472b6); }
+  .text-glow-white { color: #fff; }
+
+  /* Fade-in */
+  .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .versus-layout { flex-direction: column; align-items: center; }
+    .throne-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

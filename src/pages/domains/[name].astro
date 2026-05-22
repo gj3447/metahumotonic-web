@@ -1,0 +1,241 @@
+---
+// KG: CONTRACT_Web_DomainDetail, ATOM_Web_DomainDetail
+import '../../styles/cosmos.css';
+import { getDomains, getDomainDetail } from '../../lib/kg';
+
+export async function getStaticPaths() {
+  let domains: Array<{name:string; displayName:string; nodeCount:number; description:string}> = [];
+  try { domains = await getDomains(); } catch {}
+  if (!domains.length) {
+    domains = [
+      { name:'domain-hub-ai', displayName:'KG_AI 도메인', nodeCount:499797, description:'AI/Comment 도메인' },
+      { name:'domain-hub-sym', displayName:'KG_SYM 도메인', nodeCount:29215, description:'수학·물리·철학 지식체계' },
+      { name:'domain-hub-cs', displayName:'KG_CS 도메인', nodeCount:4302, description:'컴퓨터과학' },
+      { name:'domain-hub-infra', displayName:'KG_INFRA 도메인', nodeCount:2412, description:'인프라·운영' },
+      { name:'domain-hub-creative', displayName:'KG_CREATIVE 도메인', nodeCount:2081, description:'창작물' },
+      { name:'domain-hub-apt', displayName:'KG_APT 도메인', nodeCount:1716, description:'APT 방법론' },
+    ];
+  }
+  return domains.map(d => ({ params: { name: d.name }, props: { domain: d } }));
+}
+
+const { name } = Astro.params;
+const { domain } = Astro.props;
+
+let topLabels: any[] = [];
+let topRelTypes: any[] = [];
+let sampleNodes: any[] = [];
+let crossDomain: any[] = [];
+
+try {
+  const detail = await getDomainDetail(name!);
+  topLabels = detail.topLabels || [];
+  topRelTypes = detail.topRelTypes || [];
+  sampleNodes = detail.sampleNodes || [];
+  crossDomain = detail.crossDomain || [];
+} catch {}
+---
+
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{domain.displayName} — MetaHumotonic</title>
+  <meta name="description" content={`${domain.displayName}: ${domain.description}`} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": domain.displayName,
+    "description": domain.description,
+    "url": `https://metahumotonic.com/domains/${name}`
+  })} />
+</head>
+
+<body>
+  <div class="starfield-bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <div class="page-wrap">
+    <nav class="breadcrumb">
+      <a href="/">MetaHumotonic</a> <span>›</span> <a href="/#domains">Domains</a> <span>›</span> <span>{domain.displayName}</span>
+    </nav>
+
+    {/* Header */}
+    <header class="domain-header fade-in">
+      <h1>{domain.displayName}</h1>
+      <p class="domain-desc">{domain.description}</p>
+      <div class="stat-row">
+        <div class="stat">
+          <span class="stat-val">{domain.nodeCount.toLocaleString()}</span>
+          <span class="stat-label">Nodes</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val">{topLabels.length}</span>
+          <span class="stat-label">Sub-Labels</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val">{topRelTypes.length}</span>
+          <span class="stat-label">Rel Types</span>
+        </div>
+      </div>
+    </header>
+
+    {/* Top Labels — 바 차트 */}
+    {topLabels.length > 0 && (
+      <section class="section fade-in">
+        <h2>라벨 분포</h2>
+        <div class="bar-chart">
+          {topLabels.slice(0, 12).map((l: any) => {
+            const maxCnt = topLabels[0]?.cnt || 1;
+            const pct = Math.round((l.cnt / maxCnt) * 100);
+            return (
+              <div class="bar-row">
+                <span class="bar-label">{l.lbl}</span>
+                <div class="bar-track">
+                  <div class="bar-fill" style={`width:${pct}%`}></div>
+                </div>
+                <span class="bar-count">{l.cnt.toLocaleString()}</span>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    {/* 관계 타입 */}
+    {topRelTypes.length > 0 && (
+      <section class="section fade-in">
+        <h2>관계 타입</h2>
+        <div class="tag-cloud">
+          {topRelTypes.map((r: any) => (
+            <span class="rel-tag">
+              <code>{r.relType}</code>
+              <span class="rel-cnt">{r.cnt.toLocaleString()}</span>
+            </span>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {/* 샘플 노드 */}
+    {sampleNodes.length > 0 && (
+      <section class="section fade-in">
+        <h2>샘플 노드</h2>
+        <div class="node-grid">
+          {sampleNodes.map((n: any) => (
+            <div class="node-card">
+              <div class="node-head">
+                <span class="node-type">{n.type}</span>
+                <h3>{n.name}</h3>
+              </div>
+              <p>{n.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {/* Cross-Domain 연결 */}
+    {crossDomain.length > 0 && (
+      <section class="section fade-in">
+        <h2>연결된 도메인</h2>
+        <div class="cross-links">
+          {crossDomain.map((c: any) => (
+            <a href={`/domains/${c.otherDomain}`} class="cross-card">
+              <span class="cross-arrow">↔</span>
+              <div>
+                <strong>{c.otherDisplay}</strong>
+                {c.bridgeDesc && <p>{c.bridgeDesc}</p>}
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <footer class="page-footer">
+      <a href="/" class="back-link">← Back to Home</a>
+      <a href="/explore" class="back-link">Explore All →</a>
+    </footer>
+  </div>
+</body>
+</html>
+
+<style is:global>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Inter',system-ui,sans-serif; background:#050810; color:#e0e6f0; line-height:1.6; overflow-x:hidden; }
+  a { color:inherit; text-decoration:none; }
+
+  .page-wrap { position:relative; z-index:1; max-width:1000px; margin:0 auto; padding:0 clamp(1rem,3vw,3rem); }
+
+  .breadcrumb { padding:1.5rem 0; font-size:0.85rem; color:#4a5578; }
+  .breadcrumb a { color:#67e8f9; }
+  .breadcrumb a:hover { text-decoration:underline; }
+  .breadcrumb span { margin:0 0.3rem; }
+
+  .domain-header { text-align:center; padding:2rem 0 3rem; }
+  .domain-header h1 { font-size:clamp(2rem,5vw,3rem); font-weight:800; color:#a78bfa; text-shadow:0 0 40px rgba(167,139,250,0.4); margin-bottom:1rem; }
+  .domain-desc { font-size:1.1rem; color:#8892b0; max-width:600px; margin:0 auto 2rem; }
+
+  .stat-row { display:flex; justify-content:center; gap:3rem; flex-wrap:wrap; }
+  .stat { text-align:center; }
+  .stat-val { display:block; font-size:2rem; font-weight:800; background:linear-gradient(135deg,#f472b6,#ffd700,#67e8f9); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .stat-label { font-size:0.8rem; color:#4a5578; text-transform:uppercase; letter-spacing:0.08em; }
+
+  .section { padding:2rem 0; }
+  .section h2 { font-size:1.4rem; font-weight:700; color:#fff; margin-bottom:1.5rem; }
+
+  /* 바 차트 */
+  .bar-chart { display:flex; flex-direction:column; gap:0.5rem; }
+  .bar-row { display:flex; align-items:center; gap:0.75rem; }
+  .bar-label { width:160px; font-size:0.8rem; color:#8892b0; text-align:right; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex-shrink:0; }
+  .bar-track { flex:1; height:20px; background:rgba(107,76,153,0.1); border-radius:4px; overflow:hidden; }
+  .bar-fill { height:100%; background:linear-gradient(90deg,rgba(167,139,250,0.5),rgba(103,232,249,0.4)); border-radius:4px; transition:width 0.6s ease; min-width:2px; }
+  .bar-count { width:60px; font-size:0.8rem; color:#67e8f9; font-weight:600; font-variant-numeric:tabular-nums; }
+
+  /* 관계 태그 */
+  .tag-cloud { display:flex; flex-wrap:wrap; gap:0.5rem; }
+  .rel-tag { display:inline-flex; align-items:center; gap:0.4rem; background:rgba(13,27,42,0.6); border:1px solid rgba(107,76,153,0.15); border-radius:8px; padding:0.3rem 0.7rem; backdrop-filter:blur(8px); }
+  .rel-tag code { font-size:0.8rem; color:#a78bfa; }
+  .rel-cnt { font-size:0.7rem; color:#4a5578; }
+
+  /* 노드 그리드 */
+  .node-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1rem; }
+  .node-card { background:rgba(13,27,42,0.6); border:1px solid rgba(107,76,153,0.15); border-radius:12px; padding:1rem; backdrop-filter:blur(8px); transition:border-color 0.3s; }
+  .node-card:hover { border-color:rgba(167,139,250,0.3); }
+  .node-head { margin-bottom:0.5rem; }
+  .node-type { font-size:0.7rem; color:#a78bfa; text-transform:uppercase; letter-spacing:0.08em; font-weight:600; }
+  .node-head h3 { font-size:1rem; color:#fff; font-weight:600; margin-top:0.2rem; word-break:break-all; }
+  .node-card p { font-size:0.85rem; color:#8892b0; line-height:1.5; }
+
+  /* Cross-domain */
+  .cross-links { display:flex; flex-direction:column; gap:0.75rem; }
+  .cross-card { display:flex; align-items:center; gap:1rem; padding:1rem; background:rgba(13,27,42,0.6); border:1px solid rgba(107,76,153,0.15); border-radius:12px; backdrop-filter:blur(8px); transition:all 0.3s; }
+  .cross-card:hover { border-color:rgba(103,232,249,0.3); transform:translateX(4px); }
+  .cross-arrow { font-size:1.2rem; color:#67e8f9; }
+  .cross-card strong { color:#fff; }
+  .cross-card p { font-size:0.8rem; color:#8892b0; margin-top:0.2rem; }
+
+  .page-footer { display:flex; justify-content:space-between; padding:3rem 0; }
+  .back-link { color:#67e8f9; font-size:0.9rem; font-weight:500; }
+  .back-link:hover { text-decoration:underline; }
+
+  .fade-in { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease,transform 0.6s ease; }
+  .fade-in.visible { opacity:1; transform:none; }
+
+  @media (max-width:480px) {
+    .bar-label { width:100px; font-size:0.75rem; }
+    .stat-row { gap:1.5rem; }
+    .stat-val { font-size:1.5rem; }
+  }
+</style>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0, rootMargin: '0px 0px 50px 0px' });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+  setTimeout(() => document.querySelectorAll('.fade-in:not(.visible)').forEach(el => el.classList.add('visible')), 1500);
+</script>

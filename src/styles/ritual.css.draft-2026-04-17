@@ -1,0 +1,427 @@
+/*
+ * MetaHumotonic Ritual Theme v1 (2026-04-17)
+ * Byzantine-Obangsaek + Bloodborne faded gold 융합 미학
+ * cosmos.css sci-fi 팔레트 override, 신화/제의 톤으로 전환
+ *
+ * KG bindings:
+ *   plan-landing-mythic-redesign-2026-04-17
+ *   seed-palette-mythic-css
+ *   seed-typography-3tier
+ *   seed-motion-ritual
+ *   consensus-6-mythic-palette-bloodborne-byzantine
+ *   consensus-7-typography-pretendard-myeongjo-cinzel
+ *   consensus-10-motion-ritual-4s-breath
+ */
+
+/* === Font CDN === */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@400;600;800&display=swap');
+
+:root {
+  /* 신화 팔레트 (Byzantine + 오방색 + Bloodborne) */
+  --mh-gold-leaf:    #c9a24a;
+  --mh-hwang-gold:   #e8b923;
+  --mh-vow-red:      #7c2a2c;
+  --mh-cheong-blue:  #1e3c72;
+  --mh-void-ink:     #0e0c0a;
+  --mh-moonlit:      #e8dae0;
+  --mh-rust-patina:  #8b4513;
+  --mh-ivory:        #fffff0;
+
+  /* Ritual 모션 (breath cycle 4s) */
+  --mh-breath: 4000ms;
+  --mh-ease-ritual: cubic-bezier(0.4, 0, 0.2, 1);
+  --mh-reveal-duration: 2500ms;
+
+  /* 타이포 3층 */
+  --mh-font-body:  'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --mh-font-title: 'Nanum Myeongjo', 'Apple SD Gothic Neo', 'Noto Serif KR', serif;
+  --mh-font-latin: 'Cormorant Garamond', 'EB Garamond', Garamond, serif;
+  --mh-font-axiom: 'Cinzel', 'Trajan Pro', serif;
+}
+
+/* === Body base === */
+body {
+  background: linear-gradient(180deg, var(--mh-void-ink) 0%, #14100b 50%, var(--mh-void-ink) 100%);
+  color: var(--mh-ivory);
+  font-family: var(--mh-font-body);
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+/* === Hero === */
+.mh-hero {
+  background: radial-gradient(ellipse at center top, rgba(201, 162, 74, 0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at center bottom, rgba(30, 60, 114, 0.1) 0%, transparent 70%);
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.mh-hero__title {
+  font-family: var(--mh-font-title);
+  font-weight: 800;
+  color: var(--mh-gold-leaf);
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  text-shadow: 0 0 40px rgba(201, 162, 74, 0.35);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  animation: mh-breath-pulse var(--mh-breath) ease-in-out infinite;
+  text-align: center;
+}
+
+.mh-hero__sub {
+  font-family: var(--mh-font-latin);
+  font-style: italic;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  color: var(--mh-moonlit);
+  opacity: 0.65;
+  text-align: center;
+  margin-top: 1.5rem;
+  letter-spacing: 0.05em;
+}
+
+.mh-hero__inner {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* === Axiom/Part number === */
+.mh-num,
+.mh-part-eyebrow,
+.mh-eyebrow {
+  font-family: var(--mh-font-axiom);
+  font-weight: 600;
+  color: var(--mh-hwang-gold);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+/* === Part divider === */
+.mh-part-divider {
+  border-top: 1px solid rgba(201, 162, 74, 0.3);
+  border-bottom: 1px solid rgba(201, 162, 74, 0.3);
+  padding: 4rem 0;
+  text-align: center;
+  background: radial-gradient(ellipse at center, rgba(201, 162, 74, 0.08) 0%, transparent 70%);
+  margin: 3rem 0;
+}
+
+.mh-part-title {
+  font-family: var(--mh-font-title);
+  color: var(--mh-gold-leaf);
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 800;
+  margin: 0.5rem 0;
+}
+
+.mh-part-gloss {
+  font-family: var(--mh-font-latin);
+  font-style: italic;
+  color: var(--mh-moonlit);
+  opacity: 0.55;
+  font-size: 1.1rem;
+}
+
+/* === Section base === */
+.mh-section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.mh-prose p {
+  font-family: var(--mh-font-body);
+  font-size: 1.1rem;
+  color: var(--mh-ivory);
+  opacity: 0.88;
+  margin: 1rem 0;
+}
+
+/* === Apostle 카드 (reliquary 스타일) === */
+.mh-apostles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 2rem;
+}
+
+.mh-apostle {
+  border: 1px solid rgba(201, 162, 74, 0.25);
+  padding: 2rem 1.5rem;
+  background: linear-gradient(135deg, rgba(14, 12, 10, 0.85) 0%, rgba(30, 60, 114, 0.08) 100%);
+  transition: all 600ms var(--mh-ease-ritual);
+  position: relative;
+  overflow: hidden;
+}
+
+.mh-apostle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(201, 162, 74, 0.14), transparent 60%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 800ms ease-out;
+}
+
+.mh-apostle:hover {
+  border-color: var(--mh-gold-leaf);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(201, 162, 74, 0.15);
+}
+
+.mh-apostle:hover::before {
+  opacity: 1;
+}
+
+.mh-apostle__icon {
+  filter: drop-shadow(0 0 16px rgba(232, 185, 35, 0.5)) drop-shadow(0 0 4px var(--mh-gold-leaf));
+  color: var(--mh-gold-leaf);
+}
+
+.mh-apostle__num {
+  font-family: var(--mh-font-axiom);
+  color: var(--mh-hwang-gold);
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.mh-apostle__name {
+  font-family: var(--mh-font-title);
+  color: var(--mh-gold-leaf);
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0.3rem 0 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.mh-apostle__epithet {
+  font-family: var(--mh-font-latin);
+  font-style: italic;
+  color: var(--mh-vow-red);
+  font-size: 1rem;
+  margin: 0.5rem 0 1rem;
+  opacity: 0.9;
+}
+
+.mh-apostle__body {
+  color: var(--mh-moonlit);
+  opacity: 0.82;
+  line-height: 1.75;
+  font-size: 0.94rem;
+  margin: 1rem 0;
+}
+
+.mh-apostle__en {
+  font-family: var(--mh-font-latin);
+  font-style: italic;
+  color: rgba(255, 255, 240, 0.4);
+  font-size: 0.82rem;
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(201, 162, 74, 0.15);
+  letter-spacing: 0.02em;
+}
+
+.mh-coda {
+  text-align: center;
+  font-family: var(--mh-font-latin);
+  font-style: italic;
+  color: var(--mh-moonlit);
+  opacity: 0.5;
+  margin-top: 3rem;
+  font-size: 0.95rem;
+}
+
+/* === Frame (액자, 성구실 스타일) === */
+.mh-frame {
+  background: linear-gradient(135deg, var(--mh-void-ink) 0%, #14100b 100%);
+  border: 2px solid var(--mh-gold-leaf);
+  padding: 4rem 2rem;
+  margin: 4rem auto;
+  max-width: 720px;
+  position: relative;
+}
+
+.mh-frame::before,
+.mh-frame::after {
+  content: '';
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--mh-gold-leaf);
+}
+
+.mh-frame::before {
+  top: -2px; left: -2px;
+  border-right: none; border-bottom: none;
+}
+
+.mh-frame::after {
+  bottom: -2px; right: -2px;
+  border-left: none; border-top: none;
+}
+
+.mh-frame--dark {
+  background: linear-gradient(135deg, #050302 0%, #0e0c0a 100%);
+}
+
+.mh-quote {
+  font-family: var(--mh-font-title);
+  color: var(--mh-ivory);
+  font-size: clamp(1.15rem, 2.5vw, 1.6rem);
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 400;
+}
+
+.mh-quote p {
+  margin: 0.4rem 0;
+  animation: mh-reveal var(--mh-reveal-duration) var(--mh-ease-ritual) both;
+}
+
+.mh-quote p:nth-child(2) { animation-delay: 300ms; }
+.mh-quote p:nth-child(3) { animation-delay: 600ms; }
+.mh-quote p:nth-child(4) { animation-delay: 900ms; }
+
+.mh-frame__caption {
+  font-family: var(--mh-font-latin);
+  font-style: italic;
+  color: var(--mh-moonlit);
+  opacity: 0.55;
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.mh-eyebrow--dark {
+  color: var(--mh-hwang-gold);
+}
+
+/* === Topbar === */
+.mh-topbar {
+  background: rgba(14, 12, 10, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201, 162, 74, 0.2);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.mh-topbar .mh-mark {
+  font-family: var(--mh-font-axiom);
+  color: var(--mh-gold-leaf);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.mh-nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.mh-nav a {
+  color: var(--mh-moonlit);
+  font-family: var(--mh-font-title);
+  text-decoration: none;
+  transition: color 300ms var(--mh-ease-ritual);
+  font-size: 0.95rem;
+}
+
+.mh-nav a:hover {
+  color: var(--mh-hwang-gold);
+}
+
+/* === 필름 그레인 오버라이드 (subtle, 남김) === */
+.mh-grain {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: overlay;
+  opacity: 0.03;
+}
+
+/* === Closing 초대 === */
+.mh-closing {
+  text-align: center;
+  padding: 6rem 2rem;
+  border-top: 1px solid rgba(201, 162, 74, 0.2);
+}
+
+.mh-closing__line {
+  font-family: var(--mh-font-title);
+  color: var(--mh-gold-leaf);
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 700;
+  margin: 1rem 0;
+  letter-spacing: -0.01em;
+}
+
+/* === Animations === */
+@keyframes mh-breath-pulse {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 40px rgba(201, 162, 74, 0.35);
+  }
+  50% {
+    opacity: 0.94;
+    text-shadow: 0 0 60px rgba(201, 162, 74, 0.55);
+  }
+}
+
+@keyframes mh-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* === 접근성: reduced-motion === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* === 모바일 === */
+@media (max-width: 768px) {
+  .mh-apostles {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
+  .mh-section { padding: 3rem 1rem; }
+  .mh-frame { padding: 3rem 1.5rem; margin: 3rem 1rem; }
+  .mh-nav { gap: 1rem; }
+  .mh-nav a { font-size: 0.85rem; }
+}

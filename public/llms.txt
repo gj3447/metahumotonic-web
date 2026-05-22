@@ -1,0 +1,71 @@
+# MetaHumotonic
+
+> Semantic Web Server Platform — Knowledge Graph-native infrastructure
+
+MetaHumotonic is a personal semantic infrastructure operated by Gyeongjun Ra (bhgman).
+It hosts a Neo4j Knowledge Graph with 547K+ nodes and 1M+ relations across 13 domains,
+managed through 18 AI skills built on the APT (Agent Process Template) methodology.
+
+## Services
+
+- Neo4j KG: Graph database with 547K+ nodes, 1M+ relations
+- PostgreSQL: Relational data (maindb, n8n workflows)
+- Redis: Caching and pub/sub messaging
+- MongoDB: Document storage
+- MinIO: S3-compatible object storage
+- Kafka: Event streaming (KRaft mode)
+- n8n: Workflow automation
+- Traefik: Reverse proxy and load balancer
+
+## API Endpoints
+
+- /api/stats.json — KG statistics (nodes, relations, domains, skills)
+- /api/domains.json — 13 knowledge domains with node counts
+- /api/skills.json — 18 AI skills with descriptions
+
+## Knowledge Domains
+
+1. Personal — Identity, biography, philosophy
+2. Math & Physics — Pure mathematics, theoretical physics
+3. Computer Science — Programming, algorithms, type theory
+4. Artificial Intelligence — ML, neural networks, AI safety
+5. Infrastructure — Server ops, K8s, Docker, DevOps
+6. Literature & Writing — Creative writing, poetry
+7. Religion & Theology — Comparative theology, scripture
+8. APT Methodology — Semantic software engineering
+9. Philosophy — Epistemology, metaphysics, ethics
+10. Community — Open source, collaboration
+11. Business & Career — Strategy, development
+12. Health & Biology — Biomedical, cognitive science
+13. Streaming & Media — Live streaming, content creation
+
+## AI Skills (Claude Code)
+
+### Methodology
+- /apt — APT v24 orchestrator (SA→SP→ST→SCW)
+- /apt-sa — SemanticAnchor: project bootstrap
+- /apt-sp — SemanticPyramid: recursive decomposition
+- /apt-st — SemanticTwin: contract crystallization
+- /apt-scw — SourceCodeWorld: TDD implementation
+- /longinus — KG↔Code traceability binding
+- /harness — Architecture-as-constraint
+
+### Verification
+- /taliban — Adversarial validation (GAN principle)
+- /88-taliban — 113-lens meta-verification
+
+### Research
+- /prometheus — Research-first (knowledge before action)
+- /solve — Systematic problem resolution cycle
+
+### Operations
+- /db-query — Neo4j/PostgreSQL/MongoDB/Redis queries
+- /server-status — Full server health check
+- /docker-logs — Container log inspection
+- /kafka-manage — Kafka topic management
+
+## Contact
+
+- Domain: metahumotonic.com
+- DDNS: bhgman.iptime.org
+- Owner: Gyeongjun Ra

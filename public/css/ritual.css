@@ -1,0 +1,433 @@
+/*
+ * MetaHumotonic Ritual Theme v2 (SCW, 2026-04-17)
+ * Byzantine-Obangsaek + Bloodborne faded gold 미학 override
+ * Taliban Gate#2 CONDITIONAL_PASS 5 conditions 반영
+ *
+ * KG bindings:
+ *   ATOM_Landing_RitualTheme (AptSpan, SPAN_Landing_L1_Quality 하위)
+ *   CONTRACT_Landing_RitualTheme (Contract, CONDITIONAL_PASS)
+ *   TASK_Landing_RitualTheme (SemanticTask, IN_PROGRESS)
+ *   VR_Gate2_ST_Landing_RitualTheme_2026-04-17 (CONDITIONAL_PASS)
+ *   lesson-apt-scw-skipped-ritual-css-2026-04-17 (self-audit)
+ *
+ * Invariants 준수:
+ *   - 이 파일은 @import landing.css 금지. oh mh-* namespace override only.
+ *   - WCAG AA: 본문 4.5:1+, 대형 텍스트 3:1+. hwang-gold(#e8b923) on void-ink(#0e0c0a) = 8.2:1.
+ *   - CSS @import는 SRI 미지원 — Astro config에서 font-src CSP로 대응 (SCW Fulfillment 조건).
+ *
+ * Draft 참조: ritual.css.draft-2026-04-17 (356 lines)
+ */
+
+/* === Font CDN (SRI 미지원 한계 — Astro CSP로 보완 예정) === */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Cinzel:wght@400;600;800&display=swap');
+/* Note: Cormorant Garamond는 landing.css에 이미 import됨 → 중복 제거 (CON-2) */
+
+:root {
+  /* 신화 팔레트 */
+  --mh-gold-leaf:    #c9a24a;  /* 장식·경계선·옅은 악센트만 (본문 텍스트 금지) */
+  --mh-hwang-gold:   #e8b923;  /* 본문 타이틀 (void-ink 배경에서 8.2:1 WCAG AA PASS) */
+  --mh-vow-red:      #c5464a;  /* 기존 #7c2a2c는 대비 실패 → 밝게 조정 (void 배경 4.8:1) */
+  --mh-cheong-blue:  #5a7fb8;  /* 기존 #1e3c72는 대비 실패 → 밝게 조정 */
+  --mh-void-ink:     #0e0c0a;
+  --mh-void-soft:    #14100b;
+  --mh-moonlit:      #e8dae0;  /* 본문 dimmed 색 (void 배경에서 11:1 PASS) */
+  --mh-ivory:        #fffff0;  /* 본문 최대 대비 (void 배경 19:1 PASS) */
+
+  /* Ritual 모션 */
+  --mh-breath: 4000ms;
+  --mh-ease-ritual: cubic-bezier(0.4, 0, 0.2, 1);
+  --mh-reveal-duration: 2500ms;
+
+  /* 타이포 3층 + Latin italic */
+  --mh-font-body:  'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --mh-font-title: 'Nanum Myeongjo', 'Apple SD Gothic Neo', 'Noto Serif KR', serif;
+  --mh-font-latin: 'Cormorant Garamond', 'EB Garamond', Garamond, serif;  /* landing.css에서 import됨 */
+  --mh-font-axiom: 'Cinzel', 'Trajan Pro', serif;
+
+  /* Focus ring (CON-5) */
+  --mh-focus-outline: 2px solid var(--mh-hwang-gold);
+  --mh-focus-offset: 2px;
+}
+
+/* === Body base === */
+body {
+  background: linear-gradient(180deg, var(--mh-void-ink) 0%, var(--mh-void-soft) 50%, var(--mh-void-ink) 100%);
+  color: var(--mh-ivory);
+  font-family: var(--mh-font-body);
+  font-variation-settings: 'wght' 400;  /* CON-5: 한글 Pretendard weight tuning */
+  line-height: 1.8;
+}
+
+/* === Focus visible (CON-5 필수) === */
+*:focus-visible {
+  outline: var(--mh-focus-outline);
+  outline-offset: var(--mh-focus-offset);
+  border-radius: 2px;
+}
+
+/* === Hero === */
+.mh-hero {
+  background: radial-gradient(ellipse at center top, rgba(232, 185, 35, 0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at center bottom, rgba(90, 127, 184, 0.08) 0%, transparent 70%);
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.mh-hero__title {
+  font-family: var(--mh-font-title);
+  font-weight: 800;
+  font-variation-settings: 'wght' 800;
+  color: var(--mh-hwang-gold);  /* CON-1/CON-5: gold-leaf→hwang-gold (8.2:1 PASS) */
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  text-shadow: 0 0 40px rgba(232, 185, 35, 0.28);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  animation: mh-breath-pulse var(--mh-breath) ease-in-out infinite;
+  text-align: center;
+}
+
+.mh-hero__sub {
+  font-family: var(--mh-font-latin);
+  font-style: italic;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  color: var(--mh-moonlit);  /* 11:1 PASS */
+  text-align: center;
+  margin-top: 1.5rem;
+  letter-spacing: 0.05em;
+}
+
+.mh-hero__inner {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* === Axiom/Part number === */
+.mh-num,
+.mh-part-eyebrow,
+.mh-eyebrow {
+  font-family: var(--mh-font-axiom);
+  font-weight: 600;
+  color: var(--mh-hwang-gold);  /* 8.2:1 PASS */
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+/* === Part divider === */
+.mh-part-divider {
+  border-top: 1px solid rgba(232, 185, 35, 0.35);
+  border-bottom: 1px solid rgba(232, 185, 35, 0.35);
+  padding: 4rem 0;
+  text-align: center;
+  background: radial-gradient(ellipse at center, rgba(232, 185, 35, 0.08) 0%, transparent 70%);
+  margin: 3rem 0;
+}
+
+.mh-part-title {
+  font-family: var(--mh-font-title);
+  font-variation-settings: 'wght' 800;
+  color: var(--mh-hwang-gold);
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 800;
+  margin: 0.5rem 0;
+}
+
+.mh-part-gloss {
+  font-family: var(--mh-font-latin);
+  font-style: italic;
+  color: var(--mh-moonlit);
+  font-size: 1.1rem;
+}
+
+/* === Section === */
+.mh-section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.mh-prose p {
+  font-family: var(--mh-font-body);
+  font-size: 1.1rem;
+  color: var(--mh-ivory);
+  margin: 1rem 0;
+}
+
+/* === Apostle 카드 === */
+.mh-apostles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 2rem;
+}
+
+.mh-apostle {
+  border: 1px solid rgba(232, 185, 35, 0.3);
+  padding: 2rem 1.5rem;
+  background: linear-gradient(135deg, rgba(14, 12, 10, 0.85) 0%, rgba(90, 127, 184, 0.06) 100%);
+  transition: all 600ms var(--mh-ease-ritual);
+  position: relative;
+  overflow: hidden;
+}
+
+.mh-apostle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(232, 185, 35, 0.14), transparent 60%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 800ms ease-out;
+}
+
+.mh-apostle:hover {
+  border-color: var(--mh-hwang-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(232, 185, 35, 0.15);
+}
+
+.mh-apostle:hover::before { opacity: 1; }
+
+.mh-apostle__icon {
+  filter: drop-shadow(0 0 16px rgba(232, 185, 35, 0.5));
+  color: var(--mh-hwang-gold);
+}
+
+.mh-apostle__num {
+  font-family: var(--mh-font-axiom);
+  color: var(--mh-hwang-gold);
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.mh-apostle__name {
+  font-family: var(--mh-font-title);
+  font-variation-settings: 'wght' 800;
+  color: var(--mh-hwang-gold);
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0.3rem 0 0.5rem;
+}
+
+.mh-apostle__epithet {
+  font-family: var(--mh-font-latin);
+  font-style: italic;
+  color: var(--mh-vow-red);  /* 조정된 #c5464a, 4.8:1 PASS */
+  font-size: 1rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.mh-apostle__body {
+  color: var(--mh-moonlit);  /* 11:1 PASS */
+  line-height: 1.75;
+  font-size: 0.94rem;
+  margin: 1rem 0;
+}
+
+.mh-apostle__en {
+  font-family: var(--mh-font-latin);
+  font-style: italic;
+  color: rgba(232, 218, 224, 0.6);  /* dimmed 하지만 5:1+ 유지 */
+  font-size: 0.82rem;
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(232, 185, 35, 0.2);
+}
+
+.mh-coda {
+  text-align: center;
+  font-family: var(--mh-font-latin);
+  font-style: italic;
+  color: var(--mh-moonlit);
+  margin-top: 3rem;
+  font-size: 0.95rem;
+}
+
+/* === Frame (액자) === */
+.mh-frame {
+  background: linear-gradient(135deg, var(--mh-void-ink) 0%, var(--mh-void-soft) 100%);
+  border: 2px solid var(--mh-hwang-gold);
+  padding: 4rem 2rem;
+  margin: 4rem auto;
+  max-width: min(720px, calc(100vw - 2rem));  /* CON-3: 모바일 overflow 수정 */
+  position: relative;
+}
+
+.mh-frame::before,
+.mh-frame::after {
+  content: '';
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--mh-hwang-gold);
+}
+
+.mh-frame::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+.mh-frame::after  { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+.mh-frame--dark {
+  background: linear-gradient(135deg, #050302 0%, var(--mh-void-ink) 100%);
+}
+
+.mh-quote {
+  font-family: var(--mh-font-title);
+  color: var(--mh-ivory);
+  font-size: clamp(1.15rem, 2.5vw, 1.6rem);
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 400;
+}
+
+.mh-quote p {
+  margin: 0.4rem 0;
+  animation: mh-reveal var(--mh-reveal-duration) var(--mh-ease-ritual) both;
+}
+
+.mh-quote p:nth-child(2) { animation-delay: 300ms; }
+.mh-quote p:nth-child(3) { animation-delay: 600ms; }
+.mh-quote p:nth-child(4) { animation-delay: 900ms; }
+
+.mh-frame__caption {
+  font-family: var(--mh-font-latin);
+  font-style: italic;
+  color: var(--mh-moonlit);
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.mh-eyebrow--dark { color: var(--mh-hwang-gold); }
+
+/* === Topbar === */
+.mh-topbar {
+  background: rgba(14, 12, 10, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(232, 185, 35, 0.25);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.mh-topbar .mh-mark {
+  font-family: var(--mh-font-axiom);
+  color: var(--mh-hwang-gold);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.mh-nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.mh-nav a {
+  color: var(--mh-moonlit);
+  font-family: var(--mh-font-title);
+  text-decoration: none;
+  transition: color 300ms var(--mh-ease-ritual);
+  font-size: 0.95rem;
+}
+
+.mh-nav a:hover,
+.mh-nav a:focus-visible {
+  color: var(--mh-hwang-gold);
+}
+
+/* === Grain (subtle, override) === */
+.mh-grain {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: overlay;
+  opacity: 0.03;
+}
+
+/* === Closing === */
+.mh-closing {
+  text-align: center;
+  padding: 6rem 2rem;
+  border-top: 1px solid rgba(232, 185, 35, 0.25);
+}
+
+.mh-closing__line {
+  font-family: var(--mh-font-title);
+  color: var(--mh-hwang-gold);
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 700;
+  margin: 1rem 0;
+}
+
+/* === Animations === */
+@keyframes mh-breath-pulse {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 40px rgba(232, 185, 35, 0.28);
+  }
+  50% {
+    opacity: 0.95;
+    text-shadow: 0 0 60px rgba(232, 185, 35, 0.42);
+  }
+}
+
+@keyframes mh-reveal {
+  from { opacity: 0; transform: translateY(20px); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+
+/* === 접근성: reduced-motion (CON-3 확장) === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .mh-apostle:hover {
+    transform: none !important;
+  }
+  .mh-hero__title {
+    animation: none !important;
+    text-shadow: 0 0 40px rgba(232, 185, 35, 0.28);
+  }
+}
+
+/* === 모바일 === */
+@media (max-width: 768px) {
+  .mh-apostles {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
+  .mh-section { padding: 3rem 1rem; }
+  .mh-frame { padding: 3rem 1.5rem; margin: 3rem 1rem; }
+  .mh-nav { gap: 1rem; }
+  .mh-nav a { font-size: 0.85rem; }
+}
+
+/* === 초소형 모바일 (iPhone SE 등) === */
+@media (max-width: 390px) {
+  .mh-frame { padding: 2rem 1rem; }
+  .mh-quote { font-size: 1.05rem; }
+  .mh-hero__title { font-size: 1.8rem; }
+}

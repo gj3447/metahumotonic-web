@@ -1,0 +1,134 @@
+---
+// KG: ATOM_Landing_SemanticMarkup, TASK_Landing_SemanticMarkup
+//     SA: MetaHumotonic_Landing_v2 | L1: SemanticWeb
+//     CONTRACT: JSON-LD @graph 8+ entities + RDFa. 12공리=DefinedTerm, 12사도=FictionalCharacter.
+
+interface Props {
+  stats: { nodes: number; rels: number };
+  axiomCount?: number;
+  apostleCount?: number;
+  skillCount?: number;
+  domainCount?: number;
+}
+
+const { stats, axiomCount = 12, apostleCount = 12, skillCount = 18, domainCount = 13 } = Astro.props;
+
+const jsonLd = {
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "void": "http://rdfs.org/ns/void#",
+    "doap": "http://usefulinc.com/ns/doap#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "skos": "http://www.w3.org/2004/02/skos/core#"
+  },
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://metahumotonic.com/#org",
+      "name": "MetaHumotonic",
+      "url": "https://metahumotonic.com",
+      "description": "Knowledge Graph-native semantic web server platform — philosophy + technology unified"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://metahumotonic.com/#website",
+      "name": "MetaHumotonic",
+      "url": "https://metahumotonic.com",
+      "inLanguage": ["en", "ko"]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://metahumotonic.com/#person",
+      "foaf:name": "Gyeongjun Ra",
+      "foaf:nick": "bhgman",
+      "name": "라경준 (Gyeongjun Ra)",
+      "url": "https://metahumotonic.com",
+      "description": "Creator of MetaHumotonic — 12 axioms, 12 apostles, and one server"
+    },
+    {
+      "@type": "Dataset",
+      "@id": "https://metahumotonic.com/#kg",
+      "void:triples": stats.rels,
+      "void:entities": stats.nodes,
+      "void:properties": 3020,
+      "name": "MetaHumotonic Knowledge Graph",
+      "description": `${stats.nodes.toLocaleString()} nodes, ${stats.rels.toLocaleString()} relations across ${domainCount} domains`,
+      "url": "https://metahumotonic.com",
+      "void:dataDump": "https://metahumotonic.com/ontology.ttl"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://metahumotonic.com/#platform",
+      "name": "MetaHumotonic Platform",
+      "applicationCategory": "Semantic Web Server",
+      "operatingSystem": "macOS, Kubernetes",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        `Neo4j Knowledge Graph (${stats.nodes.toLocaleString()}+ nodes)`,
+        `${skillCount} AI Agent Skills (APT v24)`,
+        `${domainCount} Knowledge Domains`,
+        "MCP Gateway for AI integration",
+        "Semantic Web standards (RDFa, Turtle, VOID, JSON-LD)"
+      ]
+    },
+    {
+      "@type": "doap:Project",
+      "@id": "https://metahumotonic.com/#project",
+      "doap:name": "MetaHumotonic",
+      "doap:programming-language": ["Cypher", "SQL", "Python", "JavaScript", "TypeScript", "Lean 4"],
+      "doap:os": ["macOS", "Kubernetes", "Docker"]
+    },
+    {
+      "@type": "DefinedTermSet",
+      "@id": "https://metahumotonic.com/#axioms",
+      "name": "선의 공리 (The Axiom of Good)",
+      "description": `${axiomCount} foundational definitions: 시간, 존재, 선, 존재생성, 존재분해, 이긴존재, 악, 특이점, 상호작용, 자연, 자존자, 메타휴모토닉`,
+      "hasDefinedTerm": [
+        { "@type": "DefinedTerm", "name": "時間 (시간)", "description": "A continuous flow" },
+        { "@type": "DefinedTerm", "name": "存在 (존재)", "description": "That which is, in some time" },
+        { "@type": "DefinedTerm", "name": "善 (선)", "description": "The measure of persistence in time" },
+        { "@type": "DefinedTerm", "name": "存在生成 (존재생성)", "description": "Making one existence from a set of others" },
+        { "@type": "DefinedTerm", "name": "存在分解 (존재분해)", "description": "Unfolding into the powerset of constituents" },
+        { "@type": "DefinedTerm", "name": "이긴存在 (이긴존재)", "description": "The most enduring among unfoldings" },
+        { "@type": "DefinedTerm", "name": "惡 (악)", "description": "The gap between existence and its truer self" },
+        { "@type": "DefinedTerm", "name": "特異點 (특이점)", "description": "When existence becomes its truer self" },
+        { "@type": "DefinedTerm", "name": "相互作用 (상호작용)", "description": "Migration of good between existences" },
+        { "@type": "DefinedTerm", "name": "自然 (자연)", "description": "The set of all that interacts with an existence" },
+        { "@type": "DefinedTerm", "name": "自存者 (자존자)", "description": "When existence's nature is itself" },
+        { "@type": "DefinedTerm", "name": "메타휴모토닉", "description": "When self-grounded and at singularity" }
+      ]
+    },
+    {
+      "@type": "dcat:Catalog",
+      "@id": "https://metahumotonic.com/#skills",
+      "name": "Agent Skill Registry",
+      "description": `${skillCount} AI agent skills across 4 categories: Methodology, Verification, Research, Operations`,
+      "url": "https://skills.metahumotonic.com/skills/"
+    }
+  ]
+};
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MetaHumotonic — 자존자가 특이점에 이를 때</title>
+<meta name="description" content={`MetaHumotonic: 12 axioms, 12 apostles, ${stats.nodes.toLocaleString()}+ KG nodes, ${skillCount} AI skills. Philosophy and technology unified.`} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+KR:wght@400;500;600&display=swap" rel="stylesheet" />
+<meta property="og:title" content="MetaHumotonic — 자존자가 특이점에 이를 때" />
+<meta property="og:description" content={`Semantic Web Server Platform — ${stats.nodes.toLocaleString()} nodes, ${domainCount} domains, ${skillCount} skills`} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://metahumotonic.com" />
+<meta name="twitter:card" content="summary" />
+<link rel="canonical" href="https://metahumotonic.com" />
+<meta name="theme-color" content="#f5f1e8" />
+<link rel="alternate" type="text/turtle" href="/ontology.ttl" title="MetaHumotonic Ontology (Turtle)" />
+<link rel="alternate" type="application/ld+json" href="/.well-known/server-info.json" />
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

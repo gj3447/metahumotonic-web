@@ -1,0 +1,96 @@
+---
+// KG: CONTRACT_Web_BaseLayout
+// 모든 페이지의 공통 레이아웃. RDFa + JSON-LD + 코스모스 테마.
+interface Props {
+  title: string;
+  description: string;
+  jsonLd?: object;
+}
+const { title, description, jsonLd } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="ko" vocab="https://schema.org/" typeof="WebPage">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#050810" />
+
+  <!-- Cosmos Theme -->
+  <link rel="stylesheet" href="/styles/cosmos.css" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com" is:inline></script>
+
+  <!-- JSON-LD Structured Data -->
+  {jsonLd && (
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  )}
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://metahumotonic.com" />
+  <meta property="og:image" content="https://metahumotonic.com/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content="https://metahumotonic.com/og-image.png" />
+</head>
+<body style="background:#050810; color:#e0e6f0; margin:0; font-family:system-ui,-apple-system,sans-serif;">
+
+  <!-- Skip Navigation -->
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- Starfield Background -->
+  <div class="starfield-bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header style="position:relative; z-index:10; padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(107,76,153,0.15);">
+    <!-- Logo -->
+    <a href="/" style="text-decoration:none; font-size:1.25rem; font-weight:700; letter-spacing:-0.02em;">
+      <span style="color:#f472b6;">Meta</span><span style="color:#e0e7ff;">Humotonic</span>
+    </a>
+
+    <!-- Navigation -->
+    <nav aria-label="Main navigation" style="display:flex; gap:1.5rem; align-items:center;">
+      <a href="/domains" style="color:var(--cosmos-text-dim); text-decoration:none; font-size:0.875rem; font-weight:500; transition:color 0.2s;"
+         onmouseover="this.style.color='var(--cosmos-accent-purple)'" onmouseout="this.style.color='var(--cosmos-text-dim)'">Domains</a>
+      <a href="/skills" style="color:var(--cosmos-text-dim); text-decoration:none; font-size:0.875rem; font-weight:500; transition:color 0.2s;"
+         onmouseover="this.style.color='var(--cosmos-accent-pink)'" onmouseout="this.style.color='var(--cosmos-text-dim)'">Skills</a>
+      <a href="/explore" style="color:var(--cosmos-text-dim); text-decoration:none; font-size:0.875rem; font-weight:500; transition:color 0.2s;"
+         onmouseover="this.style.color='var(--cosmos-accent-cyan)'" onmouseout="this.style.color='var(--cosmos-text-dim)'">Explore</a>
+      <a href="/api" style="color:var(--cosmos-text-dim); text-decoration:none; font-size:0.875rem; font-weight:500; transition:color 0.2s;"
+         onmouseover="this.style.color='var(--cosmos-gold)'" onmouseout="this.style.color='var(--cosmos-text-dim)'">API</a>
+      <a href="/llms.txt" style="color:var(--cosmos-text-dim); text-decoration:none; font-size:0.875rem; font-weight:500; transition:color 0.2s;"
+         onmouseover="this.style.color='var(--cosmos-starlight)'" onmouseout="this.style.color='var(--cosmos-text-dim)'">llms.txt</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main-content" style="position:relative; z-index:1; min-height:calc(100vh - 140px);">
+    <slot />
+  </main>
+
+  <!-- Footer -->
+  <footer style="position:relative; z-index:10; padding:2rem; text-align:center; border-top:1px solid rgba(107,76,153,0.15); color:var(--cosmos-text-muted); font-size:0.8rem;">
+    <p>
+      <span style="color:#f472b6;">Meta</span><span style="color:#e0e7ff;">Humotonic</span>
+      &mdash; Semantic Infrastructure for AI Agents
+    </p>
+    <p style="margin-top:0.5rem;">
+      Neo4j KG &middot; Docker Compose &middot; Traefik &middot; MinIO &middot; n8n
+    </p>
+  </footer>
+
+  <!-- Cosmos Interactive Script -->
+  <script src="/scripts/cosmos.ts" defer is:inline></script>
+
+</body>
+</html>

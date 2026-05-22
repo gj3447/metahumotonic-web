@@ -1,0 +1,176 @@
+---
+// KG: CONTRACT_Web_Explore, ATOM_Web_Explore
+// KG 탐색기 — 빌드 타임에 도메인 목록, 런타임에 인터랙티브 검색
+import '../styles/cosmos.css';
+
+let domains: Array<{name:string; displayName:string; nodeCount:number; description:string}> = [];
+try {
+  const { getDomains } = await import('../lib/kg');
+  domains = await getDomains();
+} catch {}
+
+if (!domains.length) {
+  domains = [
+    { name:'domain-personal', displayName:'Personal', nodeCount:1200, description:'Identity, biography, philosophy' },
+    { name:'domain-math-physics', displayName:'Math & Physics', nodeCount:5346, description:'Pure mathematics, theoretical physics' },
+    { name:'domain-cs', displayName:'Computer Science', nodeCount:3200, description:'Programming, algorithms, type theory' },
+    { name:'domain-infra', displayName:'Infrastructure', nodeCount:2844, description:'Server ops, K8s, Docker, networking' },
+    { name:'domain-ai', displayName:'Artificial Intelligence', nodeCount:4200, description:'ML, neural networks, AI safety' },
+    { name:'domain-apt', displayName:'APT Methodology', nodeCount:1500, description:'Agent Process Template' },
+    { name:'domain-literature', displayName:'Literature & Writing', nodeCount:2100, description:'Creative writing, poetry' },
+    { name:'domain-religion', displayName:'Religion & Theology', nodeCount:1800, description:'Comparative theology' },
+    { name:'domain-philosophy', displayName:'Philosophy', nodeCount:1100, description:'Epistemology, metaphysics, ethics' },
+    { name:'domain-community', displayName:'Community', nodeCount:900, description:'Open source, collaboration' },
+    { name:'domain-business', displayName:'Business & Career', nodeCount:800, description:'Business strategy' },
+    { name:'domain-health', displayName:'Health & Biology', nodeCount:700, description:'Biomedical, cognitive science' },
+    { name:'domain-streaming', displayName:'Streaming & Media', nodeCount:600, description:'Live streaming, content creation' },
+  ];
+}
+
+const totalNodes = domains.reduce((s, d) => s + d.nodeCount, 0);
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Explore — MetaHumotonic KG</title>
+  <meta name="description" content="Explore the MetaHumotonic Knowledge Graph — browse domains, search nodes, discover connections." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+
+<body>
+  <div class="starfield-bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <div class="content-wrap">
+    <nav class="breadcrumb">
+      <a href="/">MetaHumotonic</a> <span>/</span> <span>Explore</span>
+    </nav>
+
+    <header class="explore-header fade-in">
+      <h1 class="hero-title">
+        <span class="text-glow-cyan">Explore</span> <span class="text-glow-white">the KG</span>
+      </h1>
+      <p class="hero__desc">
+        {totalNodes.toLocaleString()} nodes across {domains.length} domains.
+        Click a domain to dive deeper.
+      </p>
+    </header>
+
+    {/* Search */}
+    <div class="search-box fade-in">
+      <input type="text" id="domain-search" placeholder="Filter domains..." autocomplete="off" />
+    </div>
+
+    {/* Domain Cards */}
+    <section class="explore-grid fade-in" id="domain-list">
+      {domains.sort((a,b) => b.nodeCount - a.nodeCount).map(d => (
+        <a href={`/domains/${d.name}`} class="explore-card" data-name={d.displayName.toLowerCase()}>
+          <div class="explore-card__bar" style={`width:${Math.round(d.nodeCount / Math.max(...domains.map(x=>x.nodeCount)) * 100)}%`}></div>
+          <div class="explore-card__content">
+            <h3>{d.displayName}</h3>
+            <p>{d.description}</p>
+          </div>
+          <span class="explore-card__count">{d.nodeCount.toLocaleString()}</span>
+        </a>
+      ))}
+    </section>
+
+    <footer class="footer">
+      <a href="/" class="btn-glow btn-glow--purple">&larr; Back to Home</a>
+    </footer>
+  </div>
+
+  <script src="../scripts/cosmos.ts"></script>
+</body>
+</html>
+
+<style is:global>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--cosmos-void, #050810);
+    color: var(--cosmos-text, #e0e6f0);
+    line-height: 1.6; overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  .content-wrap { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+  .breadcrumb { padding: 1.5rem 0; font-size: 0.85rem; color: var(--cosmos-text-muted, #4a5578); }
+  .breadcrumb a { color: var(--cosmos-accent-cyan, #67e8f9); }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb span { margin: 0 0.3rem; }
+
+  .explore-header { text-align: center; padding: 2rem 0 2rem; }
+  .hero-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 1rem; }
+  .text-glow-cyan { color: var(--cosmos-accent-cyan, #67e8f9); text-shadow: 0 0 40px rgba(103,232,249,0.5); }
+  .text-glow-white { color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
+  .hero__desc { font-size: 1.1rem; color: var(--cosmos-text-dim, #8892b0); max-width: 560px; margin: 0 auto; }
+
+  .search-box { text-align: center; padding: 1rem 0 2rem; }
+  .search-box input {
+    width: 100%; max-width: 500px;
+    padding: 0.7rem 1.2rem; border-radius: 12px;
+    background: var(--cosmos-card, rgba(13,27,42,0.6));
+    border: 1px solid var(--cosmos-border, rgba(107,76,153,0.15));
+    color: var(--cosmos-text, #e0e6f0);
+    font-size: 1rem; outline: none;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.3s;
+  }
+  .search-box input:focus { border-color: var(--cosmos-accent-cyan, #67e8f9); }
+  .search-box input::placeholder { color: var(--cosmos-text-muted, #4a5578); }
+
+  .explore-grid { display: flex; flex-direction: column; gap: 0.75rem; padding-bottom: 3rem; }
+  .explore-card {
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--cosmos-card, rgba(13,27,42,0.6));
+    border: 1px solid var(--cosmos-border, rgba(107,76,153,0.15));
+    border-radius: 12px; padding: 1rem 1.25rem;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+  }
+  .explore-card:hover {
+    border-color: var(--cosmos-border-glow, rgba(167,139,250,0.3));
+    transform: translateX(4px);
+  }
+  .explore-card__bar {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    background: linear-gradient(90deg, rgba(167,139,250,0.08), rgba(103,232,249,0.04));
+    pointer-events: none;
+  }
+  .explore-card__content { position: relative; z-index: 1; }
+  .explore-card__content h3 { font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: 0.2rem; }
+  .explore-card__content p { font-size: 0.8rem; color: var(--cosmos-text-dim, #8892b0); }
+  .explore-card__count {
+    position: relative; z-index: 1;
+    font-size: 1.1rem; font-weight: 700; color: var(--cosmos-accent-cyan, #67e8f9);
+    white-space: nowrap;
+  }
+
+  .footer { text-align: center; padding: 3rem 0; }
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+  .fade-in.visible { opacity: 1; transform: none; }
+</style>
+
+<script>
+  // Domain search filter
+  const input = document.getElementById('domain-search') as HTMLInputElement;
+  const cards = document.querySelectorAll('.explore-card');
+  input?.addEventListener('input', () => {
+    const q = input.value.toLowerCase();
+    cards.forEach(card => {
+      const name = (card as HTMLElement).dataset.name || '';
+      (card as HTMLElement).style.display = name.includes(q) ? '' : 'none';
+    });
+  });
+
+  // Fade-in
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>

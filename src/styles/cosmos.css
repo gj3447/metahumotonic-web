@@ -1,0 +1,152 @@
+/* KG: ATOM_Landing_CosmicAccent, TASK_Landing_CosmicAccent
+   SA: MetaHumotonic_Landing_v2 | L1: Quality
+   Dark accent CSS — 액자 섹션(mh-frame--dark) + canvas 배경 전용.
+   크림 테마(landing.css)와 공존. 레거시 alias 제거됨.
+   Refined from v2 348줄 → ~190줄.
+   ========================================================================== */
+
+/* ---------- Canvas starfield background ---------- */
+.starfield-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 35%, rgba(99, 102, 241, 0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 70% 70%, rgba(99, 102, 241, 0.05) 0%, transparent 55%),
+    linear-gradient(180deg, #050507 0%, #000000 70%);
+  pointer-events: none;
+}
+
+/* SVG noise grain — premium tactile (canvas overlay) */
+.starfield-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.6) 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ---------- Canvas element ---------- */
+#cosmos-canvas,
+#chu-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---------- Dark accent variables (액자 섹션 전용) ---------- */
+.mh-frame--dark,
+[data-theme="dark"] {
+  --bg-0: #000000;
+  --bg-1: #0a0a0a;
+  --bg-2: #161618;
+  --text: #e8e8ea;
+  --text-dim: #86868b;
+  --accent: #6366f1;
+  --accent-soft: rgba(99, 102, 241, 0.18);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --highlight: rgba(255, 255, 255, 0.06);
+  --radius: 8px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------- Counter (scroll animation target) ---------- */
+.counter {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- KG Donut (programs section) ---------- */
+.kg-donut {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  position: relative;
+  border: 1px solid rgba(14,14,12,0.12);
+}
+.kg-donut::after {
+  content: "";
+  position: absolute;
+  inset: 28%;
+  border-radius: 50%;
+  background: var(--mh-paper, #f5f1e8);
+  border: 1px solid rgba(14,14,12,0.12);
+}
+.kg-donut__label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* ---------- Domain legend ---------- */
+.kg-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.kg-legend__swatch {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* ---------- Accessibility ---------- */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+*:focus-visible {
+  outline: 1px solid var(--accent, #6366f1);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.skip-link {
+  position: absolute;
+  top: -100%; left: 0;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent, #6366f1);
+  color: #000;
+  font-weight: 500;
+  z-index: 100;
+  transition: top 160ms;
+}
+.skip-link:focus { top: 0; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .kg-donut { width: 160px; height: 160px; }
+}
+
+/* ---------- Reduced motion (canvas-specific) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  #cosmos-canvas,
+  #chu-canvas { display: none; }
+}

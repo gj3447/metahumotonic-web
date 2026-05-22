@@ -1,0 +1,225 @@
+---
+// KG: CONTRACT_Web_API, ATOM_Web_API
+import '../styles/cosmos.css';
+
+const endpoints = [
+  { method:'GET', path:'/api/stats.json', desc:'KG 전체 통계 (노드 수, 관계 수)', response:'{ nodes, rels }' },
+  { method:'GET', path:'/api/domains.json', desc:'13개 DomainHub 목록', response:'[{ name, displayName, nodeCount, description }]' },
+  { method:'GET', path:'/api/skills.json', desc:'18개 스킬 목록', response:'[{ name, description }]' },
+];
+
+const services = [
+  { name:'Neo4j Browser', path:'/neo4j/', port:'7474', desc:'Knowledge Graph 브라우저. Cypher 쿼리 실행.', color:'#67e8f9' },
+  { name:'n8n Workflows', path:'/n8n/', port:'5678', desc:'워크플로우 자동화 플랫폼.', color:'#a78bfa' },
+  { name:'MinIO Console', path:'/minio/', port:'9001', desc:'오브젝트 스토리지 관리. S3 호환.', color:'#fbbf24' },
+  { name:'MinIO S3 API', path:'/s3/', port:'9000', desc:'S3 호환 API 엔드포인트.', color:'#fbbf24' },
+  { name:'Traefik Dashboard', path:'/traefik/', port:'8080', desc:'리버스 프록시 + 라우팅 대시보드.', color:'#34d399' },
+  { name:'Skill Registry', path:'/skills/', port:'-', desc:'Claude Code 스킬 18개 레지스트리.', color:'#f472b6' },
+];
+
+const cyphers = [
+  { title:'전체 통계', query:'MATCH (n) WITH count(n) as nodes\nMATCH ()-[r]->() RETURN nodes, count(r) as rels' },
+  { title:'도메인 목록', query:'MATCH (d:DomainHub)\nRETURN d.displayName, d.nodeCount\nORDER BY d.nodeCount DESC' },
+  { title:'오답노트 조회', query:'MATCH (l:Lesson)\nWHERE l.resolved IS NULL\nRETURN l.name, l.problem, l.severity' },
+  { title:'워크스페이스 온톨로지', query:'MATCH (n:AbstractNode)\nRETURN labels(n), n.name, n.description\nLIMIT 20' },
+];
+---
+
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>API — MetaHumotonic</title>
+  <meta name="description" content="MetaHumotonic API endpoints, services, and Cypher query examples." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+
+<body>
+  <div class="starfield-bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <div class="page-wrap">
+    <nav class="breadcrumb">
+      <a href="/">MetaHumotonic</a> <span>›</span> <span>API</span>
+    </nav>
+
+    <header class="api-header fade-in">
+      <h1><span style="color:#fbbf24">API</span> & Services</h1>
+      <p class="api-desc">MetaHumotonic 서버의 API 엔드포인트, 서비스 접근 경로, Cypher 쿼리 예제.</p>
+    </header>
+
+    {/* JSON API */}
+    <section class="section fade-in">
+      <h2>JSON API</h2>
+      <p class="section-desc">빌드 타임에 KG에서 추출된 정적 JSON 파일.</p>
+      <div class="endpoint-list">
+        {endpoints.map(ep => (
+          <div class="endpoint-card">
+            <div class="endpoint-head">
+              <span class="method">{ep.method}</span>
+              <code class="ep-path">{ep.path}</code>
+            </div>
+            <p>{ep.desc}</p>
+            <pre class="ep-response">{ep.response}</pre>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Services */}
+    <section class="section fade-in">
+      <h2>서비스 엔드포인트</h2>
+      <p class="section-desc">Traefik 리버스 프록시 경유. Base: <code>http://bhgman.iptime.org</code></p>
+      <div class="service-grid">
+        {services.map(svc => (
+          <div class="service-card">
+            <div class="svc-head">
+              <span class="svc-dot" style={`background:${svc.color}`}></span>
+              <h3>{svc.name}</h3>
+              <span class="svc-port">:{svc.port}</span>
+            </div>
+            <code class="svc-path">{svc.path}</code>
+            <p>{svc.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Cypher 예제 */}
+    <section class="section fade-in">
+      <h2>Cypher 쿼리 예제</h2>
+      <p class="section-desc">Neo4j KG (bolt://localhost:7687) 직접 쿼리.</p>
+      <div class="cypher-list">
+        {cyphers.map(c => (
+          <div class="cypher-card">
+            <h3>{c.title}</h3>
+            <pre><code>{c.query}</code></pre>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* 인프라 다이어그램 — SVG */}
+    <section class="section fade-in">
+      <h2>인프라 구조</h2>
+      <div class="infra-diagram">
+        <svg viewBox="0 0 600 300" class="infra-svg">
+          {/* Internet */}
+          <text x="300" y="25" text-anchor="middle" fill="#4a5578" font-size="11" font-weight="600">Internet (218.233.221.77)</text>
+          <line x1="300" y1="32" x2="300" y2="55" stroke="#4a5578" stroke-width="1" stroke-dasharray="3 3"/>
+
+          {/* Traefik */}
+          <rect x="220" y="55" width="160" height="35" rx="8" fill="rgba(52,211,153,0.1)" stroke="rgba(52,211,153,0.4)" stroke-width="1"/>
+          <text x="300" y="77" text-anchor="middle" fill="#34d399" font-size="11" font-weight="600">Traefik :80</text>
+
+          {/* 분기 라인 */}
+          {[0,1,2,3,4,5].map(i => {
+            const x = 60 + i * 100;
+            return <line x1="300" y1="90" x2={x} y2="130" stroke="rgba(107,76,153,0.3)" stroke-width="0.8"/>;
+          })}
+
+          {/* 서비스들 */}
+          {[
+            {n:'Neo4j',x:60,c:'#67e8f9'},
+            {n:'PostgreSQL',x:160,c:'#a78bfa'},
+            {n:'n8n',x:260,c:'#a78bfa'},
+            {n:'MinIO',x:360,c:'#fbbf24'},
+            {n:'Redis',x:460,c:'#f472b6'},
+            {n:'Kafka',x:560,c:'#34d399'},
+          ].map(s => (
+            <g>
+              <rect x={s.x-40} y="130" width="80" height="30" rx="6" fill="rgba(13,27,42,0.6)" stroke={s.c} stroke-width="0.8" opacity="0.8"/>
+              <text x={s.x} y="150" text-anchor="middle" fill={s.c} font-size="9" font-weight="500">{s.n}</text>
+            </g>
+          ))}
+
+          {/* Storage */}
+          <line x1="300" y1="160" x2="300" y2="195" stroke="rgba(107,76,153,0.3)" stroke-width="0.8" stroke-dasharray="3 3"/>
+          <rect x="170" y="195" width="260" height="30" rx="8" fill="rgba(251,191,36,0.05)" stroke="rgba(251,191,36,0.3)" stroke-width="0.8"/>
+          <text x="300" y="215" text-anchor="middle" fill="#fbbf24" font-size="10">/Volumes/DB_STORAGE (4TB)</text>
+
+          {/* KG */}
+          <line x1="300" y1="225" x2="300" y2="255" stroke="rgba(107,76,153,0.3)" stroke-width="0.8" stroke-dasharray="3 3"/>
+          <rect x="200" y="255" width="200" height="30" rx="8" fill="rgba(167,139,250,0.1)" stroke="rgba(167,139,250,0.4)" stroke-width="1"/>
+          <text x="300" y="275" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="600">Neo4j KG (547K+ nodes)</text>
+        </svg>
+      </div>
+    </section>
+
+    <footer class="page-footer">
+      <a href="/" class="back-link">← Home</a>
+      <a href="/explore" class="back-link">Explore KG →</a>
+    </footer>
+  </div>
+</body>
+</html>
+
+<style is:global>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Inter',system-ui,sans-serif; background:#050810; color:#e0e6f0; line-height:1.6; overflow-x:hidden; }
+  a { color:inherit; text-decoration:none; }
+  .page-wrap { position:relative; z-index:1; max-width:1000px; margin:0 auto; padding:0 clamp(1rem,3vw,3rem); }
+
+  .breadcrumb { padding:1.5rem 0; font-size:0.85rem; color:#4a5578; }
+  .breadcrumb a { color:#67e8f9; } .breadcrumb a:hover { text-decoration:underline; }
+  .breadcrumb span { margin:0 0.3rem; }
+
+  .api-header { text-align:center; padding:2rem 0 3rem; }
+  .api-header h1 { font-size:clamp(2rem,5vw,3rem); font-weight:800; color:#fff; margin-bottom:1rem; }
+  .api-desc { font-size:1.1rem; color:#8892b0; max-width:600px; margin:0 auto; }
+
+  .section { padding:2rem 0; }
+  .section h2 { font-size:1.3rem; font-weight:700; color:#fff; margin-bottom:0.5rem; }
+  .section-desc { font-size:0.9rem; color:#4a5578; margin-bottom:1.5rem; }
+  .section-desc code { color:#67e8f9; font-size:0.85rem; }
+
+  /* Endpoint */
+  .endpoint-list { display:flex; flex-direction:column; gap:1rem; }
+  .endpoint-card { background:rgba(13,27,42,0.6); border:1px solid rgba(107,76,153,0.15); border-radius:12px; padding:1.25rem; backdrop-filter:blur(8px); }
+  .endpoint-head { display:flex; align-items:center; gap:0.75rem; margin-bottom:0.5rem; }
+  .method { font-size:0.75rem; font-weight:700; color:#050810; background:#34d399; padding:0.15rem 0.5rem; border-radius:4px; }
+  .ep-path { font-size:1rem; color:#67e8f9; }
+  .endpoint-card p { font-size:0.9rem; color:#8892b0; }
+  .ep-response { font-size:0.8rem; color:#a78bfa; background:rgba(0,0,0,0.3); padding:0.5rem 0.75rem; border-radius:6px; margin-top:0.5rem; font-family:'JetBrains Mono',monospace; }
+
+  /* Service */
+  .service-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1rem; }
+  .service-card { background:rgba(13,27,42,0.6); border:1px solid rgba(107,76,153,0.15); border-radius:12px; padding:1rem; backdrop-filter:blur(8px); transition:border-color 0.3s; }
+  .service-card:hover { border-color:rgba(167,139,250,0.3); }
+  .svc-head { display:flex; align-items:center; gap:0.5rem; margin-bottom:0.4rem; }
+  .svc-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .svc-head h3 { font-size:1rem; color:#fff; font-weight:600; }
+  .svc-port { font-size:0.8rem; color:#4a5578; }
+  .svc-path { display:block; font-size:0.85rem; color:#67e8f9; margin-bottom:0.4rem; }
+  .service-card p { font-size:0.85rem; color:#8892b0; }
+
+  /* Cypher */
+  .cypher-list { display:flex; flex-direction:column; gap:1rem; }
+  .cypher-card { background:rgba(13,27,42,0.6); border:1px solid rgba(107,76,153,0.15); border-radius:12px; padding:1rem 1.25rem; backdrop-filter:blur(8px); }
+  .cypher-card h3 { font-size:0.95rem; color:#a78bfa; font-weight:600; margin-bottom:0.5rem; }
+  .cypher-card pre { font-size:0.8rem; color:#67e8f9; font-family:'JetBrains Mono',monospace; overflow-x:auto; line-height:1.5; white-space:pre-wrap; }
+
+  /* Infra */
+  .infra-diagram { max-width:650px; margin:0 auto; }
+  .infra-svg { width:100%; height:auto; }
+
+  .page-footer { display:flex; justify-content:space-between; padding:3rem 0; }
+  .back-link { color:#67e8f9; font-size:0.9rem; font-weight:500; }
+  .back-link:hover { text-decoration:underline; }
+
+  .fade-in { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease,transform 0.6s ease; }
+  .fade-in.visible { opacity:1; transform:none; }
+
+  @media (max-width:480px) {
+    .service-grid { grid-template-columns:1fr; }
+  }
+</style>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold:0, rootMargin:'0px 0px 50px 0px' });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+  setTimeout(() => document.querySelectorAll('.fade-in:not(.visible)').forEach(el => el.classList.add('visible')), 1500);
+</script>
