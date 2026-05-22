@@ -87,12 +87,13 @@ mh:SuperhollowKnight a mh:Apostle ;
 
 mh:BHGMan a mh:Apostle ;
     rdfs:label "비행기맨 (Airplane Man / bhgman)" ;
-    mh:epithet "높이의 사도 — 인지능력체 정점" ;
+    mh:epithet "높이의 사도 — 5무기 합체 정점" ;
     mh:externalReferent "Industry agent scaffolding 3-tier (Anthropic Skills+SDK+Managed / Cursor / LangGraph / Vertex AI Agent Engine)" ;
     mh:familyEngineering "Harness 3-tier (IDE-host / app runtime / managed cloud)" ;
     mh:role "재귀 피라미드 자기개선 — 메타 축" ;
-    mh:commandsLegion mh:engineboy ;
-    schema:url <https://metahumotonic.com/apostles/bhgman/> .
+    mh:commandsLegion mh:Prometheus, mh:Naesengmoon, mh:Harness_Weapon, mh:Longinus_Weapon, mh:JaebaeMan ;
+    schema:url <https://metahumotonic.com/apostles/bhgman/> ;
+    rdfs:comment "비행기맨 = 5무기 합체 정점. 5무기 = Naesengmoon + Prometheus + Harness + Longinus + JaebaeMan." .
 
 mh:Spacegirl a mh:Apostle ;
     rdfs:label "스페이스걸 (Space Girl)" ;
@@ -160,7 +161,28 @@ mh:Monsoon a mh:Apostle ;
 # --- Legion Commanders ---
 
 mh:engineboy a mh:LegionCommander ; rdfs:label "engineboy" ;
-    rdfs:comment "인지능력체 엔진 — under #4 비행기맨 (HAGYE_WITHIN) and #8 OMC family." .
+    rdfs:comment "인지능력체 엔진 — under #8 OMC family." .
+
+# 5 Weapons (5무기) — 비행기맨 #4 BHGMan 측 commanders. Methodological tools.
+mh:Naesengmoon a mh:LegionCommander, mh:Weapon ;
+    rdfs:label "나생문 (Naesengmoon)" ;
+    rdfs:comment "적대적 검증 — GAN의 D. 9-lens constitutional / 113-lens mathematical / 5-lens SOLID 등 플러거블 LensSet. APT 의 면역 시스템." .
+mh:Prometheus a mh:LegionCommander, mh:Weapon ;
+    rdfs:label "프로메테우스 (Prometheus)" ;
+    rdfs:comment "지식 선행 — Hegel reframe. N parallel subagent UNWIND batch. 9+1 단계 사이클." .
+mh:Harness_Weapon a mh:LegionCommander, mh:Weapon ;
+    rdfs:label "하네스 (Harness)" ;
+    rdfs:comment "3-tier scaffolding — IDE-host / runtime / managed cloud. 4-axis Inform/Constrain/Verify/Correct." .
+mh:Longinus_Weapon a mh:LegionCommander, mh:Weapon ;
+    rdfs:label "롱기누스 (Longinus)" ;
+    rdfs:comment "KG↔Code reference binding — 7-Layer Reference Model + sha256 baseline daemon + BX Lens Laws + GED Drift." .
+mh:JaebaeMan a mh:LegionCommander, mh:Weapon ;
+    rdfs:label "재배맨 (JaebaeMan)" ;
+    rdfs:comment "Subagent Orchestration Protocol — SubagentTaskSpec KG 씨앗. Pre-fetch → Dispatch → Collect → Write." .
+
+mh:Weapon a owl:Class ;
+    rdfs:label "5 Weapons (5무기)" ;
+    rdfs:comment "Methodological tools — concrete engineering instantiations of mythology pillars. 5무기 = Naesengmoon + Prometheus + Harness + Longinus + JaebaeMan. 비행기맨 #4의 군단장." .
 mh:hitomi_la a mh:LegionCommander ; rdfs:label "hitomi_la" ;
     rdfs:comment "sexvoid substrate bridge cluster — under #5 스페이스걸." .
 mh:pornhub a mh:LegionCommander ; rdfs:label "pornhub" ;

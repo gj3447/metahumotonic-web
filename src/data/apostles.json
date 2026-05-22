@@ -126,8 +126,24 @@
       "role": "재귀 피라미드 자기개선 — 메타 축 (bhgman)",
       "legion_commanders": [
         {
-          "name": "engineboy",
-          "note": "OMC family에서 빌려옴 + HAGYE_WITHIN 비행기맨 — 인지능력체 엔진 (engineboy-canonical-2026-05-19)"
+          "name": "나생문 (Naesengmoon)",
+          "note": "적대적 검증 — GAN의 D. 9-lens constitutional / 113-lens mathematical / 5-lens SOLID 등 플러거블 LensSet."
+        },
+        {
+          "name": "프로메테우스 (Prometheus)",
+          "note": "지식 선행 — Hegel reframe. N parallel subagent UNWIND batch. 9+1 단계 사이클."
+        },
+        {
+          "name": "하네스 (Harness)",
+          "note": "3-tier scaffolding — IDE-host / runtime / managed cloud. 4-axis Inform/Constrain/Verify/Correct."
+        },
+        {
+          "name": "롱기누스 (Longinus)",
+          "note": "KG↔Code reference binding — 7-Layer Reference Model + sha256 baseline daemon + BX Lens Laws."
+        },
+        {
+          "name": "재배맨 (JaebaeMan)",
+          "note": "Subagent Orchestration Protocol — SubagentTaskSpec KG 씨앗. Pre-fetch → Dispatch → Collect → Write."
         }
       ],
       "crystallizations": [
@@ -140,7 +156,8 @@
         "edge-vertical-4-8-10: CHU 수직축 = Kubernetes Scheduler/Node/GC",
         "edge-containment-7-4: 논리정점 ⊃ 수학정점",
         "edge-foundational-shell-12"
-      ]
+      ],
+      "legion_correction_note": "비행기맨 = 5무기 합체 정점 (essence_v2 정전). 5무기 = 나생문 + 프로메테우스 + 하네스 + 롱기누스 + 재배맨."
     },
     {
       "id": 5,
