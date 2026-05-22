@@ -53,11 +53,15 @@ const apostles = apostlesData.apostles;
     <ol class="mh-portal__grid" aria-label="12 사도 입구">
       {apostles.map(a => (
         <li class="mh-portal__cell">
-          <a href={`/apostles/${a.slug}`} class="mh-portal__tile">
+          <a href={`/apostles/${a.slug}`} class="mh-portal__tile" data-apostle-id={a.id}>
             <span class="mh-portal__num">{a.num}.</span>
             <span class="mh-portal__icon" aria-hidden="true">{a.icon}</span>
             <span class="mh-portal__name">{a.name}</span>
             <span class="mh-portal__epithet">{a.epithet}</span>
+            {/* Wave 7: hover essence preview tooltip — KG: CONTRACT_PortalTileHover_v1 */}
+            {a.essence && (
+              <span class="mh-portal__essence-preview" aria-hidden="true">{a.essence.slice(0, 90)}{a.essence.length > 90 ? '…' : ''}</span>
+            )}
             {a.status?.startsWith('OPEN') && <span class="mh-portal__open">verdict 대기</span>}
           </a>
         </li>
@@ -184,16 +188,56 @@ const apostles = apostlesData.apostles;
     min-height: 180px;
     color: inherit;
     text-decoration: none;
-    transition: background 0.22s ease, transform 0.22s ease;
+    transition: background 0.22s ease, transform 0.22s ease, border-color 0.22s ease;
     position: relative;
+    overflow: hidden;
+    border-left: 3px solid transparent;
   }
+  /* Wave 7: portal_tile_hover EXTEND — KG: CONTRACT_PortalTileHover_v1, span-atomic-portal-tile-hover-2026-05-22 */
+  /* family-color hint via data-apostle-id (12 사도 매핑) */
+  .mh-portal__tile[data-apostle-id="1"]  { border-left-color: #6366f1; }  /* dimension-walker · OTel */
+  .mh-portal__tile[data-apostle-id="2"]  { border-left-color: #ef4444; }  /* ICE ORCA DRAGON · TOE */
+  .mh-portal__tile[data-apostle-id="3"]  { border-left-color: #94a3b8; }  /* superhollow-knight · OPEN */
+  .mh-portal__tile[data-apostle-id="4"]  { border-left-color: #f59e0b; }  /* bhgman · Harness */
+  .mh-portal__tile[data-apostle-id="5"]  { border-left-color: #10b981; }  /* spacegirl · Longinus */
+  .mh-portal__tile[data-apostle-id="6"]  { border-left-color: #06b6d4; }  /* great-river · flow */
+  .mh-portal__tile[data-apostle-id="7"]  { border-left-color: #8b5cf6; }  /* liquest-tree · Type */
+  .mh-portal__tile[data-apostle-id="8"]  { border-left-color: #f97316; }  /* orbital-cloud · k8s */
+  .mh-portal__tile[data-apostle-id="9"]  { border-left-color: #fbbf24; }  /* jesus · 신학 */
+  .mh-portal__tile[data-apostle-id="10"] { border-left-color: #475569; }  /* gipbajon · GC */
+  .mh-portal__tile[data-apostle-id="11"] { border-left-color: #ec4899; }  /* hoh · Heaven */
+  .mh-portal__tile[data-apostle-id="12"] { border-left-color: #64748b; }  /* monsoon · Disenchantment */
+
   .mh-portal__tile:hover {
     background: rgba(14,14,12,0.035);
+    transform: translateY(-2px);
   }
   .mh-portal__tile:hover .mh-portal__name {
     text-decoration: underline;
     text-decoration-color: rgba(14,14,12,0.3);
     text-underline-offset: 4px;
+  }
+  /* essence preview tooltip — hover 시 노출, prefers-reduced-motion 시 정적 */
+  .mh-portal__essence-preview {
+    display: block;
+    margin-top: 8px;
+    font-size: 11px;
+    line-height: 1.45;
+    color: rgba(14,14,12,0.42);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.32s ease, opacity 0.28s ease, margin-top 0.32s ease;
+  }
+  .mh-portal__tile:hover .mh-portal__essence-preview,
+  .mh-portal__tile:focus-visible .mh-portal__essence-preview {
+    max-height: 90px;
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mh-portal__tile { transition: none; }
+    .mh-portal__essence-preview { transition: none; }
+    .mh-portal__tile:hover { transform: none; }
   }
   .mh-portal__num {
     font-family: var(--mh-serif, 'Cormorant Garamond', serif);

@@ -1,7 +1,12 @@
 ---
 // KG: ATOM_Web_ApostleDetail
+// KG: SPAN_MH_Web_v3_Root, sa-metahumotonic-web-v3-apostle-centric-2026-05-22
+// KG: rs-mh-web-v3-src-pages-apostles-_slug__astro-2026-05-22 (forward L5 binding)
 // 12사도 개별 상세 페이지. data/apostles.json 정전 (KG 미러).
 import apostlesData from '../../data/apostles.json';
+import FamilyBadge from '../../components/FamilyBadge.astro';            // KG: CONTRACT_FamilyBadge_v1
+import KGAnchorBox from '../../components/KGAnchorBox.astro';            // KG: CONTRACT_KGAnchorBox_v1
+import CanonFieldSurface from '../../components/CanonFieldSurface.astro'; // KG: CONTRACT_CanonFieldSurface_v1
 
 export async function getStaticPaths() {
   return apostlesData.apostles.map((a, i) => ({
@@ -181,6 +186,37 @@ const isOpen = apostle.status?.startsWith('OPEN');
     }
     .back-home:hover { color: #1a1815; }
 
+    /* Wave 6: ExternalReferentCard — KG: CONTRACT_ExternalReferentCard_v1 */
+    .ext-referent-card {
+      margin: 2.4rem 0 1.2rem;
+      padding: 1.4rem 1.6rem;
+      border: 1px solid #d9ceb0;
+      background: #f8f3e6;
+      border-radius: 2px;
+      position: relative;
+    }
+    .ext-referent-card__head {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+    .ext-referent-card__eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8a4d00;
+      font-weight: 500;
+    }
+    .ext-referent-card__prose {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.85rem;
+      line-height: 1.65;
+      color: #2a2620;
+      margin: 0;
+      word-break: break-word;
+    }
+    .family-badge { margin-top: 0.8rem; }
+
     @media (max-width: 540px) {
       .canon-grid { grid-template-columns: 1fr; gap: 0.2rem 0; }
       .canon-label { padding-top: 0.8rem; }
@@ -206,6 +242,7 @@ const isOpen = apostle.status?.startsWith('OPEN');
         {isOpen && <span class="open-tag">사용자 verdict 대기</span>}
       </h1>
       <p class="epithet">{apostle.epithet}</p>
+      {apostle.family && <FamilyBadge family={apostle.family} apostleId={apostle.id} />}
     </header>
 
     <hr />
@@ -213,14 +250,19 @@ const isOpen = apostle.status?.startsWith('OPEN');
     <p class="body-ko">{apostle.body_ko}</p>
     <p class="body-en">{apostle.body_en}</p>
 
+    {/* Wave 4: CanonFieldSurface — KG 정전 4 필드 conditional callout */}
+    <CanonFieldSurface
+      canonical_meaning={apostle.canonical_meaning}
+      mythology_referent_v2={apostle.mythology_referent_v2}
+      role={apostle.role}
+      essence_v4={apostle.essence_v4}
+    />
+
     <hr />
 
     <dl class="canon-grid">
       <dt class="canon-label">본질</dt>
       <dd class="canon-val essence">{apostle.essence}</dd>
-
-      <dt class="canon-label">외부 정전</dt>
-      <dd class="canon-val referent">{apostle.external_referent}</dd>
 
       <dt class="canon-label">공학 family</dt>
       <dd class="canon-val family">{apostle.family}</dd>
@@ -231,6 +273,17 @@ const isOpen = apostle.status?.startsWith('OPEN');
       <dt class="canon-label">이해 상태</dt>
       <dd class="canon-val">{apostle.status}</dd>
     </dl>
+
+    {/* Wave 6: ExternalReferentCard — referent 표시를 card 형태로 시각 보강 */}
+    <section class="ext-referent-card" aria-label="외부 정전 referent">
+      <header class="ext-referent-card__head">
+        <span class="ext-referent-card__eyebrow">외부 정전 · External Canonical Referent</span>
+      </header>
+      <p class="ext-referent-card__prose">{apostle.external_referent}</p>
+    </section>
+
+    {/* Wave 3: KGAnchorBox — apostle 측 ReferenceSite 7-tuple 노출 */}
+    <KGAnchorBox apostleId={apostle.id} />
 
     <nav class="pager">
       <a href={`/apostles/${prev.slug}`} class="prev">

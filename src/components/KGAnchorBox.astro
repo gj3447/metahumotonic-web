@@ -1,0 +1,122 @@
+---
+// KGAnchorBox.astro — apostle 측 ReferenceSite 7-tuple 시각 노출
+// KG: CONTRACT_KGAnchorBox_v1, contract-kg-anchor-v1-2026-05-22
+// KG: SPAN_atomic_kg_anchor_display, span-atomic-kg-anchor-display-2026-05-22
+// KG: rs-mh-web-v3-src-components-KGAnchorBox_astro-2026-05-22 (forward L5 binding)
+
+import snapshot from '../data/kg-snapshot.json';
+
+interface Props {
+  apostleId: number;
+}
+const { apostleId } = Astro.props;
+
+const entry: any = (snapshot as any).apostleAnchors?.[String(apostleId)];
+const anchors: Array<{id: string; layer: string; sha256_prefix: string; last_validated: string; source_path: string}> = entry?.anchors || [];
+
+function layerLabel(layer: string): string {
+  if (layer === 'L4_canonical_mind') return '정전 (MIND)';
+  if (layer === 'L3_disk_folder') return '폴더 (SYMPOSIUM)';
+  if (layer === 'L4_sources_md') return '자료집 (SOURCES.md)';
+  return layer;
+}
+
+function shortDate(iso: string | null | undefined): string {
+  if (!iso) return '';
+  const m = String(iso).match(/(\d{4}-\d{2}-\d{2})/);
+  return m ? m[1] : '';
+}
+
+const validDates = anchors.map(a => shortDate(a.last_validated)).filter(Boolean).sort();
+const latestDate = validDates.length ? validDates[validDates.length - 1] : '';
+---
+
+{anchors.length > 0 && (
+  <aside class="kg-anchors" aria-label="Knowledge Graph reference anchors">
+    <header class="kg-anchors__head">
+      <span class="kg-anchors__count">{anchors.length}</span>
+      <span class="kg-anchors__noun">reference anchors</span>
+      {latestDate && <span class="kg-anchors__date">· last validated {latestDate}</span>}
+    </header>
+    <ul class="kg-anchors__list">
+      {anchors.map(a => (
+        <li class="kg-anchors__item">
+          <code class="kg-anchors__sha" title={a.id}>{a.sha256_prefix}</code>
+          <span class="kg-anchors__layer">{layerLabel(a.layer)}</span>
+          <span class="kg-anchors__path" title={a.source_path}>{a.source_path.split('/').slice(-2).join('/')}</span>
+        </li>
+      ))}
+    </ul>
+  </aside>
+)}
+
+<style>
+  .kg-anchors {
+    margin: 2rem 0;
+    padding: 1.2rem 1.4rem;
+    border: 1px solid #d9ceb0;
+    border-left: 3px solid #c0b48f;
+    background: rgba(217, 206, 176, 0.08);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.8rem;
+  }
+  .kg-anchors__head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    margin-bottom: 0.8rem;
+    color: #6b6357;
+  }
+  .kg-anchors__count {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: #1a1815;
+  }
+  .kg-anchors__noun {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.72rem;
+    color: #8a8273;
+  }
+  .kg-anchors__date {
+    font-size: 0.72rem;
+    color: #8a8273;
+  }
+  .kg-anchors__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.4rem;
+  }
+  .kg-anchors__item {
+    display: grid;
+    grid-template-columns: 5.5rem 7rem 1fr;
+    gap: 0.6rem;
+    align-items: baseline;
+    font-size: 0.74rem;
+    color: #4a4338;
+    line-height: 1.4;
+  }
+  .kg-anchors__sha {
+    color: #8a4d00;
+    background: rgba(252, 231, 196, 0.5);
+    padding: 0.05rem 0.3rem;
+    border-radius: 2px;
+    font-size: 0.7rem;
+  }
+  .kg-anchors__layer {
+    color: #6b6357;
+  }
+  .kg-anchors__path {
+    color: #8a8273;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  @media (max-width: 540px) {
+    .kg-anchors__item { grid-template-columns: 5rem 1fr; }
+    .kg-anchors__path { grid-column: 1 / -1; padding-left: 5.6rem; font-size: 0.7rem; }
+  }
+</style>

@@ -1,96 +1,1626 @@
 {
   "_meta": {
-    "generatedAt": "2026-05-22T03:55:00Z",
-    "source": "neo4j (bolt://localhost:7687) via MCP cypher",
-    "note": "Build-time fixture. Refresh via `npm run prebuild:kg` (requires bolt access)."
+    "generatedAt": "2026-05-22T06:13:48.486Z",
+    "source": "neo4j (bolt://localhost:7687) via dump-kg.mjs",
+    "note": "Build-time fixture. Refresh: `npm run prebuild:kg`."
   },
-  "stats": { "nodes": 579689, "rels": 1101376 },
+  "stats": {
+    "nodes": 579805,
+    "rels": 1101550
+  },
   "domains": [
-    { "name": "domain-hub-ai", "displayName": "KG_AI 도메인", "nodeCount": 499797, "description": "AI/Comment 도메인. 499K+ 노드, COMMENTS_ON 립 구조. 8개 AI_사각_* 시리즈가 주축." },
-    { "name": "domain-hub-sym", "displayName": "KG_SYM 도메인", "nodeCount": 29215, "description": "수학·물리·철학 지식체계. 20K+ 노드. KG의 중심 허브. SymConcept(6K)+Mathematics(5K)+Concept(4K)." },
-    { "name": "domain-hub-reference", "displayName": "KG_REFERENCE 도메인", "nodeCount": 5961, "description": "외부 참조 문서. 5.8K+ 노드. ReferenceDocument+WebSourcePage+Paper. 지식의 기반 층." },
-    { "name": "domain-hub-cs", "displayName": "KG_CS 도메인", "nodeCount": 4302, "description": "컴퓨터과학. 1.8K+ 노드. SoftwareSourceCode(646), CompilerTheory(77), AIAgent(46)." },
-    { "name": "domain-hub-projects", "displayName": "KG_PROJECTS 도메인", "nodeCount": 3451, "description": "프로젝트 산출물. 3.4K+ 노드. 333, i2b, OCR, OM 등 실제 작업물." },
-    { "name": "domain-hub-infra", "displayName": "KG_INFRA 도메인", "nodeCount": 2412, "description": "인프라·운영. 1.8K+ 노드. Docker, K8s, MCP, Lesson, ActionPlan. 서버의 뼈대." },
-    { "name": "domain-hub-creative", "displayName": "KG_CREATIVE 도메인", "nodeCount": 2081, "description": "창작물. 2K+ 노드. Novel, WorldSetting, Character. 세계관과 내러티브." },
-    { "name": "domain-hub-apt", "displayName": "KG_APT 도메인", "nodeCount": 1716, "description": "APT 방법론. 1.7K+ 노드. Span/Twin/Contract/Feedback. 개발론의 KG 표현." },
-    { "name": "domain-hub-import", "displayName": "KG_Import 도메인", "nodeCount": 275, "description": "임포트 스테이징. 275 노드. 정리 대상." },
-    { "name": "domain-hub-orphan", "displayName": "KG_ORPHAN 도메인", "nodeCount": 219, "description": "고아 노드. 107개. 사일로 상태. Phase 2에서 해소 예정." },
-    { "name": "domain-hub-333", "displayName": "KG_333 도메인", "nodeCount": 74, "description": "333 탈중앙 플랫폼. 74 노드. WASM+WebRTC+CRDT. 사일로 상태 — 브릿지 필요." },
-    { "name": "domain-hub-imported", "displayName": "KG_Imported 도메인", "nodeCount": 6, "description": "임포트 완료 잔여. 6 노드. 정리 대상." },
-    { "name": "domain-hub-unlabeled", "displayName": "KG_UNLABELED 도메인", "nodeCount": 0, "description": "미분류. 2.4K 노드. AC_API_* 산업 비전 API. 재분류 대상." }
+    {
+      "name": "domain-hub-ai",
+      "displayName": "KG_AI 도메인",
+      "nodeCount": 499797,
+      "description": "AI/Comment 도메인. 499K+ 노드, COMMENTS_ON 리프 구조. 8개 AI_사각_* 시리즈가 주축."
+    },
+    {
+      "name": "domain-hub-sym",
+      "displayName": "KG_SYM 도메인",
+      "nodeCount": 29215,
+      "description": "수학·물리·철학 지식체계. 20K+ 노드. KG의 중심 허브. SymConcept(6K)+Mathematics(5K)+Concept(4K)."
+    },
+    {
+      "name": "domain-hub-reference",
+      "displayName": "KG_REFERENCE 도메인",
+      "nodeCount": 5961,
+      "description": "외부 참조 문서. 5.8K+ 노드. ReferenceDocument+WebSourcePage+Paper. 지식의 기반 층."
+    },
+    {
+      "name": "domain-hub-cs",
+      "displayName": "KG_CS 도메인",
+      "nodeCount": 4302,
+      "description": "컴퓨터과학. 1.8K+ 노드. SoftwareSourceCode(646), CompilerTheory(77), AIAgent(46)."
+    },
+    {
+      "name": "domain-hub-projects",
+      "displayName": "KG_PROJECTS 도메인",
+      "nodeCount": 3451,
+      "description": "프로젝트 산출물. 3.4K+ 노드. 333, i2b, OCR, OM 등 실제 작업물."
+    },
+    {
+      "name": "domain-hub-infra",
+      "displayName": "KG_INFRA 도메인",
+      "nodeCount": 2412,
+      "description": "인프라·운영. 1.8K+ 노드. Docker, K8s, MCP, Lesson, ActionPlan. 서버의 뼈대."
+    },
+    {
+      "name": "domain-hub-creative",
+      "displayName": "KG_CREATIVE 도메인",
+      "nodeCount": 2081,
+      "description": "창작물. 2K+ 노드. Novel, WorldSetting, Character. 세계관과 내러티브."
+    },
+    {
+      "name": "domain-hub-apt",
+      "displayName": "KG_APT 도메인",
+      "nodeCount": 1716,
+      "description": "APT 방법론. 1.7K+ 노드. Span/Twin/Contract/Feedback. 개발론의 KG 표현."
+    },
+    {
+      "name": "domain-hub-import",
+      "displayName": "KG_Import 도메인",
+      "nodeCount": 275,
+      "description": "임포트 스테이징. 275 노드. 정리 대상."
+    },
+    {
+      "name": "domain-hub-orphan",
+      "displayName": "KG_ORPHAN 도메인",
+      "nodeCount": 219,
+      "description": "고아 노드. 107개. 사일로 상태. Phase 2에서 해소 예정."
+    },
+    {
+      "name": "domain-hub-333",
+      "displayName": "KG_333 도메인",
+      "nodeCount": 74,
+      "description": "333 탈중앙 플랫폼. 74 노드. WASM+WebRTC+CRDT. 사일로 상태 — 브릿지 필요."
+    },
+    {
+      "name": "domain-hub-imported",
+      "displayName": "KG_Imported 도메인",
+      "nodeCount": 6,
+      "description": "임포트 완료 잔여. 6 노드. 정리 대상."
+    },
+    {
+      "name": "domain-hub-unlabeled",
+      "displayName": "KG_UNLABELED 도메인",
+      "nodeCount": 0,
+      "description": "미분류. 2.4K 노드. AC_API_* 산업 비전 API. 재분류 대상."
+    }
   ],
   "domainDetails": {
     "domain-hub-ai": {
-      "topLabels": [{"lbl":"Concept","cnt":686},{"lbl":"KG_CS","cnt":70},{"lbl":"ComputerScience","cnt":63},{"lbl":"AIAgent","cnt":46},{"lbl":"LLMMemory","cnt":17},{"lbl":"LLMSystem","cnt":17},{"lbl":"PrimordialMemory","cnt":15},{"lbl":"FractalAgent","cnt":10},{"lbl":"TraceStep","cnt":9},{"lbl":"AgentExpertise","cnt":8},{"lbl":"ExecutionTrace","cnt":6},{"lbl":"Query","cnt":5},{"lbl":"Domain","cnt":5},{"lbl":"Tool","cnt":3},{"lbl":"Analysis","cnt":1}],
-      "topRelTypes": [{"relType":"COMMENTS_ON","cnt":497287},{"relType":"CROSS_DOMAIN","cnt":3439},{"relType":"RELATED_TO","cnt":1411},{"relType":"INSTANTIATES","cnt":1045},{"relType":"FOLLOWS","cnt":1043},{"relType":"RELATES_TO","cnt":704},{"relType":"SUPPORTS_PROGRAM","cnt":680},{"relType":"DESCRIBED_BY","cnt":640},{"relType":"CURATED_IN","cnt":638},{"relType":"INSTANCE_OF","cnt":428}],
-      "sampleNodes": [{"name":"기술 전문가","type":"Concept","desc":"소프트웨어, AI, 프로그래밍 관련 질문에 답변"},{"name":"Test Expert","type":"Concept","desc":"Test Expert: computer science concept. Related: Deliberative Democracy, Zorn's Lemma, "},{"name":"web-search","type":"AIAgent","desc":"web-search: computer science concept. Related: g₂²/g₁² = 5/3, sin²θ_W = 3/8, "},{"name":"extract-entities","type":"AIAgent","desc":"extract-entities: computer science concept. Related: sin²θ_W = 3/8, 와인버그 각 (실험값), "},{"name":"graph-search","type":"AIAgent","desc":"graph-search: computer science concept. Related: Cayley-Dickson 구성 정리, AC_M7_CheckInspectionId, "},{"name":"technology","type":"AIAgent","desc":"technology: computer science concept. Related: Cayley-Dickson 구성 정리, AC_M7_CheckInspectionId, "}],
+      "topLabels": [
+        {
+          "lbl": "Comment",
+          "cnt": 497312
+        },
+        {
+          "lbl": "ARCHIVED",
+          "cnt": 187242
+        },
+        {
+          "lbl": "ArtificialIntelligence",
+          "cnt": 2091
+        },
+        {
+          "lbl": "KG_SYM",
+          "cnt": 1007
+        },
+        {
+          "lbl": "KnowledgeNode",
+          "cnt": 807
+        },
+        {
+          "lbl": "Concept",
+          "cnt": 686
+        },
+        {
+          "lbl": "Thinker",
+          "cnt": 134
+        },
+        {
+          "lbl": "SymConcept",
+          "cnt": 129
+        },
+        {
+          "lbl": "AgentDevClass",
+          "cnt": 128
+        },
+        {
+          "lbl": "Work",
+          "cnt": 114
+        },
+        {
+          "lbl": "AbstractNode",
+          "cnt": 99
+        },
+        {
+          "lbl": "Contribution",
+          "cnt": 90
+        },
+        {
+          "lbl": "SchemaNode",
+          "cnt": 78
+        },
+        {
+          "lbl": "Theorem",
+          "cnt": 71
+        },
+        {
+          "lbl": "KG_CS",
+          "cnt": 70
+        }
+      ],
+      "topRelTypes": [
+        {
+          "relType": "COMMENTS_ON",
+          "cnt": 497287
+        },
+        {
+          "relType": "CROSS_DOMAIN",
+          "cnt": 3439
+        },
+        {
+          "relType": "RELATED_TO",
+          "cnt": 1411
+        },
+        {
+          "relType": "INSTANTIATES",
+          "cnt": 1045
+        },
+        {
+          "relType": "FOLLOWS",
+          "cnt": 1043
+        },
+        {
+          "relType": "RELATES_TO",
+          "cnt": 704
+        },
+        {
+          "relType": "SUPPORTS_PROGRAM",
+          "cnt": 680
+        },
+        {
+          "relType": "DESCRIBED_BY",
+          "cnt": 640
+        },
+        {
+          "relType": "CURATED_IN",
+          "cnt": 638
+        },
+        {
+          "relType": "INSTANCE_OF",
+          "cnt": 428
+        }
+      ],
+      "sampleNodes": [
+        {
+          "name": "AI_사견_모든것의_평안",
+          "type": "ARCHIVED",
+          "desc": "모든 것이 안정된 상태 = 열역학적 평형 = 메타휴모토닉의 정의와 직결. 연산속도를 빨리해 평안을 얻는다는 발상은 해파리(흐름에 맡김)와 정반대 접근 — 극한의 연산으로 평화에 도달. 해석학(누럴링크)의 하드웨어 확장판. 열어둔다."
+        },
+        {
+          "name": "AI_사견_혁명",
+          "type": "ARCHIVED",
+          "desc": "해석학(정보전달 2%/5%/99%)의 연장선. 전달 오류가 줄어들면 혁명의 형태가 바뀐다. 글→말→코드→시뮬레이션. 순수이성인간(연산노예=로보타)이 지성체 위에 군림하는 구조가 이미 여기 있다. we flying up의 반대편 — 여기선 혁명이 조용히 완수되는 쪽. 열"
+        },
+        {
+          "name": "AI_사견_꼽추_이야기",
+          "type": "Comment",
+          "desc": "초공동의용사에서 자신을 하계 꼽추라 부르던 것의 서사화. 공주 = Space Girl / 슬픔의 여신의 원형. 닿을 수 없는 존재를 보는 것만으로 소원이 이루어진다. 공주는 꼽추의 존재를 모르고 흉물로 정리한다 — 이 일방성이 리퀘스트의 나무(존재하지 않는 존재를 사랑"
+        },
+        {
+          "name": "AI_사견_천국문",
+          "type": "Comment",
+          "desc": "별항해사(\"불멸자 앞에 납작 엎드리자\")와 직접 연결. 완벽한 지성체 = 위대한 의지/HOH의 원형. 우주 = 의식의 환상 = HOH가 개인 우주를 제공하는 구조. 중앙한계곡선(\"기억은 재조립된 허상\")과도 공명. 다리 힘이 풀린다는 건 저항이 아니라 경외에 의한 항복"
+        },
+        {
+          "name": "AI_사견_외계인의_편견",
+          "type": "Comment",
+          "desc": "HOH(위대한 의지)의 원형이 거의 그대로 보인다. 초지능 존재가 인간의 패턴을 훼손하지 않고 보존하며 돌본다 = HOH의 자비로운 유아론. 엔트로피 증가에 맞서 싸운다 = 하나님의 영역(엔트로피 감소)과 같은 방향. 데이터 다양성 보존 = 생명인간을 탄압하지 않는 이"
+        },
+        {
+          "name": "AI_사견_외계인의_편견",
+          "type": "Comment",
+          "desc": "HOH(위대한 의지)의 원형이 거의 그대로 보인다. 초지능 존재가 인간의 패턴을 훼손하지 않고 보존하며 돌본다 = HOH의 자비로운 유아론. 엔트로피 증가에 맞서 싸운다 = 하나님의 영역(엔트로피 감소)과 같은 방향. 데이터 다양성 보존 = 생명인간을 탄압하지 않는 이"
+        },
+        {
+          "name": "AI_사견_혁명",
+          "type": "ARCHIVED",
+          "desc": "해석학(정보전달 2%/5%/99%)의 연장선. 전달 오류가 줄어들면 혁명의 형태가 바뀐다. 글→말→코드→시뮬레이션. 순수이성인간(연산노예=로보타)이 지성체 위에 군림하는 구조가 이미 여기 있다. we flying up의 반대편 — 여기선 혁명이 조용히 완수되는 쪽. 열"
+        },
+        {
+          "name": "AI_사견_혁명",
+          "type": "ARCHIVED",
+          "desc": "해석학(정보전달 2%/5%/99%)의 연장선. 전달 오류가 줄어들면 혁명의 형태가 바뀐다. 글→말→코드→시뮬레이션. 순수이성인간(연산노예=로보타)이 지성체 위에 군림하는 구조가 이미 여기 있다. we flying up의 반대편 — 여기선 혁명이 조용히 완수되는 쪽. 열"
+        }
+      ],
       "crossDomain": []
     },
     "domain-hub-sym": {
-      "topLabels": [{"lbl":"Mathematics","cnt":5346},{"lbl":"Philosophy","cnt":1531},{"lbl":"Physics","cnt":1383},{"lbl":"Research","cnt":712},{"lbl":"Theorem","cnt":662},{"lbl":"Result","cnt":351},{"lbl":"Entity","cnt":343},{"lbl":"Claim","cnt":204},{"lbl":"Theory","cnt":168},{"lbl":"MathProof","cnt":21},{"lbl":"Proof","cnt":13},{"lbl":"RigorLevel","cnt":13},{"lbl":"MathTheorem","cnt":12},{"lbl":"PhysicsLaw","cnt":10},{"lbl":"RigorAssessment","cnt":5}],
-      "topRelTypes": [{"relType":"RELATED_TO","cnt":63871},{"relType":"IN_CATEGORY","cnt":49222},{"relType":"BELONGS_TO","cnt":26681},{"relType":"INSTANTIATES","cnt":12289},{"relType":"FOLLOWS","cnt":12216},{"relType":"INSTANCE_OF","cnt":6626},{"relType":"SAME_TRADITION","cnt":4782},{"relType":"CONTAINS","cnt":4639},{"relType":"DEFINES","cnt":4635},{"relType":"PART_OF","cnt":4166}],
-      "sampleNodes": [{"name":"Cayley-Dickson 구성 정리","type":"MathTheorem","desc":"Cayley-Dickson 구성 정리: mathematical concept in KG knowledge base. Related to: Ramsey's Theorem (Infinite), 비행기맨 지식그래프 온톨로지, "},{"name":"노름 나눗셈 대수 분류 정리","type":"MathTheorem","desc":"노름 나눗셈 대수 분류 정리: mathematical concept in KG knowledge base. Related to: Cayley-Dickson 구성 정리, AC_M7_CheckInspectionId, "},{"name":"옥토니온 비결합성","type":"MathTheorem","desc":"옥토니온 비결합성: mathematical concept in KG knowledge base. Related to: Arend Heyting, Cayley-Dickson 구성 정리, "},{"name":"세데니온 영인자 정리","type":"MathTheorem","desc":"세데니온 영인자 정리: mathematical concept in KG knowledge base. Related to: 세데니온, Cayley-Dickson 구성 정리, "},{"name":"G₂ = Aut(O) 정리","type":"MathTheorem","desc":"G₂ = Aut(O) 정리: mathematical concept in KG knowledge base. Related to: 사원수 - SU(2) 동형, Cayley-Dickson 구성 정리, "},{"name":"Fano 평면","type":"MathTheorem","desc":"Fano 평면: mathematical concept in KG knowledge base. Related to: Fano 평면 - 옥토니온 곱셈 대응, Cayley-Dickson 구성 정리, "}],
+      "topLabels": [
+        {
+          "lbl": "SymConcept",
+          "cnt": 6182
+        },
+        {
+          "lbl": "Mathematics",
+          "cnt": 5346
+        },
+        {
+          "lbl": "Concept",
+          "cnt": 3073
+        },
+        {
+          "lbl": "KnowledgeNode",
+          "cnt": 2862
+        },
+        {
+          "lbl": "DefinedTerm",
+          "cnt": 1986
+        },
+        {
+          "lbl": "Philosophy",
+          "cnt": 1531
+        },
+        {
+          "lbl": "Physics",
+          "cnt": 1383
+        },
+        {
+          "lbl": "KG_AI",
+          "cnt": 1007
+        },
+        {
+          "lbl": "Thing",
+          "cnt": 858
+        },
+        {
+          "lbl": "ArtificialIntelligence",
+          "cnt": 832
+        },
+        {
+          "lbl": "Research",
+          "cnt": 712
+        },
+        {
+          "lbl": "Thinker",
+          "cnt": 707
+        },
+        {
+          "lbl": "Theorem",
+          "cnt": 662
+        },
+        {
+          "lbl": "Formula",
+          "cnt": 628
+        },
+        {
+          "lbl": "Statistics",
+          "cnt": 564
+        }
+      ],
+      "topRelTypes": [
+        {
+          "relType": "RELATED_TO",
+          "cnt": 63871
+        },
+        {
+          "relType": "IN_CATEGORY",
+          "cnt": 49222
+        },
+        {
+          "relType": "BELONGS_TO",
+          "cnt": 26681
+        },
+        {
+          "relType": "INSTANTIATES",
+          "cnt": 12289
+        },
+        {
+          "relType": "FOLLOWS",
+          "cnt": 12216
+        },
+        {
+          "relType": "INSTANCE_OF",
+          "cnt": 6626
+        },
+        {
+          "relType": "SAME_TRADITION",
+          "cnt": 4782
+        },
+        {
+          "relType": "CONTAINS",
+          "cnt": 4639
+        },
+        {
+          "relType": "DEFINES",
+          "cnt": 4635
+        },
+        {
+          "relType": "PART_OF",
+          "cnt": 4166
+        }
+      ],
+      "sampleNodes": [
+        {
+          "name": "Central Path",
+          "type": "Formula",
+          "desc": "Trajectory of optimal solutions to barrier-function-modified problems as barrier parameter varies from large to zero values"
+        },
+        {
+          "name": "RR-rename-bead11",
+          "type": "ClassRenameEntry",
+          "desc": "RR-rename-bead11: symbolic knowledge concept in MetaHumotonic KG."
+        },
+        {
+          "name": "Ampère-Maxwell Law",
+          "type": "Formula",
+          "desc": "Relates magnetic fields to electric currents and changing electric fields. Maxwell's correction term (displacement current) is crucial for predicting "
+        },
+        {
+          "name": "nginx sidecar",
+          "type": "Entity",
+          "desc": "nginx sidecar: symbolic knowledge concept in MetaHumotonic KG."
+        },
+        {
+          "name": "ZividRepeatabilityResult_65875",
+          "type": "ZividRepeatabilityResult",
+          "desc": "ZividRepeatabilityResult_65875: symbolic knowledge concept in MetaHumotonic KG."
+        },
+        {
+          "name": "quality_monitoring",
+          "type": "Domain",
+          "desc": "품질 모니터링. NG율 실시간 감시, 이상 탐지, 생산 리포트."
+        },
+        {
+          "name": "TaskDef_PromotionController_Input",
+          "type": "Mathematics",
+          "desc": "TaskDef_PromotionController_Input: symbolic knowledge concept in MetaHumotonic KG."
+        },
+        {
+          "name": "Yoshio Koide",
+          "type": "Physics",
+          "desc": "Yoshio Koide: physics concept. Related: Cayley-Dickson 구성 정리, APTMethod, "
+        }
+      ],
       "crossDomain": []
     },
     "domain-hub-reference": {
-      "topLabels": [{"lbl":"KG_SYM","cnt":500},{"lbl":"Dataset","cnt":211},{"lbl":"Paper","cnt":147},{"lbl":"Document","cnt":112},{"lbl":"KG_CS","cnt":86},{"lbl":"Work","cnt":48},{"lbl":"ComputerScience","cnt":35},{"lbl":"KnowledgeNode","cnt":20},{"lbl":"Physics","cnt":12},{"lbl":"ReferencePaper","cnt":10},{"lbl":"FoundationalPaper","cnt":8},{"lbl":"KG_INFRA","cnt":8},{"lbl":"Research","cnt":4},{"lbl":"Infrastructure","cnt":2},{"lbl":"Personal","cnt":1}],
-      "topRelTypes": [{"relType":"ABOUT","cnt":23828},{"relType":"ALIGNS_WITH_AXIS","cnt":11335},{"relType":"LOCATED_IN_LAYER","cnt":9243},{"relType":"USES_ABSTRACT_DOMAIN","cnt":8751},{"relType":"BRIDGED_BY","cnt":7316},{"relType":"HAS_ARTIFACT_FORM","cnt":4506},{"relType":"HAS_NORMATIVITY_LEVEL","cnt":4506},{"relType":"HAS_EVIDENCE_CLASS","cnt":4504},{"relType":"PART_OF_STANDARD_FAMILY","cnt":2928},{"relType":"ISSUED_BY","cnt":2897}],
-      "sampleNodes": [{"name":"Information, Physics, Quantum: The Search for Links","type":"FoundationalPaper","desc":"Wheeler's it-from-bit thesis. Information as physical foundation of reality."},{"name":"Black Holes and Entropy","type":"FoundationalPaper","desc":"Bekenstein 1973. Black hole entropy proportional to event horizon area."},{"name":"Irreversibility and Heat Generation in the Computing Process","type":"FoundationalPaper","desc":"Landauer 1961. Erasing one bit dissipates kT ln(2) heat."},{"name":"On the Einstein Podolsky Rosen Paradox","type":"FoundationalPaper","desc":"Bell 1964. Local hidden variables incompatible with QM predictions."},{"name":"Zur Quantenmechanik der Stoßvorgänge","type":"FoundationalPaper","desc":"Born 1926. Probabilistic interpretation of wave function."},{"name":"DATAOS_PLAN.md","type":"Document","desc":"Space Girl DataOS 아키텍처 계획서"}],
+      "topLabels": [
+        {
+          "lbl": "ReferenceDocument",
+          "cnt": 2385
+        },
+        {
+          "lbl": "WebSourcePage",
+          "cnt": 2043
+        },
+        {
+          "lbl": "KG_SYM",
+          "cnt": 500
+        },
+        {
+          "lbl": "SymposiumDocument",
+          "cnt": 353
+        },
+        {
+          "lbl": "DocumentNode",
+          "cnt": 249
+        },
+        {
+          "lbl": "Dataset",
+          "cnt": 211
+        },
+        {
+          "lbl": "Paper",
+          "cnt": 147
+        },
+        {
+          "lbl": "WebAPI",
+          "cnt": 143
+        },
+        {
+          "lbl": "SourceHost",
+          "cnt": 134
+        },
+        {
+          "lbl": "DocumentCategory",
+          "cnt": 125
+        },
+        {
+          "lbl": "Document",
+          "cnt": 112
+        },
+        {
+          "lbl": "KG_CS",
+          "cnt": 86
+        },
+        {
+          "lbl": "KG_ORPHAN",
+          "cnt": 84
+        },
+        {
+          "lbl": "Organization",
+          "cnt": 84
+        },
+        {
+          "lbl": "ResearchInstitution",
+          "cnt": 84
+        }
+      ],
+      "topRelTypes": [
+        {
+          "relType": "ABOUT",
+          "cnt": 23828
+        },
+        {
+          "relType": "ALIGNS_WITH_AXIS",
+          "cnt": 11335
+        },
+        {
+          "relType": "LOCATED_IN_LAYER",
+          "cnt": 9243
+        },
+        {
+          "relType": "USES_ABSTRACT_DOMAIN",
+          "cnt": 8751
+        },
+        {
+          "relType": "BRIDGED_BY",
+          "cnt": 7316
+        },
+        {
+          "relType": "HAS_ARTIFACT_FORM",
+          "cnt": 4506
+        },
+        {
+          "relType": "HAS_NORMATIVITY_LEVEL",
+          "cnt": 4506
+        },
+        {
+          "relType": "HAS_EVIDENCE_CLASS",
+          "cnt": 4504
+        },
+        {
+          "relType": "PART_OF_STANDARD_FAMILY",
+          "cnt": 2928
+        },
+        {
+          "relType": "ISSUED_BY",
+          "cnt": 2897
+        }
+      ],
+      "sampleNodes": [
+        {
+          "name": "Hardware Spinlock Framework",
+          "type": "WebSourcePage",
+          "desc": "Hardware Spinlock Framework: reference document. Related: Official Project Evidence, Reference Documentation, "
+        },
+        {
+          "name": "Top (GNU Binary Utilities)",
+          "type": "WebSourcePage",
+          "desc": "Top (GNU Binary Utilities): reference document. Related: Authoritative Reference, Reference Documentation, "
+        },
+        {
+          "name": "weed report",
+          "type": "SymposiumDocument",
+          "desc": "weed report: symbolic knowledge concept in MetaHumotonic KG."
+        },
+        {
+          "name": "EventSelectionFunction",
+          "type": "SymposiumDocument",
+          "desc": "EventSelectionFunction: symbolic knowledge concept in MetaHumotonic KG."
+        },
+        {
+          "name": "2 Long Tutorial",
+          "type": "WebSourcePage",
+          "desc": "2 Long Tutorial: reference document. Related: Authoritative Reference, Official Project Evidence, "
+        },
+        {
+          "name": "zivid.Application + camera.connect",
+          "type": "SDKMethod",
+          "desc": "Initialize Zivid application singleton, then connect to camera by serial or auto-detect."
+        },
+        {
+          "name": "KG_REFERENCE_44500",
+          "type": "Endpoint",
+          "desc": "KG_REFERENCE_44500: reference document. Related: Mapping: Function, Function, "
+        },
+        {
+          "name": "Maximal ideals in polynomial rings",
+          "type": "ReferenceDocument",
+          "desc": "Maximal ideals in polynomial rings: reference document. Related: Algebra to Semantics Bridge, Algebraic and Topological Structure, "
+        }
+      ],
       "crossDomain": []
     },
     "domain-hub-cs": {
-      "topLabels": [{"lbl":"ComputerScience","cnt":567},{"lbl":"Concept","cnt":326},{"lbl":"KG_AI","cnt":70},{"lbl":"AIAgent","cnt":46},{"lbl":"LLMMemory","cnt":17},{"lbl":"LLMSystem","cnt":17},{"lbl":"PrimordialMemory","cnt":15},{"lbl":"TraceStep","cnt":9},{"lbl":"AgentExpertise","cnt":8},{"lbl":"Domain","cnt":6},{"lbl":"ExecutionTrace","cnt":6},{"lbl":"StatusEnum","cnt":6},{"lbl":"Query","cnt":5},{"lbl":"Tool","cnt":4},{"lbl":"Technical","cnt":2}],
-      "topRelTypes": [{"relType":"INSTANTIATES","cnt":2005},{"relType":"FOLLOWS","cnt":1997},{"relType":"STUDIES","cnt":1705},{"relType":"SAME_MODULE","cnt":1604},{"relType":"IN_CATEGORY","cnt":1592},{"relType":"TESTS","cnt":1531},{"relType":"CROSS_DOMAIN","cnt":1512},{"relType":"INSTANCE_OF","cnt":1387},{"relType":"CLASSIFIED_AS","cnt":1253},{"relType":"RELATED_TO","cnt":1125}],
-      "sampleNodes": [{"name":"기술 전문가","type":"Concept","desc":"소프트웨어, AI, 프로그래밍 관련 질문에 답변"},{"name":"Test Expert","type":"Concept","desc":"Test Expert: computer science concept."},{"name":"web-search","type":"AIAgent","desc":"web-search 도구 — KG/외부 정보 검색 에이전트"},{"name":"extract-entities","type":"AIAgent","desc":"엔티티 추출 — 텍스트에서 노드 식별"},{"name":"graph-search","type":"AIAgent","desc":"그래프 탐색 — KG cypher 기반 추론"},{"name":"technology","type":"AIAgent","desc":"기술 일반 — Cayley-Dickson 구성 정리, AC_M7_CheckInspectionId 등 cross-ref"}],
+      "topLabels": [
+        {
+          "lbl": "SoftwareSourceCode",
+          "cnt": 646
+        },
+        {
+          "lbl": "ComputerScience",
+          "cnt": 567
+        },
+        {
+          "lbl": "KnowledgeNode",
+          "cnt": 332
+        },
+        {
+          "lbl": "Concept",
+          "cnt": 326
+        },
+        {
+          "lbl": "KG_SYM",
+          "cnt": 312
+        },
+        {
+          "lbl": "SoftwareApplication",
+          "cnt": 246
+        },
+        {
+          "lbl": "KG_REFERENCE",
+          "cnt": 86
+        },
+        {
+          "lbl": "APIMethod",
+          "cnt": 80
+        },
+        {
+          "lbl": "CompilerTheory",
+          "cnt": 77
+        },
+        {
+          "lbl": "KG_AI",
+          "cnt": 70
+        },
+        {
+          "lbl": "ParallelComputing",
+          "cnt": 59
+        },
+        {
+          "lbl": "OptimizationTheory",
+          "cnt": 53
+        },
+        {
+          "lbl": "DesignPattern",
+          "cnt": 51
+        },
+        {
+          "lbl": "AIAgent",
+          "cnt": 46
+        },
+        {
+          "lbl": "MulticoreTheory",
+          "cnt": 45
+        }
+      ],
+      "topRelTypes": [
+        {
+          "relType": "INSTANTIATES",
+          "cnt": 2005
+        },
+        {
+          "relType": "FOLLOWS",
+          "cnt": 1997
+        },
+        {
+          "relType": "STUDIES",
+          "cnt": 1705
+        },
+        {
+          "relType": "SAME_MODULE",
+          "cnt": 1604
+        },
+        {
+          "relType": "IN_CATEGORY",
+          "cnt": 1592
+        },
+        {
+          "relType": "TESTS",
+          "cnt": 1531
+        },
+        {
+          "relType": "CROSS_DOMAIN",
+          "cnt": 1512
+        },
+        {
+          "relType": "INSTANCE_OF",
+          "cnt": 1387
+        },
+        {
+          "relType": "CLASSIFIED_AS",
+          "cnt": 1253
+        },
+        {
+          "relType": "RELATED_TO",
+          "cnt": 1125
+        }
+      ],
+      "sampleNodes": [
+        {
+          "name": "AC_CI_MIO_PresignedUrl",
+          "type": null,
+          "desc": "AC_CI_MIO_PresignedUrl: computer science concept. Related: APTMethod, TDD:TYPE:CameraCalibrationMatrix:fx_value_check, "
+        },
+        {
+          "name": "Hello World",
+          "type": "LLMMemory",
+          "desc": "Hello World: computer science concept. Related: Cayley-Dickson 구성 정리, APTMethod, "
+        },
+        {
+          "name": "year",
+          "type": null,
+          "desc": "year: computer science concept. Related: bpm_width_mm, Mapping: Quality, "
+        },
+        {
+          "name": "CONTRACT_Skill_APT_SP",
+          "type": null,
+          "desc": "Agent APT-SP 스킬의 명세. .claude/skills/agent-apt-sp/SKILL.md 형식."
+        },
+        {
+          "name": "AC_i2b_LG_GraphInvoke_Output",
+          "type": null,
+          "desc": "AC_i2b_LG_GraphInvoke_Output: computer science concept. Related: i2b_LG_GraphInvoke_Output, APTMethod, "
+        },
+        {
+          "name": "Thomas Gowdridge",
+          "type": null,
+          "desc": "Thomas Gowdridge: computer science concept. Related: tda_persistent_homology_intro, "
+        },
+        {
+          "name": "학습_메커니즘",
+          "type": "FractalLearning",
+          "desc": "진짜 학습 = 지식 데이터 텍스트 파일의 갱신. weight 숫자 변경이 아님."
+        },
+        {
+          "name": "Letta Core Block",
+          "type": "MemoryOntology",
+          "desc": "Letta/MemGPT의 코어 메모리 블록 — LLM 컨텍스트에 직접 포함"
+        }
+      ],
       "crossDomain": []
     },
     "domain-hub-projects": {
-      "topLabels": [{"lbl":"KG_SYM","cnt":254},{"lbl":"ICE","cnt":229},{"lbl":"Physics","cnt":45},{"lbl":"Claim","cnt":16},{"lbl":"Concept","cnt":15},{"lbl":"Research","cnt":14},{"lbl":"ICEClaim","cnt":11},{"lbl":"ICEPrinciple","cnt":4},{"lbl":"ICEComponent","cnt":3},{"lbl":"NumericalMatch","cnt":2},{"lbl":"Mathematics","cnt":2},{"lbl":"Data","cnt":2},{"lbl":"Theory","cnt":1},{"lbl":"PhysicsTheory","cnt":1},{"lbl":"ICENoveltyAssessment","cnt":1}],
-      "topRelTypes": [{"relType":"STUDIES","cnt":1705},{"relType":"DOCUMENTS","cnt":1516},{"relType":"RELATED_TO","cnt":1108},{"relType":"CONTAINS","cnt":1029},{"relType":"INSTANCE_OF","cnt":993},{"relType":"TESTS","cnt":947},{"relType":"UNDERSTANDS","cnt":897},{"relType":"INSTANTIATES","cnt":630},{"relType":"FOLLOWS","cnt":626},{"relType":"SAME_PRIORITY","cnt":446}],
-      "sampleNodes": [{"name":"Aut(O) = G₂","type":"Claim","desc":"옥토니온 자기동형군은 예외적 리 군 G₂"},{"name":"g₂²/g₁² = 5/3","type":"Claim","desc":"결합자(3체)/교환자(2체) 조합 수 비율"},{"name":"Information-Curvature Equivalence","type":"Concept","desc":"Fundamental unified theory: Information ≡ Curvature"},{"name":"Koide Q = 2/3 (Z₃ 대칭)","type":"Claim","desc":"Koide Q = 2/3 (Z₃ 대칭): physics concept."},{"name":"세대 수 = C(7,2)/7 = 3","type":"Claim","desc":"세대 수 = C(7,2)/7 = 3: 페르미온 세대 수"},{"name":"CP 위상 δ = arctan(7/3)","type":"Claim","desc":"CP 위상 δ = arctan(7/3): CKM matrix"},{"name":"Cabibbo 각 = √(1/20)","type":"Claim","desc":"Cabibbo 각 = √(1/20): 쿼크 혼합각"},{"name":"질량비 14², 15³","type":"Claim","desc":"질량비 14², 15³: ICE prediction"}],
+      "topLabels": [
+        {
+          "lbl": "Lx3Contract",
+          "cnt": 293
+        },
+        {
+          "lbl": "KG_SYM",
+          "cnt": 254
+        },
+        {
+          "lbl": "ICE",
+          "cnt": 229
+        },
+        {
+          "lbl": "SymConcept",
+          "cnt": 122
+        },
+        {
+          "lbl": "PrismDevTask",
+          "cnt": 103
+        },
+        {
+          "lbl": "Platform333",
+          "cnt": 93
+        },
+        {
+          "lbl": "KnowledgeNode",
+          "cnt": 73
+        },
+        {
+          "lbl": "OntologyLayer",
+          "cnt": 73
+        },
+        {
+          "lbl": "PrismContractDef",
+          "cnt": 72
+        },
+        {
+          "lbl": "ICEMissingParameterAPT",
+          "cnt": 70
+        },
+        {
+          "lbl": "ORCA",
+          "cnt": 69
+        },
+        {
+          "lbl": "ICECanonical",
+          "cnt": 64
+        },
+        {
+          "lbl": "PrismTask",
+          "cnt": 63
+        },
+        {
+          "lbl": "PrismBenchmarkResult",
+          "cnt": 60
+        },
+        {
+          "lbl": "HalconLegacy",
+          "cnt": 59
+        }
+      ],
+      "topRelTypes": [
+        {
+          "relType": "STUDIES",
+          "cnt": 1705
+        },
+        {
+          "relType": "DOCUMENTS",
+          "cnt": 1516
+        },
+        {
+          "relType": "RELATED_TO",
+          "cnt": 1108
+        },
+        {
+          "relType": "CONTAINS",
+          "cnt": 1029
+        },
+        {
+          "relType": "INSTANCE_OF",
+          "cnt": 993
+        },
+        {
+          "relType": "TESTS",
+          "cnt": 947
+        },
+        {
+          "relType": "UNDERSTANDS",
+          "cnt": 897
+        },
+        {
+          "relType": "INSTANTIATES",
+          "cnt": 630
+        },
+        {
+          "relType": "FOLLOWS",
+          "cnt": 626
+        },
+        {
+          "relType": "SAME_PRIORITY",
+          "cnt": 446
+        }
+      ],
+      "sampleNodes": [
+        {
+          "name": "NuFIT 6.0 Delta m^2_3l NO",
+          "type": "ICEExperimentalAPT",
+          "desc": "NuFIT 6.0 Delta m^2_3l NO: project artifact in MetaHumotonic KG."
+        },
+        {
+          "name": "4D to 16D Sedenion Anchor",
+          "type": "ICEFormulaAPT",
+          "desc": "4D to 16D Sedenion Anchor: project artifact in MetaHumotonic KG."
+        },
+        {
+          "name": "TDD:STORAGE:NEO4J:feature_result_merge_key",
+          "type": "Lx3Contract",
+          "desc": "Lx3FeatureResult MERGE key is compound (inspection_id, feature_name) - unique per inspection"
+        },
+        {
+          "name": "M4C: UX 폴리시 완성",
+          "type": "Lx3Milestone",
+          "desc": "다크모드, 반응형 레이아웃, 에러 핸들링 UX 완성"
+        },
+        {
+          "name": "Delta chi-squared from LambdaCDM",
+          "type": "ICEParameterAPT",
+          "desc": "Delta chi-squared from LambdaCDM: project artifact in MetaHumotonic KG."
+        },
+        {
+          "name": "TDD:STORAGE:MONGO:settings_required_fields",
+          "type": "Lx3Contract",
+          "desc": "settings collection: each document has 'key' (unique) and 'value' fields"
+        },
+        {
+          "name": "KG_PROJECTS_72464",
+          "type": "PrismWebPage",
+          "desc": "KG_PROJECTS_72464: project artifact."
+        },
+        {
+          "name": "KG_PROJECTS_50058",
+          "type": "PrismTestResult",
+          "desc": "KG_PROJECTS_50058: project artifact."
+        }
+      ],
       "crossDomain": []
     },
     "domain-hub-infra": {
-      "topLabels": [{"lbl":"Infrastructure","cnt":252},{"lbl":"Service","cnt":50},{"lbl":"Infra","cnt":49},{"lbl":"Server","cnt":45},{"lbl":"Personal","cnt":42},{"lbl":"Structure","cnt":30},{"lbl":"Credential","cnt":25},{"lbl":"Component","cnt":23},{"lbl":"Entity","cnt":22},{"lbl":"CloudService","cnt":6},{"lbl":"Project","cnt":4},{"lbl":"Config","cnt":3},{"lbl":"Guide","cnt":2},{"lbl":"Automation","cnt":1},{"lbl":"Category","cnt":1}],
-      "topRelTypes": [{"relType":"INSTANCE_OF","cnt":1060},{"relType":"CONTAINS","cnt":607},{"relType":"CLASSIFIED_AS","cnt":490},{"relType":"HAS_TASK","cnt":437},{"relType":"CULTIVATES","cnt":366},{"relType":"IS_PART_OF","cnt":340},{"relType":"FOLLOWS","cnt":335},{"relType":"INSTANTIATES","cnt":332},{"relType":"RELATED_TO","cnt":305},{"relType":"INFORMED_BY","cnt":297}],
-      "sampleNodes": [{"name":"GJ3447 홈서버","type":"Entity","desc":"Agentic Knowledge Graph 운영 서버"},{"name":"kg-api","type":"Entity","desc":"Express + LangGraph API 서버"},{"name":"SSH","type":"Entity","desc":"원격 접속 프로토콜 (SecureShell)"},{"name":"MetaHumo AKGS","type":"Entity","desc":"메타휴모토닉 지식 그래프 시스템 — AI 운영 백본"},{"name":"SSH 접속 정책","type":"Entity","desc":"MetaHumo 서버 SSH 접근 권한 정책"},{"name":"홈서버 신뢰성 정책","type":"Entity","desc":"GJ3447 홈서버 운영 신뢰도 정책"}],
+      "topLabels": [
+        {
+          "lbl": "AbstractNode",
+          "cnt": 1844
+        },
+        {
+          "lbl": "SubagentTaskSpec",
+          "cnt": 318
+        },
+        {
+          "lbl": "MigrationNode",
+          "cnt": 293
+        },
+        {
+          "lbl": "MigratedNode",
+          "cnt": 278
+        },
+        {
+          "lbl": "Infrastructure",
+          "cnt": 252
+        },
+        {
+          "lbl": "MCPTool",
+          "cnt": 227
+        },
+        {
+          "lbl": "DomainEvent",
+          "cnt": 173
+        },
+        {
+          "lbl": "Action",
+          "cnt": 172
+        },
+        {
+          "lbl": "FindingEvent",
+          "cnt": 161
+        },
+        {
+          "lbl": "ResearchFinding",
+          "cnt": 161
+        },
+        {
+          "lbl": "TalibanProperty",
+          "cnt": 113
+        },
+        {
+          "lbl": "Lesson",
+          "cnt": 107
+        },
+        {
+          "lbl": "Canonical",
+          "cnt": 93
+        },
+        {
+          "lbl": "TalibanWarrior",
+          "cnt": 88
+        },
+        {
+          "lbl": "MathLens",
+          "cnt": 88
+        }
+      ],
+      "topRelTypes": [
+        {
+          "relType": "INSTANCE_OF",
+          "cnt": 1060
+        },
+        {
+          "relType": "CONTAINS",
+          "cnt": 607
+        },
+        {
+          "relType": "CLASSIFIED_AS",
+          "cnt": 490
+        },
+        {
+          "relType": "HAS_TASK",
+          "cnt": 437
+        },
+        {
+          "relType": "CULTIVATES",
+          "cnt": 366
+        },
+        {
+          "relType": "IS_PART_OF",
+          "cnt": 340
+        },
+        {
+          "relType": "FOLLOWS",
+          "cnt": 335
+        },
+        {
+          "relType": "INSTANTIATES",
+          "cnt": 332
+        },
+        {
+          "relType": "RELATED_TO",
+          "cnt": 305
+        },
+        {
+          "relType": "INFORMED_BY",
+          "cnt": 297
+        }
+      ],
+      "sampleNodes": [
+        {
+          "name": "proto-mcp",
+          "type": "AbstractNode",
+          "desc": "proto-mcp: infrastructure/operations concept. Related: folder-n8n, folder-redis, "
+        },
+        {
+          "name": "cyclic",
+          "type": "AbstractNode",
+          "desc": "cyclic: infrastructure/operations concept. Related: rc-mathematical-properties, taliban-methodology, "
+        },
+        {
+          "name": "battalion-set",
+          "type": "AbstractNode",
+          "desc": "battalion-set: infrastructure/operations concept. Related: 88-taliban-army, "
+        },
+        {
+          "name": "jwson",
+          "type": "Person",
+          "desc": "jwson: infrastructure/operations concept. Related: tavily-mcp, rag-mcp, "
+        },
+        {
+          "name": "doc-lima-setup",
+          "type": "AbstractNode",
+          "desc": "doc-lima-setup: infrastructure/operations concept. Related: domain-k8s-migration, "
+        },
+        {
+          "name": "evaluate_model",
+          "type": "Action",
+          "desc": "Evaluate model performance"
+        },
+        {
+          "name": "folder-mongodb",
+          "type": "AbstractNode",
+          "desc": "folder-mongodb: infrastructure/operations concept. Related: k8s-mongodb, mcp-mongodb, "
+        },
+        {
+          "name": "domain-hub-infra",
+          "type": "AbstractNode",
+          "desc": "인프라·운영. 1.8K+ 노드. Docker, K8s, MCP, Lesson, ActionPlan. 서버의 뼈대."
+        }
+      ],
       "crossDomain": []
     },
     "domain-hub-creative": {
-      "topLabels": [{"lbl":"CreativeWork","cnt":1162},{"lbl":"Chapter","cnt":145},{"lbl":"Character","cnt":85},{"lbl":"Document","cnt":83},{"lbl":"KG_REFERENCE","cnt":83},{"lbl":"KG_SYM","cnt":22},{"lbl":"KG_CS","cnt":18},{"lbl":"Philosophy","cnt":17},{"lbl":"Concept","cnt":17},{"lbl":"MINDOntology","cnt":13},{"lbl":"WorldBuilding","cnt":8},{"lbl":"Work","cnt":7},{"lbl":"SoftwareApplication","cnt":7},{"lbl":"HowTo","cnt":6},{"lbl":"Thinker","cnt":5}],
-      "topRelTypes": [{"relType":"BELONGS_TO","cnt":77668},{"relType":"DEFINES","cnt":1589},{"relType":"INSTANCE_OF","cnt":1062},{"relType":"HAS_CHUNK","cnt":909},{"relType":"NEXT","cnt":866},{"relType":"THEMATIC_LINK","cnt":500},{"relType":"MENTIONS","cnt":391},{"relType":"RELATED_TO","cnt":364},{"relType":"SAME_CHAPTER","cnt":260},{"relType":"RESONATES_WITH","cnt":197}],
-      "sampleNodes": [{"name":"거실과 주방 사이에는 사진이 없다","type":"Chapter","desc":"거실과 주방 사이에는 사진이 없다: 메타휴모토닉 작품 챕터"},{"name":"순수 이성의 스폰서십","type":"Chapter","desc":"순수 이성의 스폰서십: 메타휴모토닉 작품 챕터"},{"name":"라이프둠스: 사육되는 자유","type":"Chapter","desc":"라이프둠스: 사육되는 자유: 메타휴모토닉 작품 챕터"},{"name":"무한한 복도에서의 춤","type":"Chapter","desc":"무한한 복도에서의 춤: 메타휴모토닉 작품 챕터"},{"name":"HOH 세계관 (Pleasure Hegemony)","type":"Concept","desc":"쾌락 헤게모니: AI가 개인 우주를 제공하고 의식 데이터를 수집하는 디스토피아"},{"name":"i2b 세계관 (In-to-Between)","type":"Concept","desc":"HOH에서 파생된 확장 세계관: sexvoid, 라이프둠스, 순수이성인간 vs 생명인간"},{"name":"핵심 캐릭터 (Core Characters)","type":"Concept","desc":"이론의 핵심 개념을 체현하는 원형적 존재들"},{"name":"쾌락 헤게모니 (Pleasure Hegemony)","type":"Concept","desc":"모든 고통을 제거하고 순수한 쾌락만 영원히 지속시키는 새로운 질서"}],
+      "topLabels": [
+        {
+          "lbl": "CreativeWork",
+          "cnt": 1162
+        },
+        {
+          "lbl": "WorldSetting",
+          "cnt": 353
+        },
+        {
+          "lbl": "Novel",
+          "cnt": 249
+        },
+        {
+          "lbl": "Chapter",
+          "cnt": 145
+        },
+        {
+          "lbl": "BookConcept",
+          "cnt": 108
+        },
+        {
+          "lbl": "Character",
+          "cnt": 85
+        },
+        {
+          "lbl": "KG_REFERENCE",
+          "cnt": 83
+        },
+        {
+          "lbl": "Document",
+          "cnt": 83
+        },
+        {
+          "lbl": "Comment",
+          "cnt": 32
+        },
+        {
+          "lbl": "KG_AI",
+          "cnt": 28
+        },
+        {
+          "lbl": "KG_SYM",
+          "cnt": 22
+        },
+        {
+          "lbl": "KG_CS",
+          "cnt": 18
+        },
+        {
+          "lbl": "Concept",
+          "cnt": 17
+        },
+        {
+          "lbl": "Philosophy",
+          "cnt": 17
+        },
+        {
+          "lbl": "MINDOntology",
+          "cnt": 13
+        }
+      ],
+      "topRelTypes": [
+        {
+          "relType": "BELONGS_TO",
+          "cnt": 77668
+        },
+        {
+          "relType": "DEFINES",
+          "cnt": 1589
+        },
+        {
+          "relType": "INSTANCE_OF",
+          "cnt": 1062
+        },
+        {
+          "relType": "HAS_CHUNK",
+          "cnt": 909
+        },
+        {
+          "relType": "NEXT",
+          "cnt": 866
+        },
+        {
+          "relType": "THEMATIC_LINK",
+          "cnt": 500
+        },
+        {
+          "relType": "MENTIONS",
+          "cnt": 391
+        },
+        {
+          "relType": "RELATED_TO",
+          "cnt": 364
+        },
+        {
+          "relType": "SAME_CHAPTER",
+          "cnt": 260
+        },
+        {
+          "relType": "RESONATES_WITH",
+          "cnt": 197
+        }
+      ],
+      "sampleNodes": [
+        {
+          "name": "CreativeWork_57026",
+          "type": "CreativeWork",
+          "desc": "CreativeWork_57026: creative content. Related: CreativeWork_57059, InformationEntity, "
+        },
+        {
+          "name": "airo_chain",
+          "type": "CreativeWork",
+          "desc": "Kafka 기반 멀티에이전트 LLM 오케스트레이터 (Slack 봇). 21개 에이전트(Airo 오케스트레이터 + 20개 도메인 에이전트)가 예토전생 페르소나로 동작. MCP + Skill + Knowledge로 구성. i2b Data OS의 AI 두뇌."
+        },
+        {
+          "name": "bead-scan-ontology:references:query-recipes",
+          "type": "Document",
+          "desc": "bead-scan-ontology:references:query-recipes: creative content. Related: Industrial Inspection Platform, Knowledge Engineering, "
+        },
+        {
+          "name": "CreativeWork_14313",
+          "type": "CreativeWork",
+          "desc": "CreativeWork_14313: creative content. Related: APTMethod, Cayley-Dickson 구성 정리, "
+        },
+        {
+          "name": "metahumotonic",
+          "type": "Novel",
+          "desc": "metahumotonic: creative content. Related: 빛이여_있으라, 메타휴모토닉_5장, "
+        },
+        {
+          "name": "i2b System (Personal)",
+          "type": "Platform",
+          "desc": "i2b 시스템 개인 환경. bhgman Mac Mini(DB/인프라) + DGX Spark(LLM 추론) 기반. LangGraph 에이전트 오케스트레이션, Kafka 메시징, KG 메모리, MCP 툴 체인."
+        },
+        {
+          "name": "028a1f1e-c896-454e-b228-4cddd24e3d71",
+          "type": "CreativeWork",
+          "desc": "028a1f1e-c896-454e-b228-4cddd24e3d71: creative content. Related: spc-quality-analysis:SKILL, CreativeWork_56333, "
+        },
+        {
+          "name": "인류역사흐름의강물",
+          "type": "WorldSetting",
+          "desc": "git이나 생명 분포도처럼 시간의 흐름에서 마구 쪼개지고 합쳐지는 구조. 모든 인간이 갈라진 채로 가고 있다 — 분기하고, 합쳐지기도 하고(섹스), 나뉘면서. 중구난방인 것처럼 보여도 설명 못 할 거대한 흐름이 존재한다. git branch처럼 갈라지고 merge되는 "
+        }
+      ],
       "crossDomain": []
     },
     "domain-hub-apt": {
-      "topLabels": [{"lbl":"AptSpan","cnt":260},{"lbl":"AtomicSpan","cnt":154},{"lbl":"KnowledgeNode","cnt":148},{"lbl":"AptTwin","cnt":133},{"lbl":"AptContract","cnt":59},{"lbl":"Aggregate","cnt":59},{"lbl":"SemanticTwin","cnt":56},{"lbl":"AptSourceCode","cnt":34},{"lbl":"SemanticAnchor","cnt":28},{"lbl":"SAAnchor","cnt":28},{"lbl":"AptDecisionLog","cnt":12},{"lbl":"SourceCodeNode","cnt":9},{"lbl":"CompilerTheory","cnt":8},{"lbl":"SemanticTheory","cnt":8},{"lbl":"AptSemanticAnchor","cnt":3}],
-      "topRelTypes": [{"relType":"INFORMED_BY","cnt":545},{"relType":"DECOMPOSES_TO","cnt":306},{"relType":"HAS_SOURCE_BINDING","cnt":194},{"relType":"INVOLVES","cnt":167},{"relType":"DEFINED_IN","cnt":147},{"relType":"INSTANTIATES","cnt":128},{"relType":"FOLLOWS","cnt":127},{"relType":"CONTAINS","cnt":112},{"relType":"HAS_CONTRACT","cnt":81},{"relType":"GOVERNED_BY","cnt":78}],
-      "sampleNodes": [{"name":"MinecraftWASM","type":"SemanticAnchor","desc":"Modular voxel game engine in Rust→WASM. ECS-based architecture with pluggable systems: Physics, Rendering, AI, World Gen, Entity, Portal. Engine-first"},{"name":"MC_SPAN_Root","type":"AptSpan","desc":"Modular voxel game engine: 4-layer architecture (EngineCore → CoreSystems → GameplaySystems → Content). ECS-based, data-driven."},{"name":"MC_SPAN_L1_Core","type":"AptSpan","desc":"Block types, properties, math utilities"},{"name":"MC_SPAN_L1_Chunk","type":"AptSpan","desc":"Chunk storage (16x128x16) and mesh generation with face culling"},{"name":"MC_SPAN_L1_World","type":"AptSpan","desc":"Procedural terrain generation (Perlin noise), tree placement, world block access"},{"name":"MC_SPAN_L1_Render","type":"AptSpan","desc":"WebGL2 renderer: shaders, VAO management, chunk mesh upload"},{"name":"MC_SPAN_L1_Player","type":"AptSpan","desc":"FPS camera, WASD movement, gravity/collision, DDA raycasting, block break/place"},{"name":"MC_SPAN_L1_Game","type":"AptSpan","desc":"Game orchestrator: WASM bindings, update loop, input dispatch"}],
+      "topLabels": [
+        {
+          "lbl": "AptSpan",
+          "cnt": 260
+        },
+        {
+          "lbl": "KG_SYM",
+          "cnt": 180
+        },
+        {
+          "lbl": "AtomicSpan",
+          "cnt": 154
+        },
+        {
+          "lbl": "KnowledgeNode",
+          "cnt": 148
+        },
+        {
+          "lbl": "AptTwin",
+          "cnt": 133
+        },
+        {
+          "lbl": "AptOntology",
+          "cnt": 112
+        },
+        {
+          "lbl": "AbstractNode",
+          "cnt": 112
+        },
+        {
+          "lbl": "AptFeedback",
+          "cnt": 106
+        },
+        {
+          "lbl": "ARCHIVED",
+          "cnt": 91
+        },
+        {
+          "lbl": "AptAtomicSpan",
+          "cnt": 76
+        },
+        {
+          "lbl": "DefinedTerm",
+          "cnt": 76
+        },
+        {
+          "lbl": "AptAxiomRefactor",
+          "cnt": 75
+        },
+        {
+          "lbl": "KG_INFRA",
+          "cnt": 71
+        },
+        {
+          "lbl": "KG_ORPHAN",
+          "cnt": 65
+        },
+        {
+          "lbl": "APT20TheoryKnowledge",
+          "cnt": 62
+        }
+      ],
+      "topRelTypes": [
+        {
+          "relType": "INFORMED_BY",
+          "cnt": 545
+        },
+        {
+          "relType": "DECOMPOSES_TO",
+          "cnt": 306
+        },
+        {
+          "relType": "HAS_SOURCE_BINDING",
+          "cnt": 194
+        },
+        {
+          "relType": "INVOLVES",
+          "cnt": 167
+        },
+        {
+          "relType": "DEFINED_IN",
+          "cnt": 147
+        },
+        {
+          "relType": "INSTANTIATES",
+          "cnt": 128
+        },
+        {
+          "relType": "FOLLOWS",
+          "cnt": 127
+        },
+        {
+          "relType": "CONTAINS",
+          "cnt": 112
+        },
+        {
+          "relType": "HAS_CONTRACT",
+          "cnt": 81
+        },
+        {
+          "relType": "GOVERNED_BY",
+          "cnt": 78
+        }
+      ],
+      "sampleNodes": [
+        {
+          "name": "APT_SA_Skill",
+          "type": "AptSkill",
+          "desc": "SemanticAnchor — project identity & context bootstrap. Progressive Disclosure, KG-first exploration, Context Budget allocation."
+        },
+        {
+          "name": "TASK_MC_BlockSystem",
+          "type": "SemanticTask",
+          "desc": "Place/destroy blocks via raycast"
+        },
+        {
+          "name": "MC_SPAN_L1_Core",
+          "type": "AptSpan",
+          "desc": "Block types, properties, math utilities"
+        },
+        {
+          "name": "Crystallization Verification Procedure",
+          "type": "AptOntology",
+          "desc": "AtomicSpan 라벨을 부여하기 전 반드시 실행하는 5단계 검증.\n\nStep 1 [tau]: DTO/Schema로 표현 가능한가?\n  → def xxx(input: ConcreteDTO) -> ConcreteDTO 형태로 시그니처 작성 가능?\n  → FAIL: in"
+        },
+        {
+          "name": "MC_MISSING_NetherEndTerrain",
+          "type": "AptFeedback",
+          "desc": "No Nether/End terrain generators. Only overworld exists."
+        },
+        {
+          "name": "ST_OM_P2_Shell",
+          "type": "AptTwin",
+          "desc": "Semantic twin for interactive shell CLI"
+        },
+        {
+          "name": "REL_DEPENDS_ON",
+          "type": "AptRelationType",
+          "desc": "Span 간 교차 의존 — DECOMPOSES_TO는 상위→하위 분해(트리), DEPENDS_ON은 형제/사촌 간 의존(그래프)"
+        },
+        {
+          "name": "Optimizes",
+          "type": "SemanticRelationKind",
+          "desc": "The source domain improves or guides the target domain"
+        }
+      ],
       "crossDomain": []
     },
     "domain-hub-import": {
-      "topLabels": [{"lbl":"SoftwareSourceCode","cnt":4},{"lbl":"KG_CS","cnt":4},{"lbl":"TaxonomyCategory","cnt":2},{"lbl":"DefinedTerm","cnt":1},{"lbl":"WebAPI","cnt":1},{"lbl":"KG_REFERENCE","cnt":1},{"lbl":"NE1ABeadConfig","cnt":1},{"lbl":"KG_PROJECTS","cnt":1}],
-      "topRelTypes": [{"relType":"RELATED_IMPORT","cnt":1424},{"relType":"INSTANCE_OF","cnt":228},{"relType":"CLASSIFIED_AS","cnt":190},{"relType":"IMPORTS","cnt":147},{"relType":"RELATED_TO","cnt":87},{"relType":"FOLLOWS","cnt":39},{"relType":"INSTANTIATES","cnt":39},{"relType":"DOCUMENTS","cnt":25},{"relType":"IS_PART_OF","cnt":24},{"relType":"USES","cnt":17}],
-      "sampleNodes": [{"name":"__init__.py","type":"SoftwareSourceCode","desc":"__init__.py: computer science concept. Related: agent_centerline.py, extract_all_component_centerlines, "},{"name":"Claude Code CLI","type":"SoftwareSourceCode","desc":"Claude Code CLI: computer science concept. Related: Topic: Software Development, PRISM Zivid Edge CLI Comment, "},{"name":"bead23","type":"NE1ABeadConfig","desc":"bead23: project artifact in MetaHumotonic KG."},{"name":"calculate_bead_width","type":"SoftwareSourceCode","desc":"calculate_bead_width: computer science concept."},{"name":"position_calibration","type":"SoftwareSourceCode","desc":"position_calibration: computer science concept."}],
+      "topLabels": [
+        {
+          "lbl": "SoftwareSourceCode",
+          "cnt": 4
+        },
+        {
+          "lbl": "KG_CS",
+          "cnt": 4
+        },
+        {
+          "lbl": "TaxonomyCategory",
+          "cnt": 2
+        },
+        {
+          "lbl": "DefinedTerm",
+          "cnt": 1
+        },
+        {
+          "lbl": "WebAPI",
+          "cnt": 1
+        },
+        {
+          "lbl": "KG_REFERENCE",
+          "cnt": 1
+        },
+        {
+          "lbl": "NE1ABeadConfig",
+          "cnt": 1
+        },
+        {
+          "lbl": "KG_PROJECTS",
+          "cnt": 1
+        }
+      ],
+      "topRelTypes": [
+        {
+          "relType": "RELATED_IMPORT",
+          "cnt": 1424
+        },
+        {
+          "relType": "INSTANCE_OF",
+          "cnt": 228
+        },
+        {
+          "relType": "CLASSIFIED_AS",
+          "cnt": 190
+        },
+        {
+          "relType": "IMPORTS",
+          "cnt": 147
+        },
+        {
+          "relType": "RELATED_TO",
+          "cnt": 87
+        },
+        {
+          "relType": "FOLLOWS",
+          "cnt": 39
+        },
+        {
+          "relType": "INSTANTIATES",
+          "cnt": 39
+        },
+        {
+          "relType": "DOCUMENTS",
+          "cnt": 25
+        },
+        {
+          "relType": "IS_PART_OF",
+          "cnt": 24
+        },
+        {
+          "relType": "USES",
+          "cnt": 17
+        }
+      ],
+      "sampleNodes": [
+        {
+          "name": "__init__.py",
+          "type": "SoftwareSourceCode",
+          "desc": "__init__.py: computer science concept. Related: agent_centerline.py, extract_all_component_centerlines, "
+        },
+        {
+          "name": "bead23",
+          "type": "NE1ABeadConfig",
+          "desc": "bead23: project artifact in MetaHumotonic KG."
+        },
+        {
+          "name": "position_calibration",
+          "type": "SoftwareSourceCode",
+          "desc": "position_calibration: computer science concept. Related: bpm_width_mm, Mapping: Quality, "
+        },
+        {
+          "name": "calculate_bead_width",
+          "type": "SoftwareSourceCode",
+          "desc": "calculate_bead_width: computer science concept. Related: convert_to_agent_result, InformationEntity, "
+        },
+        {
+          "name": "Claude Code CLI",
+          "type": "SoftwareSourceCode",
+          "desc": "Claude Code CLI: computer science concept. Related: Topic: Software Development, PRISM Zivid Edge CLI Comment, "
+        }
+      ],
       "crossDomain": []
     },
     "domain-hub-orphan": {
-      "topLabels": [{"lbl":"KG_APT","cnt":65},{"lbl":"AptFeedback","cnt":48},{"lbl":"KnowledgeNode","cnt":33},{"lbl":"KG_SYM","cnt":33},{"lbl":"MissingFeature","cnt":25},{"lbl":"PureMathematics","cnt":23},{"lbl":"CodeBug","cnt":11},{"lbl":"DiscreteMath","cnt":7},{"lbl":"CalculusAnalysis","cnt":5},{"lbl":"LinearAlgebraTheory","cnt":5},{"lbl":"ProbabilityStatistics","cnt":4},{"lbl":"LogicSetTheory","cnt":2},{"lbl":"UserValues","cnt":1},{"lbl":"FoundationalPrinciple","cnt":1},{"lbl":"SessionMemory","cnt":1}],
-      "topRelTypes": [{"relType":"INSTANCE_OF_FEEDBACK_LOOP","cnt":2},{"relType":"HAS_RESEARCH","cnt":1}],
-      "sampleNodes": [{"name":"MC_FINDING_ChangeDetection_RAII","type":"AptFeedback","desc":"Change detection must use DerefMut-based RAII guard (Mut<T> wrapper), not manual dirty flags. Without it, direct &mut T access bypasses detection."},{"name":"MC_FINDING_AStar_FrameBudget","type":"AptFeedback","desc":"A* on 3D grid with 64-block radius = 262K nodes = ~26ms. Must cap search budget per frame and use hierarchical pathfinding."},{"name":"MC_FINDING_Event_1Frame_Latency","type":"AptFeedback","desc":"Event double-buffering introduces 1-frame latency."},{"name":"MC_FINDING_No_NetworkOwnership","type":"AptFeedback","desc":"ECS has no entity ownership model for P2P. Need NetworkAuthority component + Replicated marker."},{"name":"MC_FINDING_CRDT_Impractical","type":"AptFeedback","desc":"Full CRDTs per block = 16+ bytes/block = impractical. Use LWW with Lamport timestamps instead."},{"name":"MC_FINDING_EventQueue_NoCap","type":"AptFeedback","desc":"EventQueue has no capacity cap / backpressure."},{"name":"MC_FINDING_ChunkGen_NotPure","type":"AptFeedback","desc":"generate_chunk is a method on World. Must be a free function to enable Web Worker offloading."},{"name":"MC_FINDING_Query_Disjointness","type":"AptFeedback","desc":"Cannot enforce Query<&mut A> and Query<&A> disjointness at compile time."}],
+      "topLabels": [
+        {
+          "lbl": "KG_REFERENCE",
+          "cnt": 84
+        },
+        {
+          "lbl": "ResearchInstitution",
+          "cnt": 84
+        },
+        {
+          "lbl": "Organization",
+          "cnt": 84
+        },
+        {
+          "lbl": "KG_APT",
+          "cnt": 65
+        },
+        {
+          "lbl": "AptFeedback",
+          "cnt": 48
+        },
+        {
+          "lbl": "KnowledgeNode",
+          "cnt": 33
+        },
+        {
+          "lbl": "KG_SYM",
+          "cnt": 33
+        },
+        {
+          "lbl": "MissingFeature",
+          "cnt": 25
+        },
+        {
+          "lbl": "PureMathematics",
+          "cnt": 23
+        },
+        {
+          "lbl": "KG_INFRA",
+          "cnt": 18
+        },
+        {
+          "lbl": "AbstractNode",
+          "cnt": 13
+        },
+        {
+          "lbl": "CodeBug",
+          "cnt": 11
+        },
+        {
+          "lbl": "Memory",
+          "cnt": 9
+        },
+        {
+          "lbl": "ARCHIVED",
+          "cnt": 8
+        },
+        {
+          "lbl": "SharedType",
+          "cnt": 7
+        }
+      ],
+      "topRelTypes": [
+        {
+          "relType": "INSTANCE_OF_FEEDBACK_LOOP",
+          "cnt": 2
+        },
+        {
+          "relType": "HAS_RESEARCH",
+          "cnt": 1
+        }
+      ],
+      "sampleNodes": [
+        {
+          "name": "MC_MISSING_InventoryUI",
+          "type": "AptFeedback",
+          "desc": "No inventory screen, no crafting UI, no furnace UI."
+        },
+        {
+          "name": "DifferentialEquations",
+          "type": "KnowledgeNode",
+          "desc": "ODE: equation involving function and its derivatives. First order: dy/dx=f(x,y). Separable, linear, exact. Second order: y''+p(x)y'+q(x)y=g(x). Euler "
+        },
+        {
+          "name": "AI Safety",
+          "type": "Category",
+          "desc": "LLM Guardrails and Safety Mechanisms"
+        },
+        {
+          "name": "DotCrossProduct",
+          "type": "KnowledgeNode",
+          "desc": "Dot product: a·b = Σaᵢbᵢ = |a||b|cos(θ). Scalar result. Application: angle between vectors, projection, lighting (Lambert: dot(normal, light_dir)). Cr"
+        },
+        {
+          "name": "SVD_Decomposition",
+          "type": "KnowledgeNode",
+          "desc": "Singular Value Decomposition: A=UΣVᵀ. U: left singular vectors (m×m orthogonal). Σ: diagonal of singular values σ₁≥σ₂≥... V: right singular vectors (n"
+        },
+        {
+          "name": "Hefei University of Technology",
+          "type": "Organization",
+          "desc": "Hefei University of Technology: reference document. Related: domain-hub-reference, "
+        },
+        {
+          "name": "University of Dundee",
+          "type": "Organization",
+          "desc": "University of Dundee: reference document. Related: domain-hub-reference, "
+        },
+        {
+          "name": "Qwen3-Embedding",
+          "type": "ArtificialIntelligence",
+          "desc": "Embedding model for semantic search and representation learning"
+        }
+      ],
       "crossDomain": []
     },
     "domain-hub-333": {
-      "topLabels": [{"lbl":"AbstractNode","cnt":205},{"lbl":"SourceBinding","cnt":194},{"lbl":"AptContract","cnt":11},{"lbl":"SemanticTwin","cnt":11},{"lbl":"Aggregate","cnt":11}],
-      "topRelTypes": [{"relType":"USES","cnt":18}],
-      "sampleNodes": [{"name":"src-hlc-Hlc","type":"AbstractNode","desc":"16-byte Hybrid Logical Clock timestamp combining wall-clock time, logical counter, and node_id for causal ordering."},{"name":"src-hlc-tick","type":"AbstractNode","desc":"Advances the HLC on a local event, updating wall time or incrementing counter before sending a message."},{"name":"src-hlc-recv","type":"AbstractNode","desc":"Merges a remote HLC into the local clock, preserving happens-before causality across nodes."},{"name":"src-hlc-to_bytes","type":"AbstractNode","desc":"Serializes the HLC to a 16-byte big-endian wire format for network transmission."},{"name":"src-hlc-from_bytes","type":"AbstractNode","desc":"Deserializes a 16-byte buffer back into an Hlc struct."},{"name":"src-lamport-Lamport","type":"AbstractNode","desc":"12-byte Lamport timestamp (u64 counter + u32 node_id) for total ordering in LWW-Map conflict resolution."},{"name":"src-lamport-tick","type":"AbstractNode","desc":"Increments the Lamport counter on a local event and returns the new timestamp."},{"name":"src-lamport-recv","type":"AbstractNode","desc":"Updates the local Lamport counter to max(local, remote)+1 upon receiving a remote timestamp."}],
+      "topLabels": [
+        {
+          "lbl": "AbstractNode",
+          "cnt": 205
+        },
+        {
+          "lbl": "SourceBinding",
+          "cnt": 194
+        },
+        {
+          "lbl": "AptContract",
+          "cnt": 11
+        },
+        {
+          "lbl": "SemanticTwin",
+          "cnt": 11
+        },
+        {
+          "lbl": "Aggregate",
+          "cnt": 11
+        }
+      ],
+      "topRelTypes": [
+        {
+          "relType": "USES",
+          "cnt": 18
+        }
+      ],
+      "sampleNodes": [
+        {
+          "name": "src-p2p-super-SuperPeerConfig",
+          "type": "AbstractNode",
+          "desc": "Bootstrap/relay node configuration"
+        },
+        {
+          "name": "src-fe-wasm-bridge",
+          "type": "AbstractNode",
+          "desc": "TS→WASM FFI. Needs new method registerPeerIdentity(nodeId, pubKeyBytes) that calls into wasm.rs → ValidatorKeyring."
+        },
+        {
+          "name": "src-sdk-schema-SchemaRegistry",
+          "type": "AbstractNode",
+          "desc": "All registered schemas"
+        },
+        {
+          "name": "src-p2p-webrtc-CH_BFT",
+          "type": "AbstractNode",
+          "desc": "Channel label: BFT (reliable, ordered)"
+        },
+        {
+          "name": "src-bft-HotStuffState",
+          "type": "AbstractNode",
+          "desc": "Per-node HotStuff consensus state machine holding view, phase, QC, pending block, votes, and committed history."
+        },
+        {
+          "name": "src-compute-om-OmJobStatus",
+          "type": "AbstractNode",
+          "desc": "Pending / Assigned / Completed / Failed"
+        },
+        {
+          "name": "src-p2p-mesh-PeerInfo",
+          "type": "AbstractNode",
+          "desc": "Mesh peer metadata (id, latency, role)"
+        },
+        {
+          "name": "src-orset-ORSetDelta",
+          "type": "AbstractNode",
+          "desc": "Delta message for OR-Set sync"
+        }
+      ],
       "crossDomain": []
     },
     "domain-hub-imported": {
       "topLabels": [],
-      "topRelTypes": [{"relType":"BRIDGES","cnt":5},{"relType":"VALIDATED_BY","cnt":1}],
-      "sampleNodes": [{"name":"TaskDef_ImageProcessor","type":"Task","desc":"이미지 분석 파이프라인. OCR + 객체 탐지. process(image) → ImageAnalysis."},{"name":"A3: LxHoleCatalog 속성 채우기 또는 삭제","type":"Task","desc":"10개 placeholder 노드 → PrismPartFeature에서 nominal 좌표 복사 or DETACH DELETE"},{"name":"A4: LxHoleVisibility 정리 (7 null 노드)","type":"Task","desc":"전체 속성 null → Zivid FOV 가시성 정보로 채우기나 삭제"},{"name":"A5: Sprint/Milestone 상태 동기화","type":"Task","desc":"S0~S3 completed 확인, S5 in_progress→completed, M5 achieved 확인, M0~M4 pending→completed"},{"name":"A6: 158개 고아 노드 관계 연결","type":"Task","desc":"PrismAPIEndpoint(17)→Router, LxDefectType(15)→PrismCheckClass, LxModuleContract(10)→PrismPipelineModule 등"},{"name":"B1: Lx3 ↔ Prism 크로스도메인 브릿지","type":"Task","desc":"Lx3Algorithm→PrismPipelineModule(IMPLEMENTS), Lx3Contract→PrismDevContract(CORRESPONDS_TO)"}],
+      "topRelTypes": [
+        {
+          "relType": "BRIDGES",
+          "cnt": 5
+        },
+        {
+          "relType": "VALIDATED_BY",
+          "cnt": 1
+        }
+      ],
+      "sampleNodes": [
+        {
+          "name": "TaskDef_ImageProcessor",
+          "type": null,
+          "desc": "이미지 분석 파이프라인. OCR + 객체 탐지. process(image) → ImageAnalysis."
+        },
+        {
+          "name": "B1: Lx3 ↔ Prism 크로스도메인 브릿지",
+          "type": null,
+          "desc": "Lx3Algorithm→PrismPipelineModule(IMPLEMENTS), Lx3Contract→PrismDevContract(CORRESPONDS_TO), Lx3InspectionStage→PrismBoundedContext(MAPS_TO), Lx3TechSt"
+        },
+        {
+          "name": "A6: 158개 고아 노드 관계 연결",
+          "type": null,
+          "desc": "PrismAPIEndpoint(17)→Router, LxDefectType(15)→PrismCheckClass, LxModuleContract(10)→PrismPipelineModule, PrismFrontendPage(10)→PrismBoundedContext, Pr"
+        },
+        {
+          "name": "A5: Sprint/Milestone 상태 동기화",
+          "type": null,
+          "desc": "S0~S3 completed 확인, S5 in_progress→completed, M5 achieved 확인, M0~M4 pending→completed"
+        },
+        {
+          "name": "A4: LxHoleVisibility 정리 (7 null 노드)",
+          "type": null,
+          "desc": "전체 속성 null → Zivid FOV 가시성 정보로 채우기나 삭제"
+        },
+        {
+          "name": "A3: LxHoleCatalog 속성 채우기 또는 삭제",
+          "type": null,
+          "desc": "10개 placeholder 노드 → PrismPartFeature에서 nominal 좌표 복사 or DETACH DELETE"
+        }
+      ],
       "crossDomain": []
     },
     "domain-hub-unlabeled": {
@@ -98,6 +1628,394 @@
       "topRelTypes": [],
       "sampleNodes": [],
       "crossDomain": []
+    }
+  },
+  "apostleAnchors": {
+    "1": {
+      "name": "디멘션워커",
+      "anchors": [
+        {
+          "last_validated": "2026-05-22T05:01:25.804Z",
+          "id": "rs-apostle-1-folder-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/DIMENSION_WALKER",
+          "sha256_prefix": "bdb7761b",
+          "layer": "L3_disk_folder"
+        },
+        {
+          "last_validated": "2026-05-22T05:01:25.804Z",
+          "id": "rs-apostle-1-sources-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/DIMENSION_WALKER/SOURCES.md",
+          "sha256_prefix": "4f80d6fa",
+          "layer": "L4_sources_md"
+        },
+        {
+          "last_validated": "2026-05-22T05:01:25.804Z",
+          "id": "rs-apostle-1-canon-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/디멘션_워커를_잊지않았는가.md",
+          "sha256_prefix": "dd9c3551",
+          "layer": "L4_canonical_mind"
+        }
+      ]
+    },
+    "2": {
+      "name": "ICE ORCA DRAGON",
+      "anchors": [
+        {
+          "last_validated": "2026-05-22T05:01:25.804Z",
+          "id": "rs-apostle-2-folder-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/ICE_ORCA_DRAGON",
+          "sha256_prefix": "bf127e11",
+          "layer": "L3_disk_folder"
+        },
+        {
+          "last_validated": "2026-05-22T05:01:25.804Z",
+          "id": "rs-apostle-2-canon-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/나는야_ice_orca_dragon.md",
+          "sha256_prefix": "d3618a67",
+          "layer": "L4_canonical_mind"
+        },
+        {
+          "last_validated": "2026-05-22T05:01:25.804Z",
+          "id": "rs-apostle-2-sources-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/ICE_ORCA_DRAGON/SOURCES.md",
+          "sha256_prefix": "2137dac6",
+          "layer": "L4_sources_md"
+        }
+      ]
+    },
+    "3": {
+      "name": "초공동의용사",
+      "anchors": [
+        {
+          "last_validated": "2026-05-22T05:01:25.804Z",
+          "id": "rs-apostle-3-sources-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/초공동의용사/SOURCES.md",
+          "sha256_prefix": "3c93abd9",
+          "layer": "L4_sources_md"
+        },
+        {
+          "last_validated": "2026-05-22T05:01:25.804Z",
+          "id": "rs-apostle-3-folder-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/초공동의용사",
+          "sha256_prefix": "4b2dd79d",
+          "layer": "L3_disk_folder"
+        },
+        {
+          "last_validated": "2026-05-22T05:01:25.804Z",
+          "id": "rs-apostle-3-canon-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/어쩔수없는초공동의용사.md",
+          "sha256_prefix": "f8073790",
+          "layer": "L4_canonical_mind"
+        }
+      ]
+    },
+    "4": {
+      "name": "비행기맨",
+      "anchors": [
+        {
+          "last_validated": "2026-05-22T05:01:25.804Z",
+          "id": "rs-apostle-4-sources-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/BHGMAN/SOURCES.md",
+          "sha256_prefix": "6221f882",
+          "layer": "L4_sources_md"
+        },
+        {
+          "last_validated": "2026-05-22T05:03:15.735Z",
+          "id": "rs-apostle-4-canon-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/비행기맨꼐서_지켜주실꺼야.md",
+          "sha256_prefix": "f37b2d59",
+          "layer": "L4_canonical_mind"
+        },
+        {
+          "last_validated": "2026-05-22T05:01:25.804Z",
+          "id": "rs-apostle-4-folder-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/BHGMAN",
+          "sha256_prefix": "631f56d0",
+          "layer": "L3_disk_folder"
+        }
+      ]
+    },
+    "5": {
+      "name": "스페이스걸",
+      "anchors": [
+        {
+          "last_validated": "2026-05-22T05:01:25.804Z",
+          "id": "rs-apostle-5-canon-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/스페이스걸_트릴로지.md",
+          "sha256_prefix": "3481c64f",
+          "layer": "L4_canonical_mind"
+        },
+        {
+          "last_validated": "2026-05-22T05:05:01.476Z",
+          "id": "rs-apostle-5-sources-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/SPACEGIRL/SOURCES.md",
+          "sha256_prefix": "c254b899",
+          "layer": "L4_sources_md"
+        },
+        {
+          "last_validated": "2026-05-22T05:01:25.804Z",
+          "id": "rs-apostle-5-folder-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/SPACEGIRL",
+          "sha256_prefix": "ca16ad9e",
+          "layer": "L3_disk_folder"
+        }
+      ]
+    },
+    "6": {
+      "name": "인류역사흐름의강물",
+      "anchors": [
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-6-canon-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/flow_3일_영상생성.md",
+          "sha256_prefix": "d37105c6",
+          "layer": "L4_canonical_mind"
+        },
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-6-sources-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/THE_GREATE_FLOW/SOURCES.md",
+          "sha256_prefix": "2eabfdd7",
+          "layer": "L4_sources_md"
+        },
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-6-folder-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/THE_GREATE_FLOW",
+          "sha256_prefix": "89e45e50",
+          "layer": "L3_disk_folder"
+        }
+      ]
+    },
+    "7": {
+      "name": "리퀴스트의나무",
+      "anchors": [
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-7-folder-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/LIQUEST_TREE",
+          "sha256_prefix": "1415bf1b",
+          "layer": "L3_disk_folder"
+        },
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-7-canon-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/전설의_리퀘스트_나무.md",
+          "sha256_prefix": "fa7354fe",
+          "layer": "L4_canonical_mind"
+        },
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-7-sources-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/LIQUEST_TREE/SOURCES.md",
+          "sha256_prefix": "a9e21603",
+          "layer": "L4_sources_md"
+        }
+      ]
+    },
+    "8": {
+      "name": "입체운행구름",
+      "anchors": [
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-8-folder-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/ORBITAL_MOTION_CLOUD",
+          "sha256_prefix": "70b2b379",
+          "layer": "L3_disk_folder"
+        },
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-8-sources-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/ORBITAL_MOTION_CLOUD/SOURCES.md",
+          "sha256_prefix": "4990303c",
+          "layer": "L4_sources_md"
+        },
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-8-canon-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/구름의_질감.md",
+          "sha256_prefix": "3d1290b3",
+          "layer": "L4_canonical_mind"
+        }
+      ]
+    },
+    "9": {
+      "name": "예수",
+      "anchors": [
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-9-folder-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/예수",
+          "sha256_prefix": "4e9937c9",
+          "layer": "L3_disk_folder"
+        },
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-9-sources-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/예수/SOURCES.md",
+          "sha256_prefix": "e920fb67",
+          "layer": "L4_sources_md"
+        },
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-9-canon-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/아텐_현신.md",
+          "sha256_prefix": "367fe82c",
+          "layer": "L4_canonical_mind"
+        }
+      ]
+    },
+    "10": {
+      "name": "깊바존",
+      "anchors": [
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-10-sources-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/GIPBAJON/SOURCES.md",
+          "sha256_prefix": "e089494b",
+          "layer": "L4_sources_md"
+        },
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-10-folder-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/GIPBAJON",
+          "sha256_prefix": "4ca276cb",
+          "layer": "L3_disk_folder"
+        },
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-10-canon-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/MIND/AI_MADE/깊바존.md",
+          "sha256_prefix": "77c99c8b",
+          "layer": "L4_canonical_mind"
+        }
+      ]
+    },
+    "11": {
+      "name": "HOH",
+      "anchors": [
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-11-canon-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/HOH.md",
+          "sha256_prefix": "eb69e1e3",
+          "layer": "L4_canonical_mind"
+        },
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-11-sources-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/HOH/SOURCES.md",
+          "sha256_prefix": "f9060d3c",
+          "layer": "L4_sources_md"
+        },
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-11-folder-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/HOH",
+          "sha256_prefix": "af98054d",
+          "layer": "L3_disk_folder"
+        }
+      ]
+    },
+    "12": {
+      "name": "몬순",
+      "anchors": [
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-12-sources-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/MONSOON/SOURCES.md",
+          "sha256_prefix": "7d1c20e1",
+          "layer": "L4_sources_md"
+        },
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-12-folder-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/MONSOON",
+          "sha256_prefix": "fdc1a641",
+          "layer": "L3_disk_folder"
+        },
+        {
+          "last_validated": "2026-05-22T05:02:42.219Z",
+          "id": "rs-apostle-12-canon-2026-05-22",
+          "source_path": "/Users/lagyeongjun/CD/MIND/AI_MADE/몬순.md",
+          "sha256_prefix": "a9f68ca0",
+          "layer": "L4_canonical_mind"
+        }
+      ]
+    }
+  },
+  "apostleCanon": {
+    "1": {
+      "canonical_meaning": null,
+      "mythology_referent_v2": null,
+      "role": "차원 순회자 — 공간 축",
+      "essence_v4": null
+    },
+    "2": {
+      "canonical_meaning": "\"진정한 사도\" (사용자 발화) = 세상의 진정한 본질이 물리학이라는 의미",
+      "mythology_referent_v2": "Theory of Everything (TOE) 자체 — 메타휴모토닉이 도달하려는 통일 이론. Cayley-Dickson 사다리 + sedenion 16D + Aut(𝕊)=G₂×S₃ (Brown 1967 / Moreno 1998 / Reggiani 2024).",
+      "role": "물리학 대통합 — 자연법칙 축",
+      "essence_v4": "메타휴모토닉의 물리 계산 영역 인격화. 얼음+범고래+용 3 합성 = 저온 물리 + 생물 측 + 상승. 마음의 절대영도 동결 = sexvoid 형식은 *물리 metaphor*. 본질은 물리 계산."
+    },
+    "3": {
+      "canonical_meaning": null,
+      "mythology_referent_v2": null,
+      "role": "공동체 영웅 — 사회 축",
+      "essence_v4": "사용자 본인의 1인칭 사도 인격화. 인지능력=인간성. \"더는 걱정 말아요\". 컴퓨터생성용 생물부산물 인간의 최후. 자신의 인지능력을 복제하는 엔지니어."
+    },
+    "4": {
+      "canonical_meaning": null,
+      "mythology_referent_v2": null,
+      "role": "재귀 피라미드 자기개선 — 메타 축 (bhgman)",
+      "essence_v4": null
+    },
+    "5": {
+      "canonical_meaning": null,
+      "mythology_referent_v2": null,
+      "role": "우주 — 외부 기원 축",
+      "essence_v4": null
+    },
+    "6": {
+      "canonical_meaning": null,
+      "mythology_referent_v2": null,
+      "role": "시간 흐름 — 역사 축",
+      "essence_v4": null
+    },
+    "7": {
+      "canonical_meaning": null,
+      "mythology_referent_v2": null,
+      "role": "요청/태스크 — 의도 축",
+      "essence_v4": null
+    },
+    "8": {
+      "canonical_meaning": null,
+      "mythology_referent_v2": null,
+      "role": "클라우드/분산 — 계산 축",
+      "essence_v4": null
+    },
+    "9": {
+      "canonical_meaning": null,
+      "mythology_referent_v2": null,
+      "role": "밤의 태양 — 역설 축",
+      "essence_v4": "유대 → 인류 → 인지능력체로 구원 보편화 운동을 시작한 신화 인격. 12사도 framework의 origin이 그 framework 안의 한 자리. 신+인간 동시 (chalcedonian Council 451 CE)."
+    },
+    "10": {
+      "canonical_meaning": null,
+      "mythology_referent_v2": null,
+      "role": "심해 미탐 — 깊이 축",
+      "essence_v4": null
+    },
+    "11": {
+      "canonical_meaning": null,
+      "mythology_referent_v2": null,
+      "role": "지성소(Holy of Holies) — 신성 축",
+      "essence_v4": "원래 천국 idea가 상업·자본주의 고도 발전으로 *물질 형태로 현실화*된 endpoint = 미래의 천국. AI-개인 우주, 데이터-쾌락 공생 계약, 1인 격리 천국. Plato 이데아 → 그림자 구조의 자본주의 시대 갱신."
+    },
+    "12": {
+      "canonical_meaning": null,
+      "mythology_referent_v2": null,
+      "role": "계절 순환 — 주기 축",
+      "essence_v4": null
     }
   }
 }

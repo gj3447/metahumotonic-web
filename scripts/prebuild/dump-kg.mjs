@@ -99,6 +99,50 @@ async function main() {
       domainDetails[d.name] = { topLabels, topRelTypes, sampleNodes, crossDomain };
     }
 
+    // Apostle anchors — per-Apostle :HAS_REFERENCE_SITE collect
+    // KG: CONTRACT_KGAnchorBox_v1, contract-kg-anchor-v1-2026-05-22
+    const apostleAnchors = {};
+    const apostleRows = await run(session, `
+      MATCH (a:Apostle)-[:HAS_REFERENCE_SITE]->(rs:ReferenceSite)
+      WITH toInteger(a.id) AS id, a.name AS name,
+           collect({
+             id: rs.id,
+             layer: rs.layer,
+             sha256_prefix: substring(rs.sha256, 0, 8),
+             last_validated: toString(rs.last_validated),
+             source_path: rs.sourcePath
+           }) AS anchors
+      RETURN id, name, anchors
+      ORDER BY id
+    `);
+    for (const r of apostleRows) {
+      apostleAnchors[String(r.id)] = { name: r.name, anchors: r.anchors };
+    }
+    console.log(`[dump-kg] apostle anchors: ${Object.keys(apostleAnchors).length} apostles`);
+
+    // Apostle canon fields — canonical_meaning + mythology_referent_v2 + role + essence_v4
+    // KG: CONTRACT_CanonFieldSurface_v1, contract-canon-field-v1-2026-05-22
+    const apostleCanon = {};
+    const canonRows = await run(session, `
+      MATCH (a:Apostle)
+      RETURN toInteger(a.id) AS id,
+             a.canonical_meaning AS canonical_meaning,
+             a.mythology_referent_v2_2026_05_22 AS mythology_referent_v2,
+             a.role AS role,
+             a.essence_v4 AS essence_v4
+      ORDER BY id
+    `);
+    for (const r of canonRows) {
+      apostleCanon[String(r.id)] = {
+        canonical_meaning: r.canonical_meaning,
+        mythology_referent_v2: r.mythology_referent_v2,
+        role: r.role,
+        essence_v4: r.essence_v4,
+      };
+    }
+    const canonCount = canonRows.filter(r => r.canonical_meaning || r.mythology_referent_v2 || r.role || r.essence_v4).length;
+    console.log(`[dump-kg] apostle canon fields: ${canonCount}/12 apostles have ≥1 surface field`);
+
     const snapshot = {
       _meta: {
         generatedAt: new Date().toISOString(),
@@ -108,13 +152,33 @@ async function main() {
       stats,
       domains,
       domainDetails,
+      apostleAnchors,
+      apostleCanon,
     };
 
     const __dirname = path.dirname(fileURLToPath(import.meta.url));
     const outPath = path.resolve(__dirname, '../../src/data/kg-snapshot.json');
     await writeFile(outPath, JSON.stringify(snapshot, null, 2) + '\n', 'utf-8');
     console.log('[dump-kg] wrote', outPath);
-    console.log(`[dump-kg] stats: ${stats.nodes} nodes, ${stats.rels} rels, ${domains.length} hubs`);
+
+    // Sync apostles.json with 4 canon keys (idempotent merge — keeps other fields)
+    // KG: CONTRACT_CanonFieldSurface_v1
+    const apostlesPath = path.resolve(__dirname, '../../src/data/apostles.json');
+    const apostlesData = JSON.parse(await (await import('node:fs/promises')).readFile(apostlesPath, 'utf-8'));
+    for (const a of apostlesData.apostles) {
+      const canon = apostleCanon[String(a.id)] || {};
+      if (canon.canonical_meaning != null) a.canonical_meaning = canon.canonical_meaning;
+      if (canon.mythology_referent_v2 != null) a.mythology_referent_v2 = canon.mythology_referent_v2;
+      if (canon.role != null) a.role = canon.role;
+      if (canon.essence_v4 != null) a.essence_v4 = canon.essence_v4;
+    }
+    apostlesData._meta = apostlesData._meta || {};
+    apostlesData._meta.canon_synced_at = new Date().toISOString();
+    apostlesData._meta.canon_synced_via = 'dump-kg.mjs apostleCanon';
+    await writeFile(apostlesPath, JSON.stringify(apostlesData, null, 2) + '\n', 'utf-8');
+    console.log('[dump-kg] synced apostles.json 4 canon keys');
+
+    console.log(`[dump-kg] stats: ${stats.nodes} nodes, ${stats.rels} rels, ${domains.length} hubs, ${Object.keys(apostleAnchors).length} apostle anchors, ${canonCount}/12 canon surface`);
   } finally {
     await session.close();
     await driver.close();

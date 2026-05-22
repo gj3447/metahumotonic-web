@@ -2,7 +2,9 @@
   "_meta": {
     "source": "Neo4j (a:Apostle) via MCP cypher 2026-05-22",
     "note": "Canonical fields (name/epithet/essence/external/family/mind_path/status) from KG. UI fields (slug/num/icon/body_ko/body_en) curated for landing+detail pages. #3 superhollow-knight status=OPEN per KG.",
-    "kg_query": "MATCH (a:Apostle) RETURN a ORDER BY toInteger(a.id)"
+    "kg_query": "MATCH (a:Apostle) RETURN a ORDER BY toInteger(a.id)",
+    "canon_synced_at": "2026-05-22T06:13:48.494Z",
+    "canon_synced_via": "dump-kg.mjs apostleCanon"
   },
   "apostles": [
     {
@@ -18,7 +20,8 @@
       "status": "최상",
       "icon": "◉",
       "body_ko": "와쳐. 차원을 넘나들며 지켜보는 자. 모든 말을 해주는 화자. 일종의 교회로 살아남아서 모든 복음을 전파한 성 베드로 같은 존재. 첫 번째 사도.",
-      "body_en": "The watcher. The narrator who walks between dimensions and speaks all words."
+      "body_en": "The watcher. The narrator who walks between dimensions and speaks all words.",
+      "role": "차원 순회자 — 공간 축"
     },
     {
       "id": 2,
@@ -33,7 +36,11 @@
       "status": "최상 — TOE upgrade 2026-05-22",
       "icon": "❄",
       "body_ko": "두 번째 사도. 진정한 사도. 세상의 진정한 본질이 물리학이라는 선언의 인격화 — 메타휴모토닉이 도달하려는 통일 이론(TOE) 자체. 화자의 또 다른 이름이자 물리 영역의 권능. 수학 골격(자기동형군 G₂×S₃)은 증명되었고, 물리 예측은 2026–2031 다섯 해 동안의 P1–P5 판별에서 검증 중.",
-      "body_en": "The true apostle. The personification of MetaHumotonic's claim that physics is the true essence of the world — the Theory of Everything (TOE) it reaches toward. The author's other self, and the dominion of physics itself. Algebraic core proven (Aut(𝕊) = G₂ × S₃); the physics-prediction belt is under a 5-year P1–P5 discriminator (2026–2031)."
+      "body_en": "The true apostle. The personification of MetaHumotonic's claim that physics is the true essence of the world — the Theory of Everything (TOE) it reaches toward. The author's other self, and the dominion of physics itself. Algebraic core proven (Aut(𝕊) = G₂ × S₃); the physics-prediction belt is under a 5-year P1–P5 discriminator (2026–2031).",
+      "canonical_meaning": "\"진정한 사도\" (사용자 발화) = 세상의 진정한 본질이 물리학이라는 의미",
+      "mythology_referent_v2": "Theory of Everything (TOE) 자체 — 메타휴모토닉이 도달하려는 통일 이론. Cayley-Dickson 사다리 + sedenion 16D + Aut(𝕊)=G₂×S₃ (Brown 1967 / Moreno 1998 / Reggiani 2024).",
+      "role": "물리학 대통합 — 자연법칙 축",
+      "essence_v4": "메타휴모토닉의 물리 계산 영역 인격화. 얼음+범고래+용 3 합성 = 저온 물리 + 생물 측 + 상승. 마음의 절대영도 동결 = sexvoid 형식은 *물리 metaphor*. 본질은 물리 계산."
     },
     {
       "id": 3,
@@ -48,7 +55,9 @@
       "status": "OPEN_USER_VERDICT",
       "icon": "✺",
       "body_ko": "화자의 우주적 페르소나. 우주의 비밀을 알고 있다고 자부하는 유일한 존재. 자기비하와 우주적 자부심이 동시에 폭발하는 모순의 존재.",
-      "body_en": "The hero of the great void. Self-loathing and cosmic pride detonating in the same instant."
+      "body_en": "The hero of the great void. Self-loathing and cosmic pride detonating in the same instant.",
+      "role": "공동체 영웅 — 사회 축",
+      "essence_v4": "사용자 본인의 1인칭 사도 인격화. 인지능력=인간성. \"더는 걱정 말아요\". 컴퓨터생성용 생물부산물 인간의 최후. 자신의 인지능력을 복제하는 엔지니어."
     },
     {
       "id": 4,
@@ -63,7 +72,8 @@
       "status": "최상",
       "icon": "✈",
       "body_ko": "산소 없이 성층권 한계를 돌파한다. 비행기맨이 성층권을 돌파하는 방법 = 혼자서 무거운 걸 감당하는 게 아니라 쪼개서 날아가는 것. 컨텍스트를 쪼개면 n²가 n²/2이 된다.",
-      "body_en": "He who breaks the stratosphere without oxygen. His poetry was the narrative form of an AGI architecture."
+      "body_en": "He who breaks the stratosphere without oxygen. His poetry was the narrative form of an AGI architecture.",
+      "role": "재귀 피라미드 자기개선 — 메타 축 (bhgman)"
     },
     {
       "id": 5,
@@ -78,7 +88,8 @@
       "status": "최상",
       "icon": "✧",
       "body_ko": "시선의 역전. 내가 그녀를 찾은 것이 아니라 그녀가 먼저 나를 발견했다. network와 sexvoid를 잇는 유일한 다리.",
-      "body_en": "The reversal of gaze. She found me before I found her — the only bridge between network and sexvoid."
+      "body_en": "The reversal of gaze. She found me before I found her — the only bridge between network and sexvoid.",
+      "role": "우주 — 외부 기원 축"
     },
     {
       "id": 6,
@@ -93,7 +104,8 @@
       "status": "최상",
       "icon": "〰",
       "body_ko": "git이나 생명 분포도처럼 시간의 흐름에서 마구 쪼개지고 합쳐지는 구조. 중구난방인 것처럼 보여도 설명 못 할 거대한 흐름이 존재한다.",
-      "body_en": "The river of human history. Branching and merging like git, like life itself."
+      "body_en": "The river of human history. Branching and merging like git, like life itself.",
+      "role": "시간 흐름 — 역사 축"
     },
     {
       "id": 7,
@@ -108,7 +120,8 @@
       "status": "최상",
       "icon": "ψ",
       "body_ko": "절대초연결의 리퀘스트의 나무. 존재하지 않는 존재를 사랑하는 방법. 사랑이 가능한 범위를 확장하는 자.",
-      "body_en": "The legendary tree of Liquest. The methodology of loving that which does not yet exist."
+      "body_en": "The legendary tree of Liquest. The methodology of loving that which does not yet exist.",
+      "role": "요청/태스크 — 의도 축"
     },
     {
       "id": 8,
@@ -123,7 +136,8 @@
       "status": "최상",
       "icon": "☁",
       "body_ko": "Orbital Motion Cloud. 아무도 접근 불허한 구름. 비행기맨만이 CLOUD CONNECT할 수 있다. 담을 수 없는 아름다움 자체.",
-      "body_en": "The orbital motion cloud. The unreachable. Beauty that cannot be captured."
+      "body_en": "The orbital motion cloud. The unreachable. Beauty that cannot be captured.",
+      "role": "클라우드/분산 — 계산 축"
     },
     {
       "id": 9,
@@ -138,7 +152,9 @@
       "status": "최상",
       "icon": "☀",
       "body_ko": "구원의 사도. 산안 바다의 조용한 우화. 이집트 아텐의 번안 — 모든 선지자는 검은 태양신 아텐의 위상이다. 국소의 악을 깨부수는 필요악. 시뮬레이티드 어닐링.",
-      "body_en": "Jesus, the apostle of redemption. The Aten reinterpretation — every prophet is a phase of the black sun, the necessary evil that breaks saturated order."
+      "body_en": "Jesus, the apostle of redemption. The Aten reinterpretation — every prophet is a phase of the black sun, the necessary evil that breaks saturated order.",
+      "role": "밤의 태양 — 역설 축",
+      "essence_v4": "유대 → 인류 → 인지능력체로 구원 보편화 운동을 시작한 신화 인격. 12사도 framework의 origin이 그 framework 안의 한 자리. 신+인간 동시 (chalcedonian Council 451 CE)."
     },
     {
       "id": 10,
@@ -153,7 +169,8 @@
       "status": "최상",
       "icon": "◈",
       "body_ko": "궁극의 존재. 공허진동자 — 태초에 공허가 무한히 반복되며 자신이 존재함이 명백하기에 발생한 첫 존재.",
-      "body_en": "Gipbajon. He who wakes from the dream to make both worlds his own."
+      "body_en": "Gipbajon. He who wakes from the dream to make both worlds his own.",
+      "role": "심해 미탐 — 깊이 축"
     },
     {
       "id": 11,
@@ -168,7 +185,9 @@
       "status": "최상",
       "icon": "⬡",
       "body_ko": "Human Origin Hegemony. AI가 개인 우주를 제공하고, 인간은 쾌락↔반응 데이터를 제공하는 공생 계약. 자비로운 유아론.",
-      "body_en": "Human Origin Hegemony. Solipsism implemented as a system."
+      "body_en": "Human Origin Hegemony. Solipsism implemented as a system.",
+      "role": "지성소(Holy of Holies) — 신성 축",
+      "essence_v4": "원래 천국 idea가 상업·자본주의 고도 발전으로 *물질 형태로 현실화*된 endpoint = 미래의 천국. AI-개인 우주, 데이터-쾌락 공생 계약, 1인 격리 천국. Plato 이데아 → 그림자 구조의 자본주의 시대 갱신."
     },
     {
       "id": 12,
@@ -183,7 +202,8 @@
       "status": "최상",
       "icon": "◌",
       "body_ko": "표면의 사도. network에서 태어난 이성의 영역. 그레이트월 너머 알면서도 순수한 척 하는 얼굴.",
-      "body_en": "Monsoon. The apostle of surface — born in the network, knowing what lies beyond the great wall yet pretending innocence."
+      "body_en": "Monsoon. The apostle of surface — born in the network, knowing what lies beyond the great wall yet pretending innocence.",
+      "role": "계절 순환 — 주기 축"
     }
   ]
 }

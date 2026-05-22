@@ -1,0 +1,40 @@
+---
+// FamilyBadge.astro — apostle 공학 family 시각 badge
+// KG: CONTRACT_FamilyBadge_v1, contract-family-badge-v1-2026-05-22
+// KG: SPAN_atomic_family_badge, span-atomic-family-badge-2026-05-22
+// KG: rs-mh-web-v3-src-components-FamilyBadge_astro-2026-05-22 (forward L5 binding)
+
+import '../styles/family-colors.css';
+
+interface Props {
+  family: string;
+  apostleId?: number;
+}
+const { family, apostleId } = Astro.props;
+
+// family_engineering 문자열 → CSS variable + 짧은 label
+// 12 apostle family 패턴 매칭 (apostles.json `family` 필드 정전)
+function familyMeta(f: string, id?: number): { cssVar: string; label: string; tier?: string } {
+  const lower = f.toLowerCase();
+  if (lower.includes('traces') || lower.includes('otel')) return { cssVar: '--family-traces-metrics-logs', label: 'OTel · CNCF', tier: 'observability' };
+  if (lower.includes('ice physics') || lower.includes('toe') || lower.includes('hypercomplex')) return { cssVar: '--family-physics-toe', label: 'TOE · sedenion 16D', tier: 'physics' };
+  if (lower.includes('harness 3-tier') || lower.includes('agent scaffolding')) return { cssVar: '--family-harness-3tier', label: 'Harness · 3-tier', tier: 'agent' };
+  if (lower.includes('longinus') || lower.includes('reference model')) return { cssVar: '--family-longinus-reference', label: 'Longinus · 7-Layer', tier: 'binding' };
+  if (lower.includes('event-flow') || lower.includes('kafka+airflow') || lower.includes('braudel')) return { cssVar: '--family-event-flow-distill', label: 'Event · Stream', tier: 'flow' };
+  if (lower.includes('type-contract') || lower.includes('haskell+openapi+lean')) return { cssVar: '--family-type-contract-formal', label: 'Type · Lean4', tier: 'formal' };
+  if (lower.includes('data-infra-runtime') || lower.includes('k8s scheduler')) return { cssVar: '--family-data-infra-runtime', label: 'k8s · scheduler', tier: 'runtime' };
+  if (lower.includes('기독교') || lower.includes('christology') || lower.includes('7-family') && id === 9) return { cssVar: '--family-christology', label: '신학 · 7-Family', tier: 'theology' };
+  if (lower.includes('gc 3-tier') || lower.includes('garbage collection')) return { cssVar: '--family-gc-3tier', label: 'GC · 3-tier', tier: 'memory' };
+  if (lower.includes('heaven') || lower.includes('천국 3-tier')) return { cssVar: '--family-heaven-materialization', label: 'Heaven · 3-tier+adapter', tier: 'eschatology' };
+  if (lower.includes('disenchantment') || lower.includes('weber') || lower.includes('단독')) return { cssVar: '--family-disenchantment', label: 'Disenchantment', tier: 'sociology' };
+  if (lower.includes('대기') || lower.includes('pending') || lower.includes('open')) return { cssVar: '--family-pending', label: 'pending', tier: 'open' };
+  return { cssVar: '--family-pending', label: f.slice(0, 28), tier: 'other' };
+}
+
+const meta = familyMeta(family, apostleId);
+---
+
+<span class="family-badge" style={`--badge-color:rgb(from var(${meta.cssVar}) r g b / 0.12); --badge-color-border:rgb(from var(${meta.cssVar}) r g b / 0.32); --badge-color-dot:var(${meta.cssVar});`} title={family} aria-label={`Family: ${family}`}>
+  <span class="family-badge__dot" aria-hidden="true"></span>
+  <span class="family-badge__label">{meta.label}</span>
+</span>

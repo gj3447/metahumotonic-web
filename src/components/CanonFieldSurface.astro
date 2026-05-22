@@ -1,0 +1,84 @@
+---
+// CanonFieldSurface.astro — KG 정전 필드 4 종 통합 callout
+// KG: CONTRACT_CanonFieldSurface_v1, contract-canon-field-v1-2026-05-22
+// KG: SPAN_atomic_canon_field_surface, span-atomic-canon-field-surface-2026-05-22
+// KG: rs-mh-web-v3-src-components-CanonFieldSurface_astro-2026-05-22 (forward L5 binding)
+
+interface Props {
+  canonical_meaning?: string | null;
+  mythology_referent_v2?: string | null;
+  role?: string | null;
+  essence_v4?: string | null;
+}
+const { canonical_meaning, mythology_referent_v2, role, essence_v4 } = Astro.props;
+
+// 우선순위: canonical_meaning > mythology_referent_v2 > role > essence_v4
+const candidates: Array<{ key: string; label: string; value: string | null | undefined }> = [
+  { key: 'canonical_meaning',    label: '정전 의미',    value: canonical_meaning },
+  { key: 'mythology_referent_v2', label: '신화 referent', value: mythology_referent_v2 },
+  { key: 'role',                  label: '축 (role)',    value: role },
+  { key: 'essence_v4',            label: '본질 v4',      value: essence_v4 },
+];
+const surface = candidates.find(c => c.value != null && c.value !== '');
+---
+
+{surface && (
+  <aside class="canon-callout" data-field={surface.key} aria-label={`Canon field: ${surface.label}`}>
+    <span class="canon-callout__label">{surface.label}</span>
+    <p class="canon-callout__value">{surface.value}</p>
+  </aside>
+)}
+
+<style>
+  .canon-callout {
+    margin: 2rem 0;
+    padding: 1.1rem 1.4rem;
+    border: 1px solid #c0b48f;
+    background: linear-gradient(135deg, rgba(252, 231, 196, 0.25) 0%, rgba(217, 206, 176, 0.12) 100%);
+    border-radius: 2px;
+    position: relative;
+  }
+  .canon-callout::before {
+    content: '"';
+    position: absolute;
+    top: -0.5rem;
+    left: 0.8rem;
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 2.6rem;
+    color: #c0b48f;
+    line-height: 1;
+  }
+  .canon-callout__label {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8a8273;
+    margin-bottom: 0.4rem;
+  }
+  .canon-callout__value {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-size: 1.05rem;
+    color: #2a2620;
+    line-height: 1.6;
+    margin: 0;
+    font-style: italic;
+  }
+  /* mythology_referent_v2 (TOE 같은 강조 필드) 살짝 다른 색조 */
+  .canon-callout[data-field="mythology_referent_v2"] {
+    border-color: #ef4444;
+    background: linear-gradient(135deg, rgba(254, 226, 226, 0.4) 0%, rgba(252, 165, 165, 0.12) 100%);
+  }
+  .canon-callout[data-field="mythology_referent_v2"]::before {
+    color: #ef4444;
+  }
+  /* canonical_meaning (사용자 직접 발화) 진한 강조 */
+  .canon-callout[data-field="canonical_meaning"] {
+    border-color: #6366f1;
+    background: linear-gradient(135deg, rgba(224, 231, 255, 0.35) 0%, rgba(199, 210, 254, 0.12) 100%);
+  }
+  .canon-callout[data-field="canonical_meaning"]::before {
+    color: #6366f1;
+  }
+</style>

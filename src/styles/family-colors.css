@@ -1,0 +1,59 @@
+/* family-colors.css — 12 family color mapping for apostle badges
+ * KG: CONTRACT_FamilyBadge_v1, contract-family-badge-v1-2026-05-22
+ * KG: SPAN_atomic_family_badge, span-atomic-family-badge-2026-05-22
+ *
+ * 12 apostle family_engineering → CSS variable. 색조는 family 의 공학 영역 hint.
+ */
+
+:root {
+  --family-traces-metrics-logs: #6366f1;     /* #1 OpenTelemetry 관측 — indigo */
+  --family-physics-toe: #ef4444;             /* #2 ICE TOE — vermilion */
+  --family-pending: #94a3b8;                 /* #3 OPEN_USER_VERDICT — slate */
+  --family-harness-3tier: #f59e0b;           /* #4 Harness — amber */
+  --family-longinus-reference: #10b981;      /* #5 Longinus — emerald */
+  --family-event-flow-distill: #06b6d4;      /* #6 Kafka+Airflow flow — cyan */
+  --family-type-contract-formal: #8b5cf6;    /* #7 Haskell/Lean — violet */
+  --family-data-infra-runtime: #f97316;      /* #8 k8s scheduler — orange */
+  --family-christology: #fbbf24;             /* #9 Jesus 신학 — gold */
+  --family-gc-3tier: #475569;                /* #10 깊바존 GC — graphite */
+  --family-heaven-materialization: #ec4899;  /* #11 HOH — magenta */
+  --family-disenchantment: #64748b;          /* #12 monsoon — pewter */
+}
+
+.family-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.18rem 0.55rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  border-radius: 2px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  color: #1a1815;
+  background: var(--badge-color, rgba(99, 102, 241, 0.12));
+  border: 1px solid var(--badge-color-border, rgba(99, 102, 241, 0.3));
+  vertical-align: middle;
+  line-height: 1.4;
+}
+
+.family-badge__dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--badge-color-dot, #6366f1);
+  flex-shrink: 0;
+}
+
+.family-badge__label {
+  color: #4a4338;
+}
+
+@media (prefers-color-scheme: dark) {
+  .family-badge {
+    color: #e8e6e0;
+  }
+  .family-badge__label {
+    color: #b8b1a0;
+  }
+}
