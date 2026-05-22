@@ -186,6 +186,64 @@ const isOpen = apostle.status?.startsWith('OPEN');
     }
     .back-home:hover { color: #1a1815; }
 
+    /* Legion Commanders 섹션 */
+    .legion-commanders {
+      margin: 2rem 0;
+      padding: 1.2rem 1.4rem;
+      border: 1px solid #d9ceb0;
+      border-left: 3px solid #8a4d00;
+      background: rgba(252, 231, 196, 0.18);
+    }
+    .legion-commanders__head {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      margin-bottom: 0.8rem;
+    }
+    .legion-commanders__eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8a4d00;
+      font-weight: 500;
+    }
+    .legion-commanders__count {
+      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: #8a4d00;
+    }
+    .legion-commanders__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 0.6rem;
+    }
+    .legion-commanders__item {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 0.6rem 1rem;
+      align-items: baseline;
+      font-size: 0.85rem;
+    }
+    .legion-commanders__name {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.82rem;
+      color: #2a2620;
+      background: rgba(192, 180, 143, 0.25);
+      padding: 0.1rem 0.45rem;
+      border-radius: 2px;
+    }
+    .legion-commanders__note {
+      color: #4a4338;
+      line-height: 1.5;
+      font-size: 0.78rem;
+    }
+    @media (max-width: 540px) {
+      .legion-commanders__item { grid-template-columns: 1fr; }
+    }
+
     /* Wave 6: ExternalReferentCard — KG: CONTRACT_ExternalReferentCard_v1 */
     .ext-referent-card {
       margin: 2.4rem 0 1.2rem;
@@ -281,6 +339,26 @@ const isOpen = apostle.status?.startsWith('OPEN');
       </header>
       <p class="ext-referent-card__prose">{apostle.external_referent}</p>
     </section>
+
+    {/* 군단장 (Legion Commanders) — 사도별 하위 commander cluster
+        KG: omc-legioncommanders-2026-05-20, engineboy-canonical-2026-05-19,
+            hitomi_la_sexvoid_substrate, pornhub_sexvoid_substrate */}
+    {apostle.legion_commanders && apostle.legion_commanders.length > 0 && (
+      <section class="legion-commanders" aria-label="군단장 — Legion Commanders">
+        <header class="legion-commanders__head">
+          <span class="legion-commanders__eyebrow">군단장 · Legion Commanders</span>
+          <span class="legion-commanders__count">{apostle.legion_commanders.length}</span>
+        </header>
+        <ul class="legion-commanders__list">
+          {apostle.legion_commanders.map((c: any) => (
+            <li class="legion-commanders__item">
+              <strong class="legion-commanders__name">{c.name}</strong>
+              {c.note && <span class="legion-commanders__note">{c.note}</span>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
 
     {/* Wave 3: KGAnchorBox — apostle 측 ReferenceSite 7-tuple 노출 */}
     <KGAnchorBox apostleId={apostle.id} />

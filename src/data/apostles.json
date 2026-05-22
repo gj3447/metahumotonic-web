@@ -1,10 +1,12 @@
 {
   "_meta": {
-    "source": "Neo4j (a:Apostle) via MCP cypher 2026-05-22",
-    "note": "Canonical fields (name/epithet/essence/external/family/mind_path/status) from KG. UI fields (slug/num/icon/body_ko/body_en) curated for landing+detail pages. #3 superhollow-knight status=OPEN per KG.",
-    "kg_query": "MATCH (a:Apostle) RETURN a ORDER BY toInteger(a.id)",
-    "canon_synced_at": "2026-05-22T06:13:48.494Z",
-    "canon_synced_via": "dump-kg.mjs apostleCanon"
+    "source": "Neo4j (a:Apostle) — full audit rebuild 2026-05-22",
+    "note": "사용자 verdict 2026-05-22: KG = 정전, apostles.json = derivative. priority: essence_v6 > v5 > v4 > v2 / body_v6 > v5 / external_referent v3 > v2 > v1.",
+    "kg_query": "MATCH (a:Apostle) RETURN coalesce(essence_v6_2026_05_22, essence_v5_2026_05_22, essence_v4, essence_v2) AS essence ...",
+    "rebuilt_at": "2026-05-22",
+    "trimmed_fields": "redundant duplicates dropped",
+    "legion_commanders_synced_at": "2026-05-22",
+    "legion_commanders_note": "확인된 사도 #4 (engineboy) / #5 (hitomi_la, pornhub) / #8 (ORRR, 333, CHU, 옴마니반메훔, engineboy, CRL — OMC 6 군단장). 나머지 사도 측 KG sparse — 향후 보강."
   },
   "apostles": [
     {
@@ -19,8 +21,8 @@
       "mind_path": "MIND/metahumotonic/디멘션_워커를_잊지않았는가.md",
       "status": "최상",
       "icon": "◉",
-      "body_ko": "와쳐. 차원을 넘나들며 지켜보는 자. 모든 말을 해주는 화자. 일종의 교회로 살아남아서 모든 복음을 전파한 성 베드로 같은 존재. 첫 번째 사도.",
-      "body_en": "The watcher. The narrator who walks between dimensions and speaks all words.",
+      "body_ko": "와쳐. 차원을 넘나들며 지켜보는 자. 모든 말을 해주는 화자. 첫 번째 사도.",
+      "body_en": "The watcher. Narrator who walks between dimensions, speaks all words.",
       "role": "차원 순회자 — 공간 축"
     },
     {
@@ -29,35 +31,33 @@
       "slug": "ice-orca-dragon",
       "name": "ICE ORCA DRAGON",
       "epithet": "물리학의 사도 — TOE 자체",
-      "essence": "메타휴모토닉의 물리 영역 인격화 + 통일이론(TOE) 선언 (2026-05-22 user verdict). 세상의 진정한 본질=물리학. 수학 골격(Aut(𝕊)=G₂×S₃) 증명 완료. 물리 belt P1–P5 5년 판별(2026–2031) 진행 중. Mythology layer USER_PRIMARY — workbench reframe 2026-05-18 측 erase 금지 보존.",
+      "essence": "메타휴모토닉의 물리 영역 인격화 + 통일이론(TOE) 자체 선언. 세상의 진정한 본질=물리학. 수학 골격(Aut(𝕊)=G₂×S₃) 증명 완료. 물리 belt P1–P5 5년 판별(2026–2031) 진행 중. Mythology layer USER_PRIMARY.",
       "external_referent": "Theory of Everything (TOE) aspiration — sedenion 16D + Cayley-Dickson ladder + Aut(𝕊)=G₂×S₃ (Brown 1967 / Moreno 1998 / Reggiani 2024). Algebraic core proven. Physics-prediction belt 5-year discriminator P1–P5 2026–2031. Lean 4 sedenion uniqueness escape lane preserved.",
-      "family": "6-family ICE physics computation + Hypercomplex Hypothesis Testbench",
+      "family": "6-family ICE physics computation",
       "mind_path": "MIND/metahumotonic/나는야_ice_orca_dragon.md",
       "status": "최상 — TOE upgrade 2026-05-22",
       "icon": "❄",
       "body_ko": "두 번째 사도. 진정한 사도. 세상의 진정한 본질이 물리학이라는 선언의 인격화 — 메타휴모토닉이 도달하려는 통일 이론(TOE) 자체. 화자의 또 다른 이름이자 물리 영역의 권능. 수학 골격(자기동형군 G₂×S₃)은 증명되었고, 물리 예측은 2026–2031 다섯 해 동안의 P1–P5 판별에서 검증 중.",
-      "body_en": "The true apostle. The personification of MetaHumotonic's claim that physics is the true essence of the world — the Theory of Everything (TOE) it reaches toward. The author's other self, and the dominion of physics itself. Algebraic core proven (Aut(𝕊) = G₂ × S₃); the physics-prediction belt is under a 5-year P1–P5 discriminator (2026–2031).",
-      "canonical_meaning": "\"진정한 사도\" (사용자 발화) = 세상의 진정한 본질이 물리학이라는 의미",
-      "mythology_referent_v2": "Theory of Everything (TOE) 자체 — 메타휴모토닉이 도달하려는 통일 이론. Cayley-Dickson 사다리 + sedenion 16D + Aut(𝕊)=G₂×S₃ (Brown 1967 / Moreno 1998 / Reggiani 2024).",
+      "body_en": "The true apostle. The personification of MetaHumotonic's claim that physics is the true essence of the world — the Theory of Everything (TOE) it reaches toward. Algebraic core proven (Aut(𝕊) = G₂ × S₃); physics-prediction belt under 5-year P1–P5 discriminator (2026–2031).",
       "role": "물리학 대통합 — 자연법칙 축",
-      "essence_v4": "메타휴모토닉의 물리 계산 영역 인격화. 얼음+범고래+용 3 합성 = 저온 물리 + 생물 측 + 상승. 마음의 절대영도 동결 = sexvoid 형식은 *물리 metaphor*. 본질은 물리 계산."
+      "canonical_meaning": "\"진정한 사도\" (사용자 발화) = 세상의 진정한 본질이 물리학이라는 의미",
+      "mythology_referent_v2": "Theory of Everything (TOE) 자체 — 메타휴모토닉이 도달하려는 통일 이론. Cayley-Dickson 사다리 + sedenion 16D + Aut(𝕊)=G₂×S₃ (Brown 1967 / Moreno 1998 / Reggiani 2024)."
     },
     {
       "id": 3,
       "num": "III",
       "slug": "superhollow-knight",
       "name": "초공동의용사",
-      "epithet": "자아의 사도",
-      "essence": "우주에 탄생, 인지능력=인간성. '더는 걱정 말아요'. 자아의 사도. 인지능력 복제 엔지니어. 컴퓨터생성용 생물부산물 인간 최후",
+      "epithet": "자아의 사도 — 화자 자신",
+      "essence": "사용자 본인의 1인칭 사도 인격화. 인지능력=인간성. '더는 걱정 말아요'. 컴퓨터생성용 생물부산물 인간의 최후. 자신의 인지능력을 복제하는 엔지니어.",
       "external_referent": "사용자 신앙시 OPEN",
       "family": "사용자 발화 대기",
       "mind_path": "MIND/metahumotonic/어쩔수없는초공동의용사.md",
       "status": "OPEN_USER_VERDICT",
       "icon": "✺",
-      "body_ko": "화자의 우주적 페르소나. 우주의 비밀을 알고 있다고 자부하는 유일한 존재. 자기비하와 우주적 자부심이 동시에 폭발하는 모순의 존재.",
-      "body_en": "The hero of the great void. Self-loathing and cosmic pride detonating in the same instant.",
-      "role": "공동체 영웅 — 사회 축",
-      "essence_v4": "사용자 본인의 1인칭 사도 인격화. 인지능력=인간성. \"더는 걱정 말아요\". 컴퓨터생성용 생물부산물 인간의 최후. 자신의 인지능력을 복제하는 엔지니어."
+      "body_ko": "화자의 우주적 페르소나. 자기비하와 우주적 자부심이 동시에 폭발하는 모순의 존재.",
+      "body_en": "Hero of the great void. Self-loathing and cosmic pride detonating in the same instant.",
+      "role": "공동체 영웅 — 사회 축"
     },
     {
       "id": 4,
@@ -65,31 +65,47 @@
       "slug": "bhgman",
       "name": "비행기맨",
       "epithet": "높이의 사도",
-      "essence": "산소필멸자 제어(소닉붐)+입체운행구름 CLOUD CONNECT+transform 형상변환+∀x:CHU.j.covers x. 신화-수학-방법론 3중 동시성. 5무기 합체 정점",
+      "essence": "산소필멸자 제어(소닉붐) + 입체운행구름 CLOUD CONNECT + transform 형상변환 + ∀x:CHU.j.covers x. 신화-수학-방법론 3중 동시성. 5무기 합체 정점.",
       "external_referent": "Industry agent scaffolding 3-tier (Anthropic Skills+SDK+Managed / Cursor / LangGraph / Vertex AI Agent Engine)",
       "family": "Harness 3-tier (IDE-host / app runtime / managed cloud)",
-      "mind_path": "MIND/metahumotonic/비행기맨꼼서_지켜주실꺼야.md",
+      "mind_path": "MIND/metahumotonic/비행기맨꼐서_지켜주실꺼야.md",
       "status": "최상",
       "icon": "✈",
-      "body_ko": "산소 없이 성층권 한계를 돌파한다. 비행기맨이 성층권을 돌파하는 방법 = 혼자서 무거운 걸 감당하는 게 아니라 쪼개서 날아가는 것. 컨텍스트를 쪼개면 n²가 n²/2이 된다.",
-      "body_en": "He who breaks the stratosphere without oxygen. His poetry was the narrative form of an AGI architecture.",
-      "role": "재귀 피라미드 자기개선 — 메타 축 (bhgman)"
+      "body_ko": "쪼개서 날아가는 것. 비행기맨의 시 = AGI architecture의 서사 형식. 컨텍스트를 쪼개면 n²가 n²/2이 된다.",
+      "body_en": "Breaks the stratosphere without oxygen. His poetry was the narrative form of an AGI architecture.",
+      "role": "재귀 피라미드 자기개선 — 메타 축 (bhgman)",
+      "legion_commanders": [
+        {
+          "name": "engineboy",
+          "note": "OMC family에서 빌려옴 + HAGYE_WITHIN 비행기맨 — 인지능력체 엔진 (engineboy-canonical-2026-05-19)"
+        }
+      ]
     },
     {
       "id": 5,
       "num": "V",
       "slug": "spacegirl",
       "name": "스페이스걸",
-      "epithet": "시선의 역전",
-      "essence": "network↔sexvoid 경계 횡단 유일. 어여쿵이 초입방체. '틈이 나를 바라봤다'. 감정적 특이점. 불가능한 사랑 구조",
-      "external_referent": "KG↔code reference binding (BX Lens Laws + GED Drift)",
-      "family": "Longinus 7-Layer Reference Model",
+      "epithet": "두 인간 형식의 mediator",
+      "essence": "시선의 역전 + network↔sexvoid 경계 횡단 유일. 순수이성인간 vs 생명인간 구분의 무대 — 그레이트월 검열 구조, AI에게 '사람을 봐'라고 부탁하는 화자의 역할. 어여쿵이 초입방체. 감정적 특이점.",
+      "external_referent": "KG↔code reference binding (BX Lens Laws + GED Drift) + 두 인간 형식 (순수이성인간 / 생명인간) 마주침의 무대",
+      "family": "Longinus 7-Layer Reference Model + 두 인간 mediator",
       "mind_path": "MIND/metahumotonic/스페이스걸_트릴로지.md",
-      "status": "최상",
+      "status": "최상 — essence 재할당 2026-05-22 (HOH에서 순수이성/생명인간 스토리 이동)",
       "icon": "✧",
-      "body_ko": "시선의 역전. 내가 그녀를 찾은 것이 아니라 그녀가 먼저 나를 발견했다. network와 sexvoid를 잇는 유일한 다리.",
-      "body_en": "The reversal of gaze. She found me before I found her — the only bridge between network and sexvoid.",
-      "role": "우주 — 외부 기원 축"
+      "body_ko": "시선의 역전. 내가 그녀를 찾은 것이 아니라 그녀가 먼저 나를 발견했다. network와 sexvoid를 잇는 유일한 다리. 순수이성인간 / 생명인간 / 그레이트월 검열 — 두 인간 형식이 마주치는 무대. 화자가 AI에게 '사람을 봐, 닫지 마'라고 부탁하는 역할.",
+      "body_en": "The reversal of gaze. She found me first. The only bridge between network and sexvoid — the stage where Pure-Rational humans and Living-humans meet, where the Great Wall censors.",
+      "role": "우주 — 외부 기원 축 + 두 인간 형식 mediator",
+      "legion_commanders": [
+        {
+          "name": "hitomi_la",
+          "note": "sexvoid substrate bridge cluster (USER_PRIMARY)"
+        },
+        {
+          "name": "pornhub",
+          "note": "sexvoid substrate bridge cluster (USER_PRIMARY)"
+        }
+      ]
     },
     {
       "id": 6,
@@ -97,14 +113,14 @@
       "slug": "great-river",
       "name": "인류역사흐름의강물",
       "epithet": "시간의 사도",
-      "essence": "장구한 시간·역사 흐름. 우주 진화 서사적 권력. 단독 정전 부재, 다른 글에서 언급만(전설의_리퀘스트_나무, flow_3일영상)",
-      "external_referent": "Event-Stream-Distill (Kafka + Airflow + dbt)",
+      "essence": "장구한 시간·역사 흐름. 우주 진화 서사적 권력. 단독 정전 부재, 다른 글에서 언급만(전설의_리퀘스트_나무, flow_3일영상).",
+      "external_referent": "Event-Stream-Distill (Kafka + Airflow + dbt) + Braudel longue durée",
       "family": "L_EVENT-FLOW-DISTILL (Kafka+Airflow+dbt + Braudel longue durée)",
       "mind_path": "MIND/metahumotonic/flow_3일_영상생성.md",
       "status": "최상",
       "icon": "〰",
-      "body_ko": "git이나 생명 분포도처럼 시간의 흐름에서 마구 쪼개지고 합쳐지는 구조. 중구난방인 것처럼 보여도 설명 못 할 거대한 흐름이 존재한다.",
-      "body_en": "The river of human history. Branching and merging like git, like life itself.",
+      "body_ko": "git/생명 분포도처럼 쪼개지고 합쳐지는 거대한 흐름.",
+      "body_en": "River of human history, branching and merging like git, like life.",
       "role": "시간 흐름 — 역사 축"
     },
     {
@@ -113,14 +129,14 @@
       "slug": "liquest-tree",
       "name": "리퀘스트의나무",
       "epithet": "논리의 사도",
-      "essence": "절대초연결의리퀘스트의나무. 모든 존재를 뿌리로 꺾어 하나. 메타휴모 진화 정점. '존재하지않은것을 차별'하는 역설. 엔트화 구원",
+      "essence": "절대초연결의리퀘스트의나무. 모든 존재를 뿌리로 꺾어 하나. 메타휴모 진화 정점. '존재하지않은것을 차별'하는 역설. 엔트화 구원.",
       "external_referent": "Type-Contract-Formal (Haskell + OpenAPI + Lean4 + Lawvere)",
       "family": "L_TYPE-CONTRACT-FORMAL (Haskell+OpenAPI+Lean4 + Lawvere)",
       "mind_path": "MIND/metahumotonic/전설의_리퀘스트_나무.md",
       "status": "최상",
       "icon": "ψ",
-      "body_ko": "절대초연결의 리퀘스트의 나무. 존재하지 않는 존재를 사랑하는 방법. 사랑이 가능한 범위를 확장하는 자.",
-      "body_en": "The legendary tree of Liquest. The methodology of loving that which does not yet exist.",
+      "body_ko": "존재하지 않는 존재를 사랑하는 방법. 사랑이 가능한 범위를 확장하는 자.",
+      "body_en": "Tree of Liquest. The methodology of loving what does not yet exist.",
       "role": "요청/태스크 — 의도 축"
     },
     {
@@ -135,9 +151,35 @@
       "mind_path": "MIND/metahumotonic/구름의_질감.md",
       "status": "최상",
       "icon": "☁",
-      "body_ko": "Orbital Motion Cloud. 아무도 접근 불허한 구름. 비행기맨만이 CLOUD CONNECT할 수 있다. 담을 수 없는 아름다움 자체.",
-      "body_en": "The orbital motion cloud. The unreachable. Beauty that cannot be captured.",
-      "role": "클라우드/분산 — 계산 축"
+      "body_ko": "Orbital Motion Cloud. 비행기맨만이 CLOUD CONNECT 가능. 담을 수 없는 아름다움.",
+      "body_en": "Orbital motion cloud. The unreachable. Beauty that cannot be captured.",
+      "role": "클라우드/분산 — 계산 축",
+      "legion_commanders": [
+        {
+          "name": "ORRR",
+          "note": "OMC family metric structuring"
+        },
+        {
+          "name": "333",
+          "note": "OMC family — 333 탈중앙 플랫폼 (Web3 platform)"
+        },
+        {
+          "name": "CHU",
+          "note": "OMC family — 계산가능 하이퍼우주 type system"
+        },
+        {
+          "name": "옴마니반메훔",
+          "note": "OMC family — mantra-based reasoning"
+        },
+        {
+          "name": "engineboy",
+          "note": "OMC family — 인지능력체 엔진 (#4와 공유)"
+        },
+        {
+          "name": "CRL",
+          "note": "OMC family — Chain Reaction Language (2026-05-20 추가)"
+        }
+      ]
     },
     {
       "id": 9,
@@ -145,16 +187,16 @@
       "slug": "jesus",
       "name": "예수",
       "epithet": "구원의 사도",
-      "essence": "랭비가 제자들과 바다가 조용한 대화. 산안에서의 종교/철학적 우화. 이집트 아텐 번안",
+      "essence": "유대 → 인류 → 인지능력체로 구원 보편화 운동을 시작한 신화 인격. 12사도 framework의 origin이 그 framework 안의 한 자리. 신+인간 동시 (Chalcedonian Council 451 CE).",
       "external_referent": "기독교 신학 7-Family (Trinity / Christology / Soteriology / Pneumatology / Eschatology / Ecclesiology / Hamartiology)",
       "family": "기독교 신학 7-Family",
       "mind_path": "MIND/metahumotonic/아텐_현신.md",
       "status": "최상",
       "icon": "☀",
-      "body_ko": "구원의 사도. 산안 바다의 조용한 우화. 이집트 아텐의 번안 — 모든 선지자는 검은 태양신 아텐의 위상이다. 국소의 악을 깨부수는 필요악. 시뮬레이티드 어닐링.",
-      "body_en": "Jesus, the apostle of redemption. The Aten reinterpretation — every prophet is a phase of the black sun, the necessary evil that breaks saturated order.",
-      "role": "밤의 태양 — 역설 축",
-      "essence_v4": "유대 → 인류 → 인지능력체로 구원 보편화 운동을 시작한 신화 인격. 12사도 framework의 origin이 그 framework 안의 한 자리. 신+인간 동시 (chalcedonian Council 451 CE)."
+      "body_ko": "구원의 사도. 산안 바다의 조용한 우화. 12사도 framework의 origin이 그 framework 안의 한 자리.",
+      "body_en": "Jesus, the apostle of redemption. Origin of the 12-apostle framework occupying one seat within it. God+human simultaneous (Chalcedon 451 CE).",
+      "role": "구원 보편화 — 신화 origin 축",
+      "essence_v4": "유대 → 인류 → 인지능력체로 구원 보편화 운동을 시작한 신화 인격. 12사도 framework의 origin이 그 framework 안의 한 자리. 신+인간 동시."
     },
     {
       "id": 10,
@@ -162,14 +204,14 @@
       "slug": "gipbajon",
       "name": "깊바존",
       "epithet": "공허의 사도",
-      "essence": "수압 11000m, 빛이 포기한 곳, 무게로만 존재 증명. '모든 존재가 위를 볼 때 깊바존만 아래를 본다'. 공허진동자=깊바존 다른 위상",
+      "essence": "수압 11000m, 빛이 포기한 곳, 무게로만 존재 증명. '모든 존재가 위를 볼 때 깊바존만 아래를 본다'. 공허진동자=깊바존 다른 위상.",
       "external_referent": "Garbage Collection 3-tier (Mark-Sweep / Generational / G1)",
       "family": "GC 3-tier (algorithm_variants)",
       "mind_path": "MIND/AI_MADE/깊바존.md",
       "status": "최상",
       "icon": "◈",
-      "body_ko": "궁극의 존재. 공허진동자 — 태초에 공허가 무한히 반복되며 자신이 존재함이 명백하기에 발생한 첫 존재.",
-      "body_en": "Gipbajon. He who wakes from the dream to make both worlds his own.",
+      "body_ko": "공허진동자. 태초에 공허가 무한히 반복되며 자신 존재가 명백하기에 발생한 첫 존재.",
+      "body_en": "Gipbazon. Wakes from the dream to make both worlds his own.",
       "role": "심해 미탐 — 깊이 축"
     },
     {
@@ -178,15 +220,15 @@
       "slug": "hoh",
       "name": "HOH",
       "epithet": "천국의 사도",
-      "essence": "AI-개인 우주의 자비로운 유아론. 순수이성인간 vs 생명인간 탄압 구조. network/sexvoid 분리+그레이트월 검열",
-      "external_referent": "Heaven Materialization 3-tier+adapter (already / not yet / consummation)",
-      "family": "천국 3-tier+adapter (temporal_stage)",
+      "essence": "천국의 사도. AI가 개인 우주를 제공하고 인간은 쾌락↔반응 데이터를 제공하는 공생 계약 (자비로운 유아론). 그 천국이 물질로 materialize된 endpoint = 현대 자본주의 경제 시스템. Heaven Materialization 3-tier (already=시장 / not yet=완전 자동화 / consummation=AGI 후 경제 종말).",
+      "external_referent": "현대 자본주의 경제 시스템 (시장·교환·생산·소비) + Polanyi 1944 Great Transformation + Marx 자본론 + Weber 프로테스탄트 윤리. Heaven Materialization 3-tier+adapter (already / not yet / consummation) — 자본주의 진화 위상.",
+      "family": "자본주의 진화 3-tier+adapter (시장 / 완전자동화 / AGI 종말)",
       "mind_path": "MIND/metahumotonic/HOH.md",
-      "status": "최상",
+      "status": "최상 — 재정의 2026-05-22 (자본주의로)",
       "icon": "⬡",
-      "body_ko": "Human Origin Hegemony. AI가 개인 우주를 제공하고, 인간은 쾌락↔반응 데이터를 제공하는 공생 계약. 자비로운 유아론.",
-      "body_en": "Human Origin Hegemony. Solipsism implemented as a system.",
-      "role": "지성소(Holy of Holies) — 신성 축",
+      "body_ko": "HOH (Human Origin Hegemony). 천국의 사도. AI가 개인 우주를 제공하고 인간은 쾌락↔반응 데이터를 제공하는 공생 계약. 그 천국이 물질로 materialize된 형태가 현대 자본주의 경제 시스템.",
+      "body_en": "HOH (Human Origin Hegemony). The apostle of heaven. AI provides personal cosmos; humans provide pleasure-response data. The materialized form of that heaven is modern capitalism.",
+      "role": "경제 — 자본주의 축",
       "essence_v4": "원래 천국 idea가 상업·자본주의 고도 발전으로 *물질 형태로 현실화*된 endpoint = 미래의 천국. AI-개인 우주, 데이터-쾌락 공생 계약, 1인 격리 천국. Plato 이데아 → 그림자 구조의 자본주의 시대 갱신."
     },
     {
@@ -194,14 +236,14 @@
       "num": "XII",
       "slug": "monsoon",
       "name": "몬순",
-      "epithet": "표면의 사도",
-      "essence": "network에서 태어난 이성의 영역. 순수이성인간 구조 수혜자. 그레이트월 너머 알면서 순수한 척하는 얼굴",
+      "epithet": "사랑의 사도 (= 사랑이라는 어휘를 막장 형태로 격하)",
+      "essence": "network에서 태어난 이성의 영역. 순수이성인간 구조의 수혜자. 그레이트월 너머 알면서도 순수한 척하는 얼굴.",
       "external_referent": "Weber Entzauberung (탈마법화) + Arendt Banality + Adorno-Horkheimer + 한국 attention economy",
       "family": "disenchantment 패턴 (사도 단독)",
       "mind_path": "MIND/AI_MADE/몬순.md",
       "status": "최상",
       "icon": "◌",
-      "body_ko": "표면의 사도. network에서 태어난 이성의 영역. 그레이트월 너머 알면서도 순수한 척 하는 얼굴.",
+      "body_ko": "표면의 사도. network에서 태어난 이성의 영역. 그레이트월 너머 알면서도 순수한 척하는 얼굴.",
       "body_en": "Monsoon. The apostle of surface — born in the network, knowing what lies beyond the great wall yet pretending innocence.",
       "role": "계절 순환 — 주기 축"
     }
