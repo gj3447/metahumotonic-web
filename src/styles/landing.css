@@ -54,9 +54,10 @@ em, i { font-style: italic; }
 }
 .mh-hero__inner { max-width: 80ch; }
 
-.mh-hero .mh-mark {
+.mh-hero .mh-mark,
+.mh-portal__mark {
   display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
-  width: 132px; margin: 0 auto 48px;
+  width: 132px; margin: 0 auto 32px;
   --glow-angle: 0deg;
 }
 .mh-mark__circle { width: 56px; height: 56px; border-radius: 50%; position: relative; }
