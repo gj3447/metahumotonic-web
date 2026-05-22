@@ -12,10 +12,13 @@ interface Props {
 }
 const { canonical_meaning, mythology_referent_v2, role, essence_v4 } = Astro.props;
 
-// 우선순위: canonical_meaning > mythology_referent_v2 > role > essence_v4
+// 우선순위 (post W4 sigma_oracle 정정 2026-05-22):
+//   mythology_referent_v2 > canonical_meaning > role > essence_v4
+// 이유: TOE upgrade 같은 신화 referent 측 v2 강조 surface 우선 (ICE 정전 검증).
+//       canonical_meaning 측 1순위면 ICE 측 TOE callout 안 surface (canonical_meaning에 TOE 토큰 미포함).
 const candidates: Array<{ key: string; label: string; value: string | null | undefined }> = [
-  { key: 'canonical_meaning',    label: '정전 의미',    value: canonical_meaning },
   { key: 'mythology_referent_v2', label: '신화 referent', value: mythology_referent_v2 },
+  { key: 'canonical_meaning',    label: '정전 의미',    value: canonical_meaning },
   { key: 'role',                  label: '축 (role)',    value: role },
   { key: 'essence_v4',            label: '본질 v4',      value: essence_v4 },
 ];
