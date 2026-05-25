@@ -1,0 +1,30 @@
+name: longinus-drift
+
+# PROM16 Track 4 — sha256 baseline drift gate (CI tier).
+# Fails when a KG-bound source file changed without an intentional baseline update.
+# Local tier: run `node scripts/longinus/drift-check.mjs` in a pre-commit hook.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch: {}
+
+jobs:
+  drift-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Longinus drift check (sha256 baseline vs committed manifest)
+        run: node scripts/longinus/drift-check.mjs
+
+      # On failure: a tracked file changed without updating the baseline.
+      # If the change was intentional, run `node scripts/longinus/drift-check.mjs --update`
+      # locally and commit the refreshed scripts/longinus/baselines.json in the same PR.
