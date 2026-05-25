@@ -79,7 +79,7 @@ const services: ServiceRecord[] = [
     name: 'Neo4j Browser',
     type: 'path',
     url: BASE + '/neo4j/',
-    description: 'Knowledge graph browser (548K+ nodes)',
+    description: 'Knowledge graph browser. Cypher query console.',
     public: false,
     namespace: 'data',
   },

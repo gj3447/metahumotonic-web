@@ -247,10 +247,11 @@ mh:edge_peer_3_11 a mh:Hyperedge ;
 
 <https://metahumotonic.com/#kg> a void:Dataset ;
     void:vocabulary <https://schema.org/> ;
-    void:triples 1101550 ;
-    void:entities 579805 ;
+    void:triples 1104948 ;
+    void:entities 582630 ;
+    void:properties 4498 ;
     rdfs:label "MetaHumotonic Knowledge Graph" ;
-    rdfs:comment "Neo4j-native KG: 579,805 nodes / 1,101,550 relations / 13 domains / 18 skills." ;
+    rdfs:comment "Neo4j-native KG (snapshot 2026-05-25): 582,630 nodes / 1,104,948 relations / 4,498 relationship types / 13 domains / 18 skills. Continuously growing." ;
     void:dataDump <https://metahumotonic.com/ontology.ttl> .
 
 # --- Site root ---

@@ -59,15 +59,25 @@ export async function queryKG<T = any>(cypher: string, params: Record<string, an
   }
 }
 
-/** KG 전체 통계 */
-export async function getKGStats(): Promise<{ nodes: number; rels: number }> {
-  const live = await queryKG<{ nodes: number; rels: number }>(`
-    MATCH (n) WITH count(n) as nodes
-    MATCH ()-[r]->() WITH nodes, count(r) as rels
-    RETURN nodes, rels
+export interface KGStats {
+  nodes: number;
+  rels: number;
+  labels: number;
+  relTypes: number;
+}
+
+/** KG 전체 통계 — nodes/rels + distinct labels/relTypes (Longinus drift fix 2026-05-25: 하드코딩 1984/3020 제거). */
+export async function getKGStats(): Promise<KGStats> {
+  const live = await queryKG<KGStats>(`
+    CALL db.labels() YIELD label
+    WITH count(label) AS labels
+    CALL db.relationshipTypes() YIELD relationshipType
+    WITH labels, count(relationshipType) AS relTypes
+    MATCH (n) WITH labels, relTypes, count(n) AS nodes
+    MATCH ()-[r]->() RETURN labels, relTypes, nodes, count(r) AS rels
   `);
   if (live && live[0]) return live[0];
-  return snapshot.stats;
+  return snapshot.stats as KGStats;
 }
 
 export interface Domain {

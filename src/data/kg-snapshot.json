@@ -5,8 +5,10 @@
     "note": "Build-time fixture. Refresh: `npm run prebuild:kg`."
   },
   "stats": {
-    "nodes": 579805,
-    "rels": 1101550
+    "nodes": 582630,
+    "rels": 1104948,
+    "labels": 3095,
+    "relTypes": 4498
   },
   "domains": [
     {

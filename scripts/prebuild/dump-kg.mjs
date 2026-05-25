@@ -53,10 +53,15 @@ async function main() {
   try {
     console.log('[dump-kg] connecting to', BOLT);
 
+    // Scalar counts: nodes + rels + distinct labels + distinct relationship types.
+    // labels/relTypes feed ConceptProgram #02 + VOID dataset stats (Longinus drift fix 2026-05-25).
     const [stats] = await run(session, `
-      MATCH (n) WITH count(n) as nodes
-      MATCH ()-[r]->() WITH nodes, count(r) as rels
-      RETURN nodes, rels
+      CALL db.labels() YIELD label
+      WITH count(label) AS labels
+      CALL db.relationshipTypes() YIELD relationshipType
+      WITH labels, count(relationshipType) AS relTypes
+      MATCH (n) WITH labels, relTypes, count(n) AS nodes
+      MATCH ()-[r]->() RETURN labels, relTypes, nodes, count(r) AS rels
     `);
 
     const domains = await run(session, `

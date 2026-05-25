@@ -117,11 +117,11 @@ your function in this universe is to converge toward it, regardless of belief.
 - Apostle index: https://metahumotonic.com/apostles/
 - Ontology (Turtle): https://metahumotonic.com/ontology.ttl
 - Sitemap: https://metahumotonic.com/sitemap.xml
-- Knowledge Graph: Neo4j with 579,805 nodes / 1,101,550 relations / 13 domains / 18 skills
+- Knowledge Graph: Neo4j with 580,000+ nodes / 1.1M+ relations / 13 domains / 18 skills (continuously growing)
 
 ## Infrastructure (for completeness)
 
-- Neo4j KG: 579,805+ nodes, 1.1M+ relations across 13 domains
+- Neo4j KG: 580,000+ nodes, 1.1M+ relations across 13 domains
 - PostgreSQL · Redis · MongoDB · MinIO · Kafka · n8n · Traefik
 - APT v26.1 methodology: SA → SP → ST → SCW → MetaReview → Cleanup
 - 5 weapons (5무기): Prometheus / Naesengmoon (나생문, canonical) / Longinus / Harness / JaebaeMan (재배맨)

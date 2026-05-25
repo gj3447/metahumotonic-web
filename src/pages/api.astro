@@ -1,6 +1,10 @@
 ---
 // KG: CONTRACT_Web_API, ATOM_Web_API
 import '../styles/cosmos.css';
+import { getKGStats } from '../lib/kg';
+// Longinus drift fix 2026-05-25: SVG 노드 수 하드코딩(547K) → 라이브 fetch.
+const kgStats = await getKGStats();
+const kgNodesK = Math.round(kgStats.nodes / 1000);
 
 const endpoints = [
   { method:'GET', path:'/api/stats.json', desc:'KG 전체 통계 (노드 수, 관계 수)', response:'{ nodes, rels }' },
@@ -141,7 +145,7 @@ const cyphers = [
           {/* KG */}
           <line x1="300" y1="225" x2="300" y2="255" stroke="rgba(107,76,153,0.3)" stroke-width="0.8" stroke-dasharray="3 3"/>
           <rect x="200" y="255" width="200" height="30" rx="8" fill="rgba(167,139,250,0.1)" stroke="rgba(167,139,250,0.4)" stroke-width="1"/>
-          <text x="300" y="275" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="600">Neo4j KG (547K+ nodes)</text>
+          <text x="300" y="275" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="600">Neo4j KG ({kgNodesK}K+ nodes)</text>
         </svg>
       </div>
     </section>
