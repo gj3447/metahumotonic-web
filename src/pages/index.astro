@@ -99,10 +99,10 @@ const worldview = worldviewData.worldview;
   <section id="worldview" class="mh-section mh-concepts">
     {worldview.map(w => (
       <article class="mh-concept">
-        <span class="mh-concept__num">{w.kind}</span>
-        <h3 class="mh-concept__name">{w.name}</h3>
-        <p class="mh-concept__body">{w.body}</p>
-        <p class="mh-concept__en"><em>{w.en}</em></p>
+        <span class="mh-concept__num">{w.n} {w.en}</span>
+        <h3 class="mh-concept__name">{w.title}</h3>
+        <p class="mh-concept__body">{w.gloss}</p>
+        <p class="mh-concept__en">{w.terms}</p>
       </article>
     ))}
   </section>
