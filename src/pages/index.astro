@@ -11,6 +11,7 @@ import AxiomSection from '../components/AxiomSection.astro';    // KG: ATOM_Land
 import ConceptProgram from '../components/ConceptProgram.astro'; // KG: ATOM_Landing_ConceptProgram
 import apostlesData from '../data/apostles.json';                 // KG: ATOM_Landing_ApostlePortal — 사도 중심 hero
 import venturesData from '../data/ventures.json';                  // KG: SYMPOSIUM/BIZ_IDEA — 진행 중 사업
+import reposData from '../data/repos.json';                        // 공개 코드 repo (public only) — bhgman_tool 등
 
 // KG: SHARED_KGStats — 사용자 정전 2026-05-22 측 stats 측 legacy 제거.
 //     index.astro 측 새 vehicle = 진행 중 사업 (ventures) surface.
@@ -18,6 +19,7 @@ import { getKGStats } from '../lib/kg';
 const stats = await getKGStats();
 const apostles = apostlesData.apostles;
 const ventures = venturesData.ventures;
+const repos = reposData.repos;
 ---
 
 <html lang="ko" prefix="foaf: http://xmlns.com/foaf/0.1/ void: http://rdfs.org/ns/void# skos: http://www.w3.org/2004/02/skos/core#">
@@ -102,6 +104,24 @@ const ventures = venturesData.ventures;
     </ul>
   </section>
 
+  {/* === 공개 코드 — repos (public only, 방문자 열람 가능) === */}
+  <section class="mh-section mh-repos" aria-label="공개 코드 repos">
+    <h2 class="mh-repos__eyebrow">공개 코드 · repos</h2>
+    <ul class="mh-repos__list">
+      {repos.map(r => (
+        <li>
+          <a class="mh-repos__item" href={r.url} target="_blank" rel="noopener noreferrer"
+             style={`--repo-color:${r.color}`} data-highlight={r.highlight ? 'true' : undefined}>
+            <span class="mh-repos__id">{r.lang}{r.highlight ? ' · featured' : ''}</span>
+            <strong class="mh-repos__title">{r.name} <span aria-hidden="true">↗</span></strong>
+            <span class="mh-repos__tagline">{r.tagline}</span>
+            <span class="mh-repos__tags">{r.tags.join(' · ')}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
   {/* === 초대 === */}
   <section class="mh-section mh-closing">
     <p class="mh-eyebrow"><span class="mh-num">§</span> 초대 / Invitation</p>
@@ -114,6 +134,7 @@ const ventures = venturesData.ventures;
       <span><a href="/ontology.ttl">Ontology</a></span>
       <span><a href="/llms.txt">llms.txt</a></span>
       <span><a href="https://github.com/gj3447">GitHub</a></span>
+      <span><a href="https://github.com/gj3447/bhgman_tool">bhgman_tool</a></span>
     </footer>
   </section>
 
@@ -163,6 +184,18 @@ const ventures = venturesData.ventures;
   .mh-ventures__title { font-size: 12px; color: #1a1815; line-height: 1.25; font-weight: 600; }
   .mh-ventures__tagline { font-size: 10.5px; line-height: 1.4; color: rgba(14,14,12,0.62); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .mh-ventures__status { font-size: 9px; letter-spacing: 0.06em; color: var(--venture-color, #6366f1); background: color-mix(in srgb, var(--venture-color, #6366f1) 12%, transparent); padding: 1px 5px; border-radius: 2px; width: max-content; margin-top: 2px; }
+
+  /* mh-repos (공개 코드) — ventures 거울, 카드 전체가 GitHub 링크 */
+  .mh-repos { padding: 8px 16px; max-width: 1100px; margin: 0 auto; font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  .mh-repos__eyebrow { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(14,14,12,0.55); margin: 0 0 6px; font-weight: 500; }
+  .mh-repos__list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 4px; }
+  .mh-repos__item { display: flex; flex-direction: column; gap: 2px; padding: 6px 10px; border: 1px solid rgba(14,14,12,0.12); border-left: 3px solid var(--repo-color, #f59e0b); background: rgba(255,255,255,0.4); text-decoration: none; transition: background 0.15s, transform 0.15s; }
+  .mh-repos__item:hover { background: rgba(255,255,255,0.75); transform: translateY(-1px); }
+  .mh-repos__item[data-highlight="true"] { background: color-mix(in srgb, var(--repo-color, #f59e0b) 8%, rgba(255,255,255,0.4)); }
+  .mh-repos__id { font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--repo-color, #f59e0b); font-weight: 600; }
+  .mh-repos__title { font-size: 12px; color: #1a1815; line-height: 1.25; font-weight: 600; }
+  .mh-repos__tagline { font-size: 10.5px; line-height: 1.4; color: rgba(14,14,12,0.62); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .mh-repos__tags { font-size: 9px; letter-spacing: 0.04em; color: rgba(14,14,12,0.5); margin-top: 2px; }
 
   /* ventures (사업) — small box grid 측 prominent */
   .mh-portal__ventures {

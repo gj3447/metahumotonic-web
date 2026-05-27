@@ -1,0 +1,19 @@
+{
+  "_meta": {
+    "source": "gj3447 public repos",
+    "note": "공개 코드 repo — 사이트에서 열람 가능 (public only). private repo는 등재하지 않음.",
+    "synced_at": "2026-05-27"
+  },
+  "repos": [
+    {
+      "id": "bhgman_tool",
+      "name": "bhgman_tool",
+      "tagline": "비행기맨 framework — Claude Code용 학문 접지 multi-agent ontology. CHU 타입이론 ∀-cover + 17축 외부 접지 + 134+ Lean 4 검증 정리 + Goodhart safeguard.",
+      "lang": "Python",
+      "url": "https://github.com/gj3447/bhgman_tool",
+      "highlight": true,
+      "color": "#f59e0b",
+      "tags": ["multi-agent", "Lean 4 verified", "KG-anchored"]
+    }
+  ]
+}
