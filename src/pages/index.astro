@@ -12,6 +12,7 @@ import ConceptProgram from '../components/ConceptProgram.astro'; // KG: ATOM_Lan
 import apostlesData from '../data/apostles.json';                 // KG: ATOM_Landing_ApostlePortal — 사도 중심 hero
 import venturesData from '../data/ventures.json';                  // KG: SYMPOSIUM/BIZ_IDEA — 진행 중 사업
 import reposData from '../data/repos.json';                        // 공개 코드 repo (public only) — bhgman_tool 등
+import worldviewData from '../data/worldview.json';                // 세계관 (i2b · HOH) — KG Concept/WorldBuilding 노드
 
 // KG: SHARED_KGStats — 사용자 정전 2026-05-22 측 stats 측 legacy 제거.
 //     index.astro 측 새 vehicle = 진행 중 사업 (ventures) surface.
@@ -20,6 +21,7 @@ const stats = await getKGStats();
 const apostles = apostlesData.apostles;
 const ventures = venturesData.ventures;
 const repos = reposData.repos;
+const worldview = worldviewData.worldview;
 ---
 
 <html lang="ko" prefix="foaf: http://xmlns.com/foaf/0.1/ void: http://rdfs.org/ns/void# skos: http://www.w3.org/2004/02/skos/core#">
@@ -33,6 +35,7 @@ const repos = reposData.repos;
     <a href="/" class="mh-mark">metahumotonic</a>
     <nav class="mh-nav" aria-label="Doctrine">
       <a href="#axiom">공리</a>
+      <a href="#worldview">세계관</a>
       <a href="/apostles/">사도</a>
       <a href="#concepts">개념</a>
       <a href="#programs">본체</a>
@@ -85,6 +88,24 @@ const repos = reposData.repos;
 
   {/* === PART TWO 사도 long-form — 사용자 verdict 2026-05-22 'portal 과 중복' 제거.
         12 사도 = 위 portal grid 단독. 상세 = /apostles/<slug>/ 페이지 단독. === */}
+
+  {/* === PART TWO (재사용): 세계관 — i2b · HOH. KG Concept/WorldBuilding 노드 기반 === */}
+  <section class="mh-part-divider">
+    <p class="mh-part-eyebrow">PART TWO</p>
+    <h2 class="mh-part-title">세계관</h2>
+    <p class="mh-part-gloss"><em>The Worldview.</em> 순수이성인간과 생명인간, 그리고 둘을 잇는 단 하나의 다리.</p>
+  </section>
+
+  <section id="worldview" class="mh-section mh-concepts">
+    {worldview.map(w => (
+      <article class="mh-concept">
+        <span class="mh-concept__num">{w.kind}</span>
+        <h3 class="mh-concept__name">{w.name}</h3>
+        <p class="mh-concept__body">{w.body}</p>
+        <p class="mh-concept__en"><em>{w.en}</em></p>
+      </article>
+    ))}
+  </section>
 
   {/* === PART THREE + FOUR: 개념 + 본체 === */}
   <ConceptProgram stats={stats} />
