@@ -7,9 +7,10 @@ const kgStats = await getKGStats();
 const kgNodesK = Math.round(kgStats.nodes / 1000);
 
 const endpoints = [
-  { method:'GET', path:'/api/stats.json', desc:'KG 전체 통계 (노드 수, 관계 수)', response:'{ nodes, rels }' },
-  { method:'GET', path:'/api/domains.json', desc:'13개 DomainHub 목록', response:'[{ name, displayName, nodeCount, description }]' },
-  { method:'GET', path:'/api/skills.json', desc:'18개 스킬 목록', response:'[{ name, description }]' },
+  { method:'GET', path:'/api/stats', desc:'KG 전체 통계 — 라이브 Neo4j', response:'{ nodes, rels, labels, relTypes, domains, skills }' },
+  { method:'GET', path:'/api/domains', desc:'DomainHub 목록 — 라이브', response:'[{ name, displayName, nodeCount, description }]' },
+  { method:'GET', path:'/api/skills', desc:'스킬 목록 (7군단장 + infra/meta)', response:'[{ name, description, category }]' },
+  { method:'POST', path:'/api/feedback', desc:'피드백 접수 — MongoDB 영구저장 (허니팟 + 레이트리밋)', response:'{ ok, id }' },
 ];
 
 const services = [
@@ -55,7 +56,7 @@ const cyphers = [
     {/* JSON API */}
     <section class="section fade-in">
       <h2>JSON API</h2>
-      <p class="section-desc">빌드 타임에 KG에서 추출된 정적 JSON 파일.</p>
+      <p class="section-desc">라이브 API — <code>metahumotonic_web_back</code> (FastAPI). Neo4j 실시간 + MongoDB 피드백.</p>
       <div class="endpoint-list">
         {endpoints.map(ep => (
           <div class="endpoint-card">
@@ -145,7 +146,7 @@ const cyphers = [
           {/* KG */}
           <line x1="300" y1="225" x2="300" y2="255" stroke="rgba(107,76,153,0.3)" stroke-width="0.8" stroke-dasharray="3 3"/>
           <rect x="200" y="255" width="200" height="30" rx="8" fill="rgba(167,139,250,0.1)" stroke="rgba(167,139,250,0.4)" stroke-width="1"/>
-          <text x="300" y="275" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="600">Neo4j KG ({kgNodesK}K+ nodes)</text>
+          <text x="300" y="275" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="600">Neo4j KG (<tspan data-kg-stat="nodes" data-kg-fmt="k">{kgNodesK}K</tspan>+ nodes)</text>
         </svg>
       </div>
     </section>
@@ -227,3 +228,4 @@ const cyphers = [
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
   setTimeout(() => document.querySelectorAll('.fade-in:not(.visible)').forEach(el => el.classList.add('visible')), 1500);
 </script>
+<script src="/js/kg-live.js" defer></script>

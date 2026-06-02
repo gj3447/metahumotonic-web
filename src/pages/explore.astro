@@ -53,7 +53,7 @@ const totalNodes = domains.reduce((s, d) => s + d.nodeCount, 0);
         <span class="text-glow-cyan">Explore</span> <span class="text-glow-white">the KG</span>
       </h1>
       <p class="hero__desc">
-        {totalNodes.toLocaleString()} nodes across {domains.length} domains.
+        <span data-kg-stat="nodes" data-kg-fmt="loc">{totalNodes.toLocaleString()}</span> nodes across <span data-kg-stat="domains" data-kg-fmt="raw">{domains.length}</span> domains.
         Click a domain to dive deeper.
       </p>
     </header>
@@ -83,6 +83,7 @@ const totalNodes = domains.reduce((s, d) => s + d.nodeCount, 0);
   </div>
 
   <script src="../scripts/cosmos.ts"></script>
+  <script src="/js/kg-live.js" defer></script>
 </body>
 </html>
 
