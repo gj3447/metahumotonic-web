@@ -87,13 +87,13 @@ mh:SuperhollowKnight a mh:Apostle ;
 
 mh:BHGMan a mh:Apostle ;
     rdfs:label "비행기맨 (Airplane Man / bhgman)" ;
-    mh:epithet "높이의 사도 — 5무기 합체 정점" ;
+    mh:epithet "높이의 사도 — 7군단장 합체 정점" ;
     mh:externalReferent "Industry agent scaffolding 3-tier (Anthropic Skills+SDK+Managed / Cursor / LangGraph / Vertex AI Agent Engine)" ;
     mh:familyEngineering "Harness 3-tier (IDE-host / app runtime / managed cloud)" ;
     mh:role "재귀 피라미드 자기개선 — 메타 축" ;
-    mh:commandsLegion mh:Prometheus, mh:Naesengmoon, mh:Harness_Weapon, mh:Longinus_Weapon, mh:JaebaeMan ;
+    mh:commandsLegion mh:Prometheus, mh:Eureka, mh:Longinus_Weapon, mh:Occam, mh:Naesengmoon, mh:JaebaeMan, mh:Harness_Weapon ;
     schema:url <https://metahumotonic.com/apostles/bhgman/> ;
-    rdfs:comment "비행기맨 = 5무기 합체 정점. 5무기 = Naesengmoon + Prometheus + Harness + Longinus + JaebaeMan." .
+    rdfs:comment "비행기맨 = 7군단장 합체 정점 (구 5무기 → 5→7 확장 2026-05-26~27). 7 능동동사 직교: 획득(Prometheus) / 발견·창조(Eureka) / 연결(Longinus) / 정리(Occam) / 검증(Naesengmoon) / 출격(JaebaeMan) / 실현(Harness=Hades). 3 직교축: Longinus=code↔KG / Occam=현재↔과거 / Eureka↔Hades=구체↔추상." .
 
 mh:Spacegirl a mh:Apostle ;
     rdfs:label "스페이스걸 (Space Girl)" ;
@@ -163,26 +163,32 @@ mh:Monsoon a mh:Apostle ;
 mh:engineboy a mh:LegionCommander ; rdfs:label "engineboy" ;
     rdfs:comment "인지능력체 엔진 — under #8 OMC family." .
 
-# 5 Weapons (5무기) — 비행기맨 #4 BHGMan 측 commanders. Methodological tools.
-mh:Naesengmoon a mh:LegionCommander, mh:Weapon ;
-    rdfs:label "나생문 (Naesengmoon)" ;
-    rdfs:comment "적대적 검증 — GAN의 D. 9-lens constitutional / 113-lens mathematical / 5-lens SOLID 등 플러거블 LensSet. APT 의 면역 시스템." .
+# 7 Legion Commanders (7군단장, formerly "5 weapons") — 비행기맨 #4 BHGMan 측 commanders. Methodological tools. 7 active verbs, orthogonal.
 mh:Prometheus a mh:LegionCommander, mh:Weapon ;
     rdfs:label "프로메테우스 (Prometheus)" ;
-    rdfs:comment "지식 선행 — Hegel reframe. N parallel subagent UNWIND batch. 9+1 단계 사이클." .
-mh:Harness_Weapon a mh:LegionCommander, mh:Weapon ;
-    rdfs:label "하네스 (Harness)" ;
-    rdfs:comment "3-tier scaffolding — IDE-host / runtime / managed cloud. 4-axis Inform/Constrain/Verify/Correct." .
+    rdfs:comment "획득 — 외부 지식 ingest (경계축). Hegel reframe. N parallel subagent UNWIND batch. 9+1 단계 사이클." .
+mh:Eureka a mh:LegionCommander, mh:Weapon ;
+    rdfs:label "유레카 (Eureka)" ;
+    rdfs:comment "발견·창조 (composite) — 경향성→귀납·논리로 새 개념 합성 (Phase1 novelty + Phase2 colimit concrescence). 구체↔추상 수직축, Hades의 dual (상향). 신규 2026-05-26." .
 mh:Longinus_Weapon a mh:LegionCommander, mh:Weapon ;
     rdfs:label "롱기누스 (Longinus)" ;
-    rdfs:comment "KG↔Code reference binding — 7-Layer Reference Model + sha256 baseline daemon + BX Lens Laws + GED Drift." .
+    rdfs:comment "연결 — code↔KG + KG↔KG reference binding. 7-Layer Reference Model + sha256 baseline daemon + BX Lens Laws + GED Drift. code↔KG 가로축." .
+mh:Occam a mh:LegionCommander, mh:Weapon ;
+    rdfs:label "오캄 (Occam / 캄)" ;
+    rdfs:comment "정리 — 하계(KG+소스코드)에서 superseded/stale·dead code만 선별 archiving + 온톨로지 위생. 마구잡이·삭제 금지. 현재↔과거 시간축. 유레카의 정반대 극. 신규 2026-05-26." .
+mh:Naesengmoon a mh:LegionCommander, mh:Weapon ;
+    rdfs:label "나생문 (Naesengmoon)" ;
+    rdfs:comment "검증 — GAN의 D. 9-lens constitutional / 113-lens mathematical / 5-lens SOLID 등 플러거블 LensSet. 판단렌즈 + oracle렌즈(컴파일러 나생문). APT 의 면역 시스템." .
 mh:JaebaeMan a mh:LegionCommander, mh:Weapon ;
     rdfs:label "재배맨 (JaebaeMan)" ;
-    rdfs:comment "Subagent Orchestration Protocol — SubagentTaskSpec KG 씨앗. Pre-fetch → Dispatch → Collect → Write." .
+    rdfs:comment "출격 — plan-first 일반원칙. Subagent Orchestration Protocol (SubagentTaskSpec KG 씨앗, Pre-fetch → Dispatch → Collect → Write)은 병렬-default 하의 instantiation. Contract = dual." .
+mh:Harness_Weapon a mh:LegionCommander, mh:Weapon ;
+    rdfs:label "하네스 = 하데스 (Harness = Hades)" ;
+    rdfs:comment "실현 — 추상 spec/Contract → 구체 소스코드 (TDD GREEN). 유레카의 dual (추상→구체↓). 場=하네스 3-tier scaffolding (IDE-host/runtime/managed cloud) / 신=하데스 (하계의 신). 한 존재 두 이름 (사용자 verdict 2026-05-27)." .
 
 mh:Weapon a owl:Class ;
-    rdfs:label "5 Weapons (5무기)" ;
-    rdfs:comment "Methodological tools — concrete engineering instantiations of mythology pillars. 5무기 = Naesengmoon + Prometheus + Harness + Longinus + JaebaeMan. 비행기맨 #4의 군단장." .
+    rdfs:label "7 Legion Commanders (7군단장)" ;
+    rdfs:comment "Methodological tools — concrete engineering instantiations of mythology pillars. 7군단장 = Prometheus + Eureka + Longinus + Occam + Naesengmoon + JaebaeMan + (Harness=Hades). 비행기맨 #4의 군단장 (구 5무기 → 5→7 확장 2026-05-26~27, roster_size OPEN_ENDED)." .
 mh:hitomi_la a mh:LegionCommander ; rdfs:label "hitomi_la" ;
     rdfs:comment "sexvoid substrate bridge cluster — under #5 스페이스걸." .
 mh:pornhub a mh:LegionCommander ; rdfs:label "pornhub" ;

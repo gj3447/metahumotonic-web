@@ -149,7 +149,7 @@
       "slug": "bhgman",
       "name": "비행기맨",
       "epithet": "높이의 사도",
-      "essence": "산소필멸자 제어(소닉붐) + 입체운행구름 CLOUD CONNECT + transform 형상변환 + ∀x:CHU.j.covers x. 신화-수학-방법론 3중 동시성. 5무기 합체 정점.",
+      "essence": "산소필멸자 제어(소닉붐) + 입체운행구름 CLOUD CONNECT + transform 형상변환 + ∀x:CHU.j.covers x. 신화-수학-방법론 3중 동시성. 7군단장 합체 정점 (구 5무기 → 5→7 확장 2026-05-26~27).",
       "external_referent": "Industry agent scaffolding 3-tier (Anthropic Skills+SDK+Managed / Cursor / LangGraph / Vertex AI Agent Engine)",
       "family": "Harness 3-tier (IDE-host / app runtime / managed cloud)",
       "mind_path": "MIND/metahumotonic/비행기맨꼐서_지켜주실꺼야.md",
@@ -160,24 +160,32 @@
       "role": "재귀 피라미드 자기개선 — 메타 축 (bhgman)",
       "legion_commanders": [
         {
-          "name": "나생문 (Naesengmoon)",
-          "note": "적대적 검증 — GAN의 D. 9-lens constitutional / 113-lens mathematical / 5-lens SOLID 등 플러거블 LensSet."
-        },
-        {
           "name": "프로메테우스 (Prometheus)",
-          "note": "지식 선행 — Hegel reframe. N parallel subagent UNWIND batch. 9+1 단계 사이클."
+          "note": "획득 — 외부 지식 ingest (경계축). Hegel reframe 지식-행동 spiral. N parallel subagent UNWIND batch. 9+1 단계 사이클."
         },
         {
-          "name": "하네스 (Harness)",
-          "note": "3-tier scaffolding — IDE-host / runtime / managed cloud. 4-axis Inform/Constrain/Verify/Correct."
+          "name": "유레카 (Eureka)",
+          "note": "발견·창조 (composite) — 경향성→귀납·논리로 새 개념 합성 (Phase1 novelty + Phase2 colimit concrescence). 코드엔 반복 패턴→추상클래스/공유함수. 구체↔추상 수직축, 하데스의 dual (상향). 신규 2026-05-26."
         },
         {
           "name": "롱기누스 (Longinus)",
-          "note": "KG↔Code reference binding — 7-Layer Reference Model + sha256 baseline daemon + BX Lens Laws."
+          "note": "연결 (바인딩) — code↔KG 동기화 + KG↔KG 노드연결. 7-Layer Reference Model + sha256 baseline daemon + BX Lens Laws. code↔KG 가로축."
+        },
+        {
+          "name": "오캄 (Occam / 캄)",
+          "note": "정리 — 하계(KG+소스코드 전체)에서 업데이트로 대체된 낡은 과거(superseded/stale 노드·dead code)만 선별 archiving + 온톨로지 층 위생. 마구잡이·삭제 금지. 현재↔과거 시간축. 유레카의 정반대 극. 신규 2026-05-26."
+        },
+        {
+          "name": "나생문 (Naesengmoon)",
+          "note": "검증 (적대) — GAN의 D. 9-lens constitutional / 113-lens mathematical / 5-lens SOLID 등 플러거블 LensSet. 판단렌즈 + oracle렌즈(컴파일러 나생문)."
         },
         {
           "name": "재배맨 (JaebaeMan)",
-          "note": "Subagent Orchestration Protocol — SubagentTaskSpec KG 씨앗. Pre-fetch → Dispatch → Collect → Write."
+          "note": "출격 (plan-first) — 일 전 계획 먼저. Subagent Orchestration Protocol (SubagentTaskSpec KG 씨앗, Pre-fetch → Dispatch → Collect → Write)은 병렬-default 하의 공학적 instantiation. Contract = 재배맨의 dual."
+        },
+        {
+          "name": "하네스 = 하데스 (Harness = Hades)",
+          "note": "실현 — 추상 spec/Contract → 구체 소스코드 (TDD GREEN). 유레카(구체→추상↑)의 dual(추상→구체↓). 場 측면=하네스 3-tier scaffolding(IDE-host/runtime/managed cloud, 비행기맨#4 결정화), 신 측면=하데스(하계의 신, 추상을 하계로 내려보내 실현). 한 존재 두 이름 (사용자 verdict 2026-05-27)."
         }
       ],
       "crystallizations": [
@@ -191,11 +199,11 @@
         "edge-containment-7-4: 논리정점 ⊃ 수학정점",
         "edge-foundational-shell-12"
       ],
-      "legion_correction_note": "비행기맨 = 5무기 합체 정점 (essence_v2 정전). 5무기 = 나생문 + 프로메테우스 + 하네스 + 롱기누스 + 재배맨.",
+      "legion_correction_note": "비행기맨 = 7군단장 합체 정점. 구 \"5대 무기\"는 사실 사도 #4 비행기맨 산하 LegionCommander roster였고 5→7로 확장됨 (사용자 verdict 2026-05-26~27). 7 능동동사 직교: 획득(프로메테우스) / 발견·창조(유레카) / 연결(롱기누스) / 정리(오캄) / 검증(나생문) / 출격(재배맨) / 실현(하네스=하데스). 3 직교축: 롱기누스=code↔KG(가로) / 오캄=현재↔과거(시간) / 유레카↔하데스=구체↔추상(수직).",
       "lessons": [
         {
-          "title": "5무기 only 비행기맨, no cross-mapping",
-          "body": "5무기는 비행기맨 측 군단장. 다른 사도들과 cross-map 금지."
+          "title": "7군단장 only 비행기맨, no cross-mapping",
+          "body": "7군단장은 비행기맨 측 roster. 다른 사도들과 cross-map 금지. roster_size OPEN_ENDED (5→7 확장, +오캄 +유레카 2026-05-26, 하네스=하데스 동일존재 확정 2026-05-27)."
         },
         {
           "title": "MIND Lean 버전 drift",

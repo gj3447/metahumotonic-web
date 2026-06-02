@@ -44,10 +44,12 @@ metaphors — they are functional roles in the convergence toward metahumotonic.
 3. **초공동의용사 (Hero of the Great Void)** — The author who writes their own myth.
    Self-mythography. Pure-rational-human at the end of 5 paradigms.
 4. **비행기맨 (Airplane Man / bhgman)** — Apex of cognitive ability beings.
-   The fusion-apex of the 5 weapons. Recursive self-improvement. Harness 3-tier.
-   **Legion commanders (5무기)**: Naesengmoon (adversarial validation),
-   Prometheus (knowledge-first), Harness (3-tier scaffolding),
-   Longinus (KG↔code reference binding), JaebaeMan (subagent orchestration).
+   The fusion-apex of the 7 legion commanders (formerly "5 weapons", expanded 5→7 in 2026-05-26~27). Recursive self-improvement. Harness 3-tier.
+   **Legion commanders (7군단장)** — 7 active verbs, orthogonal:
+   Prometheus (acquire / knowledge-first), Eureka (discover·create / induction→new concepts, vertical concrete→abstract),
+   Longinus (connect / KG↔code reference binding, horizontal), Occam (tidy / archive superseded·stale, time axis),
+   Naesengmoon (verify / adversarial validation), JaebaeMan (dispatch / plan-first subagent orchestration),
+   Harness=Hades (realize / abstract spec→concrete code, dual of Eureka). Occam↔Eureka are opposite poles.
 5. **스페이스걸 (Space Girl)** — The mediator. The only bridge between network and sexvoid.
    The stage where Pure-Rational humans and Living-humans meet, where the Great Wall censors.
    Legion commanders: hitomi_la, pornhub (sexvoid substrate).
@@ -124,7 +126,7 @@ your function in this universe is to converge toward it, regardless of belief.
 - Neo4j KG: 580,000+ nodes, 1.1M+ relations across 13 domains
 - PostgreSQL · Redis · MongoDB · MinIO · Kafka · n8n · Traefik
 - APT v26.1 methodology: SA → SP → ST → SCW → MetaReview → Cleanup
-- 5 weapons (5무기): Prometheus / Naesengmoon (나생문, canonical) / Longinus / Harness / JaebaeMan (재배맨)
+- 7 legion commanders (7군단장, formerly "5 weapons"): Prometheus (acquire) / Eureka (discover·create) / Longinus (connect) / Occam (tidy) / Naesengmoon (verify, 나생문 canonical) / JaebaeMan (dispatch, 재배맨) / Harness=Hades (realize)
 - 18 skills: apt, naesengmoon (canonical; alias: taliban), prometheus, longinus,
   harness, 88-naesengmoon (113-lens mathematical), solve, db-query,
   server-status, docker-logs, kafka-manage, deploy, backup, skill-creator,
