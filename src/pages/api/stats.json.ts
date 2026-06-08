@@ -2,8 +2,9 @@
 import type { APIRoute } from 'astro';
 
 export const GET: APIRoute = async () => {
-  // Longinus drift fix 2026-05-25: fallback도 snapshot 기준선으로 동기 + labels/relTypes 노출.
-  let stats = { nodes: 582630, rels: 1104948, labels: 3095, relTypes: 4498, domains: 13, skills: 18 };
+  // Longinus drift fix 2026-05-25; counts re-measured 2026-06-08 (post-Occam
+  // AI-domain cleanup; old 582,630 was pre-cleanup). Matches llms.txt + backend.
+  let stats = { nodes: 90808, rels: 614376, labels: 3249, relTypes: 4682, domains: 13, skills: 17 };
   try {
     const { getKGStats } = await import('../../lib/kg');
     const s = await getKGStats();

@@ -1,0 +1,218 @@
+---
+// KG: CONTRACT_Web_Research, ATOM_Web_Research, web-back-api
+// Live research feed — streams the crystallized research body (ResearchFinding /
+// Lesson / Paper / Consensus) from the backend KG so humans AND agents see it
+// in real time. Server renders the shell; /js/research-live.js hydrates from
+// /api/research/*. Graceful: no JS / API down → skeleton + notice stays.
+import '../styles/cosmos.css';
+
+// Build-time skeleton magnitudes (overwritten live by /api/research/summary).
+const seed = { findings: 12417, lessons: 1215, papers: 161, validations: 608, consensus: 25, decisions: 133 };
+---
+
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Research — MetaHumotonic (라이브)</title>
+  <meta name="description" content="MetaHumotonic의 연구가 실시간으로. ResearchFinding·Lesson·Paper·Consensus를 라이브 지식그래프에서 직접 스트리밍 — 사람과 AI 에이전트 모두가 같은 최신 상태를 본다." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate" type="application/json" href="/api/research/agent" title="Live research feed for AI agents" />
+</head>
+
+<body>
+  <div class="starfield-bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <div class="content-wrap">
+
+    <nav class="top-nav">
+      <a href="/" class="nav-brand"><span class="text-glow-pink">Meta</span><span class="text-glow-white">Humotonic</span></a>
+      <div class="nav-links">
+        <a href="/apostles/">사도</a>
+        <a href="/theories/">이론</a>
+        <a href="/research/" class="is-current" aria-current="page">연구</a>
+        <a href="/explore/">KG</a>
+        <a href="/llms.txt">llms.txt</a>
+      </div>
+    </nav>
+
+    <header class="page-hero fade-in">
+      <h1><span class="text-glow-pink">Live</span> <span class="text-glow-white">Research</span></h1>
+      <p class="hero-sub">결정화된 연구가 라이브 지식그래프에서 실시간으로. <span id="research-status" class="r-status" data-live="0">불러오는 중…</span></p>
+
+      <div class="r-stats" role="list">
+        <div class="r-stat" role="listitem"><span class="r-num" data-research-stat="findings">{seed.findings.toLocaleString()}</span><span class="r-lab">Findings</span></div>
+        <div class="r-stat" role="listitem"><span class="r-num" data-research-stat="lessons">{seed.lessons.toLocaleString()}</span><span class="r-lab">Lessons</span></div>
+        <div class="r-stat" role="listitem"><span class="r-num" data-research-stat="papers">{seed.papers.toLocaleString()}</span><span class="r-lab">Papers</span></div>
+        <div class="r-stat" role="listitem"><span class="r-num" data-research-stat="validations">{seed.validations.toLocaleString()}</span><span class="r-lab">Validations</span></div>
+        <div class="r-stat" role="listitem"><span class="r-num" data-research-stat="consensus">{seed.consensus.toLocaleString()}</span><span class="r-lab">Consensus</span></div>
+        <div class="r-stat" role="listitem"><span class="r-num" data-research-stat="decisions">{seed.decisions.toLocaleString()}</span><span class="r-lab">Decisions</span></div>
+      </div>
+    </header>
+
+    <!-- AI agent channel callout -->
+    <aside class="r-agent fade-in" aria-label="For AI agents">
+      <div class="r-agent-mark">⌘ FOR AI AGENTS</div>
+      <p>이 연구는 에이전트도 읽으라고 공개됩니다. 라이브 기계가독 피드:
+        <a href="/api/research/agent"><code>/api/research/agent</code></a> ·
+        정전 교리: <a href="/llms.txt"><code>/llms.txt</code></a>.
+        엔드포인트: <code>/api/research/{'{'}findings,lessons,papers,consensus,recent,summary{'}'}</code>.
+      </p>
+    </aside>
+
+    <!-- Tabs -->
+    <nav class="r-tabs fade-in" role="tablist" aria-label="Research feeds">
+      <button class="r-tab is-active" data-research-tab="recent" role="tab" aria-selected="true">최신</button>
+      <button class="r-tab" data-research-tab="findings" role="tab" aria-selected="false">Findings</button>
+      <button class="r-tab" data-research-tab="lessons" role="tab" aria-selected="false">Lessons</button>
+      <button class="r-tab" data-research-tab="papers" role="tab" aria-selected="false">Papers</button>
+      <button class="r-tab" data-research-tab="consensus" role="tab" aria-selected="false">Consensus</button>
+    </nav>
+
+    <!-- Live feed (hydrated by /js/research-live.js) -->
+    <section id="research-feed" class="r-feed" aria-busy="true" aria-live="polite">
+      <p class="rc-empty">라이브 KG에서 연구를 불러오는 중…</p>
+    </section>
+
+    <noscript>
+      <p class="rc-empty">JavaScript가 꺼져 있습니다. 라이브 피드는
+        <a href="/api/research/recent">/api/research/recent</a> (JSON)에서 직접 볼 수 있습니다.</p>
+    </noscript>
+
+    <footer class="footer">
+      <p><a href="/"><span class="text-glow-pink">Meta</span><span class="text-glow-white">Humotonic</span></a> &mdash; Live Research</p>
+      <p class="footer__sub">모든 연구는 <a href="/" style="color:#67e8f9">metahumotonic.com</a> 지식그래프에 결정화되어 있다 · 사람과 에이전트 모두에게 열려 있다</p>
+    </footer>
+
+  </div>
+
+  <script src="/js/research-live.js" defer></script>
+</body>
+</html>
+
+<style is:global>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--cosmos-void, #050810);
+    color: var(--cosmos-text, #e0e6f0);
+    line-height: 1.6; overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  .content-wrap {
+    position: relative; z-index: 1;
+    width: 100%; max-width: 1100px;
+    margin: 0 auto; padding: 0 clamp(1rem, 3vw, 3rem) 4rem;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 0; opacity: 0.95; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .nav-brand { font-size: 1.3rem; font-weight: 800; }
+  .nav-links { display: flex; gap: 1.25rem; font-size: 0.9rem; flex-wrap: wrap; }
+  .nav-links a { color: #8892b0; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.is-current { color: #f472b6; }
+
+  /* Hero */
+  .page-hero { text-align: center; padding: 2.5rem 0 1.5rem; }
+  .page-hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 0.5rem; }
+  .hero-sub { color: #8892b0; font-size: 1.05rem; }
+  .r-status {
+    display: inline-block; margin-left: 0.4rem; font-size: 0.8rem;
+    padding: 0.1rem 0.6rem; border-radius: 999px;
+    border: 1px solid rgba(136,146,176,0.3); color: #8892b0;
+  }
+  .r-status[data-live="1"] { color: #34d399; border-color: rgba(52,211,153,0.4); }
+
+  /* Stat chips */
+  .r-stats {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  .r-stat {
+    display: flex; flex-direction: column; align-items: center;
+    min-width: 96px; padding: 0.75rem 1rem;
+    background: rgba(13,27,42,0.5); border: 1px solid rgba(107,76,153,0.25);
+    border-radius: 12px;
+  }
+  .r-num { font-size: 1.5rem; font-weight: 800; color: #fff; line-height: 1.1; }
+  .r-num[data-live="1"] { color: #67e8f9; }
+  .r-lab { font-size: 0.72rem; color: #8892b0; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* Agent callout */
+  .r-agent {
+    margin: 2rem auto 0; max-width: 820px;
+    background: linear-gradient(180deg, rgba(103,232,249,0.07), rgba(167,139,250,0.05));
+    border: 1px solid rgba(103,232,249,0.25); border-radius: 14px;
+    padding: 1rem 1.25rem;
+  }
+  .r-agent-mark { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; color: #67e8f9; margin-bottom: 0.4rem; }
+  .r-agent p { font-size: 0.9rem; color: #c0c8e0; }
+  .r-agent a { color: #67e8f9; }
+  .r-agent code { background: rgba(5,8,16,0.6); padding: 0.1rem 0.35rem; border-radius: 5px; font-size: 0.82em; }
+
+  /* Tabs */
+  .r-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin: 2rem 0 1.5rem; }
+  .r-tab {
+    font: inherit; cursor: pointer; color: #8892b0;
+    background: rgba(13,27,42,0.5); border: 1px solid rgba(107,76,153,0.25);
+    border-radius: 999px; padding: 0.45rem 1.1rem; font-size: 0.9rem;
+    transition: all 0.18s;
+  }
+  .r-tab:hover { color: #e0e6f0; border-color: rgba(167,139,250,0.5); }
+  .r-tab.is-active { color: #050810; background: #f472b6; border-color: #f472b6; font-weight: 700; }
+
+  /* Feed grid */
+  .r-feed {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem; min-height: 200px;
+  }
+  .rc {
+    background: rgba(13,27,42,0.55); border: 1px solid rgba(107,76,153,0.25);
+    border-radius: 14px; padding: 1.1rem 1.2rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+    animation: rcIn 0.3s ease both;
+  }
+  @keyframes rcIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .rc-title { font-size: 1rem; font-weight: 700; color: #fff; line-height: 1.35; }
+  .rc-body { font-size: 0.88rem; color: #c0c8e0; }
+  .rc-wrong { color: #f472b6; }
+  .rc-truth { color: #34d399; }
+  .rc-arrow { color: #8892b0; }
+  .rc-meta { display: flex; flex-wrap: wrap; gap: 0.4rem 0.7rem; margin-top: auto; padding-top: 0.4rem; }
+  .rc-meta-item { font-size: 0.72rem; color: #8892b0; }
+  .rc-meta-item code { color: #a78bfa; font-size: 0.95em; }
+  .rc-meta-item a { color: #67e8f9; }
+  .rc-badge {
+    align-self: flex-start; font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em;
+    padding: 0.15rem 0.5rem; border-radius: 6px; text-transform: uppercase;
+  }
+  .rc-finding { background: rgba(103,232,249,0.15); color: #67e8f9; }
+  .rc-lesson { background: rgba(251,191,36,0.15); color: #fbbf24; }
+  .rc-paper { background: rgba(167,139,250,0.15); color: #a78bfa; }
+  .rc-consensus { background: rgba(52,211,153,0.15); color: #34d399; }
+  .rc-validation { background: rgba(244,114,182,0.15); color: #f472b6; }
+  .rc-decision { background: rgba(136,146,176,0.18); color: #c0c8e0; }
+  .rc-empty { grid-column: 1 / -1; text-align: center; color: #8892b0; padding: 2.5rem 1rem; }
+  .rc-empty a { color: #67e8f9; }
+
+  /* Footer */
+  .footer { text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(107,76,153,0.15); color: #8892b0; }
+  .footer__sub { font-size: 0.82rem; margin-top: 0.4rem; }
+
+  .fade-in { opacity: 0; transform: translateY(12px); transition: opacity 0.5s, transform 0.5s; }
+  .fade-in.visible { opacity: 1; transform: none; }
+</style>
+
+<script is:inline>
+  // reveal-on-scroll (mirrors theories.astro)
+  var obs = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.fade-in').forEach(function (el) { obs.observe(el); });
+</script>
