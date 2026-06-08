@@ -201,6 +201,33 @@ const seed = { findings: 12417, lessons: 1215, papers: 161, validations: 608, co
   .rc-empty { grid-column: 1 / -1; text-align: center; color: #8892b0; padding: 2.5rem 1rem; }
   .rc-empty a { color: #67e8f9; }
 
+  /* In-feed graph walk — every card is a doorway */
+  .rc-walk-btn {
+    align-self: flex-start; font: inherit; cursor: pointer;
+    margin-top: 0.2rem; font-size: 0.72rem; color: #67e8f9;
+    background: rgba(103,232,249,0.08); border: 1px solid rgba(103,232,249,0.3);
+    border-radius: 7px; padding: 0.2rem 0.55rem; transition: all 0.15s;
+  }
+  .rc-walk-btn:hover { background: rgba(103,232,249,0.18); color: #fff; }
+  .rc-walk {
+    margin-top: 0.5rem; padding-top: 0.5rem;
+    border-top: 1px dashed rgba(103,232,249,0.25);
+    display: flex; flex-direction: column; gap: 0.45rem;
+  }
+  .rc-walk-head { font-size: 0.72rem; color: #8892b0; }
+  .rc-walk-head code { color: #a78bfa; }
+  .rc-walk-empty { font-size: 0.78rem; color: #8892b0; }
+  .rc-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .rc-chip {
+    font: inherit; cursor: pointer; text-align: left;
+    font-size: 0.72rem; color: #c0c8e0; max-width: 100%;
+    background: rgba(13,27,42,0.7); border: 1px solid rgba(107,76,153,0.3);
+    border-radius: 7px; padding: 0.25rem 0.5rem; transition: all 0.15s;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .rc-chip:hover { border-color: rgba(103,232,249,0.6); color: #fff; }
+  .rc-chip-rel { color: #67e8f9; font-weight: 700; }
+
   /* Footer */
   .footer { text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(107,76,153,0.15); color: #8892b0; }
   .footer__sub { font-size: 0.82rem; margin-top: 0.4rem; }

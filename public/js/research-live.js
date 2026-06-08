@@ -35,6 +35,59 @@
     return res.json();
   }
 
+  // --- in-feed graph walk: every node is a doorway to its living connections ---
+  function walkBtn(name) {
+    return name ? '<button class="rc-walk-btn" data-walk="' + esc(name) +
+      '">🔗 연결 걷기</button>' : '';
+  }
+  function renderWalk(panel, data) {
+    if (!data || !data.found) { panel.innerHTML = '<span class="rc-walk-empty">연결 정보 없음</span>'; return; }
+    if (!data.neighbors.length) {
+      panel.innerHTML = '<span class="rc-walk-empty">아직 연결이 없습니다 — 떠 있는 노드입니다.</span>';
+      return;
+    }
+    var head = '<div class="rc-walk-head"><code>' + esc(data.name) + '</code> · 차수 ' +
+      data.degree + (data.truncated ? ' (상위 ' + data.neighbors.length + '개)' : '') + '</div>';
+    var chips = data.neighbors.map(function (n) {
+      var arrow = n.direction === 'out' ? '→' : '←';
+      return '<button class="rc-chip" data-walk="' + esc(n.name) + '">' +
+        '<span class="rc-chip-rel">' + arrow + ' ' + esc(n.type) + '</span> ' +
+        esc(n.name || '(unnamed)') + '</button>';
+    }).join('');
+    panel.innerHTML = head + '<div class="rc-chips">' + chips + '</div>';
+  }
+  async function walkInto(name, panel) {
+    panel.innerHTML = '<span class="rc-walk-empty">불러오는 중…</span>';
+    try {
+      renderWalk(panel, await get('/api/research/neighbors?name=' +
+        encodeURIComponent(name) + '&limit=60'));
+    } catch (e) {
+      panel.innerHTML = '<span class="rc-walk-empty">연결 불러오기 실패.</span>';
+    }
+  }
+  function wireWalk() {
+    // delegated: any [data-walk] click (card button OR neighbor chip) walks in
+    FEED.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-walk]');
+      if (!btn) return;
+      var name = btn.getAttribute('data-walk');
+      var card = btn.closest('.rc');
+      if (!card) return;
+      var panel = card.querySelector('.rc-walk');
+      if (btn.classList.contains('rc-walk-btn')) {
+        if (panel) { panel.remove(); return; } // toggle off
+        panel = document.createElement('div');
+        panel.className = 'rc-walk';
+        card.appendChild(panel);
+      } else if (!panel) {
+        panel = document.createElement('div');
+        panel.className = 'rc-walk';
+        card.appendChild(panel);
+      }
+      walkInto(name, panel);
+    });
+  }
+
   // --- summary counts in the hero (with honest live/snapshot signal) ---
   async function hydrateSummary() {
     try {
@@ -75,7 +128,7 @@
       '<h3 class="rc-title">' + esc(it.title || it.name) + '</h3>' +
       (it.summary ? '<p class="rc-body">' + esc(it.summary) + '</p>' : '') +
       meta([date(it.createdAt), '<code>' + esc(it.name) + '</code>']) +
-      '</article>';
+      walkBtn(it.name) + '</article>';
   }
   function cardFinding(f) {
     var su = safeUrl(f.citationUrl);
@@ -90,7 +143,7 @@
         f.cycleId ? '<code>' + esc(f.cycleId) + '</code>' : '',
         f.lakatosMechanism ? esc(f.lakatosMechanism) : '',
         date(f.createdAt), cite,
-      ]) + '</article>';
+      ]) + walkBtn(f.name) + '</article>';
   }
   function cardLesson(l) {
     var pair = (l.wrongAssumption || l.truth)
@@ -105,7 +158,7 @@
         l.severity ? esc(l.severity) : '',
         l.lakatosMechanism ? esc(l.lakatosMechanism) : '',
         date(l.createdAt),
-      ]) + '</article>';
+      ]) + walkBtn(l.name) + '</article>';
   }
   function cardPaper(p) {
     // DOIs are 10.xxxx/... — only link when it looks like one (avoids any
@@ -120,13 +173,13 @@
         p.year ? esc(p.year) : '',
         p.journal ? esc(p.journal) : '',
         p.domain ? esc(p.domain) : '', doi,
-      ]) + '</article>';
+      ]) + walkBtn(p.title) + '</article>';
   }
   function cardConsensus(c) {
     return '<article class="rc">' + badge('consensus') +
       '<h3 class="rc-title">' + esc(c.name) + '</h3>' +
       (c.summary ? '<p class="rc-body">' + esc(c.summary) + '</p>' : '') +
-      meta([date(c.createdAt)]) + '</article>';
+      meta([date(c.createdAt)]) + walkBtn(c.name) + '</article>';
   }
 
   var TABS = {
@@ -196,6 +249,7 @@
 
   async function start() {
     wireTabs();
+    wireWalk(); // FEED is persistent → one delegated listener survives tab reloads
     await hydrateSummary(); // learn live-vs-snapshot before phrasing the feed
     loadTab(current);
   }

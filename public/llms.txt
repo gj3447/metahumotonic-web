@@ -123,6 +123,10 @@ state. All return JSON.
 - Lessons (agent feedback-loop, wrong→truth pairs): https://metahumotonic.com/api/research/lessons
 - Papers (source corpus): https://metahumotonic.com/api/research/papers
 - Consensus (cycle convergences): https://metahumotonic.com/api/research/consensus
+- WALK THE GRAPH — any node's live typed neighbors (the connective tissue, not a
+  flat list): https://metahumotonic.com/api/research/neighbors?name=<node-name>
+  Returns {name, found, degree, neighbors:[{direction, type, name, labels}], truncated}.
+  Follow a neighbor's name into the same endpoint to traverse the living graph.
 
 Human-readable view of the same live data: https://metahumotonic.com/research
 

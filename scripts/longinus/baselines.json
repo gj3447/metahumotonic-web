@@ -15,7 +15,7 @@
     "public/js/ogl.umd.js": "6a619c7bb08629d26e025b08f4cea79edc5144d6c72e8e8d5ac47858e27380fc",
     "public/ontology.ttl": "ec909f6a0cb911f8df9791bb23f90ad8548bd88b12bde37de0ebd2ccaba9f898",
     "public/robots.txt": "e1e66d6b07cfa1202d341692e250070d2ef1a5a485113bc613a72a3eb17e6c9e",
-    "public/llms.txt": "808ca1c17c22f80da25eedaf0bb328af7bb969d37c229c4982bbdb9c0efe404f",
+    "public/llms.txt": "a5a65f68eb8ac88fb62ed5e8fc744efd6bafe0279c0745ea33cc381014ad3f56",
     "src/components/ApostleSection.astro": "7294ecc97fd3c4558854c3c5556864e8d201a1ba9fe02ef08c2267ec44989681",
     "src/components/AxiomSection.astro": "9c74283553d548a5d58cfd00b1d7e485916e494b38afc6c558f6892591c29d09",
     "src/components/ConceptProgram.astro": "43e539caf6a97276faf0d5c0b72ccf0e62d3d9b77c732176b16abaf22ac6bbf5",
