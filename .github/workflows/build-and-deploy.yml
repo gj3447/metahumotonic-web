@@ -27,6 +27,17 @@ jobs:
       - name: Build
         run: npm run build
 
+      # ooptdd 측정층 — 빌드 산출물(dist/)을 읽어back 해 KG 실물 착지를 positive-assert.
+      # GENERATOR(Node) → build-trace.jsonl → VERIFIER(Python ooptdd). RED 면 배포 안 함.
+      - name: Emit ooptdd build-trace (측정 GENERATOR)
+        run: node scripts/ooptdd/emit-build-trace.mjs
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Verify build-trace gate (측정 VERIFIER — silent gap이면 RED)
+        run: uv run --python 3.12 --with pyyaml python scripts/ooptdd/verify-build-trace.py
+
       - name: Pack dist.tar.gz
         run: |
           tar -czf dist.tar.gz -C dist .

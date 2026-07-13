@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "prebuild:kg": "node scripts/prebuild/dump-kg.mjs"
+    "prebuild:kg": "node scripts/prebuild/dump-kg.mjs",
+    "verify:build-trace": "node scripts/ooptdd/emit-build-trace.mjs && uv run --python 3.12 --with pyyaml python scripts/ooptdd/verify-build-trace.py"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.2.2",

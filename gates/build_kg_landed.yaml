@@ -1,0 +1,20 @@
+# ooptdd Red artifact — what we expect to OBSERVE in the BUILT site (dist/).
+#
+# Written independent of the build. `astro build` exiting 0 is a claim, not proof that
+# the KG content actually rendered into the static output. This gate reads the emitted
+# build-trace back (build-trace.jsonl) and positively asserts the artifacts landed:
+#
+#   green : kg_snapshot_loaded == 1  AND  apostle_page_built == 12
+#   RED   : a page failed to render / the snapshot went empty — even though the build
+#           "succeeded". (three-valued: no trace at all = absent ⊥ = RED, honestly.)
+#
+# KG: project_metahumotonic_web_integrate_core_dev_tech_2026_07_13, web-build-trace-measurement
+cid_env: OOPTDD_CID
+service: mhb.web.build
+expect:
+  - event: kg_snapshot_loaded
+    op: "=="
+    count: 1
+  - event: apostle_page_built
+    op: "=="
+    count: 12          # all 12 apostles must render with their canon name in the HTML
