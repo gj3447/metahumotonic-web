@@ -1,4 +1,12 @@
-# Astro Starter Kit: Minimal
+# metahumotonic-web
+
+metahumotonic.com 정적 사이트 (Astro). 백엔드 API: [`metahumotonic_web_back`](https://github.com/gj3447/metahumotonic-web-back).
+
+> **개발 규율**: PI 3층 개발스택(조율 OMD / 측정 ooptdd / 판정 LakatoTree) 위에서 개발 — [`docs/DEV_STACK.md`](docs/DEV_STACK.md). 판정·조율은 web에 배선됨, 측정층(ooptdd, Python)은 백엔드에 착지.
+
+---
+
+## Astro Starter Kit: Minimal
 
 ```sh
 npm create astro@latest -- --template minimal
