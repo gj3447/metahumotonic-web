@@ -54,35 +54,45 @@ em, i { font-style: italic; }
 }
 .mh-hero__inner { max-width: 80ch; }
 
-.mh-hero .mh-mark,
-.mh-portal__mark {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
-  width: 60px; margin: 0 0 8px;
-  --glow-angle: 0deg;
+/* Canonical mark: 2×2 hollow rings — cyan / magenta / yellow / white */
+.mh-mark {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 56px;
+  --ring: 22px;
 }
-.mh-mark__circle { width: 26px; height: 26px; border-radius: 50%; position: relative; }
-.mh-mark__circle::before {
-  content: ""; position: absolute; inset: -3px; border-radius: 50%; padding: 2.5px;
-  background: conic-gradient(from var(--glow-angle),
-    #f472b6,#d946a1,#a78bfa,#8b5cf6,#67e8f9,#06b6d4,#e0e7ff,#f5f5dc,#FFD700,#f472b6);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude;
-  animation: mhRotate 6s linear infinite;
+.mh-mark--sm { width: 36px; gap: 5px; --ring: 14px; }
+.mh-mark--md { width: 56px; gap: 8px; --ring: 22px; }
+.mh-mark--lg { width: 72px; gap: 10px; --ring: 28px; }
+.mh-mark__ring {
+  width: var(--ring);
+  height: var(--ring);
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 3px solid currentColor;
+  background: transparent;
+  box-shadow: 0 0 10px currentColor, 0 0 22px color-mix(in srgb, currentColor 45%, transparent);
 }
-.mh-mark__circle::after {
-  content: ""; position: absolute; inset: -16px; border-radius: 50%;
-  background: conic-gradient(from var(--glow-angle),
-    rgba(244,114,182,0.55),rgba(167,139,250,0.55),rgba(103,232,249,0.45),
-    rgba(255,215,0,0.4),rgba(244,114,182,0.55));
-  filter: blur(18px); opacity: 0.55; z-index: -1;
-  animation: mhRotate 6s linear infinite, mhPulse 4s ease-in-out infinite;
+.mh-mark__ring--c { color: #00e5ff; }
+.mh-mark__ring--m { color: #ff2bd6; }
+.mh-mark__ring--y { color: #ffe600; }
+/* 밝은 종이 배경에서도 읽히게 cool-white + 약한 먹 테두리 느낌 */
+.mh-mark__ring--w {
+  color: #e8eef8;
+  box-shadow:
+    0 0 0 1px rgba(14, 14, 12, 0.18),
+    0 0 10px rgba(200, 210, 230, 0.9),
+    0 0 18px rgba(180, 195, 220, 0.45);
 }
-.mh-mark__circle:nth-child(2)::before, .mh-mark__circle:nth-child(2)::after { animation-delay: -1.5s; }
-.mh-mark__circle:nth-child(3)::before, .mh-mark__circle:nth-child(3)::after { animation-delay: -3s; }
-.mh-mark__circle:nth-child(4)::before, .mh-mark__circle:nth-child(4)::after { animation-delay: -4.5s; }
-@property --glow-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
-@keyframes mhRotate { to { --glow-angle: 360deg; } }
-@keyframes mhPulse { 0%,100% { opacity: 0.4; } 50% { opacity: 0.7; } }
+.mh-mark-text {
+  font-family: var(--mh-serif, Georgia, serif);
+  font-size: 20px;
+  letter-spacing: 0.02em;
+  border: none;
+  text-decoration: none;
+  color: inherit;
+}
 
 .mh-hero__title {
   font-family: var(--mh-serif);

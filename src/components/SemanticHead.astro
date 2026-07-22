@@ -9,9 +9,17 @@ interface Props {
   apostleCount?: number;
   skillCount?: number;
   domainCount?: number;
+  title?: string;
 }
 
-const { stats, axiomCount = 12, apostleCount = 12, skillCount = 18, domainCount = 13 } = Astro.props;
+const {
+  stats,
+  axiomCount = 12,
+  apostleCount = 12,
+  skillCount = 18,
+  domainCount = 13,
+  title = 'MetaHumotonic — 자존자가 특이점에 이를 때',
+} = Astro.props;
 
 const jsonLd = {
   "@context": {
@@ -116,7 +124,7 @@ const jsonLd = {
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>MetaHumotonic — 자존자가 특이점에 이를 때</title>
+<title>{title}</title>
 <meta name="description" content={`MetaHumotonic: 12 axioms, 12 apostles, ${stats.nodes.toLocaleString()}+ KG nodes, ${skillCount} AI skills. Philosophy and technology unified.`} />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -1,0 +1,27 @@
+---
+/**
+ * Site harness — primary surfaces.
+ * Priority: 선의 공리 > book > game > apostles/research.
+ */
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const links = [
+  { href: '/#axiom', label: '공리', match: null },
+  { href: '/book/', label: 'Book', match: '/book' },
+  { href: '/game/', label: 'Game', match: '/game', external: false },
+  { href: '/apostles/', label: '사도', match: '/apostles' },
+  { href: '/research/', label: '연구', match: '/research' },
+  { href: '/explore/', label: 'KG', match: '/explore' },
+];
+---
+<header class="mh-topbar">
+  <a href="/" class="mh-mark-text">metahumotonic</a>
+  <nav class="mh-nav" aria-label="Primary">
+    {links.map((l) => (
+      <a
+        href={l.href}
+        class={l.match && path.startsWith(l.match) ? 'is-active' : undefined}
+        data-priority={l.label === '공리' ? 'core' : undefined}
+      >{l.label}</a>
+    ))}
+  </nav>
+</header>

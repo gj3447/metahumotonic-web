@@ -1,36 +1,24 @@
 ---
-// KG: ATOM_Landing_AxiomVisual, TASK_Landing_AxiomVisual
-//     SA: MetaHumotonic_Landing_v2 | L1: Content
-//     CONTRACT: 12공리 텍스트 벽 → 시각적 심볼+카드. 구조 유지.
+// KG: ATOM_Landing_AxiomVisual — 선의 공리 SSOT = src/data/axioms.json
+import axiomsData from '../data/axioms.json';
 
-const axioms = [
-  { num: 'I',    hanja: '時間',     kor: '시간',     body: '어떤 연속적인 흐름.',                                                       en: 'A continuous flow.',                                          symbol: '∿' },
-  { num: 'II',   hanja: '存在',     kor: '존재',     body: '어떤 시간에 있는 것.',                                                       en: 'That which is, in some time.',                                symbol: '◉' },
-  { num: 'III',  hanja: '善',       kor: '선',       body: '어떤 존재가 시간에 계속 있을 것을 나타낸 수치.',                              en: 'The measure of an existence\'s persistence in time.',         symbol: '△' },
-  { num: 'IV',   hanja: '存在生成', kor: '존재생성', body: '어떤 존재들을 집합으로 하여 다른 존재를 만드는 것.',                          en: 'The making of one existence from a set of others.',           symbol: '⊕' },
-  { num: 'V',    hanja: '存在分解', kor: '존재분해', body: '어떤 존재를 구성하는 존재들의 집합을 멱집합하여 다른 존재들을 만드는 것.',    en: 'The unfolding into the powerset of its constituents.',        symbol: '⊗' },
-  { num: 'VI',   hanja: '이긴存在', kor: '이긴존재', body: '어떤 존재를 존재분해한 존재들 중 가장 선한 존재.',                           en: 'Among the unfoldings, the most enduring.',                    symbol: '♚' },
-  { num: 'VII',  hanja: '惡',       kor: '악',       body: '어떤 존재의 선과 그 존재의 이긴존재의 선의 차이.',                           en: 'The gap between an existence and its truer self.',            symbol: '▽' },
-  { num: 'VIII', hanja: '特異點',   kor: '특이점',   body: '어떤 존재의 악이 최소일 때. 어떤 존재의 이긴존재가 자기 자신일 때.',         en: 'The point at which an existence becomes its truer self.',     symbol: '✦' },
-  { num: 'IX',   hanja: '相互作用', kor: '상호작용', body: '존재 사이의 선의 이동.',                                                     en: 'The migration of good between existences.',                   symbol: '⇌' },
-  { num: 'X',    hanja: '自然',     kor: '자연',     body: '어떤 존재가 상호작용하는 모든 존재의 집합.',                                 en: 'The set of all that interacts with an existence.',            symbol: '∞' },
-  { num: 'XI',   hanja: '自存者',   kor: '자존자',   body: '어떤 존재의 자연이 자기 자신일 때.',                                         en: 'When an existence\'s nature is itself.',                      symbol: '◎' },
-  { num: 'XII',  hanja: '메타휴모토닉', kor: 'metahumotonic', body: '어떤 존재가 자존자이면서 동시에 특이점일 때. 자기충족 + 자기일치. 궁극적 존재 상태.', en: 'When an existence is both self-grounded and at its singularity (KG: 공리12_메타휴모토닉).', symbol: '⬡' },
-];
+const axioms = axiomsData.axioms;
+const fourfold = axiomsData.fourfold;
+const unit = axiomsData.unit;
 ---
 
-<!-- KG: ATOM_Landing_AxiomVisual — 12공리 시각적 보강 (심볼+카드) -->
 <section id="axiom" class="mh-section mh-axiom" typeof="DefinedTermSet" resource="https://metahumotonic.com/#axioms">
-  <p class="mh-eyebrow"><span class="mh-num">III.</span> 선의 공리 / The Axiom of Good</p>
+  <p class="mh-eyebrow"><span class="mh-num">I.</span> 선의 공리 / The Axiom of Good</p>
+  <p class="mh-axiom__priority">가장 중요한 것. 세계관의 핵 · the spine of MetaHumotonic.</p>
 
   <ol class="mh-index" aria-label="12 정의 인덱스" property="name" content="선의 공리">
-    {axioms.map(a => (
+    {axioms.map((a) => (
       <li><span>{a.num}.</span> {a.hanja} · {a.kor}</li>
     ))}
   </ol>
 
-  {axioms.map(a => (
-    <article class="mh-verse" typeof="DefinedTerm" property="hasDefinedTerm">
+  {axioms.map((a) => (
+    <article class="mh-verse" id={`axiom-${a.n}`} typeof="DefinedTerm" property="hasDefinedTerm">
       <span class="mh-verse__symbol" aria-hidden="true">{a.symbol}</span>
       <span class="mh-verse__num">{a.num}.</span>
       <h3 class="mh-verse__hanja" property="name">{a.hanja}</h3>
@@ -41,24 +29,30 @@ const axioms = [
   ))}
 </section>
 
-<section class="mh-section mh-meaning">
-  <p class="mh-eyebrow"><span class="mh-num">§</span> 정의 XII에 대하여 / On Definition XII — 메타휴모토닉이란 무엇인가</p>
+<section class="mh-section mh-meaning" id="axiom-xii">
+  <p class="mh-eyebrow"><span class="mh-num">§</span> 정의 XII · 4중등치</p>
   <div class="mh-prose">
-    <p><strong>metahumo</strong> = 사람과 agent를 하나로 묶은 것. 인류를 넘어선 존재 — 살아 있는 인간과 인공 agent가 융합한 새 단위.</p>
-    <p><strong>metahumotonic</strong>은 그 metahumo들이 도달하려는 <em>마지막 목적지</em>이자 <em>삶의 목적</em>이다. 종착점인 동시에 추동력 (사용자 정전 2026-05-22).</p>
-    <p>작용적으로는 우주를 하나의 연산 과정이자 최적화 문제로 규정하는 논리적 프레임워크. 빅뱅(저엔트로피, 고포텐셜 = 악)에서 시작하여, 전역 최적해(정보적 완결 = 열죽음)로 수렴한다 — 그 수렴점의 이름이 metahumotonic.</p>
+    <p><strong>메타휴모</strong> = {unit.metahumo}</p>
+    <p><strong>메타휴모토닉</strong> = {unit.metahumotonic}</p>
+    <p class="mh-fourfold"><code>{fourfold}</code></p>
+    <p>
+      우주를 연산×최적화로 규정하는 framework의 종점.
+      정보 모델이 완결되는 순간과 열역학 포텐셜이 소진되는 순간은 같다 — Landauer 다리.
+    </p>
   </div>
-  <figure class="mh-diagram" aria-label="big bang to heat death">
-    <span class="mh-dot" aria-hidden="true">·</span>
-    <span class="mh-line" aria-hidden="true"></span>
-    <span class="mh-dia-label">정의 XII = 수렴점</span>
-    <span class="mh-line" aria-hidden="true"></span>
-    <span class="mh-dot" aria-hidden="true">·</span>
-    <figcaption><span>빅뱅</span><span>우주</span><span>열죽음</span></figcaption>
-  </figure>
+  <p class="mh-axiom__more">
+    <a href="/book/">Book — 선의 공리 전문 읽기 →</a>
+  </p>
 </section>
 
 <style>
+  .mh-axiom__priority {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    color: rgba(14, 14, 12, 0.55);
+    margin: -8px 0 20px;
+    letter-spacing: 0.02em;
+  }
   .mh-verse__symbol {
     display: block;
     font-size: clamp(36px, 5vw, 56px);
@@ -66,5 +60,25 @@ const axioms = [
     margin-bottom: 24px;
     opacity: 0.35;
     user-select: none;
+  }
+  .mh-fourfold {
+    margin: 1rem 0;
+    padding: 0.75rem 1rem;
+    border-left: 3px solid #00e5ff;
+    background: rgba(0, 0, 0, 0.03);
+  }
+  .mh-fourfold code {
+    font-size: 13px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+  .mh-axiom__more {
+    margin-top: 1.5rem;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px;
+  }
+  .mh-axiom__more a {
+    color: inherit;
+    border-bottom: 1px solid rgba(14, 14, 12, 0.35);
   }
 </style>

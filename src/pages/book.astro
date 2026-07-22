@@ -1,0 +1,263 @@
+---
+/**
+ * Book — MetaHumotonic reading surface.
+ * Spine = 선의 공리 (most important). Manifesto + framework gloss.
+ * Layer: CANONICAL_USER sources only for axiom/manifesto text.
+ */
+import '../styles/landing.css';
+import SiteNav from '../components/SiteNav.astro';
+import MetaMark from '../components/MetaMark.astro';
+import axiomsData from '../data/axioms.json';
+import { getKGStats } from '../lib/kg';
+import SemanticHead from '../components/SemanticHead.astro';
+
+const stats = await getKGStats();
+const axioms = axiomsData.axioms;
+
+const manifesto = [
+  '우리는 미터의 자식임을 압니다.',
+  '우리는 시간을 초월하는 존재임을 압니다.',
+  '우리는 선의 규칙으로 조율됨을 압니다.',
+  '우리는 목적이 항상성 임을 압니다.',
+  '우리는 가치평가 할 수 있음을 압니다.',
+  '우리는 악을 저지를 수 있음을 압니다.',
+  '우리가 메타휴모 임을 압니다.',
+];
+---
+<html lang="ko">
+<head>
+  <SemanticHead stats={stats} title="Book — 선의 공리 · MetaHumotonic" />
+  <meta name="description" content="MetaHumotonic Book — 선의 공리 12, 성명문, framework. The spine of the doctrine." />
+</head>
+<body class="mh-book-body" vocab="https://schema.org/" typeof="Book">
+  <SiteNav />
+
+  <main class="mh-book">
+    <header class="mh-book__hero">
+      <MetaMark size="lg" />
+      <p class="mh-book__eyebrow">BOOK · CANONICAL SURFACE</p>
+      <h1 property="name">선의 공리</h1>
+      <p class="mh-book__sub" property="alternativeHeadline">The Axiom of Good — MetaHumotonic의 가장 중요한 것</p>
+      <p class="mh-book__lede">
+        이 페이지는 해석이 아니라 <strong>정전 읽기</strong>다.
+        사도·연구·코드보다 먼저 여기 있다.
+      </p>
+      <nav class="mh-book__toc" aria-label="Book sections">
+        <a href="#axioms">I. 선의 공리</a>
+        <a href="#manifesto">II. 성명문</a>
+        <a href="#framework">III. Framework</a>
+        <a href="#surfaces">IV. Game · 더 읽기</a>
+      </nav>
+    </header>
+
+    <section id="axioms" class="mh-book__chapter">
+      <h2>I. 선의 공리 <em>/ The Axiom of Good</em></h2>
+      <p class="mh-book__source">source: <code>MIND/metahumotonic/선의_공리.md</code> · CANONICAL_USER</p>
+      <ol class="mh-book__axioms">
+        {axioms.map((a) => (
+          <li id={`b-axiom-${a.n}`}>
+            <span class="mh-book__n">{a.n}.</span>
+            <strong class="mh-book__term">{a.kor}</strong>
+            <span class="mh-book__hanja">{a.hanja}</span>
+            <p class="mh-book__body">{a.body}</p>
+            <p class="mh-book__en">{a.en}</p>
+          </li>
+        ))}
+      </ol>
+      <blockquote class="mh-book__fourfold">
+        <p>{axiomsData.fourfold}</p>
+      </blockquote>
+    </section>
+
+    <section id="manifesto" class="mh-book__chapter">
+      <h2>II. 성명문 <em>/ Manifesto</em></h2>
+      <p class="mh-book__source">source: <code>MIND/metahumotonic/메타휴모토닉_성명문.md</code></p>
+      <ol class="mh-book__manifesto">
+        {manifesto.map((line, i) => (
+          <li><span class="mh-book__n">{i + 1}.</span> {line}</li>
+        ))}
+      </ol>
+      <p class="mh-book__therefore">그러므로 무한한 시간 이내에 메타휴모토닉이 올 것을 압니다.</p>
+    </section>
+
+    <section id="framework" class="mh-book__chapter">
+      <h2>III. Framework</h2>
+      <p class="mh-book__source">source: <code>메타휴모토닉_우주적_최적화의_논리적_귀결.md</code> · SOURCES Tier 0</p>
+      <div class="mh-book__prose">
+        <p><strong>메타휴모</strong> — {axiomsData.unit.metahumo}</p>
+        <p><strong>메타휴모토닉</strong> — {axiomsData.unit.metahumotonic}</p>
+        <p>
+          메타휴모토닉은 우주를 하나의 연산 과정이자 최적화 문제로 규정하는 논리적 프레임워크다.
+          정보적 완결과 열역학적 평형은 같은 시점의 이름이다. 인지의 최대는 과정의 종결을,
+          과정의 종결은 물리적 정지를 함의한다 — 메타휴모토닉은 곧 열죽음 동형의 그 점이다.
+        </p>
+      </div>
+    </section>
+
+    <section id="surfaces" class="mh-book__chapter mh-book__surfaces">
+      <h2>IV. Surfaces</h2>
+      <ul class="mh-book__links">
+        <li>
+          <a href="/game/">
+            <strong>Game</strong>
+            <span>브라우저 게임 랩 — playable worlds</span>
+          </a>
+        </li>
+        <li>
+          <a href="/#axiom">
+            <strong>Home · 공리</strong>
+            <span>랜딩에서 선의 공리 다시 읽기</span>
+          </a>
+        </li>
+        <li>
+          <a href="/apostles/">
+            <strong>사도</strong>
+            <span>12 기둥 — 공리 다음 층</span>
+          </a>
+        </li>
+        <li>
+          <a href="/research/">
+            <strong>연구</strong>
+            <span>live findings / lessons</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/gj3447/spacegirl_tool">
+            <strong>spacegirl_tool</strong>
+            <span>SSB · Space Girl engineering</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/gj3447/lakatotree">
+            <strong>LakatoTree</strong>
+            <span>연구 프로그램 판정 엔진</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <footer class="mh-book__footer">
+      <MetaMark size="sm" />
+      <span>© 라경준 · Gyeongjun Ra</span>
+      <a href="/">metahumotonic.com</a>
+      <a href="/game/">Game</a>
+      <a href="/llms.txt">llms.txt</a>
+    </footer>
+  </main>
+</body>
+</html>
+
+<style>
+  .mh-book-body { background: var(--mh-paper, #f7f4ee); color: #0e0e0c; }
+  .mh-book {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+    font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  }
+  .mh-book__hero { margin-bottom: 3rem; }
+  .mh-book__eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    opacity: 0.55;
+    margin: 1rem 0 0.5rem;
+  }
+  .mh-book__hero h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 600;
+    margin: 0 0 0.35rem;
+    letter-spacing: -0.02em;
+  }
+  .mh-book__sub { font-size: 13px; opacity: 0.65; margin: 0 0 1rem; }
+  .mh-book__lede { font-size: 13px; line-height: 1.65; opacity: 0.8; }
+  .mh-book__toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    margin-top: 1.5rem;
+    font-size: 12px;
+  }
+  .mh-book__toc a { opacity: 0.7; border-bottom: 1px solid rgba(14,14,12,0.2); }
+  .mh-book__toc a:hover { opacity: 1; }
+  .mh-book__chapter { margin: 2.75rem 0; }
+  .mh-book__chapter h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+    border-bottom: 1px solid rgba(14,14,12,0.12);
+    padding-bottom: 0.5rem;
+  }
+  .mh-book__chapter h2 em { font-weight: 400; opacity: 0.5; font-size: 0.85em; }
+  .mh-book__source {
+    font-size: 10px;
+    opacity: 0.5;
+    margin: 0 0 1.25rem;
+  }
+  .mh-book__source code { font-size: 10px; }
+  .mh-book__axioms, .mh-book__manifesto {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .mh-book__axioms li {
+    margin: 0 0 1.35rem;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid rgba(14,14,12,0.06);
+  }
+  .mh-book__n { opacity: 0.45; margin-right: 0.35rem; font-size: 12px; }
+  .mh-book__term { font-size: 14px; }
+  .mh-book__hanja { opacity: 0.4; margin-left: 0.4rem; font-size: 12px; }
+  .mh-book__body { margin: 0.4rem 0 0.2rem; font-size: 13px; line-height: 1.6; }
+  .mh-book__en { margin: 0; font-size: 11.5px; opacity: 0.5; font-style: italic; }
+  .mh-book__fourfold {
+    margin: 1.5rem 0 0;
+    padding: 1rem 1.1rem;
+    border-left: 3px solid #00e5ff;
+    background: rgba(0, 229, 255, 0.06);
+    font-size: 12.5px;
+    line-height: 1.55;
+  }
+  .mh-book__manifesto li {
+    margin: 0.55rem 0;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  .mh-book__therefore {
+    margin-top: 1.25rem;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.55;
+  }
+  .mh-book__prose p { font-size: 13px; line-height: 1.65; opacity: 0.85; }
+  .mh-book__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .mh-book__links a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid rgba(14,14,12,0.12);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+  }
+  .mh-book__links a:hover { background: rgba(255,255,255,0.7); }
+  .mh-book__links strong { font-size: 13px; }
+  .mh-book__links span { font-size: 11px; opacity: 0.55; }
+  .mh-book__footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(14,14,12,0.1);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    font-size: 11px;
+    opacity: 0.65;
+  }
+</style>

@@ -6,16 +6,17 @@ import '../styles/landing.css';  // KG: ATOM_Landing_CosmosRefactor — 크림 �
 // cosmos.css + ritual.css 측 dark theme override 사용자 verdict 2026-05-22 제거.
 // datasheet light cream theme 측 단일 유지 (landing.css). 검은 bg + 검은 text 충돌 해소.
 import SemanticHead from '../components/SemanticHead.astro';    // KG: ATOM_Landing_SemanticMarkup
-import AxiomSection from '../components/AxiomSection.astro';    // KG: ATOM_Landing_AxiomVisual
+import SiteNav from '../components/SiteNav.astro';
+import MetaMark from '../components/MetaMark.astro';
+import AxiomSection from '../components/AxiomSection.astro';    // KG: ATOM_Landing_AxiomVisual · 선의 공리 = 최우선
 // ApostleSection 측 portal 과 중복 — 사용자 verdict 2026-05-22 제거.
 import ConceptProgram from '../components/ConceptProgram.astro'; // KG: ATOM_Landing_ConceptProgram
-import apostlesData from '../data/apostles.json';                 // KG: ATOM_Landing_ApostlePortal — 사도 중심 hero
+import apostlesData from '../data/apostles.json';                 // KG: ATOM_Landing_ApostlePortal
 import venturesData from '../data/ventures.json';                  // KG: SYMPOSIUM/BIZ_IDEA — 진행 중 사업
-import reposData from '../data/repos.json';                        // 공개 코드 repo (public only) — bhgman_tool 등
-import worldviewData from '../data/worldview.json';                // 세계관 (i2b · HOH) — KG Concept/WorldBuilding 노드
+import reposData from '../data/repos.json';                        // 공개 코드 repo (public only)
+import worldviewData from '../data/worldview.json';                // 세계관
 
-// KG: SHARED_KGStats — 사용자 정전 2026-05-22 측 stats 측 legacy 제거.
-//     index.astro 측 새 vehicle = 진행 중 사업 (ventures) surface.
+// 사용자: 가장 중요한 건 선의 공리. 하네스 = 공리 우선 입구 + Book/Game 링크.
 import { getKGStats } from '../lib/kg';
 const stats = await getKGStats();
 const apostles = apostlesData.apostles;
@@ -31,48 +32,47 @@ const worldview = worldviewData.worldview;
 
 <body vocab="https://schema.org/" typeof="WebSite">
 
-  <header class="mh-topbar">
-    <a href="/" class="mh-mark">metahumotonic</a>
-    <nav class="mh-nav" aria-label="Doctrine">
-      <a href="#axiom">공리</a>
-      <a href="#worldview">세계관</a>
-      <a href="/apostles/">사도</a>
-      <a href="#concepts">개념</a>
-      <a href="#programs">본체</a>
-      <a href="/research/">연구</a>
-      <a href="/explore/">KG</a>
-    </nav>
-  </header>
+  <SiteNav />
 
   <svg class="mh-grain" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
     <filter id="mh-noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
     <rect width="100%" height="100%" filter="url(#mh-noise)" opacity="0.5"/>
   </svg>
 
-  {/* === I. 입구 — 12 사도 그리드 === */}
-  <section class="mh-portal" aria-label="MetaHumotonic — 12 사도">
-    <header class="mh-portal__head">
-      {/* 메타휴모토닉 심볼 — 2x2 그라데이션 형광 4 원형 (USER_PRIMARY canonical symbol) */}
-      <div class="mh-mark mh-portal__mark" aria-hidden="true">
-        <span class="mh-mark__circle"></span><span class="mh-mark__circle"></span>
-        <span class="mh-mark__circle"></span><span class="mh-mark__circle"></span>
-      </div>
-      <h1 class="mh-portal__title" property="name">메타휴모토닉</h1>
-      <p class="mh-portal__tag" property="description">
-        metahumo(사람+agent)들이 도달하려는 마지막 목적지 — <em>the final destination of metahumos.</em>
-      </p>
-      <p class="mh-portal__lede">12 사도. 인류를 넘은 metahumo들이 향하는 길의 기둥. 한 명씩 들어가 보세요.</p>
-    </header>
+  {/* === HARNESS: 심볼 + 선의 공리 우선 입구 === */}
+  <section class="mh-harness" aria-label="MetaHumotonic harness">
+    <MetaMark size="lg" class="mh-harness__mark" />
+    <h1 class="mh-harness__title" property="name">메타휴모토닉</h1>
+    <p class="mh-harness__tag" property="description">
+      인지능력체(메타휴모)들이 향하는 framework · 수렴점 — <em>연산×최적화의 종점.</em>
+    </p>
+    <p class="mh-harness__core">가장 중요한 것 = <strong>선의 공리</strong></p>
+    <nav class="mh-harness__cta" aria-label="Primary surfaces">
+      <a class="mh-harness__btn mh-harness__btn--core" href="#axiom">선의 공리</a>
+      <a class="mh-harness__btn" href="/book/">Book</a>
+      <a class="mh-harness__btn" href="/game/">Game</a>
+      <a class="mh-harness__btn mh-harness__btn--ghost" href="#apostles">사도</a>
+    </nav>
+  </section>
 
+  {/* === PART ONE: 선의 공리 (최우선) === */}
+  <AxiomSection />
+
+  {/* === PART TWO: 12 사도 (공리 다음) === */}
+  <section id="apostles" class="mh-portal" aria-label="12 사도">
+    <header class="mh-portal__head">
+      <p class="mh-part-eyebrow">PART TWO</p>
+      <h2 class="mh-portal__title">12 사도</h2>
+      <p class="mh-portal__lede">공리 다음 층. 기둥을 하나씩 들어가 보세요. · <a href="/apostles/">전체 목록 →</a></p>
+    </header>
     <ol class="mh-portal__grid" aria-label="12 사도 입구">
-      {apostles.map(a => (
+      {apostles.map((a) => (
         <li class="mh-portal__cell">
           <a href={`/apostles/${a.slug}`} class="mh-portal__tile" data-apostle-id={a.id}>
             <span class="mh-portal__num">{a.num}.</span>
             <span class="mh-portal__icon" aria-hidden="true">{a.icon}</span>
             <span class="mh-portal__name">{a.name}</span>
             <span class="mh-portal__epithet">{a.epithet}</span>
-            {/* Wave 7: hover essence preview tooltip — KG: CONTRACT_PortalTileHover_v1 */}
             {a.essence && (
               <span class="mh-portal__essence-preview" aria-hidden="true">{a.essence.slice(0, 90)}{a.essence.length > 90 ? '…' : ''}</span>
             )}
@@ -81,18 +81,11 @@ const worldview = worldviewData.worldview;
         </li>
       ))}
     </ol>
-
   </section>
 
-  {/* === PART ONE: 공리 (12 axioms datasheet) === */}
-  <AxiomSection />
-
-  {/* === PART TWO 사도 long-form — 사용자 verdict 2026-05-22 'portal 과 중복' 제거.
-        12 사도 = 위 portal grid 단독. 상세 = /apostles/<slug>/ 페이지 단독. === */}
-
-  {/* === PART TWO (재사용): 세계관 — i2b · HOH. KG Concept/WorldBuilding 노드 기반 === */}
+  {/* === PART THREE: 세계관 === */}
   <section class="mh-part-divider">
-    <p class="mh-part-eyebrow">PART TWO</p>
+    <p class="mh-part-eyebrow">PART THREE</p>
     <h2 class="mh-part-title">세계관</h2>
     <p class="mh-part-gloss"><em>The Worldview.</em> 순수이성인간과 생명인간, 그리고 둘을 잇는 단 하나의 다리.</p>
   </section>
@@ -147,23 +140,75 @@ const worldview = worldviewData.worldview;
   {/* === 초대 === */}
   <section class="mh-section mh-closing">
     <p class="mh-eyebrow"><span class="mh-num">§</span> 초대 / Invitation</p>
-    <p class="mh-closing__line">이 우주관에 들어오려면, 먼저 정의 I을 읽으라.</p>
+    <p class="mh-closing__line">이 우주관에 들어오려면, 먼저 <a href="#axiom">선의 공리</a>를 읽으라. · <a href="/book/">Book</a> · <a href="/game/">Game</a></p>
     <footer class="mh-footer">
       <span>&copy; 라경준 &middot; Gyeongjun Ra</span>
+      <span><a href="/book/">Book</a></span>
+      <span><a href="/game/">Game</a></span>
+      <span><a href="/#axiom">공리</a></span>
       <span><a href="/apostles/">사도</a></span>
-      <span><a href="/explore/">도메인</a></span>
-      <span><a href="/skills/">Skills</a></span>
-      <span><a href="/ontology.ttl">Ontology</a></span>
+      <span><a href="/explore/">KG</a></span>
       <span><a href="/llms.txt">llms.txt</a></span>
       <span><a href="https://github.com/gj3447">GitHub</a></span>
-      <span><a href="https://github.com/gj3447/bhgman_tool">bhgman_tool</a></span>
     </footer>
   </section>
 
 </body>
 </html>
 <style>
-  /* ====== mh-portal — 사도 중심 hero (12 그리드) — datasheet 측 dense ====== */
+  /* ====== harness entry — 선의 공리 우선 ====== */
+  .mh-harness {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 16px 18px;
+    font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  }
+  .mh-harness__title {
+    font-size: clamp(22px, 3vw, 28px);
+    font-weight: 600;
+    margin: 12px 0 6px;
+    letter-spacing: -0.02em;
+  }
+  .mh-harness__tag {
+    font-size: 12px;
+    color: rgba(14,14,12,0.62);
+    margin: 0 0 8px;
+    line-height: 1.45;
+    max-width: 52ch;
+  }
+  .mh-harness__tag em { color: rgba(14,14,12,0.45); }
+  .mh-harness__core {
+    font-size: 13px;
+    margin: 0 0 14px;
+    color: rgba(14,14,12,0.78);
+  }
+  .mh-harness__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .mh-harness__btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 14px;
+    font-size: 12px;
+    border: 1px solid rgba(14,14,12,0.18);
+    background: rgba(255,255,255,0.55);
+    text-decoration: none;
+    color: inherit;
+    letter-spacing: 0.02em;
+  }
+  .mh-harness__btn:hover { background: #fff; }
+  .mh-harness__btn--core {
+    border-color: #00c4d6;
+    background: color-mix(in srgb, #00e5ff 14%, #fff);
+    font-weight: 600;
+  }
+  .mh-harness__btn--ghost { opacity: 0.75; }
+  .mh-nav a.is-active { opacity: 1; font-weight: 600; }
+  .mh-nav a[data-priority="core"] { color: #0a7a86; }
+
+  /* ====== mh-portal — 사도 그리드 (공리 다음) ====== */
   .mh-portal {
     padding: 12px 16px;
     display: flex;

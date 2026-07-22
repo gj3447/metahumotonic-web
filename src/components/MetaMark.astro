@@ -1,0 +1,14 @@
+---
+/**
+ * MetaHumotonic canonical mark — 2×2 hollow rings:
+ * cyan · magenta · yellow · white
+ * USER_PRIMARY 2026-06-12 / color lock 2026-07-22
+ */
+const { size = 'md', class: className = '' } = Astro.props;
+---
+<div class={`mh-mark mh-mark--${size} ${className}`} aria-hidden="true" title="MetaHumotonic symbol">
+  <span class="mh-mark__ring mh-mark__ring--c"></span>
+  <span class="mh-mark__ring mh-mark__ring--m"></span>
+  <span class="mh-mark__ring mh-mark__ring--y"></span>
+  <span class="mh-mark__ring mh-mark__ring--w"></span>
+</div>
