@@ -103,6 +103,7 @@ test('compute CSP and origin anti-framing policy remain enforced', async () => {
   assert.match(compute, /connect-src 'none'/);
   assert.match(compute, /worker-src 'self'/);
   const nginx = await readFile(path.join(root, 'nginx.conf'), 'utf8');
+  assert.match(nginx, /absolute_redirect off/);
   assert.match(nginx, /Content-Security-Policy "frame-ancestors 'none'" always/);
   assert.match(nginx, /X-Frame-Options "DENY" always/);
   assert.match(nginx, /location = \/js\/333-compute-worker\.js/);
