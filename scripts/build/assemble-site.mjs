@@ -13,6 +13,11 @@ const required = [
   'book/read/index.html',
   'book/333/index.html',
   'compute/index.html',
+  'foundation/index.html',
+  'foundation/manifest.json',
+  'research/hswm/index.html',
+  'research/papers/index.html',
+  'research/program.json',
   '.well-known/333-compute.json',
 ];
 
@@ -36,6 +41,11 @@ const manifest = {
   product_routes: [
     '/',
     '/compute/',
+    '/foundation/',
+    '/foundation/manifest.json',
+    '/research/hswm/',
+    '/research/papers/',
+    '/research/program.json',
     '/333/',
     '/api/',
     '/.well-known/333-compute.json',

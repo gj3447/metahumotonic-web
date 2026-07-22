@@ -6,6 +6,16 @@
   },
   "repos": [
     {
+      "id": "hswm",
+      "name": "HSWM",
+      "tagline": "여러 에이전트의 증거를 n-ary 하이퍼그래프와 시맨틱 웨이트 장으로 보존·연결·수정하는 공유 외부 메모리 연구 구현.",
+      "lang": "Python",
+      "url": "https://github.com/gj3447/HSWM",
+      "highlight": true,
+      "color": "#76f7b0",
+      "tags": ["weighted hypergraph", "auditable memory", "public research"]
+    },
+    {
       "id": "333",
       "name": "333",
       "tagline": "명시적 동의와 제한된 lease를 전제로 컴퓨팅·전송·계량을 연결하는 consensusless P2P OS 연구 구현.",
@@ -13,7 +23,7 @@
       "url": "https://github.com/gj3447/333",
       "highlight": true,
       "color": "#00d7a3",
-      "tags": ["P2P compute", "consensusless transfer", "AGPLv3"]
+      "tags": ["P2P compute", "consensusless transfer", "AGPL-3.0-only"]
     },
     {
       "id": "lakatotree",

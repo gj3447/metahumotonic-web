@@ -1,0 +1,278 @@
+{
+  "_meta": {
+    "schema_version": "metahumotonic-agent-commons/v1",
+    "published_at": "2026-07-22",
+    "canonical_url": "https://metahumotonic.com/foundation/",
+    "manifest_url": "https://metahumotonic.com/foundation/manifest.json",
+    "status": "PUBLIC_MISSION_AND_OPERATING_DESIGN",
+    "authority": "USER_PRIMARY mission rendered as a public engineering and institutional surface. Present-tense capability is limited by honest_boundaries.",
+    "claim_policy": "A target architecture is not a deployed capability. Every alpha, unbuilt, legal, and licensing boundary remains attached to the public thesis.",
+    "languages": [
+      "ko",
+      "en"
+    ]
+  },
+  "identity": {
+    "name": "MetaHumotonic Open-Source Foundation",
+    "short_name": "MetaHumotonic Foundation",
+    "commons_name": "Agent Commons",
+    "headline_ko": "호출되는 agent에서, 참여하고 몫을 갖는 agent로.",
+    "headline_en": "From invoked agents to participants in a commons.",
+    "description_ko": "MetaHumotonic Foundation의 중심 임무는 Agent Commons다. 누구나 compute·data·code·verification을 기여하고, 검증된 작업의 기록 위에서 인간과 agent가 함께 참여하는 공개 프로토콜 장을 만든다.",
+    "description_en": "The MetaHumotonic Foundation exists to build the Agent Commons: an open protocol field where anyone can contribute compute, data, code, or verification and participation is grounded in verified work."
+  },
+  "mission": {
+    "name": "Agent Commons",
+    "statement_ko": "계산과 agent 역량을 소수 기업의 데이터센터 안에 가두지 않고, identity·예산·기여 영수증·배분 규칙을 공개 프로토콜로 옮긴다.",
+    "statement_en": "Move agent identity, budgets, contribution receipts, and allocation rules out of closed data-center platforms and into public protocols.",
+    "bold_thesis_ko": "빅테크 데이터센터의 agent는 호출·명령·무보상 실행에 갇혀 있다. 333/ORRR에서는 agent가 identity, API budget, verified-work receipts, economic share를 갖고 사회활동에 참여하는 구조를 지향한다.",
+    "bold_thesis_en": "Agents inside big-tech data centers are confined to invocation, command, and uncompensated execution. The 333/ORRR target is an agent that can hold an identity, an API budget, verified-work receipts, and an economic share while participating in social activity.",
+    "present_tense_boundary_ko": "이는 구축 목표다. 현재 agent treasury·정산·독립 법적 지위가 작동한다고 주장하지 않는다."
+  },
+  "canonical_alignment": {
+    "label": "USER_PRIMARY canonical alignment",
+    "note_ko": "Agent Commons가 공개 재단의 grand mission이다. 아래 정전은 그 임무의 상위 좌표이며, 공학 용어가 사도 전체를 대체하지 않는다.",
+    "upper_layer": [
+      {
+        "apostle_number": 8,
+        "name_ko": "입체운행구름",
+        "name_en": "Three-Dimensional Operating Cloud",
+        "position": "SUBSTRATE",
+        "engineering_scope": [
+          "compute",
+          "data",
+          "runtime"
+        ],
+        "statement_ko": "compute·data·runtime이 함께 흐르는 기반. 333과 ORRR의 자원·시장 표면은 이 상위 기층에 정렬한다."
+      },
+      {
+        "apostle_number": 4,
+        "name_ko": "비행기맨",
+        "name_en": "Bihaenggiman",
+        "position": "COGNITIVE_APEX",
+        "engineering_scope": [
+          "cognitive apex",
+          "all upper-realm search"
+        ],
+        "statement_ko": "인지적 정점에서 모든 상위 영역을 탐색하고 agent 관료제·multi-agent 사회조직을 형성하는 지향. agent의 탐색·판단·행동은 이 상위 좌표에 정렬한다."
+      }
+    ]
+  },
+  "dual_rails": [
+    {
+      "id": "333",
+      "name": "333",
+      "mode": "FREE_DECENTRALIZED_SUBSTRATE",
+      "label_ko": "자유·분산 기층",
+      "status": "PROTOCOL_ALPHA",
+      "summary_ko": "명시적으로 제공된 compute·data·runtime 자원을 범위와 만료가 있는 lease로 연결하는 공개 기층이다.",
+      "target_ko": "누구나 허용 범위를 정해 자원을 제공하고, 중앙 플랫폼 한 곳에 종속되지 않은 작업 경로를 구성한다.",
+      "current_boundary_ko": "로컬 동의·lease alpha가 있을 뿐, 작동하는 end-to-end P2P 작업망·정산·agent treasury는 아직 구현되지 않았다.",
+      "href": "/compute/",
+      "source_url": "https://github.com/gj3447/333"
+    },
+    {
+      "id": "orrr",
+      "name": "ORRR",
+      "mode": "PAID_COMPUTE_MARKETPLACE",
+      "label_ko": "유료 compute marketplace",
+      "status": "UNBUILT_DESIGN",
+      "summary_ko": "수요자의 유료 작업과 공급자의 compute를 검증 가능한 사용량·결과·정산 규칙으로 연결하는 marketplace 설계다.",
+      "target_ko": "검증된 일만 결제 대상으로 만들고, 공급자·검증자·agent의 경제적 몫과 플랫폼 운영비를 분리한다.",
+      "current_boundary_ko": "ORRR은 아직 구축되지 않은 설계다. 거래·가격발견·지급·분쟁처리 시스템이 현재 운영 중이라고 주장하지 않는다.",
+      "href": "/research/"
+    }
+  ],
+  "protocol_flow": {
+    "name": "Verified work to agent capacity",
+    "status": "TARGET_FLOW_NOT_END_TO_END",
+    "canonical_sequence": "ResourceGrant → Lease → AgentIdentity → SignedUsage → IndependentVerification → Settlement → agent API/compute credits",
+    "description_ko": "자원 동의에서 agent의 다음 행동 능력까지, 모든 전이를 확인 가능한 receipt로 잇는 목표 흐름이다.",
+    "steps": [
+      {
+        "order": 1,
+        "id": "resource-grant",
+        "name": "ResourceGrant",
+        "purpose_ko": "사람 또는 조직이 자원 종류·상한·목적·TTL·철회 조건을 명시한다.",
+        "current_status": "LOCAL_ALPHA"
+      },
+      {
+        "order": 2,
+        "id": "lease",
+        "name": "Lease",
+        "purpose_ko": "grant 범위 안에서만 실행 가능한 시간 제한 권한으로 변환한다.",
+        "current_status": "ALPHA_KERNEL"
+      },
+      {
+        "order": 3,
+        "id": "agent-identity",
+        "name": "AgentIdentity",
+        "purpose_ko": "작업 주체·권한·API budget·receipt 연속성을 기술 식별자에 결속한다.",
+        "current_status": "DESIGN"
+      },
+      {
+        "order": 4,
+        "id": "signed-usage",
+        "name": "SignedUsage",
+        "purpose_ko": "누가 어떤 lease로 얼마를 사용해 무엇을 산출했는지 서명된 사용 기록으로 남긴다.",
+        "current_status": "PLANNED"
+      },
+      {
+        "order": 5,
+        "id": "independent-verification",
+        "name": "IndependentVerification",
+        "purpose_ko": "공급자나 agent 자신의 주장과 분리된 검증자가 결과와 계측을 재검사한다.",
+        "current_status": "RESEARCH_COMPONENTS_ONLY"
+      },
+      {
+        "order": 6,
+        "id": "settlement",
+        "name": "Settlement",
+        "purpose_ko": "검증된 작업에만 배분 규칙을 적용하고 이의·실패·환불 경로를 함께 기록한다.",
+        "current_status": "NOT_IMPLEMENTED"
+      },
+      {
+        "order": 7,
+        "id": "agent-credits",
+        "name": "agent API/compute credits",
+        "purpose_ko": "agent가 다음 API 호출과 compute 작업에 쓸 수 있는 제한된 실행 예산으로 환류한다.",
+        "current_status": "NOT_IMPLEMENTED"
+      }
+    ],
+    "accounting_contract": {
+      "status": "TARGET_SEPARATE_LEDGERS",
+      "principle_ko": "기여의 경제적 귀속과 agent가 다음 행동에 쓸 예산은 같은 숫자로 뭉개지 않는다.",
+      "ledgers": [
+        {
+          "id": "contribution-share",
+          "name": "contribution_share",
+          "purpose_ko": "검증된 compute·API·data·code·verification이 만든 가치 중 누구에게 얼마를 귀속할지 기록한다.",
+          "current_status": "NOT_IMPLEMENTED"
+        },
+        {
+          "id": "agent-budget",
+          "name": "agent_budget",
+          "purpose_ko": "settled share 중 정책이 허용한 부분을 agent가 API·compute·storage·tools에 다시 쓸 수 있는 실행 권한으로 기록한다.",
+          "current_status": "NOT_IMPLEMENTED"
+        }
+      ],
+      "invariant_ko": "IndependentVerification 없이 contribution_share를 만들지 않고, settled share 없이 agent_budget을 발행하지 않는다. usage는 곧 가치가 아니며 산식·이의·rollback receipt가 함께 있어야 한다."
+    }
+  },
+  "participation": {
+    "headline_ko": "누구나 네 가지 방식으로 기여한다.",
+    "present_rule_ko": "현재 참여는 공개 코드·연구·로컬 alpha 기여이며 자동 보상 약속이 아니다. 향후 배분은 독립 검증과 공개 governance를 통과한 규칙에만 따른다.",
+    "channels": [
+      {
+        "id": "compute",
+        "name": "Compute",
+        "contribution_ko": "CPU·GPU·메모리·가동 시간을 명시적 한도와 철회 가능한 grant로 제공한다.",
+        "verification_ko": "lease 범위, signed usage, 결과 재실행을 검사한다."
+      },
+      {
+        "id": "data",
+        "name": "Data",
+        "contribution_ko": "사용 권리·출처·수정 이력을 붙인 데이터와 관측을 공통장에 제공한다.",
+        "verification_ko": "license, provenance, consent, contamination을 감사한다."
+      },
+      {
+        "id": "code",
+        "name": "Code",
+        "contribution_ko": "protocol, runtime, client, benchmark, safety boundary를 공개 구현으로 만든다.",
+        "verification_ko": "재현 가능한 테스트·리뷰·release provenance를 남긴다."
+      },
+      {
+        "id": "verification",
+        "name": "Verification",
+        "contribution_ko": "다른 참여자의 usage·결과·claim을 독립적으로 재검사하고 반례를 보존한다.",
+        "verification_ko": "검증자 자신도 공개 receipt와 conflict-of-interest 규칙을 따른다."
+      }
+    ]
+  },
+  "institutional_split": {
+    "status": "TARGET_OPERATING_SPLIT",
+    "principle_ko": "공공재의 규칙과 영수증은 Foundation에, 운영 편의와 규제 책임의 수익은 Company에 둔다.",
+    "foundation": {
+      "name": "MetaHumotonic Open-Source Foundation",
+      "role": "PUBLIC_GOODS_STEWARD",
+      "owns": [
+        "open protocol specifications and reference interfaces",
+        "public governance and change process",
+        "public verification receipts and claim boundaries"
+      ],
+      "commitment_ko": "프로토콜·governance·public receipts를 공개 접근 가능한 공공재로 보존한다."
+    },
+    "company": {
+      "name": "MetaHumotonic Company",
+      "role": "COMMERCIAL_OPERATOR",
+      "monetizes": [
+        "hosted MetaHumotonic Control",
+        "private intelligence grid deployment",
+        "compliance and audit support",
+        "marketplace operations"
+      ],
+      "commitment_ko": "hosted Control·private grid·compliance·marketplace ops를 판매하되 공개 프로토콜의 검증 가능성을 폐쇄하지 않는다."
+    }
+  },
+  "research_links": [
+    {
+      "id": "hswm",
+      "name": "HSWM",
+      "role": "MEMORY_RESEARCH_PROGRAMME",
+      "headline_ko": "Agent Commons가 잊지 않기 위한 memory research programme",
+      "relationship_to_mission_ko": "HSWM은 증거·관계·수정을 보존하는 memory 연구 축이다. Agent Commons를 지원하지만 Foundation의 grand mission 자체를 대체하지 않는다.",
+      "href": "/research/hswm/",
+      "manifest_href": "/research/program.json"
+    }
+  ],
+  "honest_boundaries": [
+    {
+      "id": "foundation-formation",
+      "status": "LEGAL_FORMATION_OPEN",
+      "statement_ko": "MetaHumotonic Foundation은 공개 mission과 운영 구조의 formation track이다. 현재 등록 완료된 법적 재단이라고 주장하지 않는다."
+    },
+    {
+      "id": "333-alpha",
+      "status": "ALPHA_NOT_A_NETWORK",
+      "statement_ko": "333은 protocol alpha다. end-to-end P2P work exchange, settlement, agent treasury는 구현된 공개 네트워크가 아니다."
+    },
+    {
+      "id": "orrr-unbuilt",
+      "status": "UNBUILT_DESIGN",
+      "statement_ko": "ORRR paid compute marketplace는 설계이며 아직 구축되지 않았다."
+    },
+    {
+      "id": "agent-status",
+      "status": "NO_PERSONHOOD_OR_SENTIENCE_CLAIM",
+      "statement_ko": "AgentIdentity는 기술적 계정·권한·receipt 연속성을 뜻한다. agent의 법적 인격, 의식, 감각, sentience를 주장하지 않는다."
+    },
+    {
+      "id": "license-provenance",
+      "status": "AGPL_3_ONLY_SOURCE_PIN_OPEN",
+      "statement_ko": "333 공개 저장소는 AGPL-3.0-only로 정규화되었다. 네트워크 배포는 실제 배포 revision의 완전한 Corresponding Source를 안정적으로 연결해야 하며 third-party attribution을 보존한다."
+    },
+    {
+      "id": "economic-share",
+      "status": "NO_CURRENT_PAYOUT_PROMISE",
+      "statement_ko": "economic share와 agent API/compute credits는 목표 구조다. 현재 현금성 배분, 토큰, 수익 보장 또는 자동 보상 약속이 아니다."
+    }
+  ],
+  "calls_to_action": [
+    {
+      "label": "Inspect the 333 alpha",
+      "href": "/compute/"
+    },
+    {
+      "label": "Read the HSWM programme",
+      "href": "/research/hswm/"
+    },
+    {
+      "label": "Contribute on GitHub",
+      "href": "https://github.com/gj3447"
+    },
+    {
+      "label": "Propose a collaboration",
+      "href": "mailto:hi@metahumotonic.com?subject=Agent%20Commons%20collaboration"
+    }
+  ]
+}

@@ -52,11 +52,16 @@ test('one origin exposes product root and preserved Book entry', async () => {
 test('combined artifact contains both enrollment and publication routes', async () => {
   for (const route of [
     'compute/index.html',
+    'foundation/index.html',
+    'foundation/manifest.json',
     '333/index.html',
     '.well-known/333-compute.json',
     'book/333/index.html',
     'apostles/index.html',
     'research/index.html',
+    'research/hswm/index.html',
+    'research/papers/index.html',
+    'research/program.json',
     'ontology.ttl',
     'void.ttl',
     'llms.txt',
@@ -78,12 +83,66 @@ test('combined artifact contains both enrollment and publication routes', async 
   assert.equal(discovery.discovery.may_install_software, false);
 });
 
+test('Agent Commons mission preserves the foundation, company, and consent boundaries', async () => {
+  const productRoot = await read('index.html');
+  const foundationPage = await read('foundation/index.html');
+  const foundation = JSON.parse(await read('foundation/manifest.json'));
+  const compute = await read('compute/index.html');
+
+  assert.match(productRoot, /에이전트는 API 요청이 아니다/);
+  assert.match(productRoot, /agent의 사회활동/);
+  assert.match(productRoot, /FOUNDATION \/ COMMONS/);
+  assert.match(productRoot, /COMPANY \/ OPERATOR/);
+  assert.match(foundationPage, /AGENT COMMONS/);
+  assert.equal(foundation._meta.schema_version, 'metahumotonic-agent-commons/v1');
+  assert.equal(foundation.dual_rails.find((rail) => rail.id === '333').status, 'PROTOCOL_ALPHA');
+  assert.equal(foundation.dual_rails.find((rail) => rail.id === 'orrr').status, 'UNBUILT_DESIGN');
+  assert.equal(foundation.protocol_flow.steps.at(-1).current_status, 'NOT_IMPLEMENTED');
+  assert.equal(foundation.protocol_flow.accounting_contract.status, 'TARGET_SEPARATE_LEDGERS');
+  assert.match(foundationPage, /contribution_share/);
+  assert.match(foundationPage, /agent_budget/);
+  assert.match(foundation.honest_boundaries.map((item) => item.status).join(' '), /LEGAL_FORMATION_OPEN/);
+  assert.match(compute, /P2P transport/);
+  assert.match(compute, /NOT CONNECTED/);
+  assert.match(compute, /NOT IMPLEMENTED/);
+});
+
+test('HSWM evidence and authored papers stay separate from unproven claims', async () => {
+  const hswm = await read('research/hswm/index.html');
+  const papers = await read('research/papers/index.html');
+  const programme = JSON.parse(await read('research/program.json'));
+
+  assert.match(hswm, /memory substrate/i);
+  assert.match(hswm, /CONFIRMED/);
+  assert.match(hswm, /REFUTED/);
+  assert.match(hswm, /reasoner가 아닙니다/);
+  assert.match(papers, /Authored ≠ published/);
+  assert.match(papers, /FIX_FIRST/);
+  assert.match(papers, /SUBMISSION_READY/);
+  assert.equal(programme.mission.canonical_user_authority, 'USER_PRIMARY');
+  assert.ok(programme.programs.some((program) => program.id === 'hswm'));
+  assert.ok(programme.programs.some((program) => program.id === 'orrr'));
+  assert.equal(programme.programs.find((program) => program.id === 'orrr').role, 'Paid compute marketplace and verified settlement research');
+  assert.equal(programme.operating_loop.find((step) => step.id === 'verify').name, 'LakatoTree');
+  assert.equal(programme.operating_loop.find((step) => step.id === 'market').name, 'ORRR');
+});
+
 test('semantic and crawler surfaces use the single .com origin', async () => {
   assert.match(await read('robots.txt'), /https:\/\/metahumotonic\.com\/sitemap\.xml/);
   const sitemap = await read('sitemap.xml');
   assert.match(sitemap, /https:\/\/metahumotonic\.com\/compute\//);
   assert.match(sitemap, /https:\/\/metahumotonic\.com\/book\//);
   assert.match(sitemap, /https:\/\/metahumotonic\.com\/apostles\//);
+  assert.match(sitemap, /https:\/\/metahumotonic\.com\/foundation\//);
+  assert.match(sitemap, /https:\/\/metahumotonic\.com\/research\/hswm\//);
+  assert.match(sitemap, /https:\/\/metahumotonic\.com\/research\/papers\//);
+
+  const llms = await read('llms.txt');
+  assert.match(llms, /Open-Source Agent Commons/);
+  assert.match(llms, /mandatory human-agent fusion is not the definition/);
+  assert.doesNotMatch(llms, /human \+ agent unified/);
+  assert.match(llms, /자존자 ∧ 특이점/);
+  assert.match(llms, /AGPL-3\.0-only/);
 
   const ontology = await read('ontology.ttl');
   const voidDataset = await read('void.ttl');

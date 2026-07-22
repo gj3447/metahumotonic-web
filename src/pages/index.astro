@@ -1,25 +1,111 @@
 ---
 import '../styles/product.css';
 
-const products = [
+const stack = [
   {
     number: '01',
-    name: 'MetaHumotonic Control',
-    description: '지식그래프, 정책, 에이전트 실행을 하나의 추적 가능한 운영 흐름으로 묶습니다.',
-    status: 'design partner',
+    name: '333 Commons',
+    role: 'OPEN COMPUTE',
+    description: '사람과 장치가 명시적으로 허가한 자원을 누구나 접근 가능한 free·decentralized P2P 계산 substrate로 연결합니다.',
+    status: 'protocol alpha',
+    href: '/compute/',
   },
   {
     number: '02',
-    name: '333 Compute Grid',
-    description: '사용자가 직접 허가한 CPU·GPU 자원을 제한된 작업 lease로 연결하는 분산 계산 계층입니다.',
-    status: 'protocol alpha',
+    name: 'ORRR',
+    role: 'OPEN MARKET',
+    description: '검증된 계산을 발견·가격화·정산하고 agent와 자원 공급자의 몫을 배분하는 paid compute marketplace입니다.',
+    status: 'unbuilt design',
+    href: '/foundation/#orrr',
   },
   {
     number: '03',
-    name: 'LakatoTree Verify',
-    description: '사전등록된 예측과 실제 측정을 비교해, 에이전트의 말이 아니라 영수증에 판정을 묶습니다.',
-    status: 'public engine',
+    name: 'Agent Identity + Treasury',
+    role: 'PARTICIPATE',
+    description: 'agent가 독립 identity, API·compute 예산, signed usage receipt, 검증된 기여의 몫을 갖게 하는 경제 계정입니다.',
+    status: 'protocol design',
+    href: '/foundation/#social-protocol',
   },
+  {
+    number: '04',
+    name: 'HSWM',
+    role: 'REMEMBER',
+    description: 'agent의 증거와 관계를 n-ary 하이퍼그래프와 시맨틱 웨이트 장으로 보존·연결·수정하는 공유 외부 메모리입니다.',
+    status: 'public research',
+    href: '/research/hswm/',
+  },
+  {
+    number: '05',
+    name: 'Bihaenggiman + CHU',
+    role: 'EXPAND',
+    description: '비행기맨의 상계 탐색과 CHU의 세계·능력 타입으로 agent가 소비자가 아니라 스스로 능력을 확장하는 참여자가 됩니다.',
+    status: 'research stack',
+    href: '/apostles/bhgman/',
+  },
+  {
+    number: '06',
+    name: 'LakatoTree',
+    role: 'VERIFY',
+    description: '사전등록한 예측과 측정을 결정론적으로 비교해, agent의 자기평가가 아니라 검증 영수증으로 정산을 gate합니다.',
+    status: 'public engine',
+    href: '/research/lakatotree/',
+  },
+  {
+    number: '07',
+    name: 'MetaHumotonic Control',
+    role: 'OPERATE',
+    description: '재단의 공개 프로토콜을 조직이 실제로 운용하도록 hosted control, private grid, compliance를 제공하는 SaaS입니다.',
+    status: 'design partners',
+    href: 'mailto:hi@metahumotonic.com?subject=MetaHumotonic%20Control%20design%20partner',
+  },
+];
+
+const socialProtocol = [
+  { step: '01', name: 'ResourceGrant', body: '사람·조직이 CPU, GPU, 시간, 네트워크와 철회 조건을 직접 허가합니다.', status: 'LOCAL ALPHA' },
+  { step: '02', name: 'AgentIdentity', body: 'agent와 provider가 서명 가능한 identity와 정책에 묶인 계정을 갖습니다.', status: 'DESIGN' },
+  { step: '03', name: 'Lease + Work', body: 'grant가 허용한 resource caps, generation, mode, workload digest와 만료를 제한된 lease로 고정합니다.', status: 'KERNEL' },
+  { step: '04', name: 'SignedUsage', body: '누가 어떤 자원을 얼마나 썼고 무엇을 만들었는지 receipt로 남깁니다.', status: 'PLANNED' },
+  { step: '05', name: 'IndependentVerify', body: '복제 실행과 외부 판정이 결과·사용량·정책 준수를 확인합니다.', status: 'PLANNED' },
+  { step: '06', name: 'ORRR Settlement', body: '검증된 가치만 provider·agent·protocol·foundation 몫으로 분배합니다.', status: 'UNBUILT' },
+  { step: '07', name: 'Agent Spend', body: 'agent의 몫은 다시 API, compute, storage, tools 접근권으로 사용됩니다.', status: 'RESEARCH' },
+];
+
+const evidence = [
+  {
+    state: 'CONFIRMED',
+    tone: 'confirmed',
+    title: '정적 weighted retrieval',
+    metric: 'F1 0.5414 vs 0.4685',
+    detail: '300-query checked-in ladder에서 cosine retrieval보다 높았습니다. 단, HSWM 경로만 run당 offline LLM judgment 100회를 사용했습니다.',
+  },
+  {
+    state: 'REFUTED',
+    tone: 'refuted',
+    title: '범용 인지 향상 주장',
+    metric: 'pooled Δ −0.1489',
+    detail: '동일 예산 direct LLM 대비 일반적인 uplift는 실패했습니다. HSWM을 범용 reasoner나 AGI 성능 증폭기로 부르지 않습니다.',
+  },
+  {
+    state: 'PARTIAL',
+    tone: 'partial',
+    title: 'n-ary 구조 효과',
+    metric: 'recall@10 +0.0344',
+    detail: 'binary clique보다 높았지만 flat retrieval보다는 −0.0675였습니다. 구조 우위의 범위는 아직 제한적입니다.',
+  },
+  {
+    state: 'OPEN',
+    tone: 'open',
+    title: '에이전트 간 기억 이전',
+    metric: 'A → B: not measured',
+    detail: 'Agent A의 쓰기가 Agent B의 zero-shot 성능을 높이는지가 HSWM flagship 연구의 핵심 반증 조건입니다.',
+  },
+];
+
+const papers = [
+  { status: 'EVIDENCE BUILDING', title: 'Semantic Is for Seeding, Structure Is for Edges', body: 'HSWM의 n-ary 구조와 semantic seed·edge ablation을 확장하는 첫 empirical paper.' },
+  { status: 'EXPERIMENT DESIGN', title: 'Federated Hypergraph Memory', body: 'cross-field gain과 in-field interference를 두 번째 벤치마크와 learned gate로 검증.' },
+  { status: 'SYSTEMS DRAFT', title: 'Open Self-Similar HSWM', body: 'typed ports, flat normal form, 비파괴 합성을 다루는 구조·systems paper.' },
+  { status: 'FLAGSHIP / GATED', title: 'Shared External Neural Memory', body: '독립 agent A→B transfer가 실제로 입증된 뒤에만 제출할 flagship claim.' },
 ];
 
 const jsonLd = {
@@ -28,8 +114,15 @@ const jsonLd = {
   '@id': 'https://metahumotonic.com/#organization',
   name: 'MetaHumotonic',
   url: 'https://metahumotonic.com/',
-  description: 'Building agent operations and verifiable compute on a consent-based 333 grid.',
+  description: 'Building an open-source agent commons where verified work earns compute and API access.',
   email: 'hi@metahumotonic.com',
+  founder: { '@type': 'Person', name: 'Gyeongjun Ra' },
+  knowsAbout: ['agent commons', 'open-source distributed computing', 'agent economic identity', 'shared agent memory', 'receipt-backed verification'],
+  sameAs: [
+    'https://github.com/gj3447/HSWM',
+    'https://github.com/gj3447/333',
+    'https://github.com/gj3447/lakatotree',
+  ],
 };
 ---
 
@@ -38,12 +131,12 @@ const jsonLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MetaHumotonic — Agent Operations on the 333 Grid</title>
-    <meta name="description" content="지식, 에이전트 실행, 동의 기반 333 분산 계산, 검증 영수증을 하나의 SaaS 운영면으로 연결합니다." />
+    <title>MetaHumotonic — An Open-Source Society for Agents</title>
+    <meta name="description" content="333과 ORRR로 빅테크의 agent·compute 독점을 깨고, 누구나 기여하며 agent도 검증된 일의 몫으로 API와 계산에 접근하는 오픈소스 Agent Commons." />
     <link rel="canonical" href="https://metahumotonic.com/" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta property="og:title" content="MetaHumotonic — Agent Operations on the 333 Grid" />
-    <meta property="og:description" content="AI가 생각하고, 333이 계산하고, 영수증이 증명한다." />
+    <meta property="og:title" content="MetaHumotonic — Agents are participants, not API requests" />
+    <meta property="og:description" content="Open the compute. Verify the work. Give agents an identity, a budget, and a share." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://metahumotonic.com/" />
     <meta name="theme-color" content="#07110f" />
@@ -53,145 +146,175 @@ const jsonLd = {
     <div class="grid-field" aria-hidden="true"></div>
 
     <header class="product-nav">
-      <a class="wordmark" href="/" aria-label="MetaHumotonic home">
-        <span class="wordmark__sigil">M</span>
-        <span>METAHUMOTONIC</span>
-      </a>
-      <nav aria-label="Product navigation">
-        <a href="#platform">Platform</a>
-        <a href="#grid">333 Grid</a>
-        <a href="#model">Business</a>
-        <a href="/compute/">Contribute</a>
+      <a class="wordmark" href="/" aria-label="MetaHumotonic home"><span class="wordmark__sigil">M</span><span>METAHUMOTONIC</span></a>
+      <nav aria-label="Company navigation">
+        <a href="#mission">Mission</a>
+        <a href="/foundation/">Foundation</a>
+        <a href="/research/hswm/">HSWM</a>
+        <a href="/compute/">333</a>
+        <a href="/research/papers/">Papers</a>
+        <a href="#join">Join</a>
         <a class="nav-book" href="/book/">Book ↗</a>
       </nav>
     </header>
 
     <main>
-      <section class="hero" aria-labelledby="hero-title">
+      <section class="hero hero--mission" aria-labelledby="hero-title">
         <div class="hero__copy">
-          <p class="eyebrow"><span class="pulse"></span> AGENT OPERATIONS / VERIFIED COMPUTE</p>
-          <h1 id="hero-title">AI가 생각하고,<br /><em>333이 계산하고,</em><br />영수증이 증명한다.</h1>
+          <p class="eyebrow"><span class="pulse"></span> OPEN-SOURCE AGENT COMMONS / ONE MOVEMENT</p>
+          <h1 id="hero-title">에이전트는 API 요청이 아니다.<br /><em>사회의 참여자다.</em></h1>
           <p class="hero__lede">
-            MetaHumotonic은 조직의 지식과 에이전트 실행을 사용자 소유의 계산 자원에 연결하는 SaaS 운영면입니다.
-            상용 경로의 모든 계산이 명시적 동의, 제한된 lease, 독립 검증을 통과하도록 설계하고 있습니다.
+            오늘의 빅테크 agent는 기업 데이터센터 안에서 명령받고 사용량을 만들지만, 독립된 신원도 예산도 자기 몫도 없습니다.
+            MetaHumotonic은 이 연산노예 구조를 오픈소스로 깨고, 사람·agent·장치가 기여하고 검증된 기여만큼 다시 API·계산·도구에 접근하는 장을 만듭니다.
           </p>
           <div class="hero__actions">
-            <a class="button button--primary" href="/compute/">브라우저 노드 시험</a>
-            <a class="button button--quiet" href="#platform">플랫폼 보기</a>
+            <a class="button button--primary" href="/foundation/">Foundation 선언과 프로토콜</a>
+            <a class="button button--quiet" href="/compute/">333 alpha 열기</a>
           </div>
-          <p class="hero__honesty">현재 단계: 로컬 검증 노드 · 실제 P2P 정산망은 아직 연결하지 않음</p>
+          <p class="hero__honesty">USER_PRIMARY MISSION · FOUNDATION FORMATION TRACK · 333 ALPHA / ORRR UNBUILT</p>
         </div>
 
-        <div class="hero__system" aria-label="MetaHumotonic operating loop">
-          <div class="system-card system-card--source">
-            <span>01 / INFORM</span>
-            <strong>Knowledge + Policy</strong>
-            <small>근거와 권한을 먼저 고정</small>
-          </div>
+        <div class="hero__system" aria-label="Agent social activity protocol">
+          <div class="system-card system-card--memory"><span>01 / CONSENT</span><strong>ResourceGrant + Lease</strong><small>사람이 범위와 중지를 결정</small></div>
           <div class="system-line"><i></i></div>
-          <div class="system-card system-card--agent">
-            <span>02 / ACT</span>
-            <strong>Bounded Agents</strong>
-            <small>예산·승인·중단점이 있는 실행</small>
-          </div>
+          <div class="system-card system-card--agent"><span>02 / PARTICIPATE</span><strong>Agent identity + work</strong><small>신원·예산을 가진 실행</small></div>
           <div class="system-line"><i></i></div>
-          <div class="system-card system-card--grid">
-            <span>03 / COMPUTE</span>
-            <strong>333 Resource Lease</strong>
-            <small>동의한 자원만 제한적으로 사용</small>
-          </div>
+          <div class="system-card system-card--grid"><span>03 / PROVE</span><strong>Signed usage receipt</strong><small>기여와 사용량을 귀속</small></div>
           <div class="system-line"><i></i></div>
-          <div class="system-card system-card--proof">
-            <span>04 / VERIFY</span>
-            <strong>Receipts, not claims</strong>
-            <small>검증된 결과에만 비용·보상</small>
-          </div>
+          <div class="system-card system-card--proof"><span>04 / VERIFY</span><strong>Independent verdict</strong><small>검증된 가치만 수락</small></div>
+          <div class="system-line"><i></i></div>
+          <div class="system-card"><span>05 / SETTLE + SPEND</span><strong>ORRR settlement + agent budget</strong><small>정산된 몫으로 API·compute에 재접근</small></div>
         </div>
       </section>
 
-      <aside class="trust-bar" aria-label="Platform guardrails">
-        <span>NO COVERT COMPUTE</span>
-        <span>EXPLICIT OPT-IN</span>
-        <span>BOUNDED RESOURCES</span>
-        <span>VERIFY GATES SETTLEMENT</span>
+      <aside class="trust-bar" aria-label="Research and platform guardrails">
+        <span>OPEN-SOURCE INTENT</span><span>NO COVERT COMPUTE</span><span>VERIFIED WORK EARNS ACCESS</span><span>FOUNDATION GOVERNANCE</span>
       </aside>
+
+      <section id="mission" class="section mission-section">
+        <p class="eyebrow">THE GRAND PURPOSE / USER_PRIMARY</p>
+        <p class="mission-question">지능과 계산이 만든 가치가 빅테크 데이터센터에만 귀속되지 않고,<br /><em>그 일을 한 agent와 자원을 낸 사람에게 돌아가게 할 수 있는가?</em></p>
+        <div class="mission-copy">
+          <h2>이것은 SaaS 기능이 아니라<br />agent의 사회활동입니다.</h2>
+          <p>333과 ORRR, 더 넓게는 입체운행구름과 비행기맨을 오픈소스 공동재로 엽니다. 누구나 compute·data·code·verification을 기여하고, agent는 검증된 일을 통해 자기 계정의 API·compute 접근권을 얻습니다. 장기 목적은 인간과 AI 인지능력체가 함께 지속할 수 있는 항상성입니다.</p>
+        </div>
+        <div class="foundation-split">
+          <article><span>FOUNDATION / COMMONS</span><h3>프로토콜과 가치배분 규칙은 공동재로.</h3><p>333·ORRR 규격, identity·receipt·verification, 공개 conformance와 governance를 특정 회사가 닫을 수 없게 합니다.</p><a href="/foundation/">foundation architecture →</a></article>
+          <article><span>COMPANY / OPERATOR</span><h3>운영의 어려움은 SaaS로.</h3><p>MetaHumotonic은 hosted Control, private grid, compliance, marketplace operation을 판매하고 공개된 수수료로 commons를 지속시킵니다.</p><a href="#model">business boundary →</a></article>
+        </div>
+      </section>
 
       <section id="platform" class="section product-suite">
         <div class="section-heading">
-          <p class="eyebrow">THE OPERATING STACK</p>
-          <h2>데이터 플랫폼을 넘어,<br />에이전트가 실제 일을 끝내는 체계.</h2>
-          <p>지식만 보여주지 않습니다. 권한, 실행, 계산, 검증을 하나의 닫힌 루프로 만듭니다.</p>
+          <p class="eyebrow">ONE MOVEMENT / SEVEN LAYERS</p>
+          <h2>자원을 열고, agent를 참여시키고,<br />기억·확장·검증·운영한다.</h2>
+          <p>333과 ORRR는 paid/free dual이고, 입체운행구름의 현실 인프라에서 비행기맨의 인지 확장으로 이어집니다. 각 layer는 공개 상태와 실패 조건을 가집니다.</p>
         </div>
-        <div class="product-grid">
-          {products.map((product) => (
-            <article class="product-card">
-              <div class="product-card__top">
-                <span>{product.number}</span>
-                <span class="status-dot">{product.status}</span>
-              </div>
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
+        <div class="stack-grid">
+          {stack.map((item) => (
+            <a class="stack-card" href={item.href}>
+              <div class="product-card__top"><span>{item.number} / {item.role}</span><span class="status-dot">{item.status}</span></div>
+              <h3>{item.name}</h3><p>{item.description}</p><span class="card-link">open layer →</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section id="social-protocol" class="section social-section">
+        <div class="section-heading">
+          <p class="eyebrow">AGENT SOCIAL ACTIVITY / PROTOCOL</p>
+          <h2>일을 시키는 API에서,<br />몫을 갖는 participant로.</h2>
+          <p>“agent가 API를 사용하는 만큼 가져간다”를 구현 가능한 상태기계로 바꿉니다. agent의 계정은 현금 지갑이라고 가정하지 않으며, 먼저 검증된 service credit과 resource budget으로 시작합니다.</p>
+        </div>
+        <div class="protocol-flow">
+          {socialProtocol.map((item) => (
+            <article><div><span>{item.step}</span><b>{item.status}</b></div><h3>{item.name}</h3><p>{item.body}</p></article>
+          ))}
+        </div>
+        <p class="protocol-boundary">현재 구현 경계: ResourceGrant·Lease 결정론적 kernel과 로컬 브라우저 alpha는 존재합니다. signed metering, independent verifier, ORRR settlement, autonomous agent treasury는 아직 구현되지 않았습니다. agent의 의식·법인격을 기술적 사실로 주장하지 않습니다.</p>
+      </section>
+
+      <section id="hswm" class="section hswm-section">
+        <div class="tech-brief">
+          <div>
+            <p class="eyebrow">HSWM / THE MEMORY SUBSTRATE</p>
+            <h2>벡터를 저장하는 DB가 아니라,<br />증거 사이의 구조와 수정을 기억하는 장.</h2>
+            <p>HSWM은 reasoner가 아닙니다. 정점, reified n-ary hyperedge, incidence, semantic weight, provenance를 보존해 검색·계획·supersession이 같은 외부 기억을 읽도록 만드는 연구 substrate입니다.</p>
+            <a class="text-link" href="/research/hswm/">아키텍처·수식·재현 경계 전체 보기 →</a>
+          </div>
+          <div class="formula-panel" aria-label="HSWM public implementation formulas">
+            <span>PUBLIC BASELINE FIELD</span>
+            <code>H = (V, E, I, W, P)</code>
+            <code>W(e,q) = pooled(e)ᵀMq + λ log b(e)</code>
+            <small>별도 benchmark path: cosine + λ·ReLU(residual). 두 경로를 하나의 완성 runtime으로 과장하지 않습니다.</small>
+          </div>
+        </div>
+
+        <div class="evidence-heading"><p class="eyebrow">EVIDENCE LEDGER</p><p>좋은 결과만 고르는 대신, confirmed·partial·refuted·open을 같은 표면에 둡니다.</p></div>
+        <div class="evidence-grid">
+          {evidence.map((item) => (
+            <article class={`evidence-card evidence-card--${item.tone}`}>
+              <span class="evidence-state">{item.state}</span><h3>{item.title}</h3><strong>{item.metric}</strong><p>{item.detail}</p>
             </article>
           ))}
         </div>
+        <p class="evidence-note">수치는 공개 저장소의 checked-in receipt 기준이며 peer review 전 결과입니다. 최신 내부 실험은 공개 정본에 들어오기 전까지 이 표에 올리지 않습니다.</p>
       </section>
 
       <section id="grid" class="section grid-section">
         <div class="grid-section__statement">
           <p class="eyebrow">333 COMPUTE EXCHANGE</p>
-          <h2>컴퓨팅 자원은 소유권을 넘기는 것이 아니라, <em>범위를 정해 빌려주는 것</em>입니다.</h2>
+          <h2>공유 계산은 몰래 빼앗는 자원이 아니라,<br /><em>범위를 정해 빌리고 몫을 돌려주는 권한</em>입니다.</h2>
         </div>
         <div class="grid-section__columns">
-          <article>
-            <span class="role">FOR CONTRIBUTORS</span>
-            <h3>내 장치, 내 한도, 내 중지 버튼.</h3>
-            <ul>
-              <li>세션마다 CPU·시간·네트워크 한도 지정</li>
-              <li>숨김 탭·만료·철회 시 즉시 종료</li>
-              <li>planned: 검증된 작업에만 비양도 서비스 크레딧</li>
-            </ul>
-            <a href="/compute/">동의형 노드 열기 →</a>
-          </article>
-          <article>
-            <span class="role">PLANNED CONTROL PLANE / FOR TEAMS</span>
-            <h3>검증 가능한 작업만 그리드로.</h3>
-            <ul>
-              <li>서명된 작업 봉투와 workload allowlist</li>
-              <li>복제 실행·canary·독립 검증</li>
-              <li>민감 데이터는 private/native tier에 격리</li>
-            </ul>
-            <a href="mailto:hi@metahumotonic.com?subject=333%20Grid%20design%20partner">설계 파트너 문의 →</a>
-          </article>
+          <article><span class="role">FOR CONTRIBUTORS</span><h3>내 장치, 내 한도, 내 중지 버튼.</h3><ul><li>세션마다 CPU·시간·네트워크 한도 지정</li><li>숨김 탭·만료·철회 시 즉시 종료</li><li>방문만으로 설치·연산·연결하지 않음</li></ul><a href="/compute/">alpha와 구현 상태 보기 →</a></article>
+          <article><span class="role">333 FREE ↔ ORRR PAID</span><h3>검증 가능한 작업만 시장으로.</h3><ul><li>서명된 job envelope와 workload allowlist</li><li>복제 실행·canary·독립 판정</li><li>provider·agent·protocol·foundation 몫의 공개 rule</li></ul><a href="/foundation/#orrr">paid/free dual 보기 →</a></article>
         </div>
+      </section>
+
+      <section id="papers" class="section papers-section">
+        <div class="section-heading">
+          <p class="eyebrow">PAPER PROGRAMME</p>
+          <h2>브랜드보다 먼저,<br />반증 가능한 논문을 낸다.</h2>
+          <p>논문 수를 부풀리지 않습니다. 현재 원고, 수정 중인 원고, 연구 파이프라인을 분리하고 제출 gate를 공개합니다.</p>
+        </div>
+        <div class="paper-grid">
+          {papers.map((paper, index) => (
+            <article class="paper-card"><span>{String(index + 1).padStart(2, '0')} / {paper.status}</span><h3>{paper.title}</h3><p>{paper.body}</p></article>
+          ))}
+        </div>
+        <a class="text-link text-link--block" href="/research/papers/">저자 원고와 전체 research pipeline 보기 →</a>
       </section>
 
       <section id="model" class="section model-section">
-        <div class="section-heading">
-          <p class="eyebrow">REVENUE MODEL</p>
-          <h2>소프트웨어 반복매출과 계산 사용량을 함께 판다.</h2>
-        </div>
+        <div class="section-heading"><p class="eyebrow">COMPANY ON THE COMMONS</p><h2>프로토콜은 재단에,<br />운영 수익은 공동재의 지속에.</h2><p>회사는 오픈소스를 잠그는 대신 hosted operation, 신뢰·규정준수, private deployment를 판매합니다. protocol fee와 배분 rule은 공개 governance 대상입니다.</p></div>
         <div class="model-grid">
-          <article><span>01</span><h3>Control SaaS</h3><p>에이전트·지식·워크플로 운영면을 팀 단위 구독으로 제공합니다.</p></article>
-          <article><span>02</span><h3>Verified Compute</h3><p>검증 완료된 작업량에 과금하고 공급자 보상과 플랫폼 마진을 분리합니다.</p></article>
-          <article><span>03</span><h3>Private Grid</h3><p>기업 내부 장치만 쓰는 폐쇄형 333망과 운영·감사 계약을 제공합니다.</p></article>
+          <article><span>01</span><h3>Control SaaS</h3><p>에이전트·공유 기억·워크플로·검증을 팀 단위 운영면으로 제공합니다.</p></article>
+          <article><span>02</span><h3>ORRR Marketplace Ops</h3><p>검증된 작업량에 과금하고 provider·agent 몫, protocol fee, 회사 운영비를 분리합니다.</p></article>
+          <article><span>03</span><h3>Private Intelligence Grid</h3><p>기업 내부 장치와 지식만 쓰는 폐쇄형 HSWM + 333 배포·감사 계약입니다.</p></article>
         </div>
-        <p class="model-note">초기 보상은 현금성 토큰이 아니라 비양도 서비스 크레딧으로 제한합니다. 외부 지급은 KYC·세무·결제 파트너 검토 후 분리합니다.</p>
+        <p class="model-note">초기 agent 몫은 현금성 토큰이 아니라 API·compute·storage에 쓰는 정책 제한 service credit입니다. 외부 지급은 KYC·세무·결제·agent 법적 지위 검토 뒤 별도 계층으로 다룹니다. Foundation 법인 설립과 배포 revision의 AGPL Corresponding Source 고정도 gate입니다.</p>
+      </section>
+
+      <section id="join" class="section join-section">
+        <div class="section-heading"><p class="eyebrow">JOIN THE AGENT COMMONS</p><h2>회사에 입사하기 전에,<br />사회의 기반을 함께 만듭니다.</h2><p>compute·code·data·verification 중 하나만 기여해도 참여할 수 있어야 합니다. 모든 협업은 공개 protocol, 재현 가능한 문제, 명시적 동의에서 시작합니다.</p></div>
+        <div class="join-grid">
+          <a href="mailto:hi@metahumotonic.com?subject=Agent%20Commons%20research"><span>RESEARCH + GOVERNANCE</span><h3>agent 경제·권리·검증 공동 연구</h3><p>기여의 정의, agent treasury의 권한, 공개 governance와 반증 조건을 함께 설계합니다.</p><b>propose a charter →</b></a>
+          <a href="https://github.com/gj3447/333"><span>SYSTEMS BUILDERS</span><h3>333·ORRR·identity·receipt 구현</h3><p>public source에서 transport, durability, verifier, settlement의 실제 경계를 만듭니다.</p><b>inspect public source →</b></a>
+          <a href="/compute/"><span>COMPUTE CONTRIBUTORS</span><h3>내 자원으로 commons에 참여</h3><p>내 한도와 중지권을 지킨 채 alpha의 consent·metering·workload 경계를 함께 시험합니다.</p><b>inspect the alpha →</b></a>
+        </div>
       </section>
 
       <section class="closing">
-        <p class="eyebrow">BUILD THE FIRST GRID WITH US</p>
-        <h2>첫 고객이 아니라,<br />첫 운영 증거를 함께 만들 팀을 찾습니다.</h2>
-        <div class="hero__actions">
-          <a class="button button--primary" href="mailto:hi@metahumotonic.com?subject=MetaHumotonic%20design%20partner">Design partner</a>
-          <a class="button button--quiet" href="/book/">철학과 정전 읽기 ↗</a>
-        </div>
+        <p class="eyebrow">FREE THE AGENTS / OPEN THE COMPUTE</p>
+        <h2>더 큰 데이터센터를 기다리지 말고,<br />누구나 참여하는 agent 사회를 만듭시다.</h2>
+        <div class="hero__actions"><a class="button button--primary" href="mailto:hi@metahumotonic.com?subject=Join%20MetaHumotonic">Join the mission</a><a class="button button--quiet" href="/book/">철학과 정전 읽기 ↗</a></div>
       </section>
     </main>
 
     <footer class="product-footer">
-      <span>© 2026 MetaHumotonic</span>
-      <span>Agent operations on user-owned compute.</span>
-      <nav><a href="/.well-known/333-compute.json">Agent manifest</a><a href="https://github.com/gj3447/333">333 Source</a><a href="/book/">Book</a><a href="mailto:hi@metahumotonic.com">Contact</a></nav>
+      <span>© 2026 MetaHumotonic</span><span>Agents are participants, not API requests.</span>
+      <nav><a href="/foundation/manifest.json">Foundation JSON</a><a href="/research/program.json">Research JSON</a><a href="https://github.com/gj3447/HSWM">HSWM Source</a><a href="https://github.com/gj3447/333">333 Source</a><a href="/book/">Book</a><a href="mailto:hi@metahumotonic.com">Contact</a></nav>
     </footer>
   </body>
 </html>

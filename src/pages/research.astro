@@ -44,23 +44,24 @@ const seed = { findings: 12417, lessons: 1215, papers: 161, validations: 608, co
       <div class="r-stats" role="list">
         <div class="r-stat" role="listitem"><span class="r-num" data-research-stat="findings">{seed.findings.toLocaleString()}</span><span class="r-lab">Findings</span></div>
         <div class="r-stat" role="listitem"><span class="r-num" data-research-stat="lessons">{seed.lessons.toLocaleString()}</span><span class="r-lab">Lessons</span></div>
-        <div class="r-stat" role="listitem"><span class="r-num" data-research-stat="papers">{seed.papers.toLocaleString()}</span><span class="r-lab">Papers</span></div>
+        <div class="r-stat" role="listitem"><span class="r-num" data-research-stat="papers">{seed.papers.toLocaleString()}</span><span class="r-lab">Literature</span></div>
         <div class="r-stat" role="listitem"><span class="r-num" data-research-stat="validations">{seed.validations.toLocaleString()}</span><span class="r-lab">Validations</span></div>
         <div class="r-stat" role="listitem"><span class="r-num" data-research-stat="consensus">{seed.consensus.toLocaleString()}</span><span class="r-lab">Consensus</span></div>
         <div class="r-stat" role="listitem"><span class="r-num" data-research-stat="decisions">{seed.decisions.toLocaleString()}</span><span class="r-lab">Decisions</span></div>
       </div>
     </header>
 
-    <!-- Curated public engineering project -->
+    <!-- Curated public research programmes -->
     <section class="r-project fade-in" aria-labelledby="r-project-title">
-      <p class="r-project-kicker">PUBLIC ENGINEERING PROJECT</p>
-      <a class="r-project-link" href="/research/lakatotree/">
-        <span>
-          <strong id="r-project-title">LakatoTree</strong>
-          <small>pre-register → measure → deterministic verdict</small>
-        </span>
-        <span class="r-project-open" aria-hidden="true">project page →</span>
-      </a>
+      <p class="r-project-kicker">PUBLIC RESEARCH PROGRAMMES</p>
+      <h2 id="r-project-title">하나의 목적, 네 개의 기술 전선</h2>
+      <p class="r-project-copy">라이브 KG는 연구 과정 전체를 보여줍니다. 아래는 MetaHumotonic이 직접 만들고 검증하는 공개 기술 프로그램입니다.</p>
+      <div class="r-project-grid">
+        <a class="r-project-link" href="/research/hswm/"><span><strong>HSWM</strong><small>shared weighted hypergraph memory</small></span><span class="r-project-open">technical page →</span></a>
+        <a class="r-project-link" href="/compute/"><span><strong>333</strong><small>consent-bounded distributed compute</small></span><span class="r-project-open">protocol alpha →</span></a>
+        <a class="r-project-link" href="/research/lakatotree/"><span><strong>LakatoTree</strong><small>pre-register → measure → deterministic verdict</small></span><span class="r-project-open">public engine →</span></a>
+        <a class="r-project-link" href="/research/papers/"><span><strong>Authored papers</strong><small>manuscripts and falsifiable research pipeline</small></span><span class="r-project-open">paper ledger →</span></a>
+      </div>
     </section>
 
     <!-- AI agent channel callout -->
@@ -78,7 +79,7 @@ const seed = { findings: 12417, lessons: 1215, papers: 161, validations: 608, co
       <button class="r-tab is-active" data-research-tab="recent" role="tab" aria-selected="true">최신</button>
       <button class="r-tab" data-research-tab="findings" role="tab" aria-selected="false">Findings</button>
       <button class="r-tab" data-research-tab="lessons" role="tab" aria-selected="false">Lessons</button>
-      <button class="r-tab" data-research-tab="papers" role="tab" aria-selected="false">Papers</button>
+      <button class="r-tab" data-research-tab="papers" role="tab" aria-selected="false">Literature</button>
       <button class="r-tab" data-research-tab="consensus" role="tab" aria-selected="false">Consensus</button>
     </nav>
 
@@ -163,7 +164,10 @@ const seed = { findings: 12417, lessons: 1215, papers: 161, validations: 608, co
     background: rgba(13,27,42,0.55); padding: 0.8rem 1rem;
   }
   .r-project-kicker { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; color: #67e8f9; }
-  .r-project-link { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 0.25rem; }
+  .r-project h2 { margin: 0.4rem 0 0; color: #fff; font-size: 1.35rem; }
+  .r-project-copy { margin: 0.35rem 0 1rem; color: #8892b0; font-size: 0.85rem; }
+  .r-project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
+  .r-project-link { display: flex; min-height: 92px; padding: 0.75rem; border: 1px solid rgba(103,232,249,0.16); border-radius: 9px; justify-content: space-between; align-items: center; gap: 1rem; }
   .r-project-link strong { display: block; color: #fff; font-size: 1rem; }
   .r-project-link small { display: block; color: #8892b0; font-size: 0.78rem; margin-top: 0.1rem; }
   .r-project-open { color: #67e8f9; font-size: 0.78rem; white-space: nowrap; }
@@ -259,6 +263,11 @@ const seed = { findings: 12417, lessons: 1215, papers: 161, validations: 608, co
 
   .fade-in { opacity: 0; transform: translateY(12px); transition: opacity 0.5s, transform 0.5s; }
   .fade-in.visible { opacity: 1; transform: none; }
+  @media (max-width: 680px) {
+    .r-project-grid { grid-template-columns: 1fr; }
+    .r-project-link { align-items: flex-start; flex-direction: column; }
+    .r-feed { grid-template-columns: 1fr; }
+  }
 </style>
 
 <script is:inline>

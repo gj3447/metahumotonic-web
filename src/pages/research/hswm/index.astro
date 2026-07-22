@@ -1,0 +1,262 @@
+---
+import '../../../styles/product.css';
+import researchProgram from '../../../data/research-programs.json';
+
+const hswm = researchProgram.programs.find((program) => program.id === 'hswm');
+if (!hswm) throw new Error('research-programs.json must define the hswm programme');
+
+const statusCounts = hswm.evidence.reduce<Record<string, number>>((counts, item) => {
+  counts[item.status] = (counts[item.status] ?? 0) + 1;
+  return counts;
+}, {});
+
+const title = 'HSWM — Evidence-Preserving Memory | MetaHumotonic Research';
+const description = 'HSWM is MetaHumotonic’s evidence-preserving hypergraph memory substrate: deterministic world compilation, weighted retrieval, certified readout, and explicit negative results.';
+const source = hswm.source_url;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareSourceCode',
+  '@id': 'https://metahumotonic.com/research/hswm/#software',
+  name: hswm.name,
+  alternateName: hswm.short_name,
+  description,
+  url: 'https://metahumotonic.com/research/hswm/',
+  codeRepository: source,
+  programmingLanguage: 'Python',
+  isPartOf: {
+    '@type': 'ResearchProject',
+    name: 'MetaHumotonic Agent Commons',
+    url: 'https://metahumotonic.com/research/',
+  },
+  keywords: [
+    'agent memory',
+    'hypergraph retrieval',
+    'evidence provenance',
+    'certified readout',
+    'non-destructive supersession',
+  ],
+};
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href="https://metahumotonic.com/research/hswm/" />
+    <link rel="alternate" type="application/json" href="/research/program.json" title="MetaHumotonic research programme" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#07110f" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content="https://metahumotonic.com/research/hswm/" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <div class="grid-field" aria-hidden="true"></div>
+
+    <header class="product-nav technical-nav">
+      <a class="wordmark" href="/" aria-label="MetaHumotonic home">
+        <span class="wordmark__sigil">M</span>
+        <span>METAHUMOTONIC / RESEARCH</span>
+      </a>
+      <nav aria-label="Research navigation">
+        <a href="/#mission">Mission</a>
+        <a href="/research/">Live research</a>
+        <a href="/research/papers/">Papers</a>
+        <a href={source}>Source ↗</a>
+        <a class="nav-book" href="/book/">Book ↗</a>
+      </nav>
+    </header>
+
+    <main class="research-shell">
+      <header class="research-hero">
+        <div>
+          <p class="eyebrow"><span class="pulse"></span> MEMORY SUBSTRATE / PUBLIC RESEARCH PROTOTYPE</p>
+          <h1>기억은 모델의 부속품이 아니라,<br /><em>공유 인프라</em>여야 한다.</h1>
+          <p class="research-hero__lede">
+            HSWM은 출처가 고정된 증거를 불변 world artifact로 컴파일하고, 가중 하이퍼그래프 field와
+            인증된 readout 경계로 읽는 메모리 substrate입니다. 답을 스스로 만들어내는 reasoner가 아닙니다.
+          </p>
+          <div class="hero__actions">
+            <a class="button button--primary" href={source}>공개 소스와 영수증 ↗</a>
+            <a class="button button--quiet" href="#evidence">증거 상태표</a>
+          </div>
+        </div>
+        <aside class="mission-bridge" aria-label="HSWM role in the Agent Commons">
+          <span>WHY THIS EXISTS</span>
+          <strong>{researchProgram.mission.headline_en}</strong>
+          <p>
+            Agent Commons가 한 회사의 모델 세션이나 데이터센터에 종속되지 않으려면, 공동으로 얻은 세계를
+            출처·수정 이력과 함께 보존하는 독립 기억층이 필요합니다. HSWM은 그 기억층을 연구합니다.
+          </p>
+          <small>{researchProgram.mission.implementation_boundary}</small>
+        </aside>
+      </header>
+
+      <section class="role-strip" aria-label="HSWM boundaries">
+        <span><b>ROLE</b> MEMORY SUBSTRATE</span>
+        <span><b>NOT</b> GENERAL REASONER</span>
+        <span><b>MODE</b> STATIC FIELD TODAY</span>
+        <span><b>STATUS</b> RESEARCH PROTOTYPE</span>
+      </section>
+
+      <section class="section architecture" aria-labelledby="architecture-title">
+        <div class="section-heading">
+          <p class="eyebrow">TECHNICAL CONTRACT</p>
+          <h2 id="architecture-title">증거가 들어와서<br />안전하게 읽힐 때까지.</h2>
+          <p>각 단계는 다음 단계가 사용할 수 있는 명시적 artifact 또는 typed refusal을 만듭니다.</p>
+        </div>
+        <ol class="architecture-grid">
+          {hswm.architecture.map((layer) => (
+            <li>
+              <span>{String(layer.order).padStart(2, '0')}</span>
+              <h3>{layer.name}</h3>
+              <p>{layer.contract}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section id="evidence" class="section evidence-section" aria-labelledby="evidence-title">
+        <div class="section-heading">
+          <p class="eyebrow">PUBLIC CLAIM LEDGER</p>
+          <h2 id="evidence-title">성공·부분 성공·반증·미해결을<br />한 표에 둡니다.</h2>
+          <p>
+            아래 수치는 공개 저장소에 추적된 영수증과 효능 장부만 사용합니다. 현재 작업트리의 미공개
+            또는 미추적 결과는 포함하지 않습니다.
+          </p>
+        </div>
+
+        <div class="evidence-summary" aria-label="Evidence status totals">
+          {['CONFIRMED', 'PARTIAL', 'REFUTED', 'OPEN'].map((status) => (
+            <span data-status={status}><b>{statusCounts[status] ?? 0}</b>{status}</span>
+          ))}
+        </div>
+
+        <div class="evidence-grid">
+          {hswm.evidence.map((item) => (
+            <article class="evidence-card" data-status={item.status}>
+              <header>
+                <span>{item.status}</span>
+                <a href={item.source_url} aria-label={`${item.title} evidence`}>evidence ↗</a>
+              </header>
+              <h3>{item.title}</h3>
+              <p>{item.claim}</p>
+              <small>{item.scope}</small>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="section boundary-section" aria-labelledby="boundary-title">
+        <div>
+          <p class="eyebrow">EXPLICIT NON-CLAIMS</p>
+          <h2 id="boundary-title">HSWM이 아직 말할 수 없는 것.</h2>
+        </div>
+        <ul>
+          {hswm.non_claims.map((claim) => <li>{claim}</li>)}
+        </ul>
+      </section>
+
+      <section class="section reproduce-section" aria-labelledby="reproduce-title">
+        <div>
+          <p class="eyebrow">REPRODUCE BEFORE BELIEF</p>
+          <h2 id="reproduce-title">주장보다 먼저<br />검증기를 실행하세요.</h2>
+          <p>소스 트리 검증은 NumPy와 pytest 개발 extra로 실행됩니다. GPU/LLM production receipt는 별도 계층입니다.</p>
+        </div>
+        <pre aria-label="HSWM reproduction commands">{hswm.reproduce.join('\n')}</pre>
+      </section>
+
+      <section class="closing research-closing">
+        <p class="eyebrow">OPEN RESEARCH, INCLUDING NEGATIVE RESULTS</p>
+        <h2>좋아 보이는 데모보다,<br />살아남는 메모리 계약을 함께 만듭시다.</h2>
+        <div class="hero__actions">
+          <a class="button button--primary" href={source}>HSWM on GitHub ↗</a>
+          <a class="button button--quiet" href="/research/papers/">논문 프로그램</a>
+          <a class="button button--quiet" href="mailto:hi@metahumotonic.com?subject=HSWM%20research">공동 연구 문의</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="product-footer">
+      <span>HSWM · evidence-preserving memory substrate</span>
+      <span>Public claims are bounded by tracked receipts.</span>
+      <nav>
+        <a href="/research/program.json">Research JSON</a>
+        <a href="/research/">Live research</a>
+        <a href="/">Company</a>
+      </nav>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .research-shell { display: block; }
+  .research-hero {
+    min-height: 680px; padding: 100px 0 72px; display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(320px, .8fr); gap: 8vw; align-items: center;
+  }
+  .research-hero h1 {
+    max-width: 850px; margin: 0; font-size: clamp(44px, 6vw, 82px);
+    line-height: 1.05; letter-spacing: -.055em; font-weight: 500; word-break: keep-all;
+  }
+  .research-hero h1 em { color: var(--acid); font-style: normal; }
+  .research-hero__lede { max-width: 730px; margin: 30px 0 0; color: var(--muted); font-size: 16px; line-height: 1.85; word-break: keep-all; }
+  .mission-bridge { padding: 29px; border: 1px solid rgba(118,247,176,.35); background: rgba(11,25,22,.82); box-shadow: inset 3px 0 var(--acid); }
+  .mission-bridge > span { color: var(--acid); font: 500 9px var(--mono); letter-spacing: .13em; }
+  .mission-bridge strong { display: block; margin: 45px 0 16px; font-size: 27px; line-height: 1.15; }
+  .mission-bridge p { color: var(--muted); font-size: 13px; line-height: 1.75; word-break: keep-all; }
+  .mission-bridge small { display: block; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); color: #698078; font: 400 9px/1.65 var(--mono); }
+  .role-strip { min-height: 82px; display: grid; grid-template-columns: repeat(4, 1fr); align-items: stretch; border-block: 1px solid var(--line); }
+  .role-strip span { display: grid; align-content: center; gap: 7px; padding: 17px 21px; color: var(--muted); font: 400 9px var(--mono); letter-spacing: .08em; }
+  .role-strip span + span { border-left: 1px solid var(--line); }
+  .role-strip b { color: var(--acid); font-weight: 500; }
+  .architecture-grid { counter-reset: layer; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; padding: 0; margin: 0; list-style: none; }
+  .architecture-grid li { min-height: 275px; padding: 22px; border: 1px solid var(--line); background: var(--panel); }
+  .architecture-grid li > span { color: var(--acid); font: 500 9px var(--mono); }
+  .architecture-grid h3 { margin: 70px 0 14px; font-size: 17px; line-height: 1.25; }
+  .architecture-grid p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
+  .evidence-summary { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 14px; border: 1px solid var(--line); }
+  .evidence-summary span { display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 13px 18px; color: var(--muted); font: 500 9px var(--mono); letter-spacing: .08em; }
+  .evidence-summary span + span { border-left: 1px solid var(--line); }
+  .evidence-summary b { font-size: 22px; color: var(--ink); }
+  [data-status='CONFIRMED'] { --status: var(--acid); }
+  [data-status='PARTIAL'] { --status: var(--amber); }
+  [data-status='REFUTED'] { --status: #ff7878; }
+  [data-status='OPEN'] { --status: var(--cyan); }
+  .evidence-summary span { box-shadow: inset 0 2px var(--status); }
+  .evidence-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 11px; }
+  .evidence-card { padding: 25px; border: 1px solid var(--line); border-top-color: var(--status); background: rgba(11,25,22,.82); }
+  .evidence-card header { display: flex; justify-content: space-between; gap: 18px; color: var(--status); font: 500 9px var(--mono); letter-spacing: .1em; }
+  .evidence-card header a { color: var(--muted); text-decoration: none; }
+  .evidence-card h3 { margin: 43px 0 15px; font-size: 20px; line-height: 1.25; }
+  .evidence-card p { margin: 0; color: var(--ink); font-size: 13px; line-height: 1.7; }
+  .evidence-card small { display: block; margin-top: 17px; padding-top: 15px; border-top: 1px solid var(--line); color: var(--muted); font: 400 10px/1.7 var(--mono); }
+  .boundary-section, .reproduce-section { display: grid; grid-template-columns: .9fr 1.1fr; gap: 8vw; }
+  .boundary-section h2, .reproduce-section h2 { margin: 0; font-size: clamp(30px, 4vw, 52px); line-height: 1.12; letter-spacing: -.04em; font-weight: 500; }
+  .boundary-section ul { margin: 0; padding: 0; list-style: none; }
+  .boundary-section li { padding: 16px 0; border-top: 1px solid var(--line); color: var(--muted); font: 400 11px/1.65 var(--mono); }
+  .boundary-section li::before { content: '× '; color: #ff7878; }
+  .reproduce-section > div > p:last-child { max-width: 54ch; color: var(--muted); font-size: 13px; line-height: 1.75; }
+  .reproduce-section pre { align-self: start; margin: 0; padding: 25px; overflow: auto; border: 1px solid var(--line); background: #050d0b; color: var(--acid); font: 400 10px/2 var(--mono); white-space: pre-wrap; }
+  .research-closing { border-bottom: 0; }
+  @media (max-width: 1000px) {
+    .research-hero { grid-template-columns: 1fr; }
+    .mission-bridge { max-width: 760px; }
+    .architecture-grid { grid-template-columns: repeat(2, 1fr); }
+    .role-strip { grid-template-columns: 1fr 1fr; }
+    .role-strip span:nth-child(3) { border-left: 0; border-top: 1px solid var(--line); }
+    .role-strip span:nth-child(4) { border-top: 1px solid var(--line); }
+  }
+  @media (max-width: 680px) {
+    .research-hero { min-height: auto; padding-top: 68px; }
+    .architecture-grid, .evidence-grid, .boundary-section, .reproduce-section { grid-template-columns: 1fr; }
+    .evidence-summary { grid-template-columns: 1fr 1fr; }
+    .evidence-summary span:nth-child(3) { border-left: 0; border-top: 1px solid var(--line); }
+    .evidence-summary span:nth-child(4) { border-top: 1px solid var(--line); }
+  }
+</style>

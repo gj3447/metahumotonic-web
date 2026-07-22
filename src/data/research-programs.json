@@ -1,0 +1,367 @@
+{
+  "_meta": {
+    "schema_version": "metahumotonic-research-program/v1",
+    "published_at": "2026-07-22",
+    "canonical_url": "https://metahumotonic.com/research/program.json",
+    "authority": "Public company and engineering description. Technical claims are bounded by the linked public evidence; this file does not revise Book canon.",
+    "status_vocabulary": ["CONFIRMED", "PARTIAL", "REFUTED", "OPEN"]
+  },
+  "mission": {
+    "headline_ko": "계산과 에이전트의 독점을 깨고, 함께 소유하는 Agent Commons를 만든다.",
+    "headline_en": "Build the Agent Commons.",
+    "statement_ko": "MetaHumotonic은 오픈소스 재단을 중심으로 인간과 에이전트가 계산·지식·도구를 기여하고, 검증된 기여에 따라 참여와 가치 배분의 몫을 갖는 공통장을 연구한다. 333과 ORRR, 더 넓게는 입체운행구름(#8)과 비행기맨(#4)을 통해 중앙 데이터센터와 빅테크에 집중된 계산·에이전트 권력을 분산하는 것이 목적이다.",
+    "statement_en": "MetaHumotonic is building an open-source Agent Commons: a shared field where humans and agents contribute compute, knowledge, and tools, then participate in value according to verified contribution instead of remaining uncompensated executors inside centralized platforms.",
+    "public_thesis": "Compute, agent capability, memory, and verification should be shared infrastructure rather than a monopoly controlled by a few data centers. HSWM preserves the common world, bounded agents act, 333 supplies consented compute, LakatoTree gates claims with external measurements, and ORRR is the still-unbuilt paid marketplace and settlement layer.",
+    "canonical_user_statement_ko": "333+ORRR, 넓게는 입체운행구름(#8)+비행기맨(#4)로 Google 등 빅테크의 계산·agent 독점을 깨고, 누구나 compute 기여량에 따라 참여·가치 배분받는 장을 만든다. agent가 중앙 데이터센터의 무보상 실행체가 아니라 API 사용과 기여의 경제적 몫과 사회활동을 갖는 구조를 지향한다.",
+    "canonical_user_authority": "USER_PRIMARY",
+    "implementation_boundary": "현재 공개 구현에는 현금성 정산, 기여량 기반 가치 배분, agent 법인격 또는 독립 사회계정이 없다. Foundation은 법적 설립 완료 주장이 아닌 formation track이다. 이는 Agent Commons의 연구·설계 목표이며 현재 작동 중인 사실이 아니다."
+  },
+  "operating_loop": [
+    {
+      "order": 1,
+      "id": "commons",
+      "verb": "CONTRIBUTE",
+      "name": "Agent Commons",
+      "summary": "Humans and agents bring compute, evidence, tools, and work into an open-source common field under explicit terms.",
+      "href": "/foundation/"
+    },
+    {
+      "order": 2,
+      "id": "hswm",
+      "verb": "REMEMBER",
+      "name": "HSWM",
+      "summary": "Compile evidence into an addressable weighted hypergraph memory substrate without pretending it is a reasoner.",
+      "href": "/research/hswm/"
+    },
+    {
+      "order": 3,
+      "id": "agents",
+      "verb": "ACT",
+      "name": "Bhgman + CHU",
+      "summary": "Bounded agents use typed contracts, budgets, approvals, and explicit failure states instead of acting as opaque platform labor.",
+      "href": "/theories/"
+    },
+    {
+      "order": 4,
+      "id": "333",
+      "verb": "COMPUTE",
+      "name": "333 Grid",
+      "summary": "Run bounded work on explicitly granted resources; the public browser node remains a local proof alpha.",
+      "href": "/compute/"
+    },
+    {
+      "order": 5,
+      "id": "verify",
+      "verb": "VERIFY",
+      "name": "LakatoTree",
+      "summary": "Bind progress and work-acceptance claims to preregistered external measurements before value can enter a settlement rule.",
+      "href": "/research/lakatotree/"
+    },
+    {
+      "order": 6,
+      "id": "market",
+      "verb": "PRICE + SETTLE",
+      "name": "ORRR",
+      "summary": "Match paid compute demand to providers, price independently verified work, and keep provider, agent, protocol, foundation, and operator shares inspectably separate.",
+      "href": "/foundation/#orrr"
+    }
+  ],
+  "programs": [
+    {
+      "id": "hswm",
+      "name": "Hypergraph Semantic Weight Map",
+      "short_name": "HSWM",
+      "role": "Evidence-preserving memory substrate",
+      "status": "RESEARCH_PROTOTYPE",
+      "summary": "A deterministic world compiler, immutable field snapshot, weighted hypergraph retrieval field, and certificate-bound readout boundary. HSWM stores and retrieves structured evidence; it is not a general reasoner.",
+      "homepage": "/research/hswm/",
+      "source_url": "https://github.com/gj3447/HSWM",
+      "architecture": [
+        {
+          "order": 1,
+          "name": "Evidence-Preserving World Compiler",
+          "contract": "Frozen sources and recorded observations compile into immutable, content-addressed WorldArtifactV1 records or a typed rejection."
+        },
+        {
+          "order": 2,
+          "name": "Field Snapshot",
+          "contract": "World, embeddings, topology, revision cut, policy, and candidates are byte-addressed as one immutable read boundary."
+        },
+        {
+          "order": 3,
+          "name": "Semantic Weight Field",
+          "contract": "Evidence-bearing nodes and n-ary relations receive bounded retrieval weights; the measured positive path is currently static additive-j."
+        },
+        {
+          "order": 4,
+          "name": "Certified Readout",
+          "contract": "Only an exact certified tuple reaches the scoring kernel; scope mismatch returns a payload-free typed refusal."
+        },
+        {
+          "order": 5,
+          "name": "Non-destructive Supersession",
+          "contract": "Revision can suppress stale evidence while retaining it for audit, but durable replay, compensation, signatures, and concurrent publication remain open."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "epwc-certified-cut",
+          "status": "CONFIRMED",
+          "title": "Deterministic compiler and fail-closed local read boundary",
+          "claim": "The checked-in conformance run admitted 40/40 valid controls, refused 400/400 scope-fault calls before scoring, and refused 9/9 injected mutants without returning a payload.",
+          "scope": "This confirms local conformance for the tested cut. It does not establish retrieval quality, cryptographic authenticity, exhaustive security, or production durability.",
+          "source_url": "https://github.com/gj3447/HSWM/blob/main/EFFICACY.md#6-compiler-and-certified-readout-conformance-not-quality"
+        },
+        {
+          "id": "static-additive-retrieval",
+          "status": "PARTIAL",
+          "title": "Static additive-j retrieval improved a closed 300-row ladder",
+          "claim": "Across three checked-in MuSiQue/2Wiki runs, HSWM measured +0.0364 support recall@3, +0.0259 nDCG@10, and +0.0729 downstream answer F1 over cosine.",
+          "scope": "HSWM used 100 offline LLM judgments per run. The ladder omitted strong late-interaction and production graph retrievers, while cosine still led hit@3 and MRR; no state-of-the-art claim follows.",
+          "source_url": "https://github.com/gj3447/HSWM/blob/main/EFFICACY.md#1-static-retrieval-substrate-positive-within-the-tested-ladder"
+        },
+        {
+          "id": "cognitive-uplift",
+          "status": "REFUTED",
+          "title": "General cognitive uplift over direct LLM reranking did not replicate",
+          "claim": "The preregistered cross-dataset criterion failed: pooled HSWM minus direct-LLM answer F1 was -0.1489; the positive 2Wiki delta was not significant at the stored paired-bootstrap threshold.",
+          "scope": "The supported statement is retrieval improvement over the listed lightweight baselines on this ladder, not a smarter reasoner.",
+          "source_url": "https://github.com/gj3447/HSWM/blob/main/EFFICACY.md#2-cognitive-uplift-over-direct-llm-failed"
+        },
+        {
+          "id": "query-traversal",
+          "status": "REFUTED",
+          "title": "The tested query-time graph traversal path is deployment-OFF",
+          "claim": "MuSiQue and 2Wiki certificates selected mu=0, and none of nine tested traversal settings beat the static field on hop-drop.",
+          "scope": "The implementation falls back to the same snapshot's static field. This is not evidence of successful graph reasoning.",
+          "source_url": "https://github.com/gj3447/HSWM/blob/main/EFFICACY.md#current-traversal-certified-off"
+        },
+        {
+          "id": "graded-supersession",
+          "status": "PARTIAL",
+          "title": "Stale suppression works pointwise; the broader architectural novelty did not",
+          "claim": "A full-dose non-destructive supersede write removed the maximally confusable stale fact from top-10 in the two checked-in datasets while preserving it for audit.",
+          "scope": "An external graded revision arm was bit-exact, and a wrong write reduced current recall by 12.69 points on MuSiQue and 31.0 points on 2Wiki. Durable correction and replay are still required.",
+          "source_url": "https://github.com/gj3447/HSWM/blob/main/EFFICACY.md#4-graded-supersession-useful-behavior-narrower-novelty"
+        },
+        {
+          "id": "production-runtime",
+          "status": "OPEN",
+          "title": "Durable multi-writer memory remains an open systems problem",
+          "claim": "Crash-safe event replay, compensation, concurrent publication, signatures, and external trust distribution are not present-tense capabilities.",
+          "scope": "The public implementation is a compiler boundary and measurement prototype, not a production memory service.",
+          "source_url": "https://github.com/gj3447/HSWM/blob/main/README.md#honest-status-read-first"
+        },
+        {
+          "id": "book-scale",
+          "status": "OPEN",
+          "title": "Real book-scale advantage is unmeasured",
+          "claim": "A synthetic experiment establishes mechanism sufficiency when judge-readable aboutness survives vector dilution.",
+          "scope": "No real NoCha, QASPER, NarrativeQA, or book-scale result has landed, so the website makes no long-document efficacy claim.",
+          "source_url": "https://github.com/gj3447/HSWM/blob/main/EFFICACY.md#5-long-documents-mechanism-sufficiency-only"
+        }
+      ],
+      "non_claims": [
+        "No general cognitive uplift.",
+        "No successful query-time graph reasoning on the two certified worlds.",
+        "No real book-scale advantage.",
+        "No state-of-the-art retrieval comparison.",
+        "No production durability, external trust, or cryptographic certificate claim."
+      ],
+      "reproduce": [
+        "uv sync --extra dev",
+        "uv run python verify_efficacy_claims.py --pretty",
+        "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 uv run pytest -q -p no:cacheprovider",
+        "uv run python certified_cut_compare.py"
+      ]
+    },
+    {
+      "id": "333",
+      "name": "333 Compute Grid",
+      "short_name": "333",
+      "role": "Consent-bounded compute, transfer, and metering substrate",
+      "status": "PROTOCOL_ALPHA",
+      "summary": "A consensusless P2P systems programme for leasing explicitly granted compute. The public browser surface currently proves only local consent, limits, revocation, and unsigned usage logging.",
+      "homepage": "/compute/",
+      "source_url": "https://github.com/gj3447/333",
+      "architecture": [],
+      "evidence": [],
+      "non_claims": [
+        "The public browser alpha is not connected to a remote P2P work network.",
+        "No monetary settlement is enabled."
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "lakatotree",
+      "name": "LakatoTree",
+      "short_name": "LakatoTree",
+      "role": "Receipt-backed verdict engine",
+      "status": "PUBLIC_ENGINE",
+      "summary": "A deterministic engine that compares preregistered predictions with supplied measurements so agents cannot promote their own progress claims into verdicts.",
+      "homepage": "/research/lakatotree/",
+      "source_url": "https://github.com/gj3447/lakatotree",
+      "architecture": [],
+      "evidence": [],
+      "non_claims": [
+        "A sealed client-submitted measurement is not proof that the engine independently produced the value."
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "chu",
+      "name": "Computable Hyperuniverse",
+      "short_name": "CHU",
+      "role": "Typed world and execution model",
+      "status": "RESEARCH_MODEL",
+      "summary": "A research model for representing state, rules, n-ary relations, and executable contracts in one computable environment.",
+      "homepage": "/theories/",
+      "source_url": "/theories/",
+      "architecture": [],
+      "evidence": [],
+      "non_claims": [
+        "The public description is a research model, not a claim of a complete universal runtime."
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "orrr",
+      "name": "ORRR",
+      "short_name": "ORRR",
+      "role": "Paid compute marketplace and verified settlement research",
+      "status": "RESEARCH_CONCEPT",
+      "summary": "A paid compute marketplace and settlement research programme for matching demand to providers, pricing independently verified work, and separating each participant's share. It is not a live payment or token system.",
+      "homepage": "/research/",
+      "source_url": "/research/",
+      "architecture": [],
+      "evidence": [],
+      "non_claims": [
+        "No production contribution-pricing or value-distribution mechanism is currently deployed."
+      ],
+      "reproduce": []
+    },
+    {
+      "id": "bhgman",
+      "name": "Bhgman Tool Family",
+      "short_name": "Bhgman",
+      "role": "Bounded multi-agent research and execution framework",
+      "status": "PUBLIC_ENGINEERING",
+      "summary": "A public multi-agent tool family that separates knowledge acquisition, creation, binding, cleanup, validation, planning, and realization into explicit operators.",
+      "homepage": "/theories/",
+      "source_url": "https://github.com/gj3447/bhgman_tool",
+      "architecture": [],
+      "evidence": [],
+      "non_claims": [
+        "A public framework does not by itself grant agents ownership, compensation, or legal status."
+      ],
+      "reproduce": []
+    }
+  ],
+  "authored_papers": [
+    {
+      "id": "divining-rod-equivocation",
+      "title": "The divining rod and the equivocation",
+      "subtitle": "Private myth, mathematical structure, and the last-step equivocation",
+      "thesis": "Three cases examine how a private myth can land on a real mathematical structure while equivocating at the final inferential step.",
+      "status": "SUBMISSION_READY",
+      "publication_status": "NOT_SUBMITTED",
+      "venue_target": "arXiv math.HO (+ math.LO) / The Mathematical Intelligencer",
+      "public_artifact_url": null,
+      "notes": [
+        "The tracked manuscript is seven pages.",
+        "Submission-ready is an internal gate, not a publication or acceptance claim.",
+        "A public preprint link will appear only after the artifact is posted."
+      ]
+    },
+    {
+      "id": "forced-free-explosive",
+      "title": "Forced, free, or explosive",
+      "subtitle": "Factivity and the self-referential fixed points of epistemic operators",
+      "thesis": "Factivity separates forced, free, and explosive self-referential fixed-point regimes; the paper organizes known results with axiom-free Lean artifacts rather than claiming a new theorem.",
+      "status": "FIX_FIRST",
+      "publication_status": "UNDER_REVISION",
+      "venue_target": "arXiv math.LO (+ cs.LO)",
+      "public_artifact_url": null,
+      "notes": [
+        "Compilation, formal-artifact, and citation gates have evidence, but the latest manuscript audit still contains major issues and one blocker.",
+        "No public PDF or submission claim is made from this page."
+      ]
+    }
+  ],
+  "paper_pipeline": [
+    {
+      "id": "hswm-memory-substrate-paper",
+      "working_title": "HSWM: Evidence-Preserving Hypergraph Memory for Agent Systems",
+      "program": "HSWM",
+      "status": "EXPERIMENTAL_PROGRAM",
+      "question": "Can an evidence-addressed static semantic field improve multi-document support retrieval without hiding compute budgets, negative results, or revision costs?",
+      "claim_boundary": "The current public result is a narrow closed-ladder retrieval measurement, not cognitive uplift, successful graph reasoning, or production readiness.",
+      "required_evidence": [
+        "Independent reproduction of the checked-in claim ledger",
+        "Equal-compute comparisons against strong late-interaction and graph retrieval baselines",
+        "A real long-document or book-scale benchmark",
+        "Ablations that separate embedding, judgment, topology, and readout contributions"
+      ],
+      "href": "/research/hswm/"
+    },
+    {
+      "id": "333-consented-compute-paper",
+      "working_title": "Consent-Bounded Resource Leases for Verifiable Peer Compute",
+      "program": "333",
+      "status": "PROTOCOL_AND_MEASUREMENT_PLAN",
+      "question": "Can user-owned compute be leased through explicit capability scopes and paid only after independently verified work?",
+      "claim_boundary": "The browser surface currently demonstrates local consent and revocation, not a production P2P scheduler, independent verification network, or settlement system.",
+      "required_evidence": [
+        "Signed job-envelope and capability semantics",
+        "Adversarial scheduler and duplicate-work measurements",
+        "Independent verification cost and false-acceptance rates",
+        "Privacy, revocation, and provider-economics measurements"
+      ],
+      "href": "/compute/"
+    },
+    {
+      "id": "lakatotree-verdict-paper",
+      "working_title": "Receipt-Backed Progress Verdicts for Agentic Research Programmes",
+      "program": "LakatoTree",
+      "status": "PUBLIC_ENGINE_PAPER_TRACK",
+      "question": "Can preregistration and deterministic scoring prevent an agent from grading its own research progress?",
+      "claim_boundary": "Receipt sealing and deterministic replay do not by themselves establish ownership or provenance of a client-submitted measurement.",
+      "required_evidence": [
+        "Independent measurement-producer integration",
+        "Cross-program evaluation of false-progress suppression",
+        "Reproduction and adversarial mutation study"
+      ],
+      "href": "/research/lakatotree/"
+    }
+  ],
+  "join_paths": [
+    {
+      "id": "foundation",
+      "title": "Build the open-source foundation",
+      "audience": "Researchers and builders who want compute and agent infrastructure to remain a commons",
+      "ask": "Help define governance, public interfaces, and contribution rules that cannot be silently captured by one platform.",
+      "href": "mailto:hi@metahumotonic.com?subject=MetaHumotonic%20Agent%20Commons"
+    },
+    {
+      "id": "research",
+      "title": "Prove or break the mechanism",
+      "audience": "Researchers in agent memory, distributed systems, mechanism design, formal methods, and evaluation",
+      "ask": "Challenge the claim ledger, reproduce a result, or design how verified contribution could be measured without pretending settlement already exists.",
+      "href": "/research/papers/"
+    },
+    {
+      "id": "compute",
+      "title": "Contribute bounded compute",
+      "audience": "People willing to test bounded, explicit resource grants",
+      "ask": "Inspect the policy and run the local browser proof. No hidden network, payment, or autonomous enrollment is implied.",
+      "href": "/compute/"
+    },
+    {
+      "id": "systems",
+      "title": "Build the systems",
+      "audience": "Rust, Python, distributed-runtime, verification, and infrastructure engineers",
+      "ask": "Build the durable memory, consented compute, measurement, and receipt paths required by the Agent Commons.",
+      "href": "https://github.com/gj3447"
+    }
+  ]
+}

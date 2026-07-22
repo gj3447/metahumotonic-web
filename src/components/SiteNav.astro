@@ -5,6 +5,7 @@
  */
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const links = [
+  { href: '/', label: 'Company', match: '/' },
   { href: '/book/#axiom', label: '공리', match: null },
   { href: '/book/read/', label: 'Book', match: '/book/read' },
   { href: '/apostles/', label: '사도', match: '/apostles' },
@@ -18,7 +19,7 @@ const links = [
     {links.map((l) => (
       <a
         href={l.href}
-        class={l.match && path.startsWith(l.match) ? 'is-active' : undefined}
+        class={l.match && (l.match === '/' ? path === '/' : path.startsWith(l.match)) ? 'is-active' : undefined}
         data-priority={l.label === '공리' ? 'core' : undefined}
       >{l.label}</a>
     ))}

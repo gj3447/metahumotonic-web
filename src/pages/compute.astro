@@ -116,6 +116,39 @@ import '../styles/compute.css';
         </aside>
       </div>
 
+      <section class="protocol-section" aria-labelledby="protocol-title">
+        <div class="section-heading">
+          <p class="eyebrow">333 COMPUTE EXCHANGE / TECHNICAL STATUS</p>
+          <h2 id="protocol-title">동의에서 검증까지,<br />구현된 경계를 그대로 공개합니다.</h2>
+          <p>현재 alpha는 브라우저의 로컬 동의 커널과 Rust의 결정론적 lease 상태기계를 시험합니다. P2P 전송·서명 계측·정산은 아직 완성된 네트워크가 아닙니다.</p>
+        </div>
+
+        <div class="status-table" role="table" aria-label="333 protocol implementation status">
+          <div class="status-table__row status-table__head" role="row">
+            <span role="columnheader">LAYER</span><span role="columnheader">MECHANISM</span><span role="columnheader">STATUS</span>
+          </div>
+          <div class="status-table__row" role="row">
+            <strong role="cell">ResourceGrant → Lease</strong><span role="cell">CPU·duty·TTL·network·GPU 한도를 명시하고 철회·만료를 상태 전이로 처리</span><b class="state state--built" role="cell">IMPLEMENTED</b>
+          </div>
+          <div class="status-table__row" role="row">
+            <strong role="cell">Browser session node</strong><span role="cell">신뢰된 클릭 뒤 same-origin Worker 실행, 숨김 탭·철회·만료 시 종료</span><b class="state state--local" role="cell">LOCAL ALPHA</b>
+          </div>
+          <div class="status-table__row" role="row">
+            <strong role="cell">Signed job envelope</strong><span role="cell">허용 workload·입력·출력·예산을 서명된 capability로 제한</span><b class="state state--open" role="cell">PLANNED</b>
+          </div>
+          <div class="status-table__row" role="row">
+            <strong role="cell">P2P transport</strong><span role="cell">브라우저·native provider 사이 발견, 전달, 재시도, 격리</span><b class="state state--open" role="cell">NOT CONNECTED</b>
+          </div>
+          <div class="status-table__row" role="row">
+            <strong role="cell">Independent verification</strong><span role="cell">복제 실행과 결정론적 판정으로 결과 수락 여부를 분리</span><b class="state state--open" role="cell">PLANNED</b>
+          </div>
+          <div class="status-table__row" role="row">
+            <strong role="cell">Metering &amp; settlement</strong><span role="cell">검증된 사용량만 서비스 크레딧·청구·공급자 보상 의도로 변환</span><b class="state state--open" role="cell">NOT IMPLEMENTED</b>
+          </div>
+        </div>
+        <p class="protocol-note">Browser node와 native provider는 같은 권한을 갖지 않습니다. 브라우저 alpha는 network 0 B·GPU OFF·workload storage 없음으로 제한되며, 방문만으로 설치나 연산을 시작하지 않습니다.</p>
+      </section>
+
       <section class="agent-enrollment">
         <p class="eyebrow">FOR AI AGENTS</p>
         <h2>발견은 자동화하되, 권한은 자동화하지 않습니다.</h2>

@@ -1,0 +1,251 @@
+---
+import '../../../styles/product.css';
+import researchProgram from '../../../data/research-programs.json';
+
+const authoredPapers = researchProgram.authored_papers as Array<{
+  id: string;
+  title: string;
+  subtitle: string;
+  thesis: string;
+  status: string;
+  publication_status: string;
+  venue_target: string;
+  public_artifact_url: string | null;
+  notes: string[];
+}>;
+const pipeline = researchProgram.paper_pipeline;
+
+const title = 'Papers & Research Programme — MetaHumotonic';
+const description = 'MetaHumotonic authored manuscripts and falsifiable paper pipeline for HSWM memory, 333 compute, and receipt-backed agent evaluation.';
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': 'https://metahumotonic.com/research/papers/#collection',
+  name: title,
+  description,
+  url: 'https://metahumotonic.com/research/papers/',
+  isPartOf: {
+    '@type': 'ResearchProject',
+    name: 'MetaHumotonic Agent Commons',
+    url: 'https://metahumotonic.com/research/',
+  },
+  hasPart: authoredPapers.map((paper) => ({
+    '@type': 'CreativeWork',
+    name: paper.title,
+    alternativeHeadline: paper.subtitle,
+    abstract: paper.thesis,
+    creativeWorkStatus: `${paper.status} / ${paper.publication_status}`,
+  })),
+};
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href="https://metahumotonic.com/research/papers/" />
+    <link rel="alternate" type="application/json" href="/research/program.json" title="MetaHumotonic research programme" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#07110f" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content="https://metahumotonic.com/research/papers/" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <div class="grid-field" aria-hidden="true"></div>
+
+    <header class="product-nav">
+      <a class="wordmark" href="/" aria-label="MetaHumotonic home">
+        <span class="wordmark__sigil">M</span>
+        <span>METAHUMOTONIC / PAPERS</span>
+      </a>
+      <nav aria-label="Paper navigation">
+        <a href="/#mission">Mission</a>
+        <a href="/research/">Live research</a>
+        <a href="/research/hswm/">HSWM</a>
+        <a class="nav-book" href="/book/">Book ↗</a>
+      </nav>
+    </header>
+
+    <main class="papers-shell">
+      <header class="papers-hero">
+        <div>
+          <p class="eyebrow"><span class="pulse"></span> OPEN QUESTIONS / PUBLIC CLAIM BOUNDARIES</p>
+          <h1>거대한 목적은<br /><em>반증 가능한 논문</em>으로 내려와야 한다.</h1>
+          <p class="papers-hero__lede">
+            Agent Commons는 선언만으로 만들어지지 않습니다. HSWM의 기억 효능, 333의 동의형 계산,
+            ORRR의 기여 측정, LakatoTree의 검증 계약을 각각 재현 가능한 연구 문제로 분해합니다.
+          </p>
+        </div>
+        <aside class="publication-boundary" aria-label="Publication status boundary">
+          <span>PUBLICATION BOUNDARY</span>
+          <strong>Authored ≠ published.</strong>
+          <p>
+            아래 첫 목록은 실제로 작성된 manuscript입니다. 두 번째 목록은 아직 논문이 아닌 연구 파이프라인입니다.
+            제출 준비, 제출, 게시, 출판을 서로 다른 상태로 표시합니다.
+          </p>
+          <small>{researchProgram.mission.implementation_boundary}</small>
+        </aside>
+      </header>
+
+      <section class="section authored-section" aria-labelledby="authored-title">
+        <div class="section-heading">
+          <p class="eyebrow">AUTHORED MANUSCRIPTS</p>
+          <h2 id="authored-title">작성된 원고.<br />아직 출판 주장 아님.</h2>
+          <p>Public artifact URL이 생기기 전에는 제목·상태·논지와 정직 경계만 공개합니다.</p>
+        </div>
+
+        <div class="authored-grid">
+          {authoredPapers.map((paper, index) => (
+            <article class="paper-card" data-paper-status={paper.status}>
+              <header>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <span>{paper.status}</span>
+              </header>
+              <p class="paper-card__publication">{paper.publication_status}</p>
+              <h3>{paper.title}</h3>
+              <p class="paper-card__subtitle">{paper.subtitle}</p>
+              <p class="paper-card__thesis">{paper.thesis}</p>
+              <dl>
+                <div><dt>Target</dt><dd>{paper.venue_target}</dd></div>
+                <div><dt>Artifact</dt><dd>{paper.public_artifact_url ? <a href={paper.public_artifact_url}>public preprint ↗</a> : 'not public yet'}</dd></div>
+              </dl>
+              <ul>
+                {paper.notes.map((note) => <li>{note}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="section pipeline-section" aria-labelledby="pipeline-title">
+        <div class="section-heading">
+          <p class="eyebrow">PAPER PIPELINE</p>
+          <h2 id="pipeline-title">논문 제목보다 먼저,<br />살아남아야 할 질문.</h2>
+          <p>각 카드는 working programme입니다. 요구 증거를 충족하기 전에는 논문·성과·우월성으로 세지 않습니다.</p>
+        </div>
+
+        <div class="pipeline-grid">
+          {pipeline.map((paper, index) => (
+            <article class="pipeline-card">
+              <header>
+                <span>{String(index + 1).padStart(2, '0')} / {paper.program}</span>
+                <span>{paper.status}</span>
+              </header>
+              <h3>{paper.working_title}</h3>
+              <div class="pipeline-card__question">
+                <b>QUESTION</b>
+                <p>{paper.question}</p>
+              </div>
+              <div class="pipeline-card__boundary">
+                <b>CURRENT CLAIM BOUNDARY</b>
+                <p>{paper.claim_boundary}</p>
+              </div>
+              <div class="pipeline-card__requirements">
+                <b>REQUIRED BEFORE PAPER CLAIM</b>
+                <ul>{paper.required_evidence.map((requirement) => <li>{requirement}</li>)}</ul>
+              </div>
+              <a href={paper.href}>programme surface →</a>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="section commons-section" aria-labelledby="commons-title">
+        <div>
+          <p class="eyebrow">USER_PRIMARY PURPOSE</p>
+          <h2 id="commons-title">{researchProgram.mission.headline_en}</h2>
+        </div>
+        <div>
+          <blockquote>{researchProgram.mission.canonical_user_statement_ko}</blockquote>
+          <p>
+            위 목적은 사용자 정전입니다. 그 아래의 논문 제목, 실험 설계, 기술 해석은 공학적 제안이며
+            공개 증거가 통과한 범위에서만 주장합니다.
+          </p>
+        </div>
+      </section>
+
+      <section class="closing papers-closing">
+        <p class="eyebrow">COLLABORATE ON A FALSIFIER</p>
+        <h2>우리 결과를 믿으라는 초대가 아니라,<br />깨뜨려 달라는 초대입니다.</h2>
+        <div class="hero__actions">
+          <a class="button button--primary" href="mailto:hi@metahumotonic.com?subject=MetaHumotonic%20paper%20collaboration">공동 연구 문의</a>
+          <a class="button button--quiet" href="/research/hswm/">HSWM claim ledger</a>
+          <a class="button button--quiet" href="/research/program.json">Machine-readable programme</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="product-footer">
+      <span>MetaHumotonic Papers · authored work and open programmes</span>
+      <span>No submission or publication is implied by a pipeline entry.</span>
+      <nav><a href="/research/">Live research</a><a href="/">Company</a><a href="/book/">Book</a></nav>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .papers-shell { display: block; }
+  .papers-hero {
+    min-height: 660px; padding: 100px 0 72px; display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(320px, .8fr); gap: 8vw; align-items: center;
+  }
+  .papers-hero h1 {
+    max-width: 850px; margin: 0; font-size: clamp(44px, 6vw, 82px);
+    line-height: 1.05; letter-spacing: -.055em; font-weight: 500; word-break: keep-all;
+  }
+  .papers-hero h1 em { color: var(--acid); font-style: normal; }
+  .papers-hero__lede { max-width: 730px; margin: 30px 0 0; color: var(--muted); font-size: 16px; line-height: 1.85; word-break: keep-all; }
+  .publication-boundary { padding: 29px; border: 1px solid rgba(245,199,111,.36); background: rgba(11,25,22,.82); box-shadow: inset 3px 0 var(--amber); }
+  .publication-boundary > span { color: var(--amber); font: 500 9px var(--mono); letter-spacing: .13em; }
+  .publication-boundary strong { display: block; margin: 45px 0 16px; font-size: 27px; }
+  .publication-boundary p { color: var(--muted); font-size: 13px; line-height: 1.75; }
+  .publication-boundary small { display: block; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); color: #698078; font: 400 9px/1.65 var(--mono); }
+  .authored-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .paper-card { padding: 27px; border: 1px solid var(--line); background: rgba(11,25,22,.82); }
+  .paper-card[data-paper-status='SUBMISSION_READY'] { border-top-color: var(--acid); }
+  .paper-card[data-paper-status='FIX_FIRST'] { border-top-color: #ff7878; }
+  .paper-card header { display: flex; justify-content: space-between; gap: 18px; color: var(--muted); font: 500 9px var(--mono); letter-spacing: .1em; }
+  .paper-card__publication { margin: 48px 0 7px; color: var(--amber); font: 500 9px var(--mono); letter-spacing: .09em; }
+  .paper-card h3 { margin: 0; font-size: 28px; line-height: 1.15; }
+  .paper-card__subtitle { color: var(--muted); font: 400 11px/1.6 var(--mono); }
+  .paper-card__thesis { margin: 25px 0; color: var(--ink); font-size: 13px; line-height: 1.75; }
+  .paper-card dl { margin: 0; padding: 15px 0; border-block: 1px solid var(--line); font: 400 10px/1.6 var(--mono); }
+  .paper-card dl div { display: grid; grid-template-columns: 75px 1fr; gap: 12px; }
+  .paper-card dl div + div { margin-top: 7px; }
+  .paper-card dt { color: var(--muted); }
+  .paper-card dd { margin: 0; }
+  .paper-card dd a { color: var(--acid); }
+  .paper-card > ul { margin: 20px 0 0; padding: 0; list-style: none; color: var(--muted); font: 400 9px/1.75 var(--mono); }
+  .paper-card > ul li::before { content: '– '; color: var(--amber); }
+  .pipeline-grid { display: grid; gap: 12px; }
+  .pipeline-card { display: grid; grid-template-columns: .72fr 1fr 1.2fr; gap: 24px; padding: 27px; border: 1px solid var(--line); background: var(--panel); }
+  .pipeline-card header { grid-column: 1 / -1; display: flex; justify-content: space-between; color: var(--cyan); font: 500 9px var(--mono); letter-spacing: .09em; }
+  .pipeline-card h3 { margin: 25px 0 0; font-size: 22px; line-height: 1.2; }
+  .pipeline-card b { display: block; margin-bottom: 10px; color: var(--muted); font: 500 8px var(--mono); letter-spacing: .1em; }
+  .pipeline-card p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
+  .pipeline-card__requirements ul { margin: 0; padding: 0; list-style: none; color: var(--muted); font: 400 9px/1.75 var(--mono); }
+  .pipeline-card__requirements li::before { content: '+ '; color: var(--acid); }
+  .pipeline-card > a { grid-column: 1 / -1; width: max-content; color: var(--acid); font: 500 10px var(--mono); text-decoration: none; }
+  .commons-section { display: grid; grid-template-columns: .8fr 1.2fr; gap: 8vw; }
+  .commons-section h2 { margin: 0; font-size: clamp(36px, 5vw, 65px); line-height: 1.05; letter-spacing: -.045em; font-weight: 500; }
+  .commons-section blockquote { margin: 0; padding: 25px; border-left: 3px solid var(--acid); background: var(--panel); color: var(--ink); font-size: 16px; line-height: 1.8; word-break: keep-all; }
+  .commons-section > div:last-child > p { color: var(--muted); font: 400 10px/1.75 var(--mono); }
+  .papers-closing { border-bottom: 0; }
+  @media (max-width: 920px) {
+    .papers-hero, .commons-section { grid-template-columns: 1fr; }
+    .publication-boundary { max-width: 760px; }
+    .pipeline-card { grid-template-columns: 1fr 1fr; }
+    .pipeline-card h3 { grid-column: 1 / -1; }
+  }
+  @media (max-width: 680px) {
+    .papers-hero { min-height: auto; padding-top: 68px; }
+    .authored-grid, .pipeline-card { grid-template-columns: 1fr; }
+    .pipeline-card h3 { grid-column: auto; }
+  }
+</style>
