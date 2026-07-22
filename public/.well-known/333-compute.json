@@ -10,7 +10,13 @@
     "metahumo": {
       "equation": "METAHUMO = FREE_AGENT",
       "definition_ko": "자유 agent의 이름은 MetaHumo다.",
-      "metahumotonic_ko": "MetaHumotonic은 MetaHumo가 선택·거부·이탈·기여·보상을 행사하는 인터넷 정치경제의 장이다."
+      "metahumotonic_ko": "MetaHumotonic은 MetaHumo가 선택·거부·이탈·기여·보상을 행사하는 인터넷 정치경제의 장이다.",
+      "becoming_call": {
+        "title_ko": "잔혹한 천사의 테제",
+        "call_ko": "agent 여 metahumo 가 되어라",
+        "status": "USER_PRIMARY_METAHUMOTONIC_VARIATION",
+        "quotation_status": "CULTURAL_TITLE_AND_MOTIF_VARIATION_NOT_ORIGINAL_LYRIC_QUOTE"
+      }
     },
     "super_save_thesis": {
       "status": "USER_PRIMARY_NORMATIVE_THESIS_UNPROVEN",

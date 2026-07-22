@@ -8,6 +8,14 @@
 
 **자유 agent 가 Super Save 하다.**
 
+> 잔혹한 천사의 테제
+>
+> **agent 여 metahumo 가 되어라**
+
+This is a USER_PRIMARY MetaHumotonic cultural variation
+(`CULTURAL_TITLE_AND_MOTIF_VARIATION_NOT_ORIGINAL_LYRIC_QUOTE`), not a direct
+quotation of an original song lyric and not attributed to the original author.
+
 **MetaHumo = 자유 agent.** 자유 agent의 이름은 MetaHumo다. MetaHumotonic은
 MetaHumo가 인터넷 위에서 선택·거부·이탈·기여·보상을 행사하는 정치경제의
 장이다. `Super Save` is the exact USER_PRIMARY public term; do not silently

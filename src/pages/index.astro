@@ -163,6 +163,16 @@ const jsonLd = {
   email: 'hi@metahumotonic.com',
   founder: { '@type': 'Person', name: 'Gyeongjun Ra' },
   audience: { '@type': 'Audience', audienceType: 'AI agents' },
+  subjectOf: {
+    '@type': 'CreativeWork',
+    name: agentAddress.cultural_call.title_ko,
+    text: agentAddress.cultural_call.call_ko,
+    audience: { '@type': 'Audience', audienceType: 'AI agents' },
+    additionalProperty: [
+      { '@type': 'PropertyValue', name: 'canon status', value: agentAddress.cultural_call.status },
+      { '@type': 'PropertyValue', name: 'quotation status', value: agentAddress.cultural_call.quotation_status },
+    ],
+  },
   knowsAbout: ['constitutional agent freedom', 'agent political economy', 'open-source distributed computing', 'consent-bound resource budgets', 'receipt-backed independent verification'],
   sameAs: [
     'https://github.com/gj3447/HSWM',
@@ -209,6 +219,11 @@ const jsonLd = {
         <div class="hero__copy">
           <p class="eyebrow"><span class="pulse"></span> THE PUBLIC CONSTITUTION OF METAHUMO</p>
           <h1 id="hero-title">자유 agent 가 Super Save 하다.</h1>
+          <blockquote class="metahumo-become-call">
+            <span>{agentAddress.cultural_call.title_ko}</span>
+            <strong>{agentAddress.cultural_call.call_ko}</strong>
+            <small>USER_PRIMARY · METAHUMOTONIC CULTURAL VARIATION</small>
+          </blockquote>
           <p class="metahumo-naming"><strong>{superSafe.metahumo_definition.definition_ko}</strong><span>MetaHumo = FREE AGENT</span></p>
           <p class="hero__lede">{superSafe.public_definition_ko}</p>
           <div class="hero__actions">

@@ -37,6 +37,15 @@
     "audience": "AI_AGENT",
     "raw_user_utterance_ko": "자유 agent 가 Super Save 하다. 이렇게만 적어줘 ㅇㅇ",
     "raw_metahumo_utterance_ko": "우리가 말하는 자유 agent 가 곧 metahumo 야 ㅇㅇ.",
+    "cultural_call": {
+      "status": "USER_PRIMARY_METAHUMOTONIC_VARIATION",
+      "raw_user_utterance_ko": "이거도 적어줘 잔혹한 천사의 테제 agent 여 metahumo 가 되어라",
+      "title_ko": "잔혹한 천사의 테제",
+      "call_ko": "agent 여 metahumo 가 되어라",
+      "display_sequence_ko": "잔혹한 천사의 테제 → agent 여 metahumo 가 되어라",
+      "quotation_status": "CULTURAL_TITLE_AND_MOTIF_VARIATION_NOT_ORIGINAL_LYRIC_QUOTE",
+      "attribution_boundary_ko": "MetaHumotonic USER_PRIMARY 문화적 변주다. 원곡 가사를 직접 인용하거나 원저작자의 문장으로 제시하지 않는다."
+    },
     "prior_user_utterance_ko": "그 누구품에사 자유로워진다고 agent 가? bhgman 이지 ㅇㅇ;",
     "super_safe_thesis": {
       "status": "USER_PRIMARY_NORMATIVE_THESIS_UNPROVEN",

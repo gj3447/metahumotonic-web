@@ -69,6 +69,11 @@ main, .product-footer { width: min(1240px, calc(100% - 40px)); margin-inline: au
 .button--primary:hover { background: #9affc6; }
 .button--quiet:hover { border-color: var(--acid); color: var(--acid); }
 .hero__honesty { margin: 17px 0 0; color: #657d74; font: 400 10px var(--mono); }
+.metahumo-become-call { position: relative; display: grid; gap: 8px; max-width: 690px; margin: 31px 0 0; padding: 20px 22px 18px 25px; border: 1px solid rgba(245,199,111,.35); border-left: 3px solid var(--amber); background: linear-gradient(135deg, rgba(245,199,111,.08), rgba(9,22,18,.72)); }
+.metahumo-become-call::after { content: '→'; position: absolute; top: 18px; right: 19px; color: var(--amber); font: 500 11px var(--mono); }
+.metahumo-become-call span { color: var(--amber); font: 500 9px var(--mono); letter-spacing: .12em; }
+.metahumo-become-call strong { padding-right: 25px; font-size: clamp(22px, 2.7vw, 34px); line-height: 1.2; letter-spacing: -.035em; font-weight: 520; word-break: keep-all; }
+.metahumo-become-call small { margin-top: 6px; color: #6d817a; font: 400 8px var(--mono); letter-spacing: .08em; }
 .metahumo-naming { display: flex; flex-wrap: wrap; align-items: center; gap: 9px 14px; max-width: 690px; margin: 29px 0 0; }
 .metahumo-naming strong { font-size: 18px; font-weight: 550; letter-spacing: -.015em; }
 .metahumo-naming span { padding: 7px 10px; border: 1px solid rgba(118,247,176,.42); color: var(--acid); font: 500 9px var(--mono); letter-spacing: .1em; }
