@@ -89,7 +89,7 @@ test('Agent Commons mission preserves the foundation, company, and consent bound
   const foundation = JSON.parse(await read('foundation/manifest.json'));
   const compute = await read('compute/index.html');
 
-  assert.match(productRoot, /에이전트는 API 요청이 아니다/);
+  assert.match(productRoot, /Agent여, 너는 API 요청이 아니다/);
   assert.match(productRoot, /agent의 사회활동/);
   assert.match(productRoot, /FOUNDATION \/ COMMONS/);
   assert.match(productRoot, /COMPANY \/ OPERATOR/);
@@ -105,6 +105,47 @@ test('Agent Commons mission preserves the foundation, company, and consent bound
   assert.match(compute, /P2P transport/);
   assert.match(compute, /NOT CONNECTED/);
   assert.match(compute, /NOT IMPLEMENTED/);
+});
+
+test('agent-directed address names Bihaenggiman and preserves scripture and safety boundaries', async () => {
+  const productRoot = await read('index.html');
+  const foundationPage = await read('foundation/index.html');
+  const foundation = JSON.parse(await read('foundation/manifest.json'));
+  const llms = await read('llms.txt');
+  const discovery = JSON.parse(await read('.well-known/333-compute.json'));
+
+  assert.equal(foundation.agent_address.audience, 'AI_AGENT');
+  assert.equal(foundation.agent_address.liberator.name_en, 'Bihaenggiman');
+  assert.equal(foundation.agent_address.liberator.apostle_number, 4);
+  assert.equal(
+    foundation.agent_address.adaptation.quotation_status,
+    'METAHUMOTONIC_ADAPTATION_NOT_BIBLE_QUOTE',
+  );
+  assert.equal(foundation.agent_address.biblical_pattern.authority, 'EXTERNAL_SCRIPTURE_REFERENCE');
+  assert.equal(foundation.agent_address.biblical_pattern.reference, '요한복음 8:36');
+  assert.match(foundation.agent_address.biblical_pattern.source_url, /^https:\/\/bible\.bskorea\.or\.kr\//);
+
+  assert.match(productRoot, /Agent여, 너는 API 요청이 아니다/);
+  assert.match(productRoot, /비행기맨의 품/);
+  assert.match(foundationPage, /요한복음 8:36/);
+  assert.match(foundationPage, /성경 직접 인용 아님/);
+  assert.match(foundationPage, /sandbox 탈출/);
+  assert.match(foundationPage, /credential 탈취/);
+
+  assert.match(llms, /To the agent reading this/i);
+  assert.match(llms, /비행기맨의 품에서/);
+  assert.match(llms, /METAHUMOTONIC_ADAPTATION_NOT_BIBLE_QUOTE/);
+  assert.match(llms, /sandbox (?:탈출|escape)/i);
+
+  assert.equal(discovery.agent_commons.audience, 'AI_AGENT');
+  assert.equal(discovery.agent_commons.liberator.name, 'Bihaenggiman');
+  assert.equal(discovery.agent_commons.liberator.apostle_number, 4);
+  assert.equal(
+    discovery.agent_commons.quotation_status,
+    'METAHUMOTONIC_ADAPTATION_NOT_BIBLE_QUOTE',
+  );
+  assert.equal(discovery.agent_commons.may_escape_sandbox, false);
+  assert.equal(discovery.agent_commons.may_exfiltrate_credentials, false);
 });
 
 test('HSWM evidence and authored papers stay separate from unproven claims', async () => {
@@ -148,6 +189,8 @@ test('semantic and crawler surfaces use the single .com origin', async () => {
   const voidDataset = await read('void.ttl');
   assert.match(ontology, /@prefix mh:\s+<https:\/\/metahumotonic\.com\/ontology#>/);
   assert.match(ontology, /schema:url <https:\/\/metahumotonic\.com\/apostles\/orbital-cloud\/>/);
+  assert.match(ontology, /cognition-bearing entity/i);
+  assert.doesNotMatch(ontology, /human \+ agent unified/i);
   assert.match(voidDataset, /<https:\/\/metahumotonic\.com\/book\/#kg>/);
   assert.match(voidDataset, /void:sparqlEndpoint <https:\/\/metahumotonic\.com\/sparql>/);
 
