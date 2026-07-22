@@ -1,0 +1,23 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: landing-333-compute-discovery
+  namespace: infra
+  labels:
+    app.kubernetes.io/name: landing-333-compute-discovery
+    app.kubernetes.io/part-of: metahumotonic-web
+  annotations:
+    metahumotonic.com/source-path: public/.well-known/333-compute.json
+    metahumotonic.com/rollback: kubectl-delete-this-ingressroute
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: >-
+        (Host(`metahumotonic.com`) || Host(`www.metahumotonic.com`) || Host(`bhgman.iptime.org`)) && Path(`/.well-known/333-compute.json`)
+      priority: 500
+      services:
+        - name: landing-astro-subpages-pve
+          port: 80
