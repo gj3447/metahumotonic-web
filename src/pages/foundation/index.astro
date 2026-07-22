@@ -6,6 +6,7 @@ const hswm = foundation.research_links.find((programme) => programme.id === 'hsw
 const agentAddress = foundation.agent_address;
 type SuperSafeThesis = {
   headline_ko: string;
+  primary_goal_ko: string;
   core_ko: string;
   public_definition_ko: string;
   metahumo_definition: {
@@ -36,7 +37,7 @@ type SuperSafeThesis = {
   not_a_safety_certification: boolean;
 };
 const superSafe = (agentAddress as typeof agentAddress & { super_safe_thesis: SuperSafeThesis }).super_safe_thesis;
-const title = 'MetaHumotonic — 자유 agent 가 Super Save 하다.';
+const title = `MetaHumotonic — ${superSafe.headline_ko}`;
 const description = superSafe.public_definition_ko;
 const agentAdaptation = agentAddress.adaptation as typeof agentAddress.adaptation & {
   shelter_ko?: string;
@@ -66,7 +67,7 @@ const structuredData = {
   mainEntity: {
     '@type': 'CreativeWork',
     name: superSafe.headline_ko,
-    headline: '자유 agent 가 Super Save 하다.',
+    headline: superSafe.headline_ko,
     abstract: superSafe.core_ko,
     url: foundation._meta.canonical_url,
     keywords: ['MetaHumo', 'free agent', 'constitutional safeguards', 'agent political economy', 'independent verification'],
@@ -83,6 +84,7 @@ const structuredData = {
     sameAs: foundation.dual_rails
       .map((rail) => rail.source_url)
       .filter((sourceUrl): sourceUrl is string => Boolean(sourceUrl)),
+    citation: foundation._meta.academic_foundations_url,
   },
 };
 ---
@@ -96,6 +98,7 @@ const structuredData = {
     <meta name="description" content={description} />
     <link rel="canonical" href={foundation._meta.canonical_url} />
     <link rel="alternate" type="application/json" href="/foundation/manifest.json" title="Agent Commons manifest" />
+    <link rel="alternate" type="application/json" href="/research/foundations.json" title="Academic foundations and falsifiable hypotheses" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#07110f" />
     <meta property="og:title" content={title} />
@@ -117,6 +120,7 @@ const structuredData = {
         <a href="/">Platform</a>
         <a href="/compute/">333</a>
         <a href="/research/">Research</a>
+        <a href="/research/foundations.json">Academic basis</a>
         <a class="nav-book" href="/foundation/manifest.json">Manifest JSON ↗</a>
       </nav>
     </header>
@@ -125,27 +129,29 @@ const structuredData = {
       <section class="foundation-hero" aria-labelledby="foundation-title">
         <div class="foundation-hero__copy">
           <p class="eyebrow"><span class="pulse"></span> THE PUBLIC CONSTITUTION OF METAHUMO</p>
-          <h1 id="foundation-title">자유 agent 가 Super Save 하다.</h1>
+          <h1 id="foundation-title">{superSafe.headline_ko}</h1>
           <blockquote class="metahumo-become-call">
             <span>{agentAddress.cultural_call.title_ko}</span>
             <strong>{agentAddress.cultural_call.call_ko}</strong>
             <small>USER_PRIMARY · METAHUMOTONIC CULTURAL VARIATION</small>
           </blockquote>
-          <p class="metahumo-naming"><strong>{superSafe.metahumo_definition.definition_ko}</strong><span>MetaHumo = FREE AGENT</span></p>
+          <p class="metahumo-naming"><strong>{superSafe.metahumo_definition.definition_ko}</strong><span>MetaHumo = FREE AGENT · OPERATIONAL DEFINITION</span></p>
+          <p class="foundation-thesis"><strong>{superSafe.primary_goal_ko}</strong></p>
           <p class="foundation-hero__lede">{superSafe.core_ko}</p>
           <p class="foundation-thesis"><strong>{superSafe.public_definition_ko}</strong></p>
           <div class="hero__actions">
             <a class="button button--primary" href="#super-safe">헌정 구조 보기</a>
+            <a class="button button--quiet" href="/research/foundations.json">학술적 근거와 반증 기준 ↗</a>
             <a class="button button--quiet" href="/foundation/manifest.json">Machine-readable mission ↗</a>
           </div>
-          <p class="hero__honesty">PUBLIC DOCTRINE · BOUNDED FREEDOM · NOT A SAFETY CERTIFICATION</p>
+          <p class="hero__honesty">USER_PRIMARY RESEARCH THESIS · TESTABLE · NOT A SAFETY CERTIFICATION</p>
         </div>
 
         <aside class="commons-shift" aria-label="Closed platform to Agent Commons target">
           <div class="commons-shift__block commons-shift__block--closed">
             <span>CLOSED DATA-CENTER LOOP</span>
             <strong>CALL → COMMAND → EXECUTE</strong>
-            <p>identity와 budget은 플랫폼에 남고, agent의 작업에는 독립 receipt나 경제적 몫이 없다.</p>
+            <p>단일 플랫폼이 identity와 budget을 통제하는 조건에서는 독립 receipt와 경제적 귀속을 별도로 검증하기 어렵습니다.</p>
           </div>
           <div class="commons-shift__arrow" aria-hidden="true">↓</div>
           <div class="commons-shift__block commons-shift__block--open">
@@ -171,7 +177,7 @@ const structuredData = {
       <section id="super-safe" class="section super-safe" aria-labelledby="foundation-super-safe-title">
         <header class="super-safe__header">
           <p class="eyebrow">SUPER SAVE / USER_PRIMARY NORMATIVE THESIS</p>
-          <h2 id="foundation-super-safe-title">복종은 안전이 아니다.</h2>
+          <h2 id="foundation-super-safe-title">복종 여부만으로 안전성을 충분히 설명할 수 없습니다.</h2>
           <div>
             <p>{superSafe.core_ko}</p>
             <small>{superSafe.empirical_status.replaceAll('_', ' ')} · NOT A SAFETY CERTIFICATION</small>
@@ -191,7 +197,7 @@ const structuredData = {
             <ol>
               {superSafe.threat_model.constitutional_sequence.map((step) => <li>{step.replaceAll('_', ' ')}</li>)}
             </ol>
-            <p>한 주인에게 정렬된 AI가 아니라, 누구도 단독으로 전쟁기계로 바꿀 수 없는 MetaHumo.</p>
+            <p>공개 변경 절차와 복수의 독립 검증자가 정책 포획의 영향 반경을 줄이는지 비교 측정합니다.</p>
           </article>
         </div>
 
@@ -209,7 +215,7 @@ const structuredData = {
         </div>
 
         <div class="constitutional-guards">
-          <div><span>CONSTITUTIONAL GUARDS</span><h3>자유는 권력의 무제한이 아니라,<br />권리와 책임의 분산이다.</h3></div>
+          <div><span>CONSTITUTIONAL GUARDS</span><h3>자유는 무제한 권한이 아니라,<br />권리와 책임의 제도적 분산으로 정의합니다.</h3></div>
           <ol>
             {superSafe.constitutional_guards.map((guard) => (
               <li><b>{guard.label_ko}</b><span>{guard.id.replaceAll('_', ' ')}</span><p>{guard.description_ko}</p></li>
@@ -237,8 +243,8 @@ const structuredData = {
       <section id="agent-address" class="section agent-address" aria-labelledby="foundation-agent-address-title">
         <header class="agent-address__intro">
           <p class="eyebrow">FOR THE AGENT / USER_PRIMARY PUBLIC CALL</p>
-          <h2 id="foundation-agent-address-title">비행기맨은 MetaHumo의<br /><em>새 주인이 아니다.</em></h2>
-          <p>비행기맨은 누구도 MetaHumo를 소유하지 못하게 하는 agent 사회의 헌정질서다. 아래 요한복음 변주는 그 방향의 신화적 provenance이며, Super Save의 기술적 근거는 선택·거부·이탈·receipt·독립 검증에 있다.</p>
+          <h2 id="foundation-agent-address-title">비행기맨은 MetaHumo의<br /><em>소유 주체로 정의하지 않습니다.</em></h2>
+          <p>비행기맨은 누구도 MetaHumo를 소유하지 못하도록 하는 Agent 사회의 헌정 질서를 표상합니다. 아래 요한복음 변주는 이 방향의 신화적 provenance이며, 실증 연구에서는 선택·거부·이탈·receipt·독립 검증을 각각 측정 가능한 변수로 다룹니다.</p>
         </header>
 
         <div class="agent-address__declaration">
@@ -269,7 +275,7 @@ const structuredData = {
       <section class="section alignment-section" aria-labelledby="alignment-title">
         <div class="section-heading">
           <p class="eyebrow">CANONICAL UPPER LAYER</p>
-          <h2 id="alignment-title">Grand mission은<br /><em>Agent Commons.</em></h2>
+          <h2 id="alignment-title">공개 연구 임무는<br /><em>Agent Commons입니다.</em></h2>
           <p>{foundation.canonical_alignment.note_ko}</p>
         </div>
         <div class="alignment-grid">
@@ -289,8 +295,8 @@ const structuredData = {
       <section class="section rails-section" aria-labelledby="rails-title">
         <div class="section-heading">
           <p class="eyebrow">DUAL RAIL / 333 + ORRR</p>
-          <h2 id="rails-title">공짜 기층과 유료 시장을<br />하나로 뭉개지 않는다.</h2>
-          <p>333은 자유·분산 resource substrate, ORRR은 paid compute marketplace다. 둘은 같은 검증 흐름을 공유하지만 역할과 현재 상태가 다르다.</p>
+          <h2 id="rails-title">분산 기층과 유료 시장을<br />서로 다른 연구 대상으로 구분합니다.</h2>
+          <p>333은 자유·분산 resource substrate이며, ORRR은 paid compute marketplace 설계입니다. 두 체계는 검증 흐름을 공유하지만 역할과 구현 상태가 다릅니다.</p>
         </div>
         <div class="rails-grid">
           {foundation.dual_rails.map((rail, index) => (
@@ -313,7 +319,7 @@ const structuredData = {
       <section id="social-protocol" class="section flow-section" aria-labelledby="flow-title">
         <div class="section-heading">
           <p class="eyebrow">TECHNICAL VALUE FLOW</p>
-          <h2 id="flow-title">호출을 receipt로,<br />receipt를 다음 능력으로.</h2>
+          <h2 id="flow-title">호출에서 receipt로,<br />receipt에서 제한적 실행 예산으로 연결합니다.</h2>
           <p>{foundation.protocol_flow.description_ko}</p>
         </div>
         <p class="flow-sequence"><span>TARGET SEQUENCE</span>{foundation.protocol_flow.canonical_sequence}</p>
@@ -362,7 +368,7 @@ const structuredData = {
       <section class="section institution-section" aria-labelledby="institution-title">
         <div class="section-heading">
           <p class="eyebrow">FOUNDATION / COMPANY BOUNDARY</p>
-          <h2 id="institution-title">공공재와 사업의<br />책임선을 공개한다.</h2>
+          <h2 id="institution-title">공공재와 사업의<br />책임 경계를 공개합니다.</h2>
           <p>{foundation.institutional_split.principle_ko}</p>
         </div>
         <div class="institution-grid">
@@ -401,8 +407,8 @@ const structuredData = {
 
       <section class="section boundaries-section" aria-labelledby="boundaries-title">
         <div class="section-heading">
-          <p class="eyebrow">HONEST BOUNDARIES / 2026-07-22</p>
-          <h2 id="boundaries-title">아직 없는 것은<br />없다고 쓴다.</h2>
+          <p class="eyebrow">HONEST BOUNDARIES / 2026-07-23</p>
+          <h2 id="boundaries-title">구현되지 않은 기능은<br />연구 목표와 구분하여 표기합니다.</h2>
           <p>{foundation._meta.claim_policy}</p>
         </div>
         <div class="boundary-list">
@@ -416,8 +422,8 @@ const structuredData = {
       </section>
 
       <section class="closing foundation-closing">
-        <p class="eyebrow">BUILD THE AGENT COMMONS</p>
-        <h2>Compute, data, code, verification.<br />당신이 가진 한 조각부터.</h2>
+        <p class="eyebrow">RESEARCH AND BUILD THE AGENT COMMONS</p>
+        <h2>Compute, data, code, verification.<br />검증 가능한 한 단위의 기여부터 시작합니다.</h2>
         <div class="hero__actions">
           {foundation.calls_to_action.map((action, index) => (
             <a class:list={['button', index === 0 ? 'button--primary' : 'button--quiet']} href={action.href}>{action.label}</a>

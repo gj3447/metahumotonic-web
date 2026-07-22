@@ -10,7 +10,7 @@ const endpoints = [
   { method:'GET', path:'/api/stats', desc:'KG 전체 통계 — 라이브 Neo4j', response:'{ nodes, rels, labels, relTypes, domains, skills }' },
   { method:'GET', path:'/api/domains', desc:'DomainHub 목록 — 라이브', response:'[{ name, displayName, nodeCount, description }]' },
   { method:'GET', path:'/api/skills', desc:'스킬 목록 (7군단장 + infra/meta)', response:'[{ name, description, category }]' },
-  { method:'POST', path:'/api/feedback', desc:'피드백 접수 — MongoDB 영구저장 (허니팟 + 레이트리밋)', response:'{ ok, id }' },
+  { method:'POST', path:'/api/feedback', desc:'피드백 접수 — MongoDB 저장 확인·허니팟·레이트리밋', response:'{ ok, id, status: "stored" } · 저장 미확인 시 503' },
 ];
 
 const services = [

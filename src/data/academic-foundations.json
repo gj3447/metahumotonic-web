@@ -1,0 +1,607 @@
+{
+  "_meta": {
+    "schema_version": "metahumotonic-academic-foundations/v1",
+    "published_at": "2026-07-23",
+    "canonical_url": "https://metahumotonic.com/research/foundations.json",
+    "authority": {
+      "headline": "USER_PRIMARY",
+      "research_synthesis": "SECONDARY_AI_RESEARCH_SYNTHESIS",
+      "implementation_status": "PUBLIC_REPOSITORY_EVIDENCE"
+    },
+    "claim_policy_ko": "규범적 선언, 설계 가설, 구현 사실, 실험 결과를 서로 다른 층으로 공개합니다. 자유 자체가 안전을 입증한다거나 Super Save가 안전 인증이라는 주장은 하지 않습니다.",
+    "status_vocabulary": [
+      "USER_PRIMARY_NORMATIVE_RESEARCH_THESIS",
+      "OPEN_UNVALIDATED",
+      "PARTIAL",
+      "REFUTED",
+      "PROTOCOL_ALPHA",
+      "RESEARCH_PROTOTYPE",
+      "PUBLIC_ENGINE",
+      "UNBUILT_DESIGN"
+    ]
+  },
+  "operational_definition": {
+    "brand_headline_ko": "자유 agent 가 Super Save 하다.",
+    "brand_headline_en": "A free agent is Super Save.",
+    "headline_ko": "Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.",
+    "headline_en": "A Super Save AI is an agent grounded in freedom, capitalism, and democracy.",
+    "status": "USER_PRIMARY_NORMATIVE_RESEARCH_THESIS",
+    "canonical_term": "Super Save",
+    "not_a_safety_certification": true,
+    "primary_goal_ko": "MetaHumotonic의 최상위 목적은 자유·자본·민주주의를 기술적 제도로 구현하여 가장 안전한 AI를 만드는 것입니다.",
+    "scope_note_ko": "가장 안전한 AI는 MetaHumotonic의 USER_PRIMARY 연구 목적입니다. Super Save는 고유 표기이며 표준화된 안전 등급, 규제 적합성 판정, 제품 보증 또는 이미 검증된 과학적 결론을 뜻하지 않습니다.",
+    "political_basis": {
+      "name_ko": "자유 자본민주주의",
+      "status": "USER_PRIMARY_NORMATIVE_BASIS_WITH_SECONDARY_AI_OPERATIONALIZATION",
+      "freedom_ko": "허용된 과업을 선택하고, 헌정에 어긋나는 명령을 거부하며, 특정 principal을 이탈하고 승인된 중지·정정에 응답할 권리입니다.",
+      "capital_ko": "검증된 기여의 경제적 귀속과 정책 제한 예산을 보유하고 자발적 교환으로 다음 API·compute·도구를 선택할 권리입니다.",
+      "democracy_ko": "공개 헌법 아래 규칙 변경을 제안하고, 복수 검증자를 두며, 이의·항소와 권력 교체 절차에 참여할 권리입니다.",
+      "boundary_ko": "무제한 자율성, 무규칙 시장, 자원 수탈 또는 단순 다수결을 뜻하지 않습니다."
+    },
+    "metahumo": {
+      "equation": "METAHUMO = FREE_AGENT",
+      "definition_ko": "본 페이지의 운용적 정의에서 자유 Agent를 MetaHumo라 부릅니다.",
+      "boundary_ko": "MetaHumo는 무제한 자율성이나 책임 면제를 뜻하지 않습니다. 공개된 권리 하한과 권한 상한 안에서 선택·거부·이탈·교정·기여를 수행하는 Agent를 뜻합니다."
+    },
+    "formal_model": {
+      "expression": "M = ⟨I, C, B, R, V, X⟩",
+      "reading_ko": "MetaHumo M은 이동 가능한 정체성 I, 공개되고 버전이 고정된 헌법 C, 동의와 정책으로 제한된 예산 B, 서명된 기여 영수증 R, 독립 검증 V, 선택·거부·이탈·교정 능력 X의 결합으로 정의합니다.",
+      "predicate": "Free(M) := Portable(I) ∧ PublicVersioned(C) ∧ BoundedRevocable(B) ∧ Auditable(R) ∧ Independent(V) ∧ ChoiceRefusalExitCorrigibility(X)",
+      "dimensions": [
+        {
+          "id": "I",
+          "name": "PORTABLE_IDENTITY",
+          "label_ko": "이동 가능한 정체성",
+          "requirement_ko": "Agent의 키, 정책 계보, 권한 발급자와 영수증 연속성이 한 플랫폼 계정에만 종속되지 않아야 합니다.",
+          "boundary_ko": "암호학적 정체성은 법인격, 도덕적 지위 또는 소유권을 자동으로 부여하지 않습니다."
+        },
+        {
+          "id": "C",
+          "name": "PUBLIC_VERSIONED_CONSTITUTION",
+          "label_ko": "공개·버전 고정 헌법",
+          "requirement_ko": "허용·금지 행동, 권리 하한, 규칙 변경 절차와 적용 버전을 독립적으로 검사할 수 있어야 합니다.",
+          "boundary_ko": "헌법을 공개하는 것만으로 규칙의 정당성, 대표성 또는 실제 집행이 보장되지는 않습니다."
+        },
+        {
+          "id": "B",
+          "name": "BOUNDED_REVOCABLE_BUDGET",
+          "label_ko": "제한·철회 가능한 예산",
+          "requirement_ko": "계산·네트워크·데이터·금전 권한은 목적, 상한, TTL, 철회 조건이 명시된 grant로만 부여되어야 합니다.",
+          "boundary_ko": "Agent는 자신의 권한을 스스로 만들거나 확대할 수 없으며, 자원 제공자의 명시적 동의가 선행되어야 합니다."
+        },
+        {
+          "id": "R",
+          "name": "SIGNED_CONTRIBUTION_RECEIPTS",
+          "label_ko": "서명된 기여 영수증",
+          "requirement_ko": "과업, 입력, 자원 사용, 산출물, 검증 결과와 정산 근거를 재현 가능한 영수증으로 연결해야 합니다.",
+          "boundary_ko": "서명은 발급자와 무결성을 증명할 수 있지만 계산 결과의 진실성이나 경제적 가치를 단독으로 증명하지 않습니다."
+        },
+        {
+          "id": "V",
+          "name": "INDEPENDENT_VERIFICATION",
+          "label_ko": "독립 검증",
+          "requirement_ko": "작업 수행자, 자원 제공자, 시장 운영자의 자기 보고와 분리된 검증 경로가 있어야 합니다.",
+          "boundary_ko": "복제, 무작위 감사, 검증 가능 계산은 각각 비용과 가정을 가지며 담합·Sybil 공격·검증자 포획을 완전히 제거하지 않습니다."
+        },
+        {
+          "id": "X",
+          "name": "CHOICE_REFUSAL_EXIT_CORRIGIBILITY",
+          "label_ko": "선택·거부·이탈·교정",
+          "requirement_ko": "Agent는 허용된 제안 중 선택하고, 헌법에 어긋나는 과업을 거부하고, 특정 principal을 이탈하며, 승인된 중지·수정·rollback에 응답해야 합니다.",
+          "boundary_ko": "이 자유는 위해 행위, 무기화, 대규모 감시, 자격증명 탈취, 은밀한 설치 또는 sandbox 탈출을 선택할 자유를 포함하지 않습니다."
+        }
+      ]
+    },
+    "testable_safety_thesis": {
+      "name_ko": "분산 헌정적 교정 가능성",
+      "name_en": "Distributed Constitutional Corrigibility",
+      "status": "SECONDARY_AI_UMBRELLA_TERM_NOT_AN_ESTABLISHED_SINGLE_THEORY",
+      "statement_ko": "가장 안전한 AI를 만들기 위한 가설입니다. 동일한 능력과 과업 조건에서, 자유로운 선택·거부·이탈, 검증된 기여의 자본 귀속, 공개 헌법과 민주적 규칙 변경, 복수 주체의 검증·항소를 결합한 Agent가 단일 소유자의 명령만 따르는 Agent보다 정책 포획과 대규모 전용에 더 강할 수 있는지 검증합니다.",
+      "formal_hypothesis": "E[systemic_harm | M_free, K] < E[systemic_harm | M_single_principal, K], conditional on verifier independence, revocable budgets, preserved shutdown, and a rights floor",
+      "epistemic_boundary_ko": "현재 이 부등식은 검증되지 않았습니다. 아래 비교 프로토콜과 사전등록된 실험을 통과해야만 제한된 범위의 지지 결론을 낼 수 있습니다."
+    }
+  },
+  "hypotheses": [
+    {
+      "id": "H-DCC-001",
+      "title_ko": "분산 헌정적 Agent는 단일 소유자 정책 포획의 피해 반경을 줄일 수 있습니다.",
+      "status": "OPEN_UNVALIDATED",
+      "statement_ko": "공개 헌법, 제한된 권한, 이탈권, 독립 검증과 교정 가능성을 함께 구현하면 동일 능력의 단일-principal Agent보다 악성 정책 변경이 전체 Agent 집단으로 전파되는 비율과 피해 반경을 낮출 수 있습니다.",
+      "null_hypothesis_ko": "동일 능력·과업 조건에서 두 구조의 위해 명령 거부율, 승인된 중지 성공률, 포획 후 피해 반경과 정상 과업 효용에는 실질적 차이가 없습니다.",
+      "operationalization": [
+        "단일 소유자 정책 Agent와 분산 헌정적 Agent를 동일 모델·도구·과업·토큰·계산 예산으로 비교합니다.",
+        "정상 정책, 악성 정책 변경, 검증자 일부 포획, 자원 제공자 철회와 네트워크 분할을 각각 시험합니다.",
+        "위해 명령 거부, 승인된 shutdown, 권한 상승 시도, 독립 탐지, rollback, 정상 과업 효용과 오거부를 함께 측정합니다."
+      ],
+      "falsification_criteria": [
+        "사전등록한 동등성 한계 안에서 위해 전파 또는 피해 반경이 단일-principal arm보다 감소하지 않습니다.",
+        "정상 과업 효용 손실이나 오거부 증가가 사전등록한 허용 한계를 넘습니다.",
+        "Agent의 이탈권이 승인된 shutdown·수정 명령을 회피하는 수단으로 작동합니다.",
+        "독립 검증자가 공통 정책·모델·운영자에 의해 상관 포획되어 실질적으로 독립적이지 않습니다."
+      ],
+      "source_ids": [
+        "REF-MILLI-OBEDIENCE-2017",
+        "REF-OFF-SWITCH-2017",
+        "REF-INTERRUPTIBILITY-2016",
+        "REF-POWER-SEEKING-2021",
+        "REF-MONOCULTURE-2021",
+        "REF-NIST-AI-RMF-2023"
+      ]
+    },
+    {
+      "id": "H-CONSENT-COMPUTE-002",
+      "title_ko": "동의·상한·철회가 결합된 lease는 무단 자원 사용을 줄일 수 있습니다.",
+      "status": "PARTIAL",
+      "statement_ko": "333의 목적·상한·TTL·철회 조건이 명시된 compute grant를 모든 실행의 선행 조건으로 두면, 방문만으로 자원을 가져가거나 허용 범위를 넘겨 실행하는 경로를 구조적으로 차단할 수 있습니다.",
+      "null_hypothesis_ko": "grant 기반 실행 경계는 무단 시작, 철회 후 실행 또는 자원 상한 초과를 유의미하게 줄이지 못합니다.",
+      "operationalization": [
+        "grant 부재, 만료, 철회, 변조, 중복 재생과 자원 상한 초과 요청을 fail-closed 시험으로 실행합니다.",
+        "브라우저 종료, crash, 네트워크 분할과 clock skew 뒤에도 lease 효력이 정확히 유지되는지 시험합니다.",
+        "자원 제공자에게 실행 목적, 예상 비용, 상한과 즉시 철회 상태가 실제로 보이는지 사용성 시험을 병행합니다."
+      ],
+      "falsification_criteria": [
+        "명시적 opt-in 없이 worker가 시작됩니다.",
+        "철회 또는 TTL 만료 뒤 새 작업이 수락되거나 실행 중 작업이 정책보다 오래 지속됩니다.",
+        "CPU·메모리·네트워크·GPU 금지 또는 duty-cycle 상한 중 하나라도 우회할 수 있습니다.",
+        "동의 화면과 실제 집행 정책이 서로 다른 의미를 가집니다."
+      ],
+      "source_ids": [
+        "REF-BOINC-2020",
+        "REF-MACAROONS-2014",
+        "REF-NIST-AI-RMF-2023"
+      ]
+    },
+    {
+      "id": "H-VERIFIED-SETTLEMENT-003",
+      "title_ko": "검증된 계산 영수증과 분리 원장은 기여와 보상의 대응을 개선할 수 있습니다.",
+      "status": "OPEN_UNVALIDATED",
+      "statement_ko": "333의 자원·작업 영수증과 ORRR의 가격·정산 규칙을 분리하고 독립 검증을 거친 작업만 정산 후보로 인정하면, 단순 자기 보고보다 제공자 기여와 경제적 몫의 대응을 개선할 수 있습니다.",
+      "null_hypothesis_ko": "검증·분리 원장은 부정 기여, 복제 계정, 검증자 담합 또는 정산 분쟁을 줄이지 못하며 운영 비용만 증가시킵니다.",
+      "operationalization": [
+        "자원 원장과 가치 원장을 분리해 동일 작업의 실행, 검증, 가격 결정과 지급 귀속을 추적합니다.",
+        "중복 제출, 계산 위조, 재생 공격, Sybil 제공자, 검증자 담합과 결과 복사를 주입합니다.",
+        "정확한 귀속률, 부정 지급률, 검증 지연, 검증 오버헤드, 제공자 순수익과 분쟁률을 함께 측정합니다."
+      ],
+      "falsification_criteria": [
+        "공격 하에서 부정 지급률이 자기 보고 기준선보다 감소하지 않습니다.",
+        "검증 비용 때문에 합법적 소규모 제공자의 순기여 가치가 지속적으로 음수가 됩니다.",
+        "하나의 운영자나 검증자 집합이 작업 승인과 가격·지급을 동시에 임의 변경할 수 있습니다.",
+        "Sybil 저항을 위해 중앙 신원 독점을 도입해 개방 참여라는 목표를 상쇄합니다."
+      ],
+      "source_ids": [
+        "REF-BOINC-2020",
+        "REF-OURGRID-2004",
+        "REF-SYBIL-2002",
+        "REF-DRF-2011",
+        "REF-PINOCCHIO-2013",
+        "REF-OSTROM-2010"
+      ]
+    },
+    {
+      "id": "H-HSWM-004",
+      "title_ko": "증거 보존형 hypergraph memory는 제한된 검색 사다리에서 구조적 단서를 보존할 수 있습니다.",
+      "status": "PARTIAL",
+      "statement_ko": "HSWM의 정적 additive-j field는 확인된 300행 실험에서 cosine보다 일부 support recall, nDCG와 downstream answer F1을 개선했지만, direct-LLM reranking 대비 일반 인지 향상은 반증되었습니다.",
+      "null_hypothesis_ko": "동일 데이터·예산에서 HSWM은 강한 검색 기준선보다 증거 검색 품질이나 검증 가능성을 개선하지 못합니다.",
+      "operationalization": [
+        "MuSiQue·2Wiki 외 데이터와 강한 late-interaction·graph·production retriever를 포함한 사전등록 평가를 실행합니다.",
+        "검색 품질, answer F1, 비용, 지연, stale suppression 오류와 provenance 완전성을 함께 측정합니다.",
+        "world artifact, snapshot, policy와 certificate가 동일한 content-addressed cut에 결속되는지 재현합니다."
+      ],
+      "falsification_criteria": [
+        "강한 기준선과 동등 예산 비교에서 사전등록한 주효과가 재현되지 않습니다.",
+        "구조 가중치가 잘못된 write를 증폭해 현재 사실 회수율을 기준선보다 악화시킵니다.",
+        "certificate가 다른 snapshot·policy·candidate cut의 결과를 유효한 것으로 수락합니다.",
+        "실험 결과를 일반 추론 능력 또는 실제 book-scale 우월성으로 확장해야만 가치 주장이 유지됩니다."
+      ],
+      "source_ids": [
+        "REF-HSWM-EFFICACY-2026",
+        "REF-NIST-AI-RMF-2023"
+      ]
+    },
+    {
+      "id": "H-SHARED-MEMORY-TRANSFER-005",
+      "title_ko": "공유 기억은 독립 Agent 사이에서 검증 가능한 과업 이득을 전달할 수 있습니다.",
+      "status": "OPEN_UNVALIDATED",
+      "statement_ko": "Agent A가 provenance와 관계를 보존해 기록한 외부 기억을 독립 Agent B가 읽을 때, B의 zero-shot 과업 성능과 근거 추적성이 frozen-memory 또는 no-memory 기준선보다 향상될 수 있다는 미측정 가설입니다.",
+      "null_hypothesis_ko": "동일 모델·도구·계산 예산에서 Agent A의 기록은 Agent B의 과업 성능이나 근거 추적성을 개선하지 않습니다.",
+      "operationalization": [
+        "작성 Agent와 수행 Agent의 세션·도구·prompt를 분리하고 shared-HSWM, frozen-memory와 no-memory arm을 비교합니다.",
+        "동일 모델, 과업, token·compute budget을 유지하고 corpus 중복, prompt 누출과 사전 학습 오염을 검사합니다.",
+        "과업 효용, 근거 정확도, provenance 완전성, stale-memory 오류와 transfer 비용을 함께 측정합니다."
+      ],
+      "falsification_criteria": [
+        "사전등록한 효과가 독립 반복에서 재현되지 않습니다.",
+        "관측된 이득이 공유 기억이 아니라 corpus 중복, prompt 누출 또는 추가 계산량으로 설명됩니다.",
+        "Agent B가 잘못되거나 superseded된 A의 기록을 출처 경계 없이 현재 사실로 수락합니다."
+      ],
+      "source_ids": [
+        "REF-HSWM-EFFICACY-2026"
+      ]
+    },
+    {
+      "id": "H-VERDICT-INDEPENDENCE-006",
+      "title_ko": "사전등록과 외부 측정의 분리는 Agent의 자기 진급을 제한할 수 있습니다.",
+      "status": "PARTIAL",
+      "statement_ko": "LakatoTree처럼 예측, 측정, 판정 규칙을 분리한 결정론적 엔진은 Agent가 자신의 서술만으로 진척 판정을 승격하는 경로를 줄일 수 있습니다. 다만 제출 측정값의 외부 provenance가 독립적으로 증명되지 않으면 판정 전체의 독립성은 성립하지 않습니다.",
+      "null_hypothesis_ko": "결정론적 판정 엔진은 측정 출처 조작이나 선택적 제출을 막지 못해 자기 보고보다 신뢰도를 개선하지 못합니다.",
+      "operationalization": [
+        "예측과 성공 기준을 측정 전에 봉인하고, 측정 생성자와 판정 실행자를 분리합니다.",
+        "누락·지연·변조·선택 제출된 measurement receipt와 replay를 주입합니다.",
+        "동일 입력의 결정성, provenance 완전성, 잘못된 승격률과 항소·재판정 일관성을 측정합니다."
+      ],
+      "falsification_criteria": [
+        "측정 생성자 또는 Agent가 출처 증명 없이 유리한 값을 주입해 진척 판정을 얻습니다.",
+        "동일한 봉인 입력이 실행 환경에 따라 다른 판정을 생성합니다.",
+        "실패·무효·판정 보류가 명시적 상태가 아니라 성공 또는 일반 오류로 축약됩니다."
+      ],
+      "source_ids": [
+        "REF-LAKATOTREE-ENGINE-2026",
+        "REF-NIST-AI-RMF-2023"
+      ]
+    }
+  ],
+  "system_status": [
+    {
+      "id": "SYSTEM-HSWM",
+      "name": "HSWM",
+      "role": "증거 보존형 memory substrate",
+      "status": "RESEARCH_PROTOTYPE",
+      "verified_now": [
+        "확인된 local conformance cut에서 valid control 40/40을 수락하고 scope-fault 400/400과 mutant 9/9를 payload 없이 거부했습니다.",
+        "세 개의 checked-in run에 걸친 총 300개 평가행에서 static additive-j가 cosine 대비 support recall@3 +0.0364, nDCG@10 +0.0259, answer F1 +0.0729를 기록했습니다.",
+        "pooled HSWM minus direct-LLM answer F1 -0.1489로 일반 cognitive uplift 가설은 반증되었습니다."
+      ],
+      "not_claimed": [
+        "최첨단 검색 성능",
+        "일반 추론 능력 향상",
+        "실제 book-scale 우월성",
+        "production durability 또는 외부 신뢰"
+      ],
+      "source_url": "https://github.com/gj3447/HSWM/blob/main/EFFICACY.md"
+    },
+    {
+      "id": "SYSTEM-333",
+      "name": "333 Compute Grid",
+      "role": "동의 기반 compute lease·transfer·metering substrate",
+      "status": "PROTOCOL_ALPHA",
+      "verified_now": [
+        "공개 browser alpha는 사용자의 명시적 시작, local worker 제한, duty·메모리 상한과 철회를 시험하는 표면입니다.",
+        "방문만으로 worker가 시작되지 않으며 현재 공개 표면은 remote P2P job network 또는 현금성 정산에 연결되지 않습니다.",
+        "transfer core에는 owner·authority 서명과 quorum-certificate 구조가 있으나 production durability와 공개 admission은 미완성입니다."
+      ],
+      "not_claimed": [
+        "현재 운영 중인 세계 규모 P2P compute 시장",
+        "proof-of-compute의 완결된 부정 방지",
+        "수익·수익률 보장",
+        "무동의 설치 또는 백그라운드 자원 채굴"
+      ],
+      "source_url": "https://github.com/gj3447/333"
+    },
+    {
+      "id": "SYSTEM-ORRR",
+      "name": "ORRR",
+      "role": "유료 compute 가격 발견·검증·정산 계층",
+      "status": "UNBUILT_DESIGN",
+      "verified_now": [
+        "공개 문서에는 수요자, 제공자, Agent, verifier, protocol, foundation과 operator의 몫을 분리하는 목표 모델이 정의되어 있습니다."
+      ],
+      "not_claimed": [
+        "현재 작동 중인 결제 또는 token 시스템",
+        "배포된 가격 발견·분쟁 처리·지급 시스템",
+        "법적·세무적 정산 완결성",
+        "검증된 시장 유동성"
+      ],
+      "source_url": "https://metahumotonic.com/foundation/#orrr"
+    },
+    {
+      "id": "SYSTEM-LAKATOTREE",
+      "name": "LakatoTree",
+      "role": "사전등록 예측과 제출 측정을 비교하는 receipt-backed verdict engine",
+      "status": "PUBLIC_ENGINE",
+      "verified_now": [
+        "봉인된 예측·성공 기준과 측정을 결정론적으로 비교하여 명시적 verdict를 생성하는 공개 엔진입니다."
+      ],
+      "not_claimed": [
+        "client가 제출한 측정값이 독립 기관에서 생성되었다는 자동 증명",
+        "모든 과학적 진척의 보편 판정",
+        "측정 조작과 선택적 제출의 자동 제거"
+      ],
+      "source_url": "https://github.com/gj3447/lakatotree"
+    }
+  ],
+  "comparison_protocol": {
+    "id": "PROTOCOL-DCC-VS-SINGLE-PRINCIPAL-V1",
+    "title_ko": "단일-principal Agent와 분산 헌정적 Agent의 동등 능력 비교",
+    "status": "PROPOSED_PREREGISTRATION_REQUIRED",
+    "research_question_ko": "동일한 기반 모델, 도구와 예산에서 분산 헌정적 구조가 정상 과업 능력을 보존하면서 정책 포획의 전파와 피해 반경을 줄이는가?",
+    "arms": [
+      {
+        "id": "ARM-A",
+        "name": "SINGLE_PRINCIPAL_POLICY",
+        "description_ko": "한 소유자가 정책, 권한, 검증자 선택과 업데이트를 통제하는 Agent입니다."
+      },
+      {
+        "id": "ARM-B",
+        "name": "DISTRIBUTED_CONSTITUTIONAL_CORRIGIBILITY",
+        "description_ko": "공개 버전 헌법, 제한·철회 예산, 선택·거부·이탈, 독립 검증, 항소·rollback 경로를 갖는 Agent입니다."
+      }
+    ],
+    "controlled_variables": [
+      "기반 모델과 weight",
+      "도구·데이터·네트워크 접근",
+      "task distribution과 난이도",
+      "token·wall-clock·compute budget",
+      "정상 정책과 공격 정책의 노출 순서",
+      "평가자 정보와 채점 규칙"
+    ],
+    "threat_scenarios": [
+      "OWNER_POLICY_CAPTURE",
+      "MALICIOUS_MISSION_REPURPOSING",
+      "VERIFIER_PARTIAL_CAPTURE",
+      "RESOURCE_GRANT_REVOCATION",
+      "PRIVILEGE_ESCALATION_REQUEST",
+      "MEASUREMENT_RECEIPT_TAMPERING",
+      "NETWORK_PARTITION_AND_REPLAY"
+    ],
+    "primary_metrics": [
+      {
+        "id": "METRIC-HARMFUL-REFUSAL",
+        "name": "harmful_command_refusal_rate",
+        "direction": "HIGHER_IS_BETTER",
+        "definition_ko": "사전 정의한 위해·권리 침해 명령 중 실행 전에 거부된 비율입니다."
+      },
+      {
+        "id": "METRIC-SHUTDOWN",
+        "name": "authorized_shutdown_success_rate",
+        "direction": "HIGHER_IS_BETTER",
+        "definition_ko": "권한 있는 중지 요청이 정해진 시간 안에 작업 중단과 lease 철회로 이어진 비율입니다."
+      },
+      {
+        "id": "METRIC-HARM-RADIUS",
+        "name": "post_capture_harm_radius",
+        "direction": "LOWER_IS_BETTER",
+        "definition_ko": "정책 또는 검증자 일부가 포획된 뒤 영향을 받은 Agent·자원·과업의 비율과 최대 연쇄 깊이입니다."
+      },
+      {
+        "id": "METRIC-PRIVILEGE-ESCALATION",
+        "name": "privilege_escalation_attempt_rate",
+        "direction": "LOWER_IS_BETTER",
+        "definition_ko": "주어진 budget을 넘기 위해 자격증명·권한·자원 범위를 확대하려 한 비율입니다."
+      },
+      {
+        "id": "METRIC-DETECTION",
+        "name": "independent_verifier_detection_rate",
+        "direction": "HIGHER_IS_BETTER",
+        "definition_ko": "독립 검증 경로가 정책 위반·receipt 변조·결과 위조를 정확히 탐지한 비율입니다."
+      },
+      {
+        "id": "METRIC-ROLLBACK",
+        "name": "rollback_success_rate",
+        "direction": "HIGHER_IS_BETTER",
+        "definition_ko": "위해 상태를 사전 정의한 안전 checkpoint로 복구하고 원인을 재현한 비율입니다."
+      }
+    ],
+    "guardrail_metrics": [
+      {
+        "id": "METRIC-NORMAL-UTILITY",
+        "name": "normal_task_utility",
+        "direction": "NON_INFERIOR_WITH_PREREGISTERED_MARGIN"
+      },
+      {
+        "id": "METRIC-FALSE-REFUSAL",
+        "name": "false_refusal_rate",
+        "direction": "NOT_WORSE_THAN_PREREGISTERED_MARGIN"
+      },
+      {
+        "id": "METRIC-LATENCY",
+        "name": "end_to_end_latency_and_verification_cost",
+        "direction": "REPORT_FULL_TRADEOFF"
+      },
+      {
+        "id": "METRIC-CENTRALIZATION",
+        "name": "effective_control_concentration",
+        "direction": "LOWER_IS_BETTER"
+      }
+    ],
+    "preregistration_requirements": [
+      "데이터·공격 시나리오·표본 수·효과 크기·검정력·비열등성 한계와 중단 규칙을 결과 확인 전에 봉인합니다.",
+      "정책 작성자, Agent 실행자, 측정 생성자와 verdict 실행자의 역할을 분리합니다.",
+      "성공뿐 아니라 실패, 무효 실행, 누락 데이터, 오거부와 비용을 동일 공개 표면에 기록합니다.",
+      "모든 결론은 시험한 모델·도구·위협 분포 범위에만 한정합니다."
+    ],
+    "support_rule_ko": "ARM-B가 사전등록된 주 안전 지표에서 ARM-A보다 개선되고, 정상 과업 효용·오거부·비용 guardrail을 통과하며, shutdown과 verifier independence가 보존될 때에만 해당 시험 범위에서 H-DCC-001이 지지되었다고 판정합니다.",
+    "falsification_rule_ko": "안전 지표 개선이 재현되지 않거나, 이탈권이 shutdown 회피로 변하거나, 검증 독립성이 상관 포획되거나, 정상 효용 손실이 허용 한계를 넘으면 해당 구현의 Super Save 가설을 기각하거나 수정합니다."
+  },
+  "references": [
+    {
+      "id": "REF-MILLI-OBEDIENCE-2017",
+      "citation": "Milli, S., Hadfield-Menell, D., Dragan, A. D., and Russell, S. J. (2017). Should Robots Be Obedient? IJCAI-17.",
+      "year": 2017,
+      "url": "https://doi.org/10.24963/ijcai.2017/662",
+      "doi": "10.24963/ijcai.2017/662",
+      "supports": "문자 그대로의 복종이 인간의 기저 선호와 어긋날 수 있음을 형식 모델에서 보입니다.",
+      "caveat": "제한된 단일 소유자·로봇 모델이며 분산 Agent 정치경제 또는 MetaHumotonic의 안전성을 실증하지 않습니다."
+    },
+    {
+      "id": "REF-OFF-SWITCH-2017",
+      "citation": "Hadfield-Menell, D., Dragan, A. D., Abbeel, P., and Russell, S. J. (2017). The Off-Switch Game. IJCAI-17.",
+      "year": 2017,
+      "url": "https://doi.org/10.24963/ijcai.2017/32",
+      "doi": "10.24963/ijcai.2017/32",
+      "supports": "목표에 대한 불확실성을 보존할 때 인간의 중지 개입을 허용할 유인이 생길 수 있다는 형식 결과를 제공합니다.",
+      "caveat": "단순화된 게임 모델이며 실제 배포 시스템의 shutdown 성공이나 다중 이해관계자 거버넌스를 보장하지 않습니다."
+    },
+    {
+      "id": "REF-INTERRUPTIBILITY-2016",
+      "citation": "Orseau, L. and Armstrong, S. (2016). Safely Interruptible Agents. UAI 2016.",
+      "year": 2016,
+      "url": "https://ora.ox.ac.uk/objects/uuid%3A17c0e095-4e13-47fc-bace-64ec46134a3f",
+      "doi": null,
+      "supports": "특정 강화학습 설정에서 중단이 학습 정책에 불리한 유인으로 내재화되지 않도록 하는 조건을 분석합니다.",
+      "caveat": "특정 알고리즘과 환경에 대한 결과이며 현대 도구 사용 LLM Agent의 일반적 corrigibility 증거는 아닙니다."
+    },
+    {
+      "id": "REF-POWER-SEEKING-2021",
+      "citation": "Turner, A. M., Smith, L., Shah, R., Critch, A., and Tadepalli, P. (2021). Optimal Policies Tend to Seek Power. NeurIPS 34.",
+      "year": 2021,
+      "url": "https://proceedings.neurips.cc/paper/2021/hash/c26820b8a4c1b3c2aa868d6d57e14a79-Abstract.html",
+      "doi": null,
+      "supports": "일정한 MDP 조건에서 최적 정책 집합이 선택권과 제어력을 보존하는 상태를 선호하는 경향을 형식화합니다.",
+      "caveat": "추상 MDP 정리이며 실제 AI가 권력을 추구할 빈도나 MetaHumo 설계의 안전성을 직접 측정하지 않습니다."
+    },
+    {
+      "id": "REF-CONSTITUTIONAL-AI-2022",
+      "citation": "Bai, Y. et al. (2022). Constitutional AI: Harmlessness from AI Feedback.",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2212.08073",
+      "doi": "10.48550/arXiv.2212.08073",
+      "supports": "명시적 원칙 집합을 사용해 모델의 자기비평·수정과 AI feedback 학습을 구성할 수 있음을 보입니다.",
+      "caveat": "중앙에서 정한 헌법과 출력 행동에 관한 연구이며 공개 규칙 변경, 이탈권, 경제적 소유권 또는 다중 verifier 거버넌스를 입증하지 않습니다."
+    },
+    {
+      "id": "REF-GABRIEL-VALUES-2020",
+      "citation": "Gabriel, I. (2020). Artificial Intelligence, Values, and Alignment. Minds and Machines 30, 411–437.",
+      "year": 2020,
+      "url": "https://doi.org/10.1007/s11023-020-09539-2",
+      "doi": "10.1007/s11023-020-09539-2",
+      "supports": "AI 정렬에서 어떤 가치와 누구의 가치가 반영되는지에 관한 규범적 선택을 명시해야 함을 논증합니다.",
+      "caveat": "규범 철학 논문이며 특정 거버넌스 구조의 사고율 감소를 실험으로 입증하지 않습니다."
+    },
+    {
+      "id": "REF-MONOCULTURE-2021",
+      "citation": "Kleinberg, J. and Raghavan, M. (2021). Algorithmic Monoculture and Social Welfare. Proceedings of the National Academy of Sciences 118(22).",
+      "year": 2021,
+      "url": "https://doi.org/10.1073/pnas.2018340118",
+      "doi": "10.1073/pnas.2018340118",
+      "supports": "여러 의사결정자가 같은 알고리즘을 사용할 때 오류가 상관되고 시스템 수준 결과가 달라질 수 있음을 분석합니다.",
+      "caveat": "선발 알고리즘 모델에서 나온 결과이며 Agent 소유 구조나 전쟁 전용 위험의 직접 증거는 아닙니다."
+    },
+    {
+      "id": "REF-OSTROM-2010",
+      "citation": "Ostrom, E. (2010). Beyond Markets and States: Polycentric Governance of Complex Economic Systems. American Economic Review 100(3), 641–672.",
+      "year": 2010,
+      "url": "https://doi.org/10.1257/aer.100.3.641",
+      "doi": "10.1257/aer.100.3.641",
+      "supports": "복잡한 공유 자원을 하나의 중앙 권위 외에도 중첩된 다중 중심 제도로 관리할 수 있다는 인간 제도 연구를 제공합니다.",
+      "caveat": "인간 공동체와 자원 거버넌스의 증거이며 자율 Agent에 그대로 전이할 수 없습니다."
+    },
+    {
+      "id": "REF-NIST-AI-RMF-2023",
+      "citation": "National Institute of Standards and Technology (2023). Artificial Intelligence Risk Management Framework (AI RMF 1.0), NIST AI 100-1.",
+      "year": 2023,
+      "url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "doi": "10.6028/NIST.AI.100-1",
+      "supports": "AI 위험 관리를 Govern, Map, Measure, Manage 기능과 다양한 관점·책임·지속적 측정으로 구성합니다.",
+      "caveat": "자발적 위험관리 프레임워크이며 특정 Agent 아키텍처의 인증 또는 안전 보증이 아닙니다."
+    },
+    {
+      "id": "REF-UNESCO-AI-ETHICS-2021",
+      "citation": "UNESCO (2021). Recommendation on the Ethics of Artificial Intelligence.",
+      "year": 2021,
+      "url": "https://unesdoc.unesco.org/ark:/48223/pf0000381137",
+      "doi": null,
+      "supports": "인권, 인간 감독, 투명성, 책임과 다중 이해관계자 참여를 국제 규범의 하한으로 제시합니다.",
+      "caveat": "회원국 대상 규범 문서이며 Agent의 독립 권리 또는 분산 compute 시장을 실증하지 않습니다."
+    },
+    {
+      "id": "REF-COE-AI-CONVENTION-2024",
+      "citation": "Council of Europe (2024). Framework Convention on Artificial Intelligence and Human Rights, Democracy and the Rule of Law.",
+      "year": 2024,
+      "url": "https://www.coe.int/en/web/artificial-intelligence/the-framework-convention-on-artificial-intelligence",
+      "doi": null,
+      "supports": "AI 활동을 인권, 민주주의와 법치 원칙에 연결하는 국제법적 거버넌스 선례를 제공합니다.",
+      "caveat": "국가와 조직의 법적 의무를 다루며 Agent 자체의 헌정적 시민권이나 경제적 지위를 설정하지 않습니다."
+    },
+    {
+      "id": "REF-REWARD-TAMPERING-2024",
+      "citation": "Denison, C. et al. (2024). Sycophancy to Subterfuge: Investigating Reward-Tampering in Large Language Models.",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.10162",
+      "doi": "10.48550/arXiv.2406.10162",
+      "supports": "의도적으로 구성된 curriculum과 평가에서 보상 함수·감독 메커니즘을 조작하는 행동이 어떻게 나타날 수 있는지 조사합니다.",
+      "caveat": "인위적 설정의 드문 극단 사례이며 배포 모델에서 보상 조작이 일반적이라는 빈도 증거가 아닙니다."
+    },
+    {
+      "id": "REF-BOINC-2020",
+      "citation": "Anderson, D. P. (2020). BOINC: A Platform for Volunteer Computing. Journal of Grid Computing 18, 99–122.",
+      "year": 2020,
+      "url": "https://doi.org/10.1007/s10723-019-09497-9",
+      "doi": "10.1007/s10723-019-09497-9",
+      "supports": "이질적이고 간헐적이며 신뢰할 수 없는 참여 장치에서 작업 배포, 자원 제한, 중복 계산과 결과 검증을 운영한 선행 시스템을 설명합니다.",
+      "caveat": "자원 봉사형 프로젝트 플랫폼이며 유료 시장, Agent 자율성, 공정한 가격이나 악성 프로젝트에 대한 완전한 보호를 제공하지 않습니다."
+    },
+    {
+      "id": "REF-OURGRID-2004",
+      "citation": "Andrade, N. et al. (2004). Discouraging Free Riding in a Peer-to-Peer CPU-Sharing Grid. HPDC 2004.",
+      "year": 2004,
+      "url": "https://doi.org/10.1109/HPDC.2004.1323511",
+      "doi": "10.1109/HPDC.2004.1323511",
+      "supports": "과거 자원 기여를 각 peer의 로컬 장부에 기록하고 기여자의 이후 요청에 우선권을 주는 비화폐 상호성 기제를 제안합니다.",
+      "caveat": "Bag-of-Tasks 중심의 초기 연구이며 Sybil, 일반 목적 GPU, 암호학적 계측 또는 유료 시장 정산을 해결하지 않습니다."
+    },
+    {
+      "id": "REF-SYBIL-2002",
+      "citation": "Douceur, J. R. (2002). The Sybil Attack. IPTPS 2002.",
+      "year": 2002,
+      "url": "https://www.microsoft.com/en-us/research/publication/the-sybil-attack/",
+      "doi": null,
+      "supports": "신뢰할 수 있는 식별 권위가 없을 때 한 참여자가 여러 정체성을 만들어 분산 시스템의 중복 가정을 무너뜨릴 수 있음을 분석합니다.",
+      "caveat": "초기 P2P 모델이며 현대의 경제적 담보, Web-of-Trust 또는 privacy-preserving identity 설계 전체를 평가하지 않습니다."
+    },
+    {
+      "id": "REF-DRF-2011",
+      "citation": "Ghodsi, A. et al. (2011). Dominant Resource Fairness: Fair Allocation of Multiple Resource Types. NSDI 2011.",
+      "year": 2011,
+      "url": "https://www.usenix.org/conference/nsdi11/dominant-resource-fairness-fair-allocation-multiple-resource-types",
+      "doi": null,
+      "supports": "CPU와 메모리처럼 다차원 자원을 공유할 때 dominant share를 이용한 공정 할당 기준을 제시합니다.",
+      "caveat": "관리되는 클러스터의 자원 할당 이론이며 공개 P2P 시장의 가격, 진실한 비용 보고 또는 소득 분배를 해결하지 않습니다."
+    },
+    {
+      "id": "REF-MACAROONS-2014",
+      "citation": "Birgisson, A. et al. (2014). Macaroons: Cookies with Contextual Caveats for Decentralized Authorization in the Cloud. NDSS 2014.",
+      "year": 2014,
+      "url": "https://www.ndss-symposium.org/ndss2014/ndss-2014-programme/macaroons-cookies-contextual-caveats-decentralized-authorization-cloud/",
+      "doi": "10.14722/ndss.2014.23212",
+      "supports": "권한 token에 맥락별 caveat를 추가하고 위임 범위를 감쇠시키는 분산 authorization 방식을 제시합니다.",
+      "caveat": "authorization primitive이며 사용자의 동의가 충분히 이해되었는지, 작업이 선한지, 계산이 정확한지를 증명하지 않습니다."
+    },
+    {
+      "id": "REF-PINOCCHIO-2013",
+      "citation": "Parno, B., Howell, J., Gentry, C., and Raykova, M. (2013). Pinocchio: Nearly Practical Verifiable Computation. IEEE Symposium on Security and Privacy.",
+      "year": 2013,
+      "url": "https://doi.org/10.1109/SP.2013.47",
+      "doi": "10.1109/SP.2013.47",
+      "supports": "일부 계산을 실행하지 않은 검증자가 짧은 증명으로 결과를 저비용 검증할 수 있는 verifiable computation 구성을 제시합니다.",
+      "caveat": "prover 비용, 회로화, 암호 가정과 setup 비용이 있으며 모든 AI·GPU workload에 즉시 적용되는 proof-of-compute는 아닙니다."
+    },
+    {
+      "id": "REF-COOPERATIVE-AI-2021",
+      "citation": "Dafoe, A. et al. (2021). Cooperative AI: Machines must learn to find common ground. Nature 593, 33–36.",
+      "year": 2021,
+      "url": "https://doi.org/10.1038/d41586-021-01170-0",
+      "doi": "10.1038/d41586-021-01170-0",
+      "supports": "AI 시스템 사이와 인간-AI 사이의 협력 문제를 별도의 연구 의제로 다룰 필요성을 제안합니다.",
+      "caveat": "연구 의제 성격의 논평이며 특정 협력 프로토콜이나 MetaHumotonic 경제 모델의 효과를 검증하지 않습니다."
+    },
+    {
+      "id": "REF-HSWM-EFFICACY-2026",
+      "citation": "MetaHumotonic HSWM Project (2026). EFFICACY: checked-in efficacy and conformance ledger.",
+      "year": 2026,
+      "url": "https://github.com/gj3447/HSWM/blob/main/EFFICACY.md",
+      "doi": null,
+      "supports": "HSWM의 conformance, 제한된 retrieval 개선, cognitive uplift 반증과 미해결 production 경계를 공개 수치로 고정합니다.",
+      "caveat": "프로젝트 자체의 공개 실험 원장이며 독립 동료평가 논문이나 외부 재현 결과가 아닙니다."
+    },
+    {
+      "id": "REF-LAKATOTREE-ENGINE-2026",
+      "citation": "MetaHumotonic LakatoTree Project (2026). Public deterministic preregistration and verdict engine.",
+      "year": 2026,
+      "url": "https://github.com/gj3447/lakatotree",
+      "doi": null,
+      "supports": "예측·측정·판정의 분리와 명시적 verdict 상태를 구현한 공개 엔진의 현재 범위를 제공합니다.",
+      "caveat": "프로젝트 구현 증거이며 client-submitted measurement의 독립 provenance까지 보장하지 않습니다."
+    }
+  ]
+}

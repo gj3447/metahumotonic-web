@@ -15,7 +15,7 @@
     dcterms:description "12 axioms, 12 apostles, 580K+ entities across 13 domains. Philosophy and technology unified in a single Neo4j graph."@en ;
     dcterms:creator    <https://metahumotonic.com/book/#person> ;
     dcterms:created    "2021-01-01"^^xsd:date ;
-    dcterms:modified   "2026-07-22"^^xsd:date ;
+    dcterms:modified   "2026-07-23"^^xsd:date ;
     dcterms:license    <https://creativecommons.org/licenses/by-sa/4.0/> ;
     void:sparqlEndpoint <https://metahumotonic.com/sparql> ;
     void:dataDump      <https://metahumotonic.com/ontology.ttl> ;
