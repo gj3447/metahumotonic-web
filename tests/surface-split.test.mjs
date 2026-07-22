@@ -110,3 +110,24 @@ test('compute CSP and origin anti-framing policy remain enforced', async () => {
   assert.match(nginx, /default-src 'none'; connect-src 'none'; script-src 'none'; worker-src 'none'/);
   assert.match(nginx, /Cross-Origin-Resource-Policy "same-origin" always/);
 });
+
+test('public release declares the mixed-license boundary', async () => {
+  const manifest = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
+  assert.equal(manifest.private, true);
+  assert.equal(manifest.license, 'MIT');
+  assert.match(await readFile(path.join(root, 'LICENSE'), 'utf8'), /^MIT License/);
+
+  const licensing = await readFile(path.join(root, 'LICENSING.md'), 'utf8');
+  assert.match(licensing, /Creative Commons Attribution-ShareAlike 4\.0/);
+  assert.match(licensing, /_vendor\/ooptdd/);
+  assert.match(licensing, /OGL 0\.0\.42/);
+});
+
+test('KG access requires an explicit password when live mode is enabled', async () => {
+  const kg = await readFile(path.join(root, 'src/lib/kg.ts'), 'utf8');
+  const dump = await readFile(path.join(root, 'scripts/prebuild/dump-kg.mjs'), 'utf8');
+  assert.doesNotMatch(kg, /neo4jpassword/);
+  assert.doesNotMatch(dump, /neo4jpassword/);
+  assert.match(kg, /NEO4J_LIVE=1 requires NEO4J_PASS/);
+  assert.match(dump, /NEO4J_PASS is required/);
+});

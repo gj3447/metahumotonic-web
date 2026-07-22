@@ -8,7 +8,7 @@ import path from 'node:path';
 
 const BOLT = process.env.NEO4J_BOLT || 'bolt://localhost:7687';
 const USER = process.env.NEO4J_USER || 'neo4j';
-const PASS = process.env.NEO4J_PASS || 'neo4jpassword';
+const PASS = process.env.NEO4J_PASS;
 
 const LABEL_MAP = {
   'domain-hub-ai': 'KG_AI',
@@ -38,6 +38,11 @@ function toJS(v) {
   return v;
 }
 
+function publicSourcePath(sourcePath) {
+  if (typeof sourcePath !== 'string') return sourcePath;
+  return sourcePath.replace(/^\/Users\/[^/]+\/CD\//, '');
+}
+
 async function run(session, cypher, params = {}) {
   const result = await session.run(cypher, params);
   return result.records.map(r => {
@@ -48,6 +53,9 @@ async function run(session, cypher, params = {}) {
 }
 
 async function main() {
+  if (!PASS) {
+    throw new Error('NEO4J_PASS is required; no default credentials are provided');
+  }
   const driver = neo4j.driver(BOLT, neo4j.auth.basic(USER, PASS));
   const session = driver.session();
   try {
@@ -121,7 +129,13 @@ async function main() {
       ORDER BY id
     `);
     for (const r of apostleRows) {
-      apostleAnchors[String(r.id)] = { name: r.name, anchors: r.anchors };
+      apostleAnchors[String(r.id)] = {
+        name: r.name,
+        anchors: r.anchors.map(anchor => ({
+          ...anchor,
+          source_path: publicSourcePath(anchor.source_path),
+        })),
+      };
     }
     console.log(`[dump-kg] apostle anchors: ${Object.keys(apostleAnchors).length} apostles`);
 

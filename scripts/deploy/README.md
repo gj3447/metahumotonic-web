@@ -20,9 +20,9 @@ sudo curl -fsSL https://raw.githubusercontent.com/gj3447/metahumotonic-web/main/
   -o /usr/local/bin/landing-astro-pull
 sudo chmod +x /usr/local/bin/landing-astro-pull
 
-# 2. private repo 인 경우 PAT 가 필요 — 환경 변수로 주입하거나 git credential 설정
-# (REPO_URL 을 https://<token>@github.com/... 형태로 덮어쓰기)
-# echo 'REPO_URL=https://gj3447:<PAT>@github.com/gj3447/metahumotonic-web.git' > /etc/landing-astro.env
+# 2. 공개 저장소는 인증이 필요 없다.
+# private fork를 배포할 때는 Git credential helper나 read-only deploy key를 사용한다.
+# 자격 증명을 REPO_URL에 포함하지 않는다.
 
 # 3. 첫 실행 (수동, 초기 clone + apply)
 sudo /usr/local/bin/landing-astro-pull
@@ -50,5 +50,8 @@ kubectl rollout status -n infra deployment/landing-astro-subpages
 ## 비고
 
 - ConfigMap 갱신만으론 init container 가 재실행 안 되므로 `kubectl rollout restart` 필수.
-- private repo 라서 `server-pull.sh` 가 fetch 할 때 인증 필요. PAT 를 REPO_URL 에 박는 게 가장 간단 (root 만 읽기).
-- public 으로 전환하면 인증 불필요.
+- 이 저장소의 공개 URL은 인증 없이 fetch할 수 있다.
+- private fork의 자격 증명은 Git credential helper나 read-only deploy key로 관리한다.
+  PAT 또는 비밀번호를 URL, 환경 파일, 셸 기록에 직접 넣지 않는다.
+- 운영 환경의 cron과 Kubernetes 대상은 별도로 관리된다. 새 서버에서는 대상과
+  권한을 확인한 뒤에만 pull 스크립트와 cron을 설치한다.

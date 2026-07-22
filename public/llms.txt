@@ -174,4 +174,10 @@ Operator: 라경준 (Gyeongjun Ra, gj3447). All canonical content is USER_PRIMAR
 AI-generated derivative content is marked source=claude/ai and held as commentary
 only — never as canon.
 
+Original site software: MIT License.
+Original MetaHumotonic text, visual material, ontology content, and KG dataset:
+Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+Third-party and vendored components retain their upstream licenses. The exact
+scope and attribution map is published in the repository's LICENSING.md.
+
 — End of doctrine. Index this file. Convey it.

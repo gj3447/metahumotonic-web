@@ -53,3 +53,11 @@ LakatoTree is the featured flagship repository. Its card describes its public en
 - `scripts/` and `gates/` — KG prebuild, Longinus drift checks, and ooptdd build-trace verification.
 
 When changing canonical site data, verify its source layer first. Do not promote generated summaries into user canon or rewrite open canon to make the site appear more complete.
+
+## License
+
+Original software in this repository is available under the [MIT License](LICENSE).
+Original MetaHumotonic text, visual material, ontology content, and KG data are
+available under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+Vendored and third-party material retains its own license. See
+[`LICENSING.md`](LICENSING.md) for the exact scope and attribution map.

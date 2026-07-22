@@ -17,7 +17,7 @@ const USE_LIVE = process.env.NEO4J_LIVE === '1' || import.meta.env?.NEO4J_LIVE =
 
 const BOLT_URL = (typeof import.meta !== 'undefined' && (import.meta as any).env?.NEO4J_BOLT) || 'bolt://localhost:7687';
 const NEO4J_USER = (typeof import.meta !== 'undefined' && (import.meta as any).env?.NEO4J_USER) || 'neo4j';
-const NEO4J_PASS = (typeof import.meta !== 'undefined' && (import.meta as any).env?.NEO4J_PASS) || 'neo4jpassword';
+const NEO4J_PASS = (typeof import.meta !== 'undefined' && (import.meta as any).env?.NEO4J_PASS);
 
 let driver: any = null;
 let driverFailed = false;
@@ -25,6 +25,11 @@ let driverFailed = false;
 async function getDriver() {
   if (!USE_LIVE || driverFailed) return null;
   if (driver) return driver;
+  if (!NEO4J_PASS) {
+    driverFailed = true;
+    console.warn('[kg] NEO4J_LIVE=1 requires NEO4J_PASS; using snapshot');
+    return null;
+  }
   try {
     const neo4j = (await import('neo4j-driver')).default;
     driver = neo4j.driver(BOLT_URL, neo4j.auth.basic(NEO4J_USER, NEO4J_PASS));

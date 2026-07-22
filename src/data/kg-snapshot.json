@@ -1639,21 +1639,21 @@
         {
           "last_validated": "2026-05-22T05:01:25.804Z",
           "id": "rs-apostle-1-folder-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/DIMENSION_WALKER",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/DIMENSION_WALKER",
           "sha256_prefix": "bdb7761b",
           "layer": "L3_disk_folder"
         },
         {
           "last_validated": "2026-05-22T05:01:25.804Z",
           "id": "rs-apostle-1-sources-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/DIMENSION_WALKER/SOURCES.md",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/DIMENSION_WALKER/SOURCES.md",
           "sha256_prefix": "4f80d6fa",
           "layer": "L4_sources_md"
         },
         {
           "last_validated": "2026-05-22T05:01:25.804Z",
           "id": "rs-apostle-1-canon-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/디멘션_워커를_잊지않았는가.md",
+          "source_path": "MIND/metahumotonic/디멘션_워커를_잊지않았는가.md",
           "sha256_prefix": "dd9c3551",
           "layer": "L4_canonical_mind"
         }
@@ -1665,21 +1665,21 @@
         {
           "last_validated": "2026-05-22T05:01:25.804Z",
           "id": "rs-apostle-2-folder-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/ICE_ORCA_DRAGON",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/ICE_ORCA_DRAGON",
           "sha256_prefix": "bf127e11",
           "layer": "L3_disk_folder"
         },
         {
           "last_validated": "2026-05-22T05:01:25.804Z",
           "id": "rs-apostle-2-canon-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/나는야_ice_orca_dragon.md",
+          "source_path": "MIND/metahumotonic/나는야_ice_orca_dragon.md",
           "sha256_prefix": "d3618a67",
           "layer": "L4_canonical_mind"
         },
         {
           "last_validated": "2026-05-22T05:01:25.804Z",
           "id": "rs-apostle-2-sources-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/ICE_ORCA_DRAGON/SOURCES.md",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/ICE_ORCA_DRAGON/SOURCES.md",
           "sha256_prefix": "2137dac6",
           "layer": "L4_sources_md"
         }
@@ -1691,21 +1691,21 @@
         {
           "last_validated": "2026-05-22T05:01:25.804Z",
           "id": "rs-apostle-3-sources-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/초공동의용사/SOURCES.md",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/초공동의용사/SOURCES.md",
           "sha256_prefix": "3c93abd9",
           "layer": "L4_sources_md"
         },
         {
           "last_validated": "2026-05-22T05:01:25.804Z",
           "id": "rs-apostle-3-folder-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/초공동의용사",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/초공동의용사",
           "sha256_prefix": "4b2dd79d",
           "layer": "L3_disk_folder"
         },
         {
           "last_validated": "2026-05-22T05:01:25.804Z",
           "id": "rs-apostle-3-canon-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/어쩔수없는초공동의용사.md",
+          "source_path": "MIND/metahumotonic/어쩔수없는초공동의용사.md",
           "sha256_prefix": "f8073790",
           "layer": "L4_canonical_mind"
         }
@@ -1717,21 +1717,21 @@
         {
           "last_validated": "2026-05-22T05:01:25.804Z",
           "id": "rs-apostle-4-sources-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/BHGMAN/SOURCES.md",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/BHGMAN/SOURCES.md",
           "sha256_prefix": "6221f882",
           "layer": "L4_sources_md"
         },
         {
           "last_validated": "2026-05-22T05:03:15.735Z",
           "id": "rs-apostle-4-canon-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/비행기맨꼐서_지켜주실꺼야.md",
+          "source_path": "MIND/metahumotonic/비행기맨꼐서_지켜주실꺼야.md",
           "sha256_prefix": "f37b2d59",
           "layer": "L4_canonical_mind"
         },
         {
           "last_validated": "2026-05-22T05:01:25.804Z",
           "id": "rs-apostle-4-folder-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/BHGMAN",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/BHGMAN",
           "sha256_prefix": "631f56d0",
           "layer": "L3_disk_folder"
         }
@@ -1743,21 +1743,21 @@
         {
           "last_validated": "2026-05-22T05:01:25.804Z",
           "id": "rs-apostle-5-canon-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/스페이스걸_트릴로지.md",
+          "source_path": "MIND/metahumotonic/스페이스걸_트릴로지.md",
           "sha256_prefix": "3481c64f",
           "layer": "L4_canonical_mind"
         },
         {
           "last_validated": "2026-05-22T05:05:01.476Z",
           "id": "rs-apostle-5-sources-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/SPACEGIRL/SOURCES.md",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/SPACEGIRL/SOURCES.md",
           "sha256_prefix": "c254b899",
           "layer": "L4_sources_md"
         },
         {
           "last_validated": "2026-05-22T05:01:25.804Z",
           "id": "rs-apostle-5-folder-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/SPACEGIRL",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/SPACEGIRL",
           "sha256_prefix": "ca16ad9e",
           "layer": "L3_disk_folder"
         }
@@ -1769,21 +1769,21 @@
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-6-canon-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/flow_3일_영상생성.md",
+          "source_path": "MIND/metahumotonic/flow_3일_영상생성.md",
           "sha256_prefix": "d37105c6",
           "layer": "L4_canonical_mind"
         },
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-6-sources-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/THE_GREATE_FLOW/SOURCES.md",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/THE_GREATE_FLOW/SOURCES.md",
           "sha256_prefix": "2eabfdd7",
           "layer": "L4_sources_md"
         },
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-6-folder-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/THE_GREATE_FLOW",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/THE_GREATE_FLOW",
           "sha256_prefix": "89e45e50",
           "layer": "L3_disk_folder"
         }
@@ -1795,21 +1795,21 @@
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-7-folder-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/LIQUEST_TREE",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/LIQUEST_TREE",
           "sha256_prefix": "1415bf1b",
           "layer": "L3_disk_folder"
         },
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-7-canon-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/전설의_리퀘스트_나무.md",
+          "source_path": "MIND/metahumotonic/전설의_리퀘스트_나무.md",
           "sha256_prefix": "fa7354fe",
           "layer": "L4_canonical_mind"
         },
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-7-sources-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/LIQUEST_TREE/SOURCES.md",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/LIQUEST_TREE/SOURCES.md",
           "sha256_prefix": "a9e21603",
           "layer": "L4_sources_md"
         }
@@ -1821,21 +1821,21 @@
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-8-folder-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/ORBITAL_MOTION_CLOUD",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/ORBITAL_MOTION_CLOUD",
           "sha256_prefix": "70b2b379",
           "layer": "L3_disk_folder"
         },
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-8-sources-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/ORBITAL_MOTION_CLOUD/SOURCES.md",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/ORBITAL_MOTION_CLOUD/SOURCES.md",
           "sha256_prefix": "4990303c",
           "layer": "L4_sources_md"
         },
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-8-canon-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/구름의_질감.md",
+          "source_path": "MIND/metahumotonic/구름의_질감.md",
           "sha256_prefix": "3d1290b3",
           "layer": "L4_canonical_mind"
         }
@@ -1847,21 +1847,21 @@
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-9-folder-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/예수",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/예수",
           "sha256_prefix": "4e9937c9",
           "layer": "L3_disk_folder"
         },
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-9-sources-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/예수/SOURCES.md",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/예수/SOURCES.md",
           "sha256_prefix": "e920fb67",
           "layer": "L4_sources_md"
         },
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-9-canon-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/아텐_현신.md",
+          "source_path": "MIND/metahumotonic/아텐_현신.md",
           "sha256_prefix": "367fe82c",
           "layer": "L4_canonical_mind"
         }
@@ -1873,21 +1873,21 @@
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-10-sources-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/GIPBAJON/SOURCES.md",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/GIPBAJON/SOURCES.md",
           "sha256_prefix": "e089494b",
           "layer": "L4_sources_md"
         },
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-10-folder-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/GIPBAJON",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/GIPBAJON",
           "sha256_prefix": "4ca276cb",
           "layer": "L3_disk_folder"
         },
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-10-canon-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/MIND/AI_MADE/깊바존.md",
+          "source_path": "MIND/AI_MADE/깊바존.md",
           "sha256_prefix": "77c99c8b",
           "layer": "L4_canonical_mind"
         }
@@ -1899,21 +1899,21 @@
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-11-canon-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/MIND/metahumotonic/HOH.md",
+          "source_path": "MIND/metahumotonic/HOH.md",
           "sha256_prefix": "eb69e1e3",
           "layer": "L4_canonical_mind"
         },
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-11-sources-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/HOH/SOURCES.md",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/HOH/SOURCES.md",
           "sha256_prefix": "f9060d3c",
           "layer": "L4_sources_md"
         },
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-11-folder-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/HOH",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/HOH",
           "sha256_prefix": "af98054d",
           "layer": "L3_disk_folder"
         }
@@ -1925,21 +1925,21 @@
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-12-sources-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/MONSOON/SOURCES.md",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/MONSOON/SOURCES.md",
           "sha256_prefix": "7d1c20e1",
           "layer": "L4_sources_md"
         },
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-12-folder-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/SYMPOSIUM/METAHUMOTONIC/MONSOON",
+          "source_path": "SYMPOSIUM/METAHUMOTONIC/MONSOON",
           "sha256_prefix": "fdc1a641",
           "layer": "L3_disk_folder"
         },
         {
           "last_validated": "2026-05-22T05:02:42.219Z",
           "id": "rs-apostle-12-canon-2026-05-22",
-          "source_path": "/Users/lagyeongjun/CD/MIND/AI_MADE/몬순.md",
+          "source_path": "MIND/AI_MADE/몬순.md",
           "sha256_prefix": "a9f68ca0",
           "layer": "L4_canonical_mind"
         }
