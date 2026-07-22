@@ -2,9 +2,19 @@
   "_meta": {
     "source": "gj3447 public repos",
     "note": "공개 코드 repo — 사이트에서 열람 가능 (public only). private repo는 등재하지 않음.",
-    "synced_at": "2026-07-15"
+    "synced_at": "2026-07-22"
   },
   "repos": [
+    {
+      "id": "333",
+      "name": "333",
+      "tagline": "명시적 동의와 제한된 lease를 전제로 컴퓨팅·전송·계량을 연결하는 consensusless P2P OS 연구 구현.",
+      "lang": "Rust",
+      "url": "https://github.com/gj3447/333",
+      "highlight": true,
+      "color": "#00d7a3",
+      "tags": ["P2P compute", "consensusless transfer", "AGPLv3"]
+    },
     {
       "id": "lakatotree",
       "name": "LakatoTree",
