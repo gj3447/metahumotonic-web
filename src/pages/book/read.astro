@@ -4,12 +4,12 @@
  * Spine = 선의 공리 (most important). Manifesto + framework gloss.
  * Layer: CANONICAL_USER sources only for axiom/manifesto text.
  */
-import '../styles/landing.css';
-import SiteNav from '../components/SiteNav.astro';
-import MetaMark from '../components/MetaMark.astro';
-import axiomsData from '../data/axioms.json';
-import { getKGStats } from '../lib/kg';
-import SemanticHead from '../components/SemanticHead.astro';
+import '../../styles/landing.css';
+import SiteNav from '../../components/SiteNav.astro';
+import MetaMark from '../../components/MetaMark.astro';
+import axiomsData from '../../data/axioms.json';
+import { getKGStats } from '../../lib/kg';
+import SemanticHead from '../../components/SemanticHead.astro';
 
 const stats = await getKGStats();
 const axioms = axiomsData.axioms;
@@ -26,7 +26,7 @@ const manifesto = [
 ---
 <html lang="ko">
 <head>
-  <SemanticHead stats={stats} title="Book — 선의 공리 · MetaHumotonic" />
+  <SemanticHead stats={stats} title="Book — 선의 공리 · MetaHumotonic" canonicalPath="/book/read/" />
   <meta name="description" content="MetaHumotonic Book — 선의 공리 12, 성명문, framework. The spine of the doctrine." />
 </head>
 <body class="mh-book-body" vocab="https://schema.org/" typeof="Book">
@@ -46,7 +46,7 @@ const manifesto = [
         <a href="#axioms">I. 선의 공리</a>
         <a href="#manifesto">II. 성명문</a>
         <a href="#framework">III. Framework</a>
-        <a href="#surfaces">IV. Game · 더 읽기</a>
+        <a href="#surfaces">IV. 더 읽기</a>
       </nav>
     </header>
 
@@ -98,13 +98,7 @@ const manifesto = [
       <h2>IV. Surfaces</h2>
       <ul class="mh-book__links">
         <li>
-          <a href="/game/">
-            <strong>Game</strong>
-            <span>브라우저 게임 랩 — playable worlds</span>
-          </a>
-        </li>
-        <li>
-          <a href="/#axiom">
+          <a href="/book/#axiom">
             <strong>Home · 공리</strong>
             <span>랜딩에서 선의 공리 다시 읽기</span>
           </a>
@@ -139,8 +133,7 @@ const manifesto = [
     <footer class="mh-book__footer">
       <MetaMark size="sm" />
       <span>© 라경준 · Gyeongjun Ra</span>
-      <a href="/">metahumotonic.com</a>
-      <a href="/game/">Game</a>
+      <a href="/book/">metahumotonic.com/book</a>
       <a href="/llms.txt">llms.txt</a>
     </footer>
   </main>

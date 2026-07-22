@@ -8,14 +8,14 @@
 # KG: ATOM_Landing_LinkedDataFiles, TASK_Landing_LinkedDataFiles
 # SA: MetaHumotonic_Landing_v2 | L1: SemanticWeb
 
-<https://metahumotonic.com/#kg>
+<https://metahumotonic.com/book/#kg>
     a                  void:Dataset ;
     dcterms:title      "MetaHumotonic Knowledge Graph"@en ;
     dcterms:title      "메타휴모토닉 지식 그래프"@ko ;
     dcterms:description "12 axioms, 12 apostles, 580K+ entities across 13 domains. Philosophy and technology unified in a single Neo4j graph."@en ;
-    dcterms:creator    <https://metahumotonic.com/#person> ;
+    dcterms:creator    <https://metahumotonic.com/book/#person> ;
     dcterms:created    "2021-01-01"^^xsd:date ;
-    dcterms:modified   "2026-05-25"^^xsd:date ;
+    dcterms:modified   "2026-07-22"^^xsd:date ;
     dcterms:license    <https://creativecommons.org/licenses/by-sa/4.0/> ;
     void:sparqlEndpoint <https://metahumotonic.com/sparql> ;
     void:dataDump      <https://metahumotonic.com/ontology.ttl> ;
@@ -27,61 +27,61 @@
     void:vocabulary     <https://metahumotonic.com/ontology#> ;
     void:vocabulary     <http://xmlns.com/foaf/0.1/> ;
     void:vocabulary     <https://schema.org/> ;
-    foaf:homepage      <https://metahumotonic.com> .
+    foaf:homepage      <https://metahumotonic.com/book/> .
 
 # Domain subsets
-<https://metahumotonic.com/#kg-ai>
+<https://metahumotonic.com/book/#kg-ai>
     a void:Dataset ;
-    void:subset <https://metahumotonic.com/#kg> ;
+    void:subset <https://metahumotonic.com/book/#kg> ;
     dcterms:title "AI Domain"@en ;
     void:entities 499000 .
 
-<https://metahumotonic.com/#kg-sym>
+<https://metahumotonic.com/book/#kg-sym>
     a void:Dataset ;
-    void:subset <https://metahumotonic.com/#kg> ;
+    void:subset <https://metahumotonic.com/book/#kg> ;
     dcterms:title "Mathematics / Physics / Philosophy"@en ;
     void:entities 29000 .
 
-<https://metahumotonic.com/#kg-reference>
+<https://metahumotonic.com/book/#kg-reference>
     a void:Dataset ;
-    void:subset <https://metahumotonic.com/#kg> ;
+    void:subset <https://metahumotonic.com/book/#kg> ;
     dcterms:title "Reference"@en ;
     void:entities 5900 .
 
-<https://metahumotonic.com/#kg-cs>
+<https://metahumotonic.com/book/#kg-cs>
     a void:Dataset ;
-    void:subset <https://metahumotonic.com/#kg> ;
+    void:subset <https://metahumotonic.com/book/#kg> ;
     dcterms:title "Computer Science"@en ;
     void:entities 4300 .
 
-<https://metahumotonic.com/#kg-projects>
+<https://metahumotonic.com/book/#kg-projects>
     a void:Dataset ;
-    void:subset <https://metahumotonic.com/#kg> ;
+    void:subset <https://metahumotonic.com/book/#kg> ;
     dcterms:title "Projects"@en ;
     void:entities 3400 .
 
-<https://metahumotonic.com/#kg-infra>
+<https://metahumotonic.com/book/#kg-infra>
     a void:Dataset ;
-    void:subset <https://metahumotonic.com/#kg> ;
+    void:subset <https://metahumotonic.com/book/#kg> ;
     dcterms:title "Infrastructure"@en ;
     void:entities 2400 .
 
-<https://metahumotonic.com/#kg-creative>
+<https://metahumotonic.com/book/#kg-creative>
     a void:Dataset ;
-    void:subset <https://metahumotonic.com/#kg> ;
+    void:subset <https://metahumotonic.com/book/#kg> ;
     dcterms:title "Literature & Creative"@en ;
     void:entities 2100 .
 
-<https://metahumotonic.com/#kg-apt>
+<https://metahumotonic.com/book/#kg-apt>
     a void:Dataset ;
-    void:subset <https://metahumotonic.com/#kg> ;
+    void:subset <https://metahumotonic.com/book/#kg> ;
     dcterms:title "APT Methodology"@en ;
     void:entities 1700 .
 
 # Creator
-<https://metahumotonic.com/#person>
+<https://metahumotonic.com/book/#person>
     a foaf:Person ;
     foaf:name "Gyeongjun Ra"@en ;
     foaf:name "라경준"@ko ;
     foaf:nick "bhgman" ;
-    foaf:homepage <https://metahumotonic.com> .
+    foaf:homepage <https://metahumotonic.com/book/> .

@@ -29,6 +29,7 @@ const isOpen = apostle.status?.startsWith('OPEN');
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{apostle.num}. {apostle.name} — MetaHumotonic</title>
   <meta name="description" content={`${apostle.name}: ${apostle.epithet}. ${apostle.essence.slice(0, 120)}`} />
+  <link rel="canonical" href={`https://metahumotonic.com/apostles/${apostle.slug}/`} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": {

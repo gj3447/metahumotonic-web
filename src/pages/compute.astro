@@ -1,0 +1,135 @@
+---
+import '../styles/product.css';
+import '../styles/compute.css';
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>333 Browser Node — MetaHumotonic</title>
+    <meta name="description" content="명시적 동의와 자원 한도 안에서만 실행되는 333 브라우저 계산 노드 시험판." />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'" />
+    <link rel="canonical" href="https://metahumotonic.com/compute/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#07110f" />
+  </head>
+  <body>
+    <div class="grid-field" aria-hidden="true"></div>
+    <header class="product-nav">
+      <a class="wordmark" href="/"><span class="wordmark__sigil">M</span><span>METAHUMOTONIC</span></a>
+      <nav aria-label="Compute navigation">
+        <a href="/">Platform</a>
+        <a class="nav-book" href="/.well-known/333-compute.json">Agent manifest ↗</a>
+      </nav>
+    </header>
+
+    <main class="compute-shell">
+      <header class="compute-hero">
+        <div>
+          <p class="eyebrow"><span class="pulse"></span> 333 BROWSER SESSION NODE / PROTOCOL ALPHA</p>
+          <h1>내 자원을<br /><em>내가 정한 만큼만.</em></h1>
+        </div>
+        <p>
+          이 시험판은 실제 P2P 작업이나 결제망에 연결되지 않습니다. 동의 뒤 같은 출처의 Worker 파일을 불러 로컬 작업을 실행하고,
+          중지·만료·숨김 탭 종료를 로컬 자기보고 로그로 확인합니다.
+        </p>
+      </header>
+
+      <section class="compute-status" aria-live="polite">
+        <div><span>NODE STATE</span><strong id="node-state" data-state="visitor">VISITOR</strong></div>
+        <div><span>ACTIVE WORKERS</span><strong id="active-workers">0</strong></div>
+        <div><span>PROOF JOBS</span><strong id="jobs-completed">0</strong></div>
+        <div><span>COMPUTE TIME</span><strong><b id="compute-ms">0</b> ms</strong></div>
+      </section>
+
+      <div class="compute-layout">
+        <section class="grant-panel" aria-labelledby="grant-title">
+          <div class="panel-heading">
+            <span>RESOURCE GRANT</span>
+            <span id="grant-version">v1 / session-only</span>
+          </div>
+          <h2 id="grant-title">이번 세션에 허용할 범위</h2>
+
+          <div class="range-grid">
+            <label for="worker-count">
+              <span>CPU workers</span>
+              <output id="worker-count-value" for="worker-count">1</output>
+              <input id="worker-count" type="range" min="1" max="4" value="1" />
+              <small>장치 논리 코어의 최대 25%, 상한 4</small>
+            </label>
+            <label for="duty-cycle">
+              <span>Duty cycle</span>
+              <output id="duty-cycle-value" for="duty-cycle">20%</output>
+              <input id="duty-cycle" type="range" min="10" max="50" step="10" value="20" />
+              <small>짧은 계산 chunk 사이에 반드시 yield</small>
+            </label>
+            <label for="session-minutes">
+              <span>Session TTL</span>
+              <output id="session-minutes-value" for="session-minutes">10 min</output>
+              <input id="session-minutes" type="range" min="1" max="30" value="10" />
+              <small>만료되면 worker를 강제 종료</small>
+            </label>
+          </div>
+
+          <div class="fixed-limits" aria-label="Fixed resource limits">
+            <span>WORKLOAD NET <strong>0 B</strong></span>
+            <span>GPU <strong>OFF</strong></span>
+            <span>WORKLOAD STORE <strong>NONE</strong></span>
+            <span>HIDDEN TAB <strong>STOP</strong></span>
+          </div>
+
+          <fieldset class="consent-checks">
+            <legend>별도 자원 제공 동의</legend>
+            <label><input id="consent-purpose" type="checkbox" /> <span>로컬 검증 작업이 CPU를 사용한다는 설명을 읽었습니다.</span></label>
+            <label><input id="consent-session" type="checkbox" /> <span>위 한도 안에서 이번 열린 탭 세션에만 자원을 제공합니다.</span></label>
+          </fieldset>
+
+          <div class="grant-actions">
+            <button id="start-node" class="button button--primary" type="button" disabled>동의하고 노드 시작</button>
+            <button id="stop-node" class="button button--danger" type="button" disabled>즉시 철회·중지</button>
+            <button id="download-receipt" class="button button--quiet" type="button" disabled>영수증 저장</button>
+          </div>
+          <p id="compute-message" class="compute-message">방문만으로 실행되는 Worker·WebRTC·작업 요청은 0개입니다.</p>
+        </section>
+
+        <aside class="receipt-panel" aria-labelledby="receipt-title">
+          <div class="panel-heading"><span id="receipt-title">LOCAL CONSENT / SELF-REPORTED USAGE</span><span>unsigned</span></div>
+          <pre id="receipt-output">{JSON.stringify({ state: 'no_grant', workers_created: 0, workload_network_bytes_reported: 0 }, null, 2)}</pre>
+          <div class="receipt-rules">
+            <h3>이 alpha가 로컬에서 시험하는 것</h3>
+            <ul>
+              <li>명시적 동의 전 worker 0</li>
+              <li>scope·TTL이 포함된 unsigned local log</li>
+              <li>숨김 탭·철회·만료 시 terminate</li>
+              <li>workload 코드에 network·storage primitive 없음</li>
+            </ul>
+            <h3>아직 증명하지 않은 것</h3>
+            <ul class="muted-list">
+              <li>원격 peer·WebRTC 연결</li>
+              <li>서명된 계측·job envelope·quorum 검증</li>
+              <li>현금·토큰·서비스 크레딧 정산</li>
+            </ul>
+            <p>컨트롤러는 마지막 로컬 로그를 이 탭의 sessionStorage에 보관할 수 있습니다. 이는 정산 영수증이 아닙니다.</p>
+          </div>
+        </aside>
+      </div>
+
+      <section class="agent-enrollment">
+        <p class="eyebrow">FOR AI AGENTS</p>
+        <h2>발견은 자동화하되, 권한은 자동화하지 않습니다.</h2>
+        <p>에이전트는 공개 manifest를 읽고 설정을 제안할 수 있습니다. 현재 alpha의 시작은 신뢰된 사용자 클릭을 요구하며, 향후 네트워크 enrollment는 사용자 또는 조직 관리자가 서명한 scope 없이는 설치·연결·연산을 시작할 수 없습니다.</p>
+        <code>GET https://metahumotonic.com/.well-known/333-compute.json</code>
+      </section>
+    </main>
+
+    <footer class="product-footer">
+      <span>333 Grid · consent-first compute</span>
+      <span>Prototype credits have no monetary value.</span>
+      <nav><a href="/">Platform</a><a href="mailto:hi@metahumotonic.com">Report an issue</a></nav>
+    </footer>
+
+    <script src="/js/333-contributor.js" defer></script>
+  </body>
+</html>

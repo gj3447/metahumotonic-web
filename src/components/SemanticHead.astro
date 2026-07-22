@@ -10,6 +10,7 @@ interface Props {
   skillCount?: number;
   domainCount?: number;
   title?: string;
+  canonicalPath?: string;
 }
 
 const {
@@ -19,7 +20,12 @@ const {
   skillCount = 18,
   domainCount = 13,
   title = 'MetaHumotonic — 자존자가 특이점에 이를 때',
+  canonicalPath,
 } = Astro.props;
+
+const siteOrigin = 'https://metahumotonic.com';
+const requestedPath = canonicalPath ?? Astro.url.pathname;
+const canonicalUrl = `${siteOrigin}${requestedPath}`;
 
 const jsonLd = {
   "@context": {
@@ -40,29 +46,29 @@ const jsonLd = {
     },
     {
       "@type": "WebSite",
-      "@id": "https://metahumotonic.com/#website",
+      "@id": "https://metahumotonic.com/book/#website",
       "name": "MetaHumotonic",
-      "url": "https://metahumotonic.com",
+      "url": "https://metahumotonic.com/book/",
       "inLanguage": ["en", "ko"]
     },
     {
       "@type": "Person",
-      "@id": "https://metahumotonic.com/#person",
+      "@id": "https://metahumotonic.com/book/#person",
       "foaf:name": "Gyeongjun Ra",
       "foaf:nick": "bhgman",
       "name": "라경준 (Gyeongjun Ra)",
-      "url": "https://metahumotonic.com",
+      "url": "https://metahumotonic.com/book/",
       "description": "Creator of MetaHumotonic — 12 axioms, 12 apostles, and one server"
     },
     {
       "@type": "Dataset",
-      "@id": "https://metahumotonic.com/#kg",
+      "@id": "https://metahumotonic.com/book/#kg",
       "void:triples": stats.rels,
       "void:entities": stats.nodes,
       "void:properties": 3020,
       "name": "MetaHumotonic Knowledge Graph",
       "description": `${stats.nodes.toLocaleString()} nodes, ${stats.rels.toLocaleString()} relations across ${domainCount} domains`,
-      "url": "https://metahumotonic.com",
+      "url": "https://metahumotonic.com/book/",
       "void:dataDump": "https://metahumotonic.com/ontology.ttl"
     },
     {
@@ -93,7 +99,7 @@ const jsonLd = {
     },
     {
       "@type": "DefinedTermSet",
-      "@id": "https://metahumotonic.com/#axioms",
+      "@id": "https://metahumotonic.com/book/#axioms",
       "name": "선의 공리 (The Axiom of Good)",
       "description": `${axiomCount} foundational definitions: 시간, 존재, 선, 존재생성, 존재분해, 이긴존재, 악, 특이점, 상호작용, 자연, 자존자, 메타휴모토닉`,
       "hasDefinedTerm": [
@@ -133,10 +139,9 @@ const jsonLd = {
 <meta property="og:title" content="MetaHumotonic — 자존자가 특이점에 이를 때" />
 <meta property="og:description" content={`Semantic Web Server Platform — ${stats.nodes.toLocaleString()} nodes, ${domainCount} domains, ${skillCount} skills`} />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://metahumotonic.com" />
+<meta property="og:url" content={canonicalUrl} />
 <meta name="twitter:card" content="summary" />
-<link rel="canonical" href="https://metahumotonic.com" />
+<link rel="canonical" href={canonicalUrl} />
 <meta name="theme-color" content="#f5f1e8" />
 <link rel="alternate" type="text/turtle" href="/ontology.ttl" title="MetaHumotonic Ontology (Turtle)" />
-<link rel="alternate" type="application/ld+json" href="/.well-known/server-info.json" />
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

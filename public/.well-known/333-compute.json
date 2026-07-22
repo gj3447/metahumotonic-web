@@ -1,0 +1,62 @@
+{
+  "schema_version": "333-compute-discovery/v1alpha1",
+  "service": "MetaHumotonic 333 Compute Exchange",
+  "issuer": "https://metahumotonic.com",
+  "status": "local-proof-alpha",
+  "protocol": {
+    "kind": "custom-discovery-only",
+    "a2a_endpoint_available": false,
+    "enrollment_api_available": false
+  },
+  "discovery": {
+    "safe_on_visit": true,
+    "may_detect_capabilities": true,
+    "may_start_worker": false,
+    "may_open_p2p_transport": false,
+    "may_install_software": false
+  },
+  "enrollment": {
+    "interactive_url": "https://metahumotonic.com/compute/",
+    "resource_grant_required": true,
+    "principal_signature_required_for_network": true,
+    "agent_may": ["read_manifest", "explain_policy", "propose_resource_grant"],
+    "agent_may_not": ["grant_consent", "start_compute", "install_native_node", "expand_scope"]
+  },
+  "runtimes": [
+    {
+      "type": "browser_foreground_session",
+      "available": true,
+      "network_connected": false,
+      "settlement_connected": false,
+      "defaults": {
+        "workers": 1,
+        "duty_cycle_percent": 20,
+        "session_minutes": 10,
+        "workload_network_bytes_max": 0,
+        "gpu": false,
+        "hidden_tab_behavior": "terminate"
+      }
+    },
+    {
+      "type": "native_provider",
+      "available": false,
+      "requires_separate_install_consent": true
+    }
+  ],
+  "workload_policy": {
+    "current_catalog": ["local_deterministic_integer_transform_proof"],
+    "sensitive_customer_data": false,
+    "arbitrary_wasm": false,
+    "independent_verification": "not-connected"
+  },
+  "compensation": {
+    "enabled": false,
+    "prototype_credits_have_monetary_value": false
+  },
+  "privacy": {
+    "telemetry_sent": false,
+    "workload_persistent_storage": false,
+    "controller_receipt_storage": "best-effort sessionStorage"
+  },
+  "contact": "mailto:hi@metahumotonic.com"
+}

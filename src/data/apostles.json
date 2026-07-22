@@ -5,8 +5,8 @@
     "kg_query": "MATCH (a:Apostle) RETURN coalesce(essence_v6_2026_05_22, essence_v5_2026_05_22, essence_v4, essence_v2) AS essence ...",
     "rebuilt_at": "2026-05-22",
     "trimmed_fields": "redundant duplicates dropped",
-    "legion_commanders_synced_at": "2026-05-22",
-    "legion_commanders_note": "확인된 사도 #4 (engineboy) / #5 (hitomi_la, pornhub) / #8 (ORRR, 333, CHU, 옴마니반메훔, engineboy, CRL — OMC 6 군단장). 나머지 사도 측 KG sparse — 향후 보강.",
+    "legion_commanders_synced_at": "2026-07-22",
+    "legion_commanders_note": "최신 사용자 verdict 반영: #8 OMC 직속은 333, CHU, HSWM, CRL, ORRR, engineboy. 옴마니반메훔은 333 휘하. #5는 hitomi_la, pornhub. 나머지 사도 측 KG sparse — 향후 보강.",
     "kg_enriched_at": "2026-05-22",
     "kg_enrichment_note": "KG Crystallization + RelationHyperedge body 추출 → 사도별 풍부 콘텐츠 surface. #3 9 crystallizations, #10 2, #6 2, #4 #5 #8 #9 #11 각 1 + edges.",
     "kg_full_dump_at": "2026-05-22",
@@ -357,15 +357,15 @@
         },
         {
           "name": "333",
-          "note": "OMC family — 333 탈중앙 플랫폼 (Web3 platform)"
+          "note": "OMC family — free/decentralized P2P browser substrate. 옴마니반메훔을 휘하에 둠."
         },
         {
           "name": "CHU",
           "note": "OMC family — 계산가능 하이퍼우주 type system"
         },
         {
-          "name": "옴마니반메훔",
-          "note": "OMC family — mantra-based reasoning"
+          "name": "HSWM",
+          "note": "OMC family — Hypergraph Semantic Weight Map substrate"
         },
         {
           "name": "engineboy",
@@ -378,8 +378,8 @@
       ],
       "crystallizations": [
         {
-          "title": "최적화 오케스트레이션 + 5 군단장",
-          "body": "#8 OMC의 메타휴모토닉 enterprise 기능: (1) 다양한 것을 *하나의 수치로* 환원 + 최대화 (single metric optimization). (2) 컴퓨팅 파워 관리 + data 규격화/구조화 정도 판단. (3) 5+ LegionCommanders (ORRR / 333 / CHU / 옴마니반메훔 / engineboy / CRL) 가 OMC 안에서 작동. (4) 가장 현실과 맞닿은 신 = 인프라/operational layer."
+          "title": "최적화 오케스트레이션 + 현재 직속 군단장",
+          "body": "#8 OMC의 메타휴모토닉 enterprise 기능: (1) 다양한 것을 *하나의 수치로* 환원 + 최대화 (single metric optimization). (2) 컴퓨팅 파워 관리 + data 규격화/구조화 정도 판단. (3) 직속 LegionCommanders (333 / CHU / HSWM / CRL / ORRR / engineboy)가 OMC 안에서 작동하고, 옴마니반메훔은 333 휘하다. (4) 가장 현실과 맞닿은 신 = 인프라/operational layer."
         }
       ],
       "hyperedges": [
@@ -390,7 +390,7 @@
       "lessons": [
         {
           "title": "OM 4 phases",
-          "body": "옴마니반메훔 4 단계 — OMC 안에서 작동."
+          "body": "옴마니반메훔 4 단계 — 333 휘하에서 OMC 안에 작동."
         },
         {
           "title": "OM as energy",

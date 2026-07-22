@@ -1,0 +1,133 @@
+---
+import '../../../styles/landing.css';
+
+const github = 'https://github.com/gj3447/lakatotree';
+const demo = `${github}#try-it-in-60-seconds`;
+const citation = `${github}/blob/master/CITATION.cff`;
+const title = 'LakatoTree — MetaHumotonic Research';
+const description = 'LakatoTree is Gyeongjun Ra’s deterministic verdict engine for pre-registered research programmes.';
+---
+
+<html lang="en" prefix="schema: https://schema.org/">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href="https://metahumotonic.com/research/lakatotree/" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareSourceCode',
+    name: 'LakatoTree',
+    description,
+    author: { '@type': 'Person', name: 'Gyeongjun Ra', alternateName: '라경준' },
+    codeRepository: github,
+    programmingLanguage: 'Python',
+    url: 'https://metahumotonic.com/research/lakatotree/'
+  })} />
+</head>
+
+<body>
+  <svg class="mh-grain" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <filter id="mh-noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+    <rect width="100%" height="100%" filter="url(#mh-noise)" opacity="0.5"/>
+  </svg>
+
+  <header class="mh-topbar">
+    <a href="/" class="mh-mark">metahumotonic</a>
+    <nav class="mh-nav" aria-label="Project navigation">
+      <a href="/research/">research</a>
+      <a href={github}>source</a>
+    </nav>
+  </header>
+
+  <main class="project-shell">
+    <header class="mh-part-divider project-hero">
+      <p class="mh-part-eyebrow">PUBLIC ENGINEERING PROJECT</p>
+      <h1 class="mh-part-title">LakatoTree</h1>
+      <p class="mh-part-gloss">Deterministic verdicts for research programmes · by <strong>Gyeongjun Ra (라경준)</strong></p>
+      <div class="project-actions" aria-label="LakatoTree links">
+        <a href={github}>GitHub ↗</a>
+        <a href={demo}>Source-checkout demo ↗</a>
+        <a href={citation}>CITATION.cff ↗</a>
+      </div>
+    </header>
+
+    <section class="mh-section project-grid" aria-label="LakatoTree summary">
+      <article class="project-card">
+        <p class="mh-eyebrow"><span class="mh-num">01</span> Problem</p>
+        <h2>Agents should not grade themselves.</h2>
+        <p>Research workflows can claim progress without a registered prediction or a measurement behind the claim. LakatoTree binds appraisal to declared evidence instead of accepting a fluent self-report as a verdict.</p>
+      </article>
+
+      <article class="project-card project-card--loop">
+        <p class="mh-eyebrow"><span class="mh-num">02</span> Loop</p>
+        <ol class="project-loop">
+          <li><span>pre-register</span><p>Lock the prediction, metric, direction, baseline, and noise band.</p></li>
+          <li><span>measure</span><p>Supply the observed value and any declared novelty measurement.</p></li>
+          <li><span>deterministic verdict</span><p>A pure scoring rule derives the judgement and carries its receipt and lineage forward.</p></li>
+        </ol>
+      </article>
+    </section>
+
+    <section class="mh-section project-limits" aria-labelledby="limits-title">
+      <p class="mh-eyebrow"><span class="mh-num">03</span> Honest scope</p>
+      <h2 id="limits-title">Measured claims keep their limits attached.</h2>
+      <ul>
+        <li>The default live path currently receives a client-submitted numeric measurement. Receipts seal and replay that value: reproduction-confirmation, not value-ownership.</li>
+        <li>Lean checks the kernel's theory model. It does not verify the Python executable, the full runtime, or the provenance of a measurement.</li>
+      </ul>
+    </section>
+
+    <aside class="mh-section project-boundary" aria-labelledby="boundary-title">
+      <p class="mh-eyebrow"><span class="mh-num">04</span> MetaHumotonic boundary</p>
+      <h2 id="boundary-title">One artifact, not the whole canon.</h2>
+      <p>LakatoTree is one engineering artifact authored within MetaHumotonic. It is not a complete definition of MetaHumotonic canon, and its mythological origin is not a software guarantee. Its public engineering claims stand or fall by code, tests, scoped proofs, and receipts.</p>
+    </aside>
+
+    <footer class="mh-section project-footer">
+      <a href="/research/">← Live Research</a>
+      <a href={demo}>Run the source-checkout demo ↗</a>
+      <a href={citation}>Cite LakatoTree ↗</a>
+    </footer>
+  </main>
+</body>
+</html>
+
+<style>
+  .project-shell { max-width: 940px; margin: 0 auto; padding: 76px 14px 28px; }
+  .project-hero { margin-top: 0; padding: 14px 16px 12px; }
+  .project-hero .mh-part-title { font-size: clamp(28px, 5vw, 46px); letter-spacing: -0.03em; }
+  .project-hero .mh-part-gloss { max-width: 68ch; font-size: 12px; }
+  .project-actions { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 10px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; }
+  .project-actions a { color: #1d4ed8; border-bottom-color: rgba(29,78,216,0.3); }
+
+  .project-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 8px; padding-top: 8px; }
+  .project-card, .project-limits, .project-boundary {
+    border: 1px solid #d9ceb0; border-left: 3px solid #2563eb;
+    background: rgba(255,255,255,0.38); padding: 10px 12px;
+  }
+  .project-card h2, .project-limits h2, .project-boundary h2 { font-size: 14px; line-height: 1.3; margin: 0 0 5px; color: #1a1815; }
+  .project-card > p:last-child, .project-boundary > p:last-child { color: #4a4338; font-size: 11px; line-height: 1.55; }
+  .project-loop { list-style: none; display: grid; gap: 5px; }
+  .project-loop li { display: grid; grid-template-columns: 118px 1fr; gap: 8px; padding-top: 5px; border-top: 1px dotted #d9ceb0; }
+  .project-loop li:first-child { border-top: 0; padding-top: 0; }
+  .project-loop span { color: #1d4ed8; font-size: 10.5px; font-weight: 600; }
+  .project-loop p { color: #4a4338; font-size: 10.5px; line-height: 1.45; }
+
+  .project-limits { margin-top: 0; }
+  .project-limits ul { margin: 4px 0 0 18px; color: #4a4338; font-size: 11px; line-height: 1.55; }
+  .project-limits li + li { margin-top: 4px; }
+  .project-boundary { margin-top: 8px; border-left-color: #7a1f1f; }
+  .project-footer { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #d9ceb0; font-size: 10.5px; }
+  .project-footer a { color: #4a4338; }
+
+  @media (max-width: 680px) {
+    .mh-topbar { position: absolute; padding: 18px 16px; }
+    .mh-nav { gap: 14px; }
+    .project-shell { padding-top: 68px; }
+    .project-grid { grid-template-columns: 1fr; }
+    .project-loop li { grid-template-columns: 1fr; gap: 1px; }
+  }
+</style>

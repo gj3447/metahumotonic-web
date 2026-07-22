@@ -7,6 +7,7 @@ interface Props {
   jsonLd?: object;
 }
 const { title, description, jsonLd } = Astro.props;
+const canonicalUrl = `https://metahumotonic.com${Astro.url.pathname}`;
 ---
 
 <!DOCTYPE html>
@@ -33,8 +34,9 @@ const { title, description, jsonLd } = Astro.props;
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://metahumotonic.com" />
+  <meta property="og:url" content={canonicalUrl} />
   <meta property="og:image" content="https://metahumotonic.com/og-image.png" />
+  <link rel="canonical" href={canonicalUrl} />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />

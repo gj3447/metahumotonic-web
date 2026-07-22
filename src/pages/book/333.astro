@@ -1,0 +1,88 @@
+---
+import '../../styles/product.css';
+
+const structured = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  '@id': 'https://metahumotonic.com/book/333/#article',
+  url: 'https://metahumotonic.com/book/333/',
+  headline: '333 — MetaHumotonic Canon Reference',
+  inLanguage: ['ko', 'en'],
+  about: ['peer-to-peer computing', 'browser substrate', 'decentralized systems'],
+};
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>333 — MetaHumotonic Book</title>
+    <meta name="description" content="MetaHumotonic 정전에서 333이 맡는 free, decentralized, P2P browser substrate 역할." />
+    <link rel="canonical" href="https://metahumotonic.com/book/333/" />
+    <meta property="og:url" content="https://metahumotonic.com/book/333/" />
+    <meta property="og:title" content="333 — MetaHumotonic Book" />
+    <script type="application/ld+json" set:html={JSON.stringify(structured)} />
+    <style>
+      .canon-shell { max-width: 930px; padding: 96px 0 140px; }
+      .canon-shell h1 { max-width: 780px; margin: 0; font-size: clamp(48px, 8vw, 94px); letter-spacing: -.06em; font-weight: 500; }
+      .canon-shell h1 em { color: var(--acid); font-style: normal; }
+      .canon-lede { max-width: 720px; margin: 30px 0 56px; color: var(--muted); font-size: 17px; line-height: 1.85; word-break: keep-all; }
+      .canon-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .canon-card { min-height: 270px; padding: 27px; border: 1px solid var(--line); background: rgba(11,25,22,.82); }
+      .canon-card--primary { border-top-color: var(--acid); }
+      .canon-card--secondary { border-top-color: var(--amber); }
+      .canon-card h2 { margin: 58px 0 17px; font-size: 21px; font-weight: 600; }
+      .canon-card p { color: var(--muted); font-size: 14px; line-height: 1.78; word-break: keep-all; }
+      .canon-card a { color: var(--acid); }
+      .layer { color: var(--acid); font: 500 9px var(--mono); letter-spacing: .12em; }
+      .layer--proposal { color: var(--amber); }
+      .canon-note { margin-top: 20px; padding: 18px 20px; border-left: 2px solid var(--cyan); background: rgba(11,25,22,.55); color: var(--muted); font: 400 11px/1.8 var(--mono); }
+      @media (max-width: 720px) { .canon-grid { grid-template-columns: 1fr; } .canon-shell { padding-top: 68px; } }
+    </style>
+  </head>
+  <body>
+    <div class="grid-field" aria-hidden="true"></div>
+    <header class="product-nav">
+      <a class="wordmark" href="/book/"><span class="wordmark__sigil">M</span> METAHUMOTONIC / BOOK</a>
+      <nav aria-label="정전 탐색">
+        <a href="/book/">BOOK</a>
+        <a href="/apostles/">APOSTLES</a>
+        <a class="nav-book" href="https://metahumotonic.com/compute/">PRODUCT ↗</a>
+      </nav>
+    </header>
+
+    <main class="canon-shell">
+      <p class="eyebrow"><span class="pulse"></span>OMC #8 / COMMANDER REFERENCE</p>
+      <h1><em>333</em> is the free compute substrate.</h1>
+      <p class="canon-lede">
+        MetaHumotonic 정전에서 333은 free · decentralized · P2P · browser 기반을 맡는다.
+        이 페이지는 그 정전 역할과, 그 위에 제안된 Compute Exchange 제품 해석을 같은 것으로 섞지 않는다.
+      </p>
+
+      <section class="canon-grid" aria-label="정전과 제품 해석의 분리">
+        <article class="canon-card canon-card--primary">
+          <span class="layer">CANONICAL_USER</span>
+          <h2>정전으로 확정된 역할</h2>
+          <p>
+            333은 OMC #8 지휘체계에서 브라우저와 P2P를 통해 자유롭고 분산된 계산 기반을 형성한다.
+            paid · centralized 축과 구별되는 free · decentralized substrate가 핵심이다.
+          </p>
+        </article>
+        <article class="canon-card canon-card--secondary">
+          <span class="layer layer--proposal">ENGINEERING PROPOSAL</span>
+          <h2>제품으로 시험하는 연결</h2>
+          <p>
+            MetaHumotonic SaaS가 명시적 ResourceGrant를 받은 계산만 검증하고 서비스 크레딧으로 정산하는
+            333 Compute Exchange는 현재 공학적 제안이자 alpha다. 정전 관계로 자동 승격되지 않는다.
+          </p>
+          <p><a href="https://metahumotonic.com/compute/">동의형 Browser Node 살펴보기 →</a></p>
+        </article>
+      </section>
+
+      <p class="canon-note">
+        방문만으로 설치·Worker·P2P·자원 제공은 시작되지 않는다. Agent도 참여를 제안할 수 있을 뿐,
+        사용자 또는 조직 관리자의 별도 허가를 대신 만들 수 없다.
+      </p>
+    </main>
+  </body>
+</html>

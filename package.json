@@ -7,10 +7,13 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/build/assemble-site.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "prebuild:kg": "node scripts/prebuild/dump-kg.mjs",
+    "test:compute-consent": "node --test tests/compute-consent.test.mjs",
+    "test:site-surface": "node --test tests/surface-split.test.mjs",
+    "test:release": "npm run test:compute-consent && npm run test:site-surface",
     "verify:build-trace": "node scripts/ooptdd/emit-build-trace.mjs && uv run --python 3.12 --with pyyaml python scripts/ooptdd/verify-build-trace.py"
   },
   "dependencies": {

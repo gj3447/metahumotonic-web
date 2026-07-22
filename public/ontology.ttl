@@ -9,9 +9,12 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix mh:   <https://metahumotonic.com/ontology#> .
 
+# The mh: term namespace and all publication URLs remain on metahumotonic.com.
+# The publication entry point moved from / to /book/ on 2026-07-22.
+
 # =============================================================================
 # MetaHumotonic Ontology — Doctrine + Apostles + Axioms
-# Canonical source for AI agents indexing metahumotonic.com
+# Canonical source for AI agents entering through metahumotonic.com/book/
 # Last updated: 2026-05-22 (USER_PRIMARY canon rewrite)
 # =============================================================================
 
@@ -58,6 +61,7 @@ mh:externalReferent a owl:DatatypeProperty ; rdfs:domain mh:Apostle ; rdfs:range
 mh:familyEngineering a owl:DatatypeProperty ; rdfs:domain mh:Apostle ; rdfs:range xsd:string .
 mh:role a owl:DatatypeProperty ; rdfs:domain mh:Apostle ; rdfs:range xsd:string .
 mh:commandsLegion a owl:ObjectProperty ; rdfs:domain mh:Apostle ; rdfs:range mh:LegionCommander .
+mh:commandsSubLegion a owl:ObjectProperty ; rdfs:domain mh:LegionCommander ; rdfs:range mh:LegionCommander .
 
 # --- 12 Apostles (canonical instances) ---
 
@@ -124,7 +128,7 @@ mh:OrbitalCloud a mh:Apostle ;
     mh:epithet "존재의 사도 — 최적화 오케스트레이션" ;
     mh:externalReferent "Data-Infra-Runtime (k8s scheduler/node/storage 3-tier)" ;
     mh:role "클라우드/분산 — 계산 축" ;
-    mh:commandsLegion mh:ORRR, mh:cmd_333, mh:CHU, mh:OmManiPadmeHum, mh:engineboy, mh:CRL ;
+    mh:commandsLegion mh:cmd_333, mh:CHU, mh:HSWM, mh:CRL, mh:ORRR, mh:engineboy ;
     schema:url <https://metahumotonic.com/apostles/orbital-cloud/> .
 
 mh:Jesus a mh:Apostle ;
@@ -194,8 +198,11 @@ mh:hitomi_la a mh:LegionCommander ; rdfs:label "hitomi_la" ;
 mh:pornhub a mh:LegionCommander ; rdfs:label "pornhub" ;
     rdfs:comment "sexvoid substrate bridge cluster — under #5 스페이스걸." .
 mh:ORRR a mh:LegionCommander ; rdfs:label "ORRR" ; rdfs:comment "OMC metric structuring." .
-mh:cmd_333 a mh:LegionCommander ; rdfs:label "333" ; rdfs:comment "OMC — Web3 decentralized platform." .
+mh:cmd_333 a mh:LegionCommander ; rdfs:label "333" ;
+    mh:commandsSubLegion mh:OmManiPadmeHum ;
+    rdfs:comment "OMC — free, decentralized, P2P browser substrate. Direct commander under OMC; Om Mani Padme Hum is under 333." .
 mh:CHU a mh:LegionCommander ; rdfs:label "CHU" ; rdfs:comment "OMC — Computable Hyperuniverse type system." .
+mh:HSWM a mh:LegionCommander ; rdfs:label "HSWM" ; rdfs:comment "OMC — Hypergraph Semantic Weight Map substrate." .
 mh:OmManiPadmeHum a mh:LegionCommander ; rdfs:label "옴마니반메훔" ; rdfs:comment "OMC — mantra-based reasoning." .
 mh:CRL a mh:LegionCommander ; rdfs:label "CRL" ; rdfs:comment "OMC — Chain Reaction Language (2026-05-20)." .
 

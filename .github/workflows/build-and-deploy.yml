@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: metahumotonic-surface-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,6 +31,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verify consent and surface contracts
+        run: npm run test:release
+
       # ooptdd 측정층 — 빌드 산출물(dist/)을 읽어back 해 KG 실물 착지를 positive-assert.
       # GENERATOR(Node) → build-trace.jsonl → VERIFIER(Python ooptdd). RED 면 배포 안 함.
       - name: Emit ooptdd build-trace (측정 GENERATOR)
@@ -38,10 +45,17 @@ jobs:
       - name: Verify build-trace gate (측정 VERIFIER — silent gap이면 RED)
         run: uv run --python 3.12 --with pyyaml python scripts/ooptdd/verify-build-trace.py
 
-      - name: Pack dist.tar.gz
+      - name: Pack the combined site
         run: |
           tar -czf dist.tar.gz -C dist .
           ls -lh dist.tar.gz
+
+      - name: Upload staged site
+        uses: actions/upload-artifact@v4
+        with:
+          name: metahumotonic-site-${{ github.sha }}
+          path: dist.tar.gz
+          retention-days: 14
 
       - name: Setup kubectl (client-only, for manifest generation)
         uses: azure/setup-kubectl@v4
@@ -61,6 +75,7 @@ jobs:
           ls -la deploy-out/
 
       - name: Push to deploy branch
+        if: ${{ vars.METAHUMOTONIC_SURFACE_CUTOVER == 'path-live' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -72,3 +87,7 @@ jobs:
           git add -A
           git commit -m "deploy: ${GITHUB_SHA::7} (build #${GITHUB_RUN_NUMBER})"
           git push -f origin deploy
+
+      - name: Hold production cutover
+        if: ${{ vars.METAHUMOTONIC_SURFACE_CUTOVER != 'path-live' }}
+        run: echo "Combined artifact validated; deploy held until METAHUMOTONIC_SURFACE_CUTOVER=path-live."

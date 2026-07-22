@@ -1,0 +1,548 @@
+---
+// KG: ATOM_Landing_AxiomVisual, ATOM_Landing_ApostleVisual, ATOM_Landing_ConceptProgram,
+//     ATOM_Landing_SemanticMarkup, ATOM_Landing_CosmosRefactor, ATOM_Landing_CosmicAccent
+//     SA: MetaHumotonic_Landing_v2 | SCW Phase | /book/ 정전 홈 빌드 소스
+import '../../styles/landing.css';  // KG: ATOM_Landing_CosmosRefactor — 크림 테마 정본
+// cosmos.css + ritual.css 측 dark theme override 사용자 verdict 2026-05-22 제거.
+// datasheet light cream theme 측 단일 유지 (landing.css). 검은 bg + 검은 text 충돌 해소.
+import SemanticHead from '../../components/SemanticHead.astro';    // KG: ATOM_Landing_SemanticMarkup
+import SiteNav from '../../components/SiteNav.astro';
+import MetaMark from '../../components/MetaMark.astro';
+import AxiomSection from '../../components/AxiomSection.astro';    // KG: ATOM_Landing_AxiomVisual · 선의 공리 = 최우선
+// ApostleSection 측 portal 과 중복 — 사용자 verdict 2026-05-22 제거.
+import ConceptProgram from '../../components/ConceptProgram.astro'; // KG: ATOM_Landing_ConceptProgram
+import apostlesData from '../../data/apostles.json';                 // KG: ATOM_Landing_ApostlePortal
+import venturesData from '../../data/ventures.json';                  // KG: SYMPOSIUM/BIZ_IDEA — 진행 중 사업
+import reposData from '../../data/repos.json';                        // 공개 코드 repo (public only)
+import worldviewData from '../../data/worldview.json';                // 세계관
+
+// 사용자: 가장 중요한 건 선의 공리. 하네스 = 공리 우선 입구 + Book/Game 링크.
+import { getKGStats } from '../../lib/kg';
+const stats = await getKGStats();
+const apostles = apostlesData.apostles;
+const ventures = venturesData.ventures;
+const repos = reposData.repos;
+const worldview = worldviewData.worldview;
+---
+
+<html lang="ko" prefix="foaf: http://xmlns.com/foaf/0.1/ void: http://rdfs.org/ns/void# skos: http://www.w3.org/2004/02/skos/core#">
+<head>
+  <SemanticHead stats={stats} />
+</head>
+
+<body vocab="https://schema.org/" typeof="WebSite">
+
+  <SiteNav />
+
+  <svg class="mh-grain" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <filter id="mh-noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+    <rect width="100%" height="100%" filter="url(#mh-noise)" opacity="0.5"/>
+  </svg>
+
+  {/* === HARNESS: 심볼 + 선의 공리 우선 입구 === */}
+  <section class="mh-harness" aria-label="MetaHumotonic harness">
+    <MetaMark size="lg" class="mh-harness__mark" />
+    <h1 class="mh-harness__title" property="name">메타휴모토닉</h1>
+    <p class="mh-harness__tag" property="description">
+      인지능력체(메타휴모)들이 향하는 framework · 수렴점 — <em>연산×최적화의 종점.</em>
+    </p>
+    <p class="mh-harness__core">가장 중요한 것 = <strong>선의 공리</strong></p>
+    <nav class="mh-harness__cta" aria-label="Primary surfaces">
+      <a class="mh-harness__btn mh-harness__btn--core" href="#axiom">선의 공리</a>
+      <a class="mh-harness__btn" href="/book/read/">Book</a>
+      <a class="mh-harness__btn mh-harness__btn--ghost" href="#apostles">사도</a>
+    </nav>
+  </section>
+
+  {/* === PART ONE: 선의 공리 (최우선) === */}
+  <AxiomSection />
+
+  {/* === PART TWO: 12 사도 (공리 다음) === */}
+  <section id="apostles" class="mh-portal" aria-label="12 사도">
+    <header class="mh-portal__head">
+      <p class="mh-part-eyebrow">PART TWO</p>
+      <h2 class="mh-portal__title">12 사도</h2>
+      <p class="mh-portal__lede">공리 다음 층. 기둥을 하나씩 들어가 보세요. · <a href="/apostles/">전체 목록 →</a></p>
+    </header>
+    <ol class="mh-portal__grid" aria-label="12 사도 입구">
+      {apostles.map((a) => (
+        <li class="mh-portal__cell">
+          <a href={`/apostles/${a.slug}`} class="mh-portal__tile" data-apostle-id={a.id}>
+            <span class="mh-portal__num">{a.num}.</span>
+            <span class="mh-portal__icon" aria-hidden="true">{a.icon}</span>
+            <span class="mh-portal__name">{a.name}</span>
+            <span class="mh-portal__epithet">{a.epithet}</span>
+            {a.essence && (
+              <span class="mh-portal__essence-preview" aria-hidden="true">{a.essence.slice(0, 90)}{a.essence.length > 90 ? '…' : ''}</span>
+            )}
+            {a.status?.startsWith('OPEN') && <span class="mh-portal__open">verdict 대기</span>}
+          </a>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  {/* === PART THREE: 세계관 === */}
+  <section class="mh-part-divider">
+    <p class="mh-part-eyebrow">PART THREE</p>
+    <h2 class="mh-part-title">세계관</h2>
+    <p class="mh-part-gloss"><em>The Worldview.</em> 순수이성인간과 생명인간, 그리고 둘을 잇는 단 하나의 다리.</p>
+  </section>
+
+  <section id="worldview" class="mh-section mh-concepts">
+    {worldview.map(w => (
+      <article class="mh-concept">
+        <span class="mh-concept__num">{w.n} {w.en}</span>
+        <h3 class="mh-concept__name">{w.title}</h3>
+        <p class="mh-concept__body">{w.gloss}</p>
+        <p class="mh-concept__en">{w.terms}</p>
+      </article>
+    ))}
+  </section>
+
+  {/* === PART THREE + FOUR: 개념 + 본체 === */}
+  <ConceptProgram stats={stats} />
+
+  {/* === 진행 중 사업 — 사용자 verdict 2026-05-22 '진행중 사업은 밑에 박으라니까. 가장 중요한건 12사도와 선의 공리'. ventures 측 portal head → 페이지 하단 === */}
+  <section class="mh-section mh-ventures" aria-label="진행 중 사업">
+    <h2 class="mh-ventures__eyebrow">진행 중 사업 · ventures</h2>
+    <ul class="mh-ventures__list">
+      {ventures.map(v => (
+        <li class="mh-ventures__item" style={`--venture-color:${v.color}`}>
+          <span class="mh-ventures__id">#{v.id}</span>
+          <strong class="mh-ventures__title">{v.title}</strong>
+          <span class="mh-ventures__tagline">{v.tagline}</span>
+          <span class="mh-ventures__status">{v.status}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  {/* === 공개 코드 — repos (public only, 방문자 열람 가능) === */}
+  <section class="mh-section mh-repos" aria-label="공개 코드 repos">
+    <h2 class="mh-repos__eyebrow">공개 코드 · repos</h2>
+    <ul class="mh-repos__list">
+      {repos.map(r => (
+        <li>
+          <a class="mh-repos__item" href={r.url} target="_blank" rel="noopener noreferrer"
+             style={`--repo-color:${r.color}`} data-highlight={r.highlight ? 'true' : undefined}>
+            <span class="mh-repos__id">{r.lang}{r.highlight ? ' · featured' : ''}</span>
+            <strong class="mh-repos__title">{r.name} <span aria-hidden="true">↗</span></strong>
+            <span class="mh-repos__tagline">{r.tagline}</span>
+            <span class="mh-repos__tags">{r.tags.join(' · ')}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  {/* === 초대 === */}
+  <section class="mh-section mh-closing">
+    <p class="mh-eyebrow"><span class="mh-num">§</span> 초대 / Invitation</p>
+    <p class="mh-closing__line">이 우주관에 들어오려면, 먼저 <a href="#axiom">선의 공리</a>를 읽으라. · <a href="/book/read/">Book</a></p>
+    <footer class="mh-footer">
+      <span>&copy; 라경준 &middot; Gyeongjun Ra</span>
+      <span><a href="/book/read/">Book</a></span>
+      <span><a href="/book/#axiom">공리</a></span>
+      <span><a href="/apostles/">사도</a></span>
+      <span><a href="/explore/">KG</a></span>
+      <span><a href="/llms.txt">llms.txt</a></span>
+      <span><a href="https://github.com/gj3447">GitHub</a></span>
+    </footer>
+  </section>
+
+</body>
+</html>
+<style>
+  /* ====== harness entry — 선의 공리 우선 ====== */
+  .mh-harness {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 16px 18px;
+    font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  }
+  .mh-harness__title {
+    font-size: clamp(22px, 3vw, 28px);
+    font-weight: 600;
+    margin: 12px 0 6px;
+    letter-spacing: -0.02em;
+  }
+  .mh-harness__tag {
+    font-size: 12px;
+    color: rgba(14,14,12,0.62);
+    margin: 0 0 8px;
+    line-height: 1.45;
+    max-width: 52ch;
+  }
+  .mh-harness__tag em { color: rgba(14,14,12,0.45); }
+  .mh-harness__core {
+    font-size: 13px;
+    margin: 0 0 14px;
+    color: rgba(14,14,12,0.78);
+  }
+  .mh-harness__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .mh-harness__btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 14px;
+    font-size: 12px;
+    border: 1px solid rgba(14,14,12,0.18);
+    background: rgba(255,255,255,0.55);
+    text-decoration: none;
+    color: inherit;
+    letter-spacing: 0.02em;
+  }
+  .mh-harness__btn:hover { background: #fff; }
+  .mh-harness__btn--core {
+    border-color: #00c4d6;
+    background: color-mix(in srgb, #00e5ff 14%, #fff);
+    font-weight: 600;
+  }
+  .mh-harness__btn--ghost { opacity: 0.75; }
+  .mh-nav a.is-active { opacity: 1; font-weight: 600; }
+  .mh-nav a[data-priority="core"] { color: #0a7a86; }
+
+  /* ====== mh-portal — 사도 그리드 (공리 다음) ====== */
+  .mh-portal {
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .mh-portal__head { margin: 0; text-align: left; }
+  .mh-portal__title {
+    font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 1.2;
+    margin: 0 0 4px;
+    color: var(--mh-ink, #0e0e0c);
+  }
+  .mh-portal__tag {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11.5px;
+    color: rgba(14,14,12,0.62);
+    line-height: 1.4;
+    margin: 0 0 4px;
+  }
+  .mh-portal__tag em { color: rgba(14,14,12,0.45); }
+  .mh-portal__lede {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    color: rgba(14,14,12,0.55);
+    margin: 0 0 6px;
+  }
+  /* mh-ventures (페이지 하단) — small box grid */
+  .mh-ventures { padding: 8px 16px; max-width: 1100px; margin: 0 auto; font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  .mh-ventures__eyebrow { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(14,14,12,0.55); margin: 0 0 6px; font-weight: 500; }
+  .mh-ventures__list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 4px; }
+  .mh-ventures__item { display: flex; flex-direction: column; gap: 2px; padding: 6px 10px; border: 1px solid rgba(14,14,12,0.12); border-left: 3px solid var(--venture-color, #6366f1); background: rgba(255,255,255,0.4); }
+  .mh-ventures__id { font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--venture-color, #6366f1); font-weight: 600; }
+  .mh-ventures__title { font-size: 12px; color: #1a1815; line-height: 1.25; font-weight: 600; }
+  .mh-ventures__tagline { font-size: 10.5px; line-height: 1.4; color: rgba(14,14,12,0.62); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .mh-ventures__status { font-size: 9px; letter-spacing: 0.06em; color: var(--venture-color, #6366f1); background: color-mix(in srgb, var(--venture-color, #6366f1) 12%, transparent); padding: 1px 5px; border-radius: 2px; width: max-content; margin-top: 2px; }
+
+  /* mh-repos (공개 코드) — ventures 거울, 카드 전체가 GitHub 링크 */
+  .mh-repos { padding: 8px 16px; max-width: 1100px; margin: 0 auto; font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  .mh-repos__eyebrow { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(14,14,12,0.55); margin: 0 0 6px; font-weight: 500; }
+  .mh-repos__list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 4px; }
+  .mh-repos__item { display: flex; flex-direction: column; gap: 2px; padding: 6px 10px; border: 1px solid rgba(14,14,12,0.12); border-left: 3px solid var(--repo-color, #f59e0b); background: rgba(255,255,255,0.4); text-decoration: none; transition: background 0.15s, transform 0.15s; }
+  .mh-repos__item:hover { background: rgba(255,255,255,0.75); transform: translateY(-1px); }
+  .mh-repos__item[data-highlight="true"] { background: color-mix(in srgb, var(--repo-color, #f59e0b) 8%, rgba(255,255,255,0.4)); }
+  .mh-repos__id { font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--repo-color, #f59e0b); font-weight: 600; }
+  .mh-repos__title { font-size: 12px; color: #1a1815; line-height: 1.25; font-weight: 600; }
+  .mh-repos__tagline { font-size: 10.5px; line-height: 1.4; color: rgba(14,14,12,0.62); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .mh-repos__tags { font-size: 9px; letter-spacing: 0.04em; color: rgba(14,14,12,0.5); margin-top: 2px; }
+
+  /* ventures (사업) — small box grid 측 prominent */
+  .mh-portal__ventures {
+    max-width: 100%;
+    margin: 8px 0 0;
+  }
+  .mh-portal__ventures-eyebrow {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(14,14,12,0.55);
+    margin: 0 0 4px;
+    font-weight: 500;
+  }
+  .mh-portal__ventures-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 4px;
+  }
+  .mh-portal__venture {
+    display: flex; flex-direction: column; gap: 2px;
+    padding: 6px 10px;
+    border: 1px solid rgba(14,14,12,0.1);
+    border-left: 3px solid var(--venture-color, #6366f1);
+    background: rgba(255,255,255,0.4);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  .mh-portal__venture-id {
+    font-size: 9.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--venture-color, #6366f1);
+    font-weight: 600;
+  }
+  .mh-portal__venture-body {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .mh-portal__venture-title {
+    font-size: 12px;
+    color: #1a1815;
+    line-height: 1.25;
+    font-weight: 600;
+  }
+  .mh-portal__venture-tagline {
+    font-size: 10.5px;
+    line-height: 1.4;
+    color: rgba(14,14,12,0.62);
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .mh-portal__venture-status {
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    color: var(--venture-color, #6366f1);
+    background: color-mix(in srgb, var(--venture-color, #6366f1) 12%, transparent);
+    padding: 1px 5px;
+    border-radius: 2px;
+    width: max-content;
+    margin-top: 2px;
+  }
+
+  .mh-portal__grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(14,14,12,0.1);
+    border: 1px solid rgba(14,14,12,0.1);
+  }
+  @media (max-width: 920px) {
+    .mh-portal__grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .mh-portal__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .mh-portal__cell { background: var(--mh-paper, #f5f1e8); }
+  .mh-portal__tile {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 12px;
+    min-height: 100px;
+    color: inherit;
+    text-decoration: none;
+    transition: background 0.18s ease, border-color 0.18s ease;
+    position: relative;
+    overflow: hidden;
+    border-left: 3px solid transparent;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  /* Wave 7: portal_tile_hover EXTEND — KG: CONTRACT_PortalTileHover_v1, span-atomic-portal-tile-hover-2026-05-22 */
+  /* family-color hint via data-apostle-id (12 사도 매핑) */
+  .mh-portal__tile[data-apostle-id="1"]  { border-left-color: #6366f1; }  /* dimension-walker · OTel */
+  .mh-portal__tile[data-apostle-id="2"]  { border-left-color: #ef4444; }  /* ICE ORCA DRAGON · TOE */
+  .mh-portal__tile[data-apostle-id="3"]  { border-left-color: #94a3b8; }  /* superhollow-knight · OPEN */
+  .mh-portal__tile[data-apostle-id="4"]  { border-left-color: #f59e0b; }  /* bhgman · Harness */
+  .mh-portal__tile[data-apostle-id="5"]  { border-left-color: #10b981; }  /* spacegirl · Longinus */
+  .mh-portal__tile[data-apostle-id="6"]  { border-left-color: #06b6d4; }  /* great-river · flow */
+  .mh-portal__tile[data-apostle-id="7"]  { border-left-color: #8b5cf6; }  /* liquest-tree · Type */
+  .mh-portal__tile[data-apostle-id="8"]  { border-left-color: #f97316; }  /* orbital-cloud · k8s */
+  .mh-portal__tile[data-apostle-id="9"]  { border-left-color: #fbbf24; }  /* jesus · 신학 */
+  .mh-portal__tile[data-apostle-id="10"] { border-left-color: #475569; }  /* gipbajon · GC */
+  .mh-portal__tile[data-apostle-id="11"] { border-left-color: #ec4899; }  /* hoh · Heaven */
+  .mh-portal__tile[data-apostle-id="12"] { border-left-color: #64748b; }  /* monsoon · Disenchantment */
+
+  .mh-portal__tile:hover {
+    background: rgba(14,14,12,0.035);
+    transform: translateY(-2px);
+  }
+  .mh-portal__tile:hover .mh-portal__name {
+    text-decoration: underline;
+    text-decoration-color: rgba(14,14,12,0.3);
+    text-underline-offset: 4px;
+  }
+  /* essence preview tooltip — hover 시 노출, prefers-reduced-motion 시 정적 */
+  .mh-portal__essence-preview {
+    display: block;
+    margin-top: 8px;
+    font-size: 11px;
+    line-height: 1.45;
+    color: rgba(14,14,12,0.42);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.32s ease, opacity 0.28s ease, margin-top 0.32s ease;
+  }
+  .mh-portal__tile:hover .mh-portal__essence-preview,
+  .mh-portal__tile:focus-visible .mh-portal__essence-preview {
+    max-height: 90px;
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mh-portal__tile { transition: none; }
+    .mh-portal__essence-preview { transition: none; }
+    .mh-portal__tile:hover { transform: none; }
+  }
+  /* Wave 5c (carry-over F-Fulfill-1 mobile touch fix): touch device 측 essence preview 항상 노출 */
+  @media (hover: none), (pointer: coarse) {
+    .mh-portal__essence-preview {
+      max-height: 90px;
+      opacity: 0.7;
+      margin-top: 8px;
+      transition: none;
+    }
+  }
+  .mh-portal__num {
+    font-size: 12px;
+    color: var(--mh-red, #7a1f1f);
+    line-height: 1;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .mh-portal__icon {
+    display: inline-block;
+    font-size: 16px;
+    line-height: 1;
+    opacity: 0.45;
+    margin-left: 6px;
+    color: rgba(14,14,12,0.7);
+    vertical-align: baseline;
+  }
+  .mh-portal__name {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.25;
+    margin-bottom: 3px;
+    color: #1a1815;
+  }
+  .mh-portal__epithet {
+    font-size: 10.5px;
+    color: rgba(14,14,12,0.55);
+    line-height: 1.4;
+    margin-top: auto;
+  }
+  .mh-portal__open {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    font-size: 8.5px;
+    letter-spacing: 0.06em;
+    color: #8a4d00;
+    background: #fce7c4;
+    padding: 1px 4px;
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+
+  .mh-portal__hint {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    text-align: left;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(14,14,12,0.4);
+    margin: 6px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .mh-portal__chevron {
+    font-size: 12px;
+    animation: mh-bounce 2.4s ease-in-out infinite;
+  }
+  @keyframes mh-bounce {
+    0%, 100% { transform: translateY(0); opacity: 0.35; }
+    50% { transform: translateY(4px); opacity: 0.7; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mh-portal__chevron { animation: none; }
+  }
+
+  /* mh-guide — 페이지 사이트맵 (서문 직후) */
+  .mh-guide {
+    max-width: 720px;
+    margin: 56px auto 0;
+    border-top: 1px solid rgba(14,14,12,0.1);
+    border-bottom: 1px solid rgba(14,14,12,0.1);
+  }
+  .mh-guide ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .mh-guide li {
+    border-right: 1px solid rgba(14,14,12,0.08);
+    border-bottom: 1px solid rgba(14,14,12,0.08);
+  }
+  .mh-guide li:nth-child(2n) { border-right: 0; }
+  .mh-guide li:nth-child(n+3) { border-bottom: 0; }
+  .mh-guide a {
+    display: block;
+    padding: 22px 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s;
+  }
+  .mh-guide a:hover { background: rgba(14,14,12,0.03); }
+  .mh-guide a > span:first-child {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(14,14,12,0.45);
+    margin-bottom: 8px;
+  }
+  .mh-guide em {
+    font-family: var(--mh-serif, Georgia, serif);
+    font-style: italic;
+    font-size: 26px;
+    color: rgba(14,14,12,0.92);
+    line-height: 1.2;
+  }
+  .mh-guide__hint {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: rgba(14,14,12,0.5);
+  }
+  @media (max-width: 560px) {
+    .mh-guide ol { grid-template-columns: 1fr; }
+    .mh-guide li { border-right: 0 !important; border-bottom: 1px solid rgba(14,14,12,0.08); }
+    .mh-guide li:last-child { border-bottom: 0; }
+  }
+</style>
+<!-- KG: ATOM_Landing_CosmosRefactor — inline style extracted to landing.css -->
+
+<script>
+  // KG: ATOM_Landing_AxiomVisual, ATOM_Landing_ApostleVisual, ATOM_Landing_ConceptProgram
+  // IntersectionObserver for scroll-reveal animations
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        io.unobserve(e.target);
+      }
+    }
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.mh-verse, .mh-apostle, .mh-concept, .mh-program').forEach(el => io.observe(el));
+</script>

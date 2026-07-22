@@ -1,51 +1,55 @@
-# metahumotonic-web
+# metahumotonic.com
 
-metahumotonic.com 정적 사이트 (Astro). 백엔드 API: [`metahumotonic_web_back`](https://github.com/gj3447/metahumotonic-web-back).
+This repository builds the public Astro site for [metahumotonic.com](https://metahumotonic.com). The root is the MetaHumotonic Agent Operations and 333 Compute product surface; [`/book/`](https://metahumotonic.com/book/) is the preserved canon/publication entry. The publication does not give AI interpretation authority to create or revise canon.
 
-> **개발 규율**: PI 3층 개발스택(조율 OMD / 측정 ooptdd / 판정 LakatoTree) 위에서 개발 — [`docs/DEV_STACK.md`](docs/DEV_STACK.md). 판정·조율은 web에 배선됨, 측정층(ooptdd, Python)은 백엔드에 착지.
+The backend API lives in [`metahumotonic-web-back`](https://github.com/gj3447/metahumotonic-web-back). Development follows the OMD coordination, ooptdd measurement, and LakatoTree judgment stack documented in [`docs/DEV_STACK.md`](docs/DEV_STACK.md).
 
----
+## Local development
 
-## Astro Starter Kit: Minimal
+Use Node.js 22.12 or newer, as required by `package.json`.
 
 ```sh
-npm create astro@latest -- --template minimal
+npm ci
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+The development server listens on `http://localhost:4321` by default. Build and inspect the production output with:
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```sh
+npm run build
+npm run preview
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+`npm run build` writes one combined static site to `dist/`: SaaS at `/`, canon entry at `/book/`, and existing publication routes on the same origin. The repository also provides a build-artifact receipt check; it requires `uv` and Python 3.12:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```sh
+npm run build
+npm run verify:build-trace
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Canon layers
 
-## 🧞 Commands
+Public content must keep its authority layer explicit:
 
-All commands are run from the root of the project, from a terminal:
+- `CANONICAL_USER` — user-authored primary material and direct user verdicts. This is the highest narrative authority; only the user can settle or revise it.
+- `CANONICAL_FORMAL` — formalizations that trace back to user canon. A proof can validate the formal statement, but it cannot silently change the source meaning.
+- `SECONDARY_AI` — AI summaries, interpretations, mappings, and proposals. These remain commentary unless the user ratifies them.
+- `PSEUDEPIGRAPHA` — suspected attribution drift, including text that may present AI writing as the user's voice. Quarantine and label it; do not publish it as user canon.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Do not fill gaps in apostle identities, relationships, or doctrine by inference. Preserve unresolved questions and conflicting user-primary sources until the user gives a canonical decision. New public content should retain source provenance rather than replacing source material with a cleaner retrospective story.
 
-## 👀 Want to learn more?
+## Public-code curation
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+[`src/data/repos.json`](src/data/repos.json) is a curated allowlist of repositories that visitors can inspect publicly. Entries must use a confirmed public URL and a plain description supported by the repository itself. Private repositories and internal paths do not belong in this file.
+
+LakatoTree is the featured flagship repository. Its card describes its public engineering contract—deterministic scoring of registered predictions and measurements, with verdicts tied to receipts—without turning MetaHumotonic mythology into a software guarantee. The `highlight` field controls presentation only; it is not a canon level or a quality verdict.
+
+## Repository map
+
+- `src/pages/` — Astro routes and public page composition.
+- `src/components/` — shared presentation components.
+- `src/data/` — curated site data and generated KG snapshots.
+- `public/` — static assets, ontology exports, and machine-readable discovery files.
+- `scripts/` and `gates/` — KG prebuild, Longinus drift checks, and ooptdd build-trace verification.
+
+When changing canonical site data, verify its source layer first. Do not promote generated summaries into user canon or rewrite open canon to make the site appear more complete.

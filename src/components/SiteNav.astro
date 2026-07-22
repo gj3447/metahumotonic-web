@@ -5,16 +5,15 @@
  */
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const links = [
-  { href: '/#axiom', label: '공리', match: null },
-  { href: '/book/', label: 'Book', match: '/book' },
-  { href: '/game/', label: 'Game', match: '/game', external: false },
+  { href: '/book/#axiom', label: '공리', match: null },
+  { href: '/book/read/', label: 'Book', match: '/book/read' },
   { href: '/apostles/', label: '사도', match: '/apostles' },
   { href: '/research/', label: '연구', match: '/research' },
   { href: '/explore/', label: 'KG', match: '/explore' },
 ];
 ---
 <header class="mh-topbar">
-  <a href="/" class="mh-mark-text">metahumotonic</a>
+  <a href="/book/" class="mh-mark-text">metahumotonic · book</a>
   <nav class="mh-nav" aria-label="Primary">
     {links.map((l) => (
       <a
