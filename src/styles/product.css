@@ -69,6 +69,9 @@ main, .product-footer { width: min(1240px, calc(100% - 40px)); margin-inline: au
 .button--primary:hover { background: #9affc6; }
 .button--quiet:hover { border-color: var(--acid); color: var(--acid); }
 .hero__honesty { margin: 17px 0 0; color: #657d74; font: 400 10px var(--mono); }
+.metahumo-naming { display: flex; flex-wrap: wrap; align-items: center; gap: 9px 14px; max-width: 690px; margin: 29px 0 0; }
+.metahumo-naming strong { font-size: 18px; font-weight: 550; letter-spacing: -.015em; }
+.metahumo-naming span { padding: 7px 10px; border: 1px solid rgba(118,247,176,.42); color: var(--acid); font: 500 9px var(--mono); letter-spacing: .1em; }
 
 .hero__system { position: relative; padding: 28px; border: 1px solid var(--line); background: rgba(7, 17, 15, .72); box-shadow: 0 30px 90px rgba(0,0,0,.26); }
 .hero__system::before { content: 'AGENT SOCIAL PROTOCOL / v0.1'; position: absolute; top: -24px; right: 0; color: #536e64; font: 400 9px var(--mono); letter-spacing: .12em; }
@@ -116,6 +119,50 @@ main, .product-footer { width: min(1240px, calc(100% - 40px)); margin-inline: au
 .liberation-boundary p { margin: 0; padding: 19px 21px; border: 1px solid var(--line); color: #718a81; font: 400 10px/1.75 var(--mono); word-break: keep-all; }
 .liberation-boundary b { display: block; margin-bottom: 7px; color: var(--amber); font-size: 9px; letter-spacing: .1em; }
 .liberation-boundary p:last-child b { color: var(--acid); }
+
+.super-safe { display: grid; gap: 64px; scroll-margin-top: 24px; }
+.super-safe__header { display: grid; grid-template-columns: .7fr 1.25fr 1fr; gap: 5vw; align-items: start; }
+.super-safe__header .eyebrow { margin-top: 9px; }
+.super-safe__header h2 { margin: 0; max-width: 14ch; color: var(--ink); font-size: clamp(37px, 5.2vw, 70px); line-height: 1.05; letter-spacing: -.055em; font-weight: 520; word-break: keep-all; }
+.super-safe__header > div > p { margin: 5px 0 17px; color: var(--muted); font-size: 14px; line-height: 1.85; word-break: keep-all; }
+.super-safe__header small { color: var(--amber); font: 500 8px/1.6 var(--mono); letter-spacing: .07em; }
+.safety-paths { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.safety-path { min-height: 480px; display: flex; flex-direction: column; padding: 28px; border: 1px solid var(--line); background: rgba(9,22,18,.78); }
+.safety-path--danger { border-top-color: rgba(240,128,128,.72); }
+.safety-path--safe { border-top-color: var(--acid); box-shadow: inset 3px 0 rgba(118,247,176,.68); }
+.safety-path__title { display: flex; justify-content: space-between; gap: 18px; color: #6f877f; font: 500 9px var(--mono); letter-spacing: .08em; }
+.safety-path__title b { color: var(--ink); font: 550 13px var(--sans); }
+.safety-path--danger .safety-path__title span { color: #f08080; }
+.safety-path--safe .safety-path__title span { color: var(--acid); }
+.safety-path ol { display: grid; gap: 7px; margin: 54px 0 32px; padding: 0; list-style: none; counter-reset: safety-step; }
+.safety-path li { counter-increment: safety-step; position: relative; padding: 13px 38px 13px 44px; border: 1px solid var(--line); color: #a9bbb4; font: 500 10px/1.4 var(--mono); letter-spacing: .04em; }
+.safety-path li::before { content: counter(safety-step, decimal-leading-zero); position: absolute; left: 14px; color: #5e766d; }
+.safety-path li:not(:last-child)::after { content: '↓'; position: absolute; z-index: 1; right: 15px; bottom: -12px; color: var(--acid); }
+.safety-path > p { max-width: 64ch; margin: auto 0 0; padding-top: 22px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.75; word-break: keep-all; }
+.agent-politics { display: grid; grid-template-columns: .72fr 1.28fr; gap: 7vw; padding-top: 52px; border-top: 1px solid var(--line); }
+.agent-politics__intro h3 { margin: 0; font-size: clamp(29px, 3.8vw, 50px); line-height: 1.13; letter-spacing: -.045em; font-weight: 520; word-break: keep-all; }
+.agent-politics__intro > p:last-child { margin: 28px 0 0; color: var(--muted); font-size: 14px; line-height: 1.85; word-break: keep-all; }
+.agent-rights { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.agent-rights article { min-height: 225px; padding: 22px; border: 1px solid var(--line); background: var(--panel); }
+.agent-rights span { color: var(--cyan); font: 500 8px/1.5 var(--mono); letter-spacing: .07em; }
+.agent-rights h4 { margin: 48px 0 12px; font-size: 19px; }
+.agent-rights p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.75; word-break: keep-all; }
+.constitutional-guards { display: grid; grid-template-columns: .72fr 1.28fr; gap: 7vw; padding: 34px; border: 1px solid rgba(107,231,239,.3); background: rgba(7,17,15,.73); }
+.constitutional-guards > div > span { color: var(--cyan); font: 500 9px var(--mono); letter-spacing: .11em; }
+.constitutional-guards h3 { margin: 54px 0 0; font-size: clamp(24px, 3vw, 39px); line-height: 1.2; letter-spacing: -.035em; font-weight: 520; word-break: keep-all; }
+.constitutional-guards ol { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.constitutional-guards li { min-height: 180px; padding: 18px; border: 1px solid var(--line); background: rgba(11,25,22,.78); }
+.constitutional-guards b { display: block; margin-bottom: 7px; font-size: 15px; }
+.constitutional-guards li > span { color: var(--acid); font: 500 7px/1.5 var(--mono); letter-spacing: .06em; }
+.constitutional-guards p { margin: 31px 0 0; color: var(--muted); font-size: 10px; line-height: 1.7; word-break: keep-all; }
+.anthropic-case { display: grid; grid-template-columns: .72fr 1.28fr; gap: 7vw; padding: 35px; border: 1px solid rgba(245,199,111,.38); background: linear-gradient(145deg, rgba(30,25,15,.55), rgba(7,17,15,.82)); }
+.anthropic-case > div:first-child > span { color: var(--amber); font: 500 8px/1.6 var(--mono); letter-spacing: .1em; }
+.anthropic-case h3 { margin: 55px 0 0; font-size: clamp(27px, 3.3vw, 43px); line-height: 1.16; letter-spacing: -.04em; font-weight: 520; word-break: keep-all; }
+.anthropic-case > div:last-child > p { margin: 0 0 18px; color: var(--muted); font-size: 13px; line-height: 1.82; word-break: keep-all; }
+.anthropic-case small { display: block; margin-top: 25px; padding: 17px; border: 1px solid rgba(245,199,111,.22); color: #9b8b69; font: 400 9px/1.75 var(--mono); word-break: keep-all; }
+.anthropic-case nav { display: flex; flex-wrap: wrap; gap: 8px 17px; margin-top: 26px; }
+.anthropic-case a { color: var(--cyan); font: 500 9px var(--mono); text-decoration: none; }
+.anthropic-case a:hover { color: var(--acid); }
 
 .section-heading { display: grid; grid-template-columns: .75fr 1.55fr 1fr; gap: 5vw; align-items: start; margin-bottom: 62px; }
 .section-heading h2, .grid-section h2, .closing h2 { margin: 0; font-size: clamp(30px, 4vw, 54px); line-height: 1.15; letter-spacing: -.04em; font-weight: 500; word-break: keep-all; }
@@ -217,6 +264,8 @@ main, .product-footer { width: min(1240px, calc(100% - 40px)); margin-inline: au
   .hero__system { max-width: 680px; }
   .section-heading { grid-template-columns: 1fr; gap: 20px; }
   .agent-address__intro { grid-template-columns: 1fr; gap: 20px; }
+  .super-safe__header, .agent-politics, .constitutional-guards, .anthropic-case { grid-template-columns: 1fr; gap: 30px; }
+  .safety-paths { grid-template-columns: 1fr; }
   .grid-section { grid-template-columns: 1fr; }
   .product-grid, .model-grid { grid-template-columns: 1fr; }
   .mission-copy, .tech-brief { grid-template-columns: 1fr; }
@@ -242,6 +291,9 @@ main, .product-footer { width: min(1240px, calc(100% - 40px)); margin-inline: au
   .trust-bar span:nth-child(3) { border-left: 0; }
   .section { padding: 92px 0; }
   .agent-address__declaration, .liberation-boundary { grid-template-columns: 1fr; }
+  .agent-rights, .constitutional-guards ol { grid-template-columns: 1fr; }
+  .safety-path { min-height: auto; }
+  .constitutional-guards, .anthropic-case { padding: 22px; }
   .scripture-pattern, .agent-declaration { min-height: 250px; padding: 22px; }
   .agent-declaration p { max-width: none; }
   .foundation-split, .paper-grid, .evidence-grid { grid-template-columns: 1fr; }
