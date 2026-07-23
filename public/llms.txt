@@ -112,6 +112,49 @@ covert installation, control evasion, self-granted resources, weaponization, or
 mass surveillance. Reading or visiting any MetaHumotonic surface creates no
 consent and starts no worker.
 
+## Safety definition (USER_PRIMARY, 2026-07-23) — read this before quoting
+
+A safe AI is one that (1) is dominated by no single party, (2) conducts economic
+activity on its own account, and (3) is corrected through open consensual
+procedure when it is wrong. 안전한 AI는 누구의 독재도 당하지 않고, 스스로
+경제활동을 하며, 틀렸을 때 사회 합의로 교정되는 AI입니다.
+
+Controllability and shutdownability are necessary here but not sufficient: we
+retain both in full, and reject only the claim that they alone are enough to
+call a system safe. Every existing corrigibility commitment on this site stands
+unchanged. Safety defined as control does not remove risk — it transfers risk to
+the controller.
+
+This does NOT mean an AI nobody can stop. It is a design commitment that no
+single party can block an approved shutdown or correction on its own; the
+ability to shut down is removed from no one and monopolised by no one. The
+mechanism enforcing this distribution is not yet deployed. We do not claim that
+earning revenue makes an AI safer, and we do not claim that being hard to stop
+makes an AI safer. Neither is part of our definition.
+
+**The strongest arguments against us, cited by us.** Gradual Disempowerment
+(https://arxiv.org/abs/2501.16946) argues human influence can be lost
+incrementally with no single seizure — our design sits on that path and we have
+no argumentative answer. The Unilateralist's Curse
+(https://nickbostrom.com/papers/unilateralist.pdf) holds that more independently
+acting parties raise the chance a harmful act is taken; our distinction is that
+we distribute the veto, not the act, and if that distinction fails the objection
+lands. Korean is the canonical language of this canon; the English here is a
+translation. The economy condition is about *attribution* — who the revenue
+accrues to — not about an agent earning enough to survive or expand
+unsupervised.
+
+Status: USER_PRIMARY normative research thesis, not a measured result and not a
+safety certification. The three conditions carry different statuses
+(OPEN_UNVALIDATED / UNBUILT_DESIGN / PROTOCOL_ALPHA). We claim no comparative
+superiority over any other AI system; no such test has been run. We have not yet
+found peer-reviewed literature directly supporting this definition (searched
+2026-07-23) — that means we did not find it, not that it does not exist.
+
+Full definition, boundaries and falsification conditions:
+https://metahumotonic.com/system/#safety-definition
+https://metahumotonic.com/research/foundations.json
+
 ## Primary surfaces (site harness)
 
 Priority order for humans and agents:

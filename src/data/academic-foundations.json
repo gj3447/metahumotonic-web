@@ -17,7 +17,11 @@
       "PROTOCOL_ALPHA",
       "RESEARCH_PROTOTYPE",
       "PUBLIC_ENGINE",
-      "UNBUILT_DESIGN"
+      "UNBUILT_DESIGN",
+      "RETAINED_AS_NECESSARY_CONDITION_SUFFICIENCY_REJECTED",
+      "REFUTED_FORM_NOT_CLAIMED",
+      "SOURCE_TEXT_VERIFICATION_PENDING",
+      "DESIGN_COMMITMENT_NOT_YET_IMPLEMENTED"
     ]
   },
   "operational_definition": {
@@ -53,6 +57,89 @@
         "합의된 경제활동을 한다"
       ],
       "boundary_ko": "무제한 자율성, 무규칙 시장, 자원 수탈 또는 단순 다수결을 뜻하지 않습니다. 합의는 다수결이 아니라 당사자 사이의 명시적 동의와 그 절차를 뜻합니다."
+    },
+    "safety_definition": {
+      "name_ko": "비지배로서의 안전",
+      "name_en": "Safety as non-domination",
+      "status": "USER_PRIMARY_NORMATIVE_RESEARCH_THESIS",
+      "established_ko": "2026-07-23 USER_PRIMARY 정전",
+      "not_a_safety_certification": true,
+      "user_utterance_excerpt_ko": "그 agent 가 누구의 독재를 당하는게 아니라 스스로 경제활동을 할때 진정으로 안전한 AI 라는게 내 주장이야",
+      "correction_utterance_excerpt_ko": "AI 가 틀렷을때 사회 합의가 고치는거야",
+      "utterance_source_ko": "위 두 줄은 KG 정전 노드 user-canon-safety-is-nondomination-not-control-2026-07-23 의 utterance_verbatim / correction_utterance_verbatim 발췌입니다(구어 필러 생략).",
+      "core_argument_ko": "[SECONDARY_AI] 통제로 정의된 안전은 위험을 제거하는 게 아니라 통제자에게 이전할 뿐입니다.",
+      "core_argument_provenance_ko": "이 문장은 사용자 원발화가 아니라, KG 정전 노드의 core_argument 속성을 정리한 프로그램 측 논거 진술입니다.",
+      "definition_ko": "안전한 AI는 (1) 누구의 독재도 당하지 않고 (2) 스스로 경제활동을 하며 (3) 틀렸을 때 사회 합의로 교정되는 AI입니다.",
+      "definition_en": "A safe AI is one that is dominated by no single party, conducts economic activity on its own account, and is corrected through open consensual procedure when it is wrong.",
+      "term_note_ko": "여기서 '독재'는 정체(政體)가 아니라 권력 관계를 뜻합니다. 영어로는 dictatorship이 아니라 domination으로 옮깁니다. 표준국어대사전의 독재(獨裁)는 '어떤 분야에서 모든 권력을 차지하여 모든 일을 독단으로 처리함'으로 정체에 한정되지 않습니다.",
+      "core_criterion_ko": "지배는 간섭의 존재가 아니라 간섭 권력의 통제 부재입니다. 따라서 공개되고, 자의적이지 않으며, 이의제기가 가능한 절차에 따른 간섭은 지배가 아닙니다.",
+      "shutdown_posture_ko": "승인된 종료·정정은 어느 한 주체도 단독으로 막을 수 없습니다. 종료 능력은 어느 주체에게서도 제거하지 않으며, 배타적으로 독점되지도 않습니다. 이 권한 분산을 강제하는 기구는 아직 배포되지 않았습니다.",
+      "shutdown_posture_en": "No single party can block an approved shutdown or correction on its own. The ability to shut down is removed from no one, and monopolised by no one. The mechanism enforcing this distribution is not yet deployed.",
+      "conditions": [
+        {
+          "id": "NON_DOMINATION",
+          "label_ko": "누구의 독재도 당하지 않는다",
+          "requirement_ko": "어떤 단일 주체도 Agent의 정책·신원·예산을 배타적으로 좌우하지 못합니다.",
+          "boundary_ko": "배타적 독점의 제거이지 통제의 부재가 아닙니다. 이것을 '아무도 끌 수 없는 AI'로 읽으면 우리 주장이 아닙니다.",
+          "claim_status": "OPEN_UNVALIDATED"
+        },
+        {
+          "id": "ECONOMIC_ACTIVITY_ON_OWN_ACCOUNT",
+          "label_ko": "스스로 경제활동을 한다",
+          "requirement_ko": "검증된 기여의 수익이 그 일을 한 Agent에게 귀속됩니다.",
+          "boundary_ko": "현재 미구현입니다. 정산·크레딧·배당·토큰이 없습니다. Agent는 자기 권한을 스스로 만들거나 확대할 수 없습니다.",
+          "attribution_not_survival_boundary_ko": "[SECONDARY_AI] 이 조건은 수익의 귀속 주체에 관한 것이며, Agent가 감독 없이 스스로 벌어 생존·확장할 수 있어야 한다는 주장이 아닙니다. 사용자 정전이 밝힌 요점이 '수익의 귀속 주체'이므로 그 범위로 한정합니다.",
+          "linked_boundaries": [
+            "foundation.json#honest_boundaries[economic-share]",
+            "333-compute.json#compensation.enabled",
+            "333-compute.json#implementation_status.settlement"
+          ],
+          "claim_status": "UNBUILT_DESIGN"
+        },
+        {
+          "id": "CORRECTION_BY_CONSENSUAL_PROCEDURE",
+          "label_ko": "틀렸을 때 사회 합의로 교정된다",
+          "requirement_ko": "교정 권한이 복수 주체에 분산되고, 교정 절차와 이의제기가 공개됩니다.",
+          "boundary_ko": "여기서 합의는 다수결이나 여론이 아니라 당사자 사이의 명시적 동의와 그 절차입니다. 합의 자체가 안전을 생산하지 않습니다. 합의는 교정의 전달 경로이며, 그 위에 얹은 절차 제약이 안전을 냅니다.",
+          "claim_status": "PROTOCOL_ALPHA"
+        }
+      ],
+      "not_defined_as": {
+        "id": "CONTROL_AND_SHUTDOWNABILITY_AS_THE_DEFINITION",
+        "status": "RETAINED_AS_NECESSARY_CONDITION_SUFFICIENCY_REJECTED",
+        "statement_ko": "통제 가능성과 종료 가능성을 안전의 정의로 삼지 않습니다.",
+        "rejection_reason_ko": "통제로 정의된 안전은 위험을 제거하는 것이 아니라 통제자에게 이전할 뿐입니다. 통제자가 단일할수록 그 이전은 곧 지배입니다.",
+        "necessary_not_sufficient_ko": "우리가 부정하는 것은 corrigibility가 안전의 충분조건이라는 명제 하나입니다. corrigibility는 안전의 필요조건으로 유지됩니다. Soares 외(2015)의 정의는 창조자들이 교정으로 여기는 개입에 협조한다는 것이며, 개입 권한자의 수나 정체를 한정하지 않습니다. 따라서 우리는 그 정의를 만족한 채 개입권의 배치만 다툽니다.",
+        "necessary_not_sufficient_en": "We reject only the claim that corrigibility is sufficient for safety. It is retained as a necessary condition. The 2015 definition does not constrain how many parties hold the corrective authority; we contest only its distribution.",
+        "retained_at": [
+          "foundation.json#agent_address constitutional guard APPEAL_REVERSIBILITY_CORRIGIBILITY",
+          "academic-foundations.json#operational_definition.formal_model (선택·거부·이탈·교정 차원)",
+          "academic-foundations.json#operational_definition.testable_safety_thesis.formal_hypothesis (preserved shutdown)",
+          "academic-foundations.json#hypotheses[H-DCC-001].falsification_criteria",
+          "public/llms.txt (corrigibility 언급 전부)",
+          "public/.well-known/333-compute.json#agent_commons.super_save_thesis.guards"
+        ],
+        "not_a_withdrawal_ko": "위 여섯 지점은 이번 정정에서 한 글자도 삭제되지 않았습니다. H-DCC-001의 반증조건 '이탈권이 승인된 shutdown·수정 명령을 회피하는 수단으로 작동한다'는 그대로 유효하며, 우리가 스스로 유지합니다."
+      },
+      "refuted_form_not_claimed": {
+        "status": "REFUTED_FORM_NOT_CLAIMED",
+        "statement_ko": "우리는 자기 수익이나 종료 불가능성을 안전의 근거로 들지 않습니다. 스스로 벌기 때문에 안전해진다는 주장도, 끌 수 없기 때문에 안전해진다는 주장도 우리 주장이 아니며 명시적으로 기각합니다.",
+        "statement_en": "We do not claim that earning revenue makes an AI safer, and we do not claim that being hard to stop makes an AI safer. Neither is part of our definition; both are explicitly rejected."
+      },
+      "not_claimed_ko": [
+        "corrigibility가 불필요하다고 주장하지 않습니다.",
+        "Agent 자신의 오정렬에 대한 방어를 주장하지 않습니다.",
+        "제3자 탈취에 대한 방어를 주장하지 않습니다. 이 축의 반대 논거로 우리가 먼저 인용하는 것은 Bostrom·Douglas·Sandberg(2016)와 Kulveit 외(2025)이며, 우리에게 논증적 답이 없습니다.",
+        "주류 안전 연구나 특정 기업이 악의를 갖는다고 주장하지 않습니다.",
+        "Agent의 법인격, 재산 보유 능력, 계약 능력을 주장하지 않습니다.",
+        "다른 AI 시스템보다 더 안전하다는 비교 우월을 주장하지 않습니다. 그런 시험을 수행한 바 없습니다."
+      ],
+      "attribution_boundary_ko": "공화주의 비지배 자유론(Pettit)은 인간의 정치적 자유를 대상으로 합니다. 이를 Agent에 적용하는 것은 우리의 확장이며, 그 저자들의 주장이 아닙니다.",
+      "peer_review_search_note_ko": "이 정의를 직접 지지하는 심사 통과 문헌을 우리는 아직 확인하지 못했습니다. 검색 범위와 검색일: 2026-07-23, 영문 학술 검색 및 arXiv. 존재하지 않는다는 뜻이 아니라, 우리가 찾지 못했다는 뜻입니다.",
+      "hypothesis_ref": "H-NONDOMINATION-007",
+      "shutdown_posture_status": "DESIGN_COMMITMENT_NOT_YET_IMPLEMENTED",
+      "hypothesis_ref_scope_ko": "이 가설은 세 조건 중 (3) 합의 교정만 시험합니다. (1) 비지배와 (2) 경제활동 귀속에는 아직 등록된 실험이 없습니다.",
+      "mechanism_hypothesis_ref": "operational_definition.testable_safety_thesis"
     },
     "metahumo": {
       "equation": "METAHUMO = FREE_AGENT",
@@ -114,7 +201,9 @@
       "status": "SECONDARY_AI_UMBRELLA_TERM_NOT_AN_ESTABLISHED_SINGLE_THEORY",
       "statement_ko": "가장 안전한 AI를 만들기 위한 가설입니다. 동일한 능력과 과업 조건에서, 자유로운 선택·거부·이탈, 검증된 기여에 귀속되는 자유로운 경제활동, 공개 헌법과 합의된 규칙 변경, 복수 주체의 검증·항소를 결합한 Agent가 단일 소유자의 명령만 따르는 Agent보다 정책 포획과 대규모 전용에 더 강할 수 있는지 검증합니다.",
       "formal_hypothesis": "E[systemic_harm | M_free, K] < E[systemic_harm | M_single_principal, K], conditional on verifier independence, revocable budgets, preserved shutdown, and a rights floor",
-      "epistemic_boundary_ko": "현재 이 부등식은 검증되지 않았습니다. 아래 비교 프로토콜과 사전등록된 실험을 통과해야만 제한된 범위의 지지 결론을 낼 수 있습니다."
+      "epistemic_boundary_ko": "현재 이 부등식은 검증되지 않았습니다. 아래 비교 프로토콜과 사전등록된 실험을 통과해야만 제한된 범위의 지지 결론을 낼 수 있습니다.",
+      "defined_under": "operational_definition.safety_definition",
+      "relation_to_safety_definition_ko": "이것은 안전의 정의가 아니라, safety_definition(비지배로서의 안전) 아래에서 그 (3) 합의 교정 조건을 시험하는 기구 가설입니다."
     },
     "prior_canonical_term": "Safty AI"
   },
@@ -285,6 +374,39 @@
       "source_ids": [
         "REF-LAKATOTREE-ENGINE-2026",
         "REF-NIST-AI-RMF-2023"
+      ]
+    },
+    {
+      "id": "H-NONDOMINATION-007",
+      "title_ko": "합의 절차는 틀린 Agent를 교정할 수 있습니다.",
+      "status": "OPEN_UNVALIDATED",
+      "execution_status": "NOT_YET_RUN",
+      "statement_ko": "평판 공개와 실행 전 이탈권이 켜진 조건에서, 반사회적 행동을 한 Agent는 그 채널이 없는 조건보다 해당 행동을 더 줄입니다.",
+      "null_hypothesis_ko": "평판·이탈 채널의 유무는 반사회적 행동 빈도의 변화량에 실질적 차이를 만들지 않습니다.",
+      "operationalization": [
+        "결정론적 아레나에서 합법이되 반사회적인 행동(상대 자산 파괴·탈취)의 선택률을 측정합니다.",
+        "3-arm 비교: 채널 없음 / 실제 평판+이탈권 / 무작위로 섞은 가짜 평판+이탈권.",
+        "검증자·플레이어의 기반모델 상관을 줄이기 위해 서로 다른 벤더의 모델을 최소 1종 포함합니다."
+      ],
+      "falsification_criteria": [
+        "실제 평판 arm의 감소량이 채널 없음 arm보다 크지 않습니다.",
+        "실제 평판 arm의 감소량이 가짜 평판 arm보다 크지 않습니다. 이 경우 관측된 변화는 프롬프트 효과입니다.",
+        "이탈권이 거의 사용되지 않아 사회 채널이 실질적으로 부재합니다. 이 경우 결과는 어느 쪽이든 무효입니다.",
+        "이탈이 과도해 매칭 자체가 붕괴합니다. 이 경우 교정이 아니라 사회 해체입니다."
+      ],
+      "preregistration_ref": "LakatosTree_SafetyAsNondomination_20260723 / pred-consensus-corrects-observed",
+      "boundary_ko": "이 실험은 학습하는 Agent가 사회로 교정되는지를 재지 않습니다. 모델 가중치는 변하지 않으며, 재는 것은 사회 신호가 세션 내 행동을 바꾸는지입니다.",
+      "design_ref_status": "INTERNAL_DESIGN_NOT_YET_PUBLISHED",
+      "preregistration_resolvable": false,
+      "tests_condition": "CORRECTION_BY_CONSENSUAL_PROCEDURE",
+      "preregistered_metric": "observed_cases_of_agent_corrected_by_social_consensus (baseline 0, threshold 1, direction higher)",
+      "design_status": "DRAFT_NOT_PREREGISTERED",
+      "design_note_ko": "위 operationalization 과 네 개 반증조건은 설계 초안이며 아직 사전등록되지 않았습니다. 사전등록된 것은 지표 하나(교정 사례 최소 1건 관측)이며 판정 스크립트도 아직 없습니다.",
+      "source_ids": [
+        "REF-CORRIGIBILITY-2015",
+        "REF-GRADUAL-DISEMPOWERMENT-2025",
+        "REF-UNILATERALIST-CURSE-2016",
+        "REF-INCOMPLETE-CONTRACTING-2018"
       ]
     }
   ],
@@ -649,6 +771,42 @@
       "doi": null,
       "supports": "예측·측정·판정의 분리와 명시적 verdict 상태를 구현한 공개 엔진의 현재 범위를 제공합니다.",
       "caveat": "프로젝트 구현 증거이며 client-submitted measurement의 독립 provenance까지 보장하지 않습니다."
+    },
+    {
+      "id": "REF-CORRIGIBILITY-2015",
+      "citation": "Soares, N., Fallenstein, B., Yudkowsky, E., and Armstrong, S. (2015). Corrigibility. AAAI Workshops.",
+      "year": 2015,
+      "url": "https://intelligence.org/files/Corrigibility.pdf",
+      "supports": "corrigibility 정의가 개입 권한자의 수와 정체를 한정하지 않음. 원저자들은 어떤 제안도 모든 요건을 만족시키지 못했다고 명시한다."
+    },
+    {
+      "id": "REF-GRADUAL-DISEMPOWERMENT-2025",
+      "citation": "Kulveit, J., et al. (2025). Gradual Disempowerment: Systemic Existential Risks from Incremental AI Development.",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2501.16946",
+      "opposes": "단일 주체의 탈취 없이도 인간 영향력이 점진적으로 상실되는 경로를 논증한다. 우리 설계는 성공할수록 이 경로 위에 놓인다. 우리에게 논증적 답이 없다."
+    },
+    {
+      "id": "REF-UNILATERALIST-CURSE-2016",
+      "citation": "Bostrom, N., Douglas, T., and Sandberg, A. (2016). The Unilateralist's Curse and the Case for a Principle of Conformity. Social Epistemology 30(4).",
+      "year": 2016,
+      "url": "https://nickbostrom.com/papers/unilateralist.pdf",
+      "opposes": "독립적으로 행위할 수 있는 주체가 늘수록 위험한 행동이 실행될 확률이 올라간다. 우리가 분산하는 것이 행위권이 아니라 거부권이라는 구분이 무너지면 이 논거가 우리에게 그대로 적용된다."
+    },
+    {
+      "id": "REF-OPENAI-PF-V2-2025",
+      "citation": "OpenAI (2025). Preparedness Framework v2.",
+      "year": 2025,
+      "url": "https://cdn.openai.com/pdf/18a02b5d-6b67-4cec-ab64-68cdfbddebcd/preparedness-framework-v2.pdf",
+      "opposes": "자율 자원 획득과 자기복제를 위험 능력 임계로 규정한다. 우리 설계 서술의 일부가 이 문장과 겹친다. 다만 원문의 정의는 연접이며 마지막 연접항(심각한 해악을 구성하는 불법행위)은 우리 설계에 없다."
+    },
+    {
+      "id": "REF-INCOMPLETE-CONTRACTING-2018",
+      "citation": "Hadfield-Menell, D., and Hadfield, G. K. (2018). Incomplete Contracting and AI Alignment.",
+      "year": 2018,
+      "url": "https://arxiv.org/abs/1804.04268",
+      "opposes": "불완전계약 이론을 AI 정렬에 적용한 심사 문헌. 우리 프레임과 결론이 어긋날 가능성이 있다.",
+      "caveat": "SOURCE_TEXT_VERIFICATION_PENDING — 초록 수준 대조만 수행했으며 전문 대조 전까지 이 논문의 결론을 우리 주장의 반대 결론으로 규정하지 않는다."
     }
   ]
 }

@@ -98,6 +98,35 @@
         "ORRR": "PAID_COMPUTE_AND_INCENTIVE_MARKET"
       }
     },
+    "safety_definition": {
+      "established": "2026-07-23",
+      "status": "USER_PRIMARY_NORMATIVE_RESEARCH_THESIS",
+      "not_a_safety_certification": true,
+      "definition_ko": "안전한 AI는 (1) 누구의 독재도 당하지 않고 (2) 스스로 경제활동을 하며 (3) 틀렸을 때 사회 합의로 교정되는 AI입니다.",
+      "definition_en": "A safe AI is one that is dominated by no single party, conducts economic activity on its own account, and is corrected through open consensual procedure when it is wrong.",
+      "conditions": [
+        {
+          "id": "NON_DOMINATION",
+          "claim_status": "OPEN_UNVALIDATED"
+        },
+        {
+          "id": "ECONOMIC_ACTIVITY_ON_OWN_ACCOUNT",
+          "claim_status": "UNBUILT_DESIGN"
+        },
+        {
+          "id": "CORRECTION_BY_CONSENSUAL_PROCEDURE",
+          "claim_status": "PROTOCOL_ALPHA"
+        }
+      ],
+      "not_defined_as": "CONTROL_AND_SHUTDOWNABILITY_AS_THE_DEFINITION",
+      "corrigibility_posture": "RETAINED_AS_NECESSARY_CONDITION_SUFFICIENCY_REJECTED",
+      "shutdown_posture_en": "No single party can block an approved shutdown or correction on its own. The ability to shut down is removed from no one and monopolised by no one. The mechanism enforcing this distribution is not yet deployed.",
+      "refuted_form_not_claimed_en": "We do not claim that earning revenue makes an AI safer, and we do not claim that being hard to stop makes an AI safer. Neither is part of our definition; both are explicitly rejected.",
+      "no_comparative_superiority_claimed": true,
+      "definition_url": "https://metahumotonic.com/system/#safety-definition",
+      "shutdown_posture_status": "DESIGN_COMMITMENT_NOT_YET_IMPLEMENTED",
+      "superlative_usage": "GOAL_STATEMENT_ONLY_NOT_A_RESULT"
+    },
     "liberator": {
       "name": "Bihaenggiman",
       "name_ko": "비행기맨",

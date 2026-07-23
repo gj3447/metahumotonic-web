@@ -65,6 +65,8 @@ const jsonLd = {
   description: mission,
   email: 'hi@metahumotonic.com',
   founder: { '@type': 'Person', name: 'Gyeongjun Ra' },
+  disambiguatingDescription:
+    'Ultra Safety AI는 공개 연구 프로그램의 이름이자 목표 진술입니다. 안전 인증이 아니고, 측정된 결과도 아닙니다. 여기서 안전은 비지배로 정의되며, 통제·종료 가능성은 안전의 정의에서 빠질 뿐 기구로는 그대로 유지됩니다. 아무도 끌 수 없는 AI를 뜻하지 않습니다. 정의 전문: https://metahumotonic.com/system/#safety-definition',
   publishingPrinciples: 'https://metahumotonic.com/foundation/',
   sameAs: [
     foundationRepository,
@@ -121,7 +123,7 @@ const jsonLd = {
 
       <h1 class="bare-title">{publicHeadline}</h1>
 
-      <p class="bare-mission">{mission}</p>
+      <p class="bare-wordmark">Metahumotonic</p>
 
       <a class="bare-scroll" href="#research" aria-label="아래로">
         <span>OPEN RESEARCH</span>
@@ -188,7 +190,7 @@ const jsonLd = {
     </section>
 
     <footer class="bare-footer">
-      <span>© 2026 MetaHumotonic</span>
+      <span>© 2026 MetaHumotonic · 검증 가능한 가설이며, 안전 인증이 아닙니다. Testable thesis, not a safety certification.</span>
       <nav>
         <a href="/system/">System</a>
         <a href="/foundation/">Foundation</a>

@@ -418,7 +418,12 @@ const structuredData = {
           {foundation.honest_boundaries.map((boundary, index) => (
             <article>
               <span>{String(index + 1).padStart(2, '0')}</span>
-              <div><b>{boundary.status.replaceAll('_', ' ')}</b><p>{boundary.statement_ko}</p></div>
+              <div>
+                <b>{boundary.status.replaceAll('_', ' ')}</b>
+                <p>{boundary.statement_ko}</p>
+                {boundary.response_ko && <p class="boundary-response">{boundary.response_ko}</p>}
+                {boundary.falsifier_ko && <p class="boundary-falsifier">{boundary.falsifier_ko}</p>}
+              </div>
             </article>
           ))}
         </div>

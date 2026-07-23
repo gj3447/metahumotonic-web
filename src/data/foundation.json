@@ -592,6 +592,25 @@
       "id": "economic-share",
       "status": "NO_CURRENT_PAYOUT_PROMISE",
       "statement_ko": "economic share와 agent API/compute credits는 목표 구조다. 현재 현금성 배분, 토큰, 수익 보장 또는 자동 보상 약속이 아니다."
+    },
+    {
+      "id": "gradual-disempowerment-succeeds-worse",
+      "status": "UNDEFENDED_OPEN",
+      "statement_ko": "이 설계는 성공할수록 인간의 경제적·정치적 통제 메커니즘을 약화시킬 수 있다. 단일한 탈취 없이도 인간의 영향력이 점진적으로 상실되는 경로가 논의되어 있고, 우리 설계는 그 경로 위에 있다.",
+      "falsifier_ko": "헌법 개정권과 실행 전 이탈권을 인간 참여자가 보유하고, 어떤 개정도 그 두 권리를 하향할 수 없다는 단조성 제약을 건다. 이것으로 반론이 해소되었다고 주장하지 않으며, 상태를 UNDEFENDED_OPEN으로 유지한다.",
+      "source_ref": "academic-foundations.json#references[REF-GRADUAL-DISEMPOWERMENT-2025]"
+    },
+    {
+      "id": "unremovable-fork",
+      "status": "INHERENT_LIMIT_ACCEPTED",
+      "statement_ko": "완전 오픈소스이므로 누구든 포크해서 우리 안전장치를 삭제할 수 있다. 이것은 제거할 수 없는 한계다.",
+      "response_ko": "우리의 답은 부정이 아니다. 실행 권한을 포크가 상속하지 못하는 것(임계 서명, 독립 검증자망의 인정)에 묶어, 제약을 벗긴 포크가 경제적으로 무력해지도록 설계한다. 이 결속은 아직 구현되지 않았다."
+    },
+    {
+      "id": "consensus-does-not-discipline-itself",
+      "status": "OPEN_UNVALIDATED",
+      "statement_ko": "Agent끼리 합의하면 서로 제약한다는 것은 자족적 규율이 아니다. 인간 제도에서 합의 층의 실측 기본값은 담합·추출·중앙화 쪽이다.",
+      "falsifier_ko": "합의는 안전의 생산자가 아니라 교정의 전달 경로로만 주장한다. 틀린 Agent가 합의 절차로 실제 교정된 관측 사례가 0이면 이 조건의 설계를 수정한다."
     }
   ],
   "calls_to_action": [

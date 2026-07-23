@@ -900,6 +900,13 @@ main, .product-footer { width: min(1240px, calc(100% - 40px)); margin-inline: au
   font-weight: 530;
   text-wrap: balance;
 }
+.bare-wordmark {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(15px, 2.1vw, 26px);
+  letter-spacing: .04em;
+  font-weight: 450;
+}
 .bare-mission {
   margin: 0;
   max-width: 46ch;
@@ -1053,7 +1060,8 @@ main, .product-footer { width: min(1240px, calc(100% - 40px)); margin-inline: au
   font-weight: 560;
   animation: rise-in .9s .22s cubic-bezier(.2,.8,.25,1) both;
 }
-.landing-page--bare .bare-mission {
+.landing-page--bare .bare-mission,
+.landing-page--bare .bare-wordmark {
   color: var(--muted);
   animation: rise-in .9s .38s cubic-bezier(.2,.8,.25,1) both;
 }
@@ -1067,7 +1075,7 @@ main, .product-footer { width: min(1240px, calc(100% - 40px)); margin-inline: au
   to { opacity: 1; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .mark, .landing-page--bare .bare-title, .landing-page--bare .bare-mission { animation: none; }
+  .mark, .landing-page--bare .bare-title, .landing-page--bare .bare-mission, .landing-page--bare .bare-wordmark { animation: none; }
 }
 @media (max-width: 620px) {
   .landing-page--bare .ring-grid { width: min(74vw, 280px); }
@@ -1163,3 +1171,29 @@ main, .product-footer { width: min(1240px, calc(100% - 40px)); margin-inline: au
 @media (prefers-reduced-motion: reduce) {
   .bare-card:hover { transform: none; }
 }
+
+/* --- 06 / SAFETY DEFINITION (2026-07-23) --- */
+.safety-utterance {
+  margin: 28px 0;
+  padding: 18px 22px;
+  border-left: 2px solid var(--cyan);
+  background: rgba(127, 127, 127, .06);
+}
+.safety-utterance p { margin: 0 0 8px; font-size: clamp(15px, 1.7vw, 20px); line-height: 1.6; }
+.safety-utterance cite { font-style: normal; font-size: 12px; letter-spacing: .08em; color: var(--muted); }
+.safety-conditions { margin: 28px 0; padding: 0; list-style: none; display: grid; gap: 18px; }
+.safety-conditions > li { padding: 18px 20px; border: 1px solid var(--line, rgba(127,127,127,.25)); }
+.safety-conditions h3 { margin: 0 0 8px; font-size: clamp(15px, 1.6vw, 19px); }
+.safety-conditions p { margin: 0 0 8px; line-height: 1.7; }
+.safety-conditions small { font-size: 11px; letter-spacing: .09em; color: var(--muted); }
+.safety-boundary { color: var(--muted); font-size: 14px; line-height: 1.7; }
+.safety-callout { margin: 28px 0; padding: 20px 22px; border: 1px solid var(--line, rgba(127,127,127,.25)); }
+.safety-callout h3 { margin: 0 0 12px; font-size: clamp(15px, 1.6vw, 19px); }
+.safety-callout p { margin: 0 0 10px; line-height: 1.75; }
+.safety-not-claimed { margin: 28px 0; }
+.safety-not-claimed h3 { margin: 0 0 12px; font-size: clamp(15px, 1.6vw, 19px); }
+.safety-not-claimed ul { margin: 0 0 12px; padding-left: 1.1em; line-height: 1.8; }
+.safety-argument { margin: 0 0 8px; line-height: 1.75; }
+.boundary-response, .boundary-falsifier { color: var(--muted); line-height: 1.7; }
+.safety-falsify { margin: 24px 0 0; color: var(--muted); line-height: 1.75; }
+.safety-falsify code { font-size: .92em; }

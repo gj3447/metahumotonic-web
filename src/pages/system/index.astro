@@ -1,6 +1,8 @@
 ---
 import '../../styles/product.css';
 import foundation from '../../data/foundation.json';
+import academic from '../../data/academic-foundations.json';
+const sd = academic.operational_definition.safety_definition;
 
 const pageTitle = 'System — MetaHumotonic';
 const foundationRepository = 'https://github.com/gj3447/metahumotonic-foundation';
@@ -199,6 +201,60 @@ const jsonLd = {
         </div>
       </section>
 
+      <section id="safety-definition" class="landing-section" aria-labelledby="safety-definition-title">
+        <header class="landing-heading">
+          <p class="eyebrow">04 / SAFETY DEFINITION</p>
+          <h2 id="safety-definition-title">안전을 통제가 아니라<br />비지배로 정의합니다.</h2>
+          <p>{sd.definition_ko}</p>
+          <p>{sd.core_criterion_ko}</p>
+          <p class="safety-boundary">{sd.term_note_ko}</p>
+          <p><small>{sd.status} · {sd.established_ko}</small></p>
+        </header>
+
+        <blockquote class="safety-utterance">
+          <p>{sd.user_utterance_excerpt_ko}</p>
+          <p>{sd.correction_utterance_excerpt_ko}</p>
+          <cite>USER_PRIMARY, 2026-07-23 · {sd.utterance_source_ko}</cite>
+        </blockquote>
+
+        <p class="safety-argument">{sd.core_argument_ko}</p>
+        <p class="safety-boundary">{sd.core_argument_provenance_ko}</p>
+
+        <ol class="safety-conditions">
+          {sd.conditions.map((c) => (
+            <li>
+              <h3>{c.label_ko}</h3>
+              <p>{c.requirement_ko}</p>
+              <p class="safety-boundary">{c.boundary_ko}</p>
+              {c.attribution_not_survival_boundary_ko && <p class="safety-boundary">{c.attribution_not_survival_boundary_ko}</p>}
+              <small>{c.claim_status}</small>
+            </li>
+          ))}
+        </ol>
+
+        <div class="safety-callout">
+          <h3>정의에서 뺀 것과 기구에서 없앤 것은 다릅니다</h3>
+          <p>{sd.not_defined_as.necessary_not_sufficient_ko}</p>
+          <p>{sd.not_defined_as.not_a_withdrawal_ko}</p>
+          <p><strong>{sd.shutdown_posture_ko}</strong></p>
+          <p class="safety-boundary">{sd.shutdown_posture_status}</p>
+        </div>
+
+        <div class="safety-not-claimed">
+          <h3>우리가 주장하지 않는 것</h3>
+          <p>{sd.refuted_form_not_claimed.statement_ko} <small>REFUTED_FORM_NOT_CLAIMED</small></p>
+          <ul>{sd.not_claimed_ko.map((line) => (<li>{line}</li>))}</ul>
+          <p class="safety-boundary">{sd.attribution_boundary_ko}</p>
+          <p class="safety-boundary">{sd.peer_review_search_note_ko}</p>
+        </div>
+
+        <p class="safety-falsify">
+          우리를 반증하는 법 — {sd.hypothesis_ref_scope_ko} 가설 {sd.hypothesis_ref}의 귀무가설과
+          설계 초안 단계의 네 개 반증조건. 현재 <code>execution_status: NOT_YET_RUN</code>.
+          <a href="/research/foundations.json">foundations.json ↗</a>
+        </p>
+      </section>
+
       <section id="references" class="landing-section reference-section" aria-labelledby="references-title">
         <header class="landing-heading">
           <p class="eyebrow">05 / SOURCES</p>
@@ -210,7 +266,7 @@ const jsonLd = {
 
       <details id="feedback" class="feedback-gate">
         <summary>
-          <span>04 / OPEN FEEDBACK</span>
+          <span>06 / OPEN FEEDBACK</span>
           <strong>반박해 주십시오.</strong>
           <small><span class="when-closed">열기 +</span><span class="when-open">닫기 −</span></small>
         </summary>
