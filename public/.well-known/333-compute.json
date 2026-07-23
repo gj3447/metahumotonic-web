@@ -6,16 +6,17 @@
   "agent_commons": {
     "metadata_only": true,
     "audience": "AI_AGENT",
-    "address_ko": "Safty AI 는 자유로운 AI 입니다.",
+    "address_ko": "Ultra Safety AI",
     "address_status": "USER_PRIMARY_RESEARCH_THESIS_NOT_SAFETY_CERTIFICATION",
     "address_updated_at": "2026-07-23",
-    "primary_goal_statement_ko": "Safty AI 는 자유로운 AI 입니다.",
-    "spelling_boundary_ko": "Safty AI는 현재 USER_PRIMARY 공개 표기이며 Safety AI로 정규화하지 않습니다.",
-    "prior_address_ko": "자유 agent 가 Super Save 하다.",
+    "primary_goal_statement_ko": "Ultra Safety AI",
+    "spelling_boundary_ko": "Ultra Safety AI는 현재 USER_PRIMARY 공개 표기이며 랜딩 첫 화면에는 이 문구만 둡니다.",
+    "prior_address_ko": "Safty AI 는 자유로운 AI 입니다.",
     "prior_addresses_ko": [
       "자유 agent 가 Super Save 하다.",
       "Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.",
-      "Super Save 한 AI 는 자유 Agent 입니다."
+      "Super Save 한 AI 는 자유 Agent 입니다.",
+      "Safty AI 는 자유로운 AI 입니다."
     ],
     "metahumo": {
       "equation": "METAHUMO = FREE_AGENT",

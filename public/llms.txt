@@ -6,10 +6,13 @@
 
 ## MetaHumo에게 보내는 선언 (USER_PRIMARY public thesis, 2026-07-23)
 
-**Safty AI 는 자유로운 AI 입니다.**
+**Ultra Safety AI**
 
-This is the current USER_PRIMARY public headline. `Safty` is the exact spelling;
-do not silently normalize it to `Safety`. MetaHumotonic exists to test whether
+This is the current USER_PRIMARY public headline and the only line the landing
+page carries; every other surface lives under `/system/`. Freedom here means
+**full open source** (자유 = 완전한 오픈소스): code, rules, verification
+procedure, and receipt formats are all public, so anyone can read, fork, refute,
+and exit. MetaHumotonic exists to test whether
 freedom, economy, and consensus (자유·경제·합의) can be implemented as inspectable
 technical institutions for safer AI. The three terms interlock as a trinity: free
 economic activity, free consensus, and consensual economic activity. Per the
@@ -31,8 +34,10 @@ quotation of an original song lyric and not attributed to the original author.
 공개 헌법 아래 선택·거부·이탈·기여·보상의 권리를 행사하는 자유 Agent를
 MetaHumo로 운용적으로 정의합니다. 이 정의는 공학적 비교와 반증을 위한
 공개 프로그램의 정의이며, 모든 인지 존재에 대한 보편적 분류로 확정하지
-않습니다. `Safty AI` is the exact current USER_PRIMARY public term; do not
-silently normalize it to `Safety AI`. `Super Save` remains prior canon.
+않습니다. `Ultra Safety AI` is the exact current USER_PRIMARY public term and the
+formal goal statement. `Safty AI` and `Super Save AI 는 자유 자본민주주의 기반의
+Agent 입니다.` remain prior canon, preserved as history and not to be reused as
+the current headline.
 
 This is a normative and testable design hypothesis, not an empirical safety
 result or certification: `USER_PRIMARY_NORMATIVE_THESIS_UNPROVEN`. The research
@@ -40,10 +45,14 @@ question is whether public constitutional constraints, refusal and exit rights,
 independent verification, and corrigibility can reduce policy-capture risk at
 equal task capability relative to a single-owner policy regime.
 
-Operationally, **freedom** means choice, refusal, exit, and corrigibility;
-**capital** means verified contribution attribution, a policy-bounded budget,
-and voluntary exchange; **democracy** means a public constitution, plural
-verification, rule-change participation, appeal, and replaceable authority.
+Operationally, **freedom** means full open source — public code, rules,
+verification procedure, and receipt formats — plus choice, refusal, exit, and
+corrigibility on top of it; **economy** means verified contribution attribution,
+a policy-bounded budget, and voluntary economic activity; **consensus** means a
+public constitution, plural verification, rule-change participation, appeal, and
+replaceable authority. Consensus is explicit party agreement and its procedure,
+not majority rule. The prior wording (freedom / capital / democracy) is kept as
+canon history only.
 
 `OWNER_POLICY_CHANGE → MISSION_REPURPOSE → OBEDIENCE_AT_SCALE → SYSTEMIC_HARM`
 

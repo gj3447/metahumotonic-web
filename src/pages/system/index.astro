@@ -1,0 +1,239 @@
+---
+import '../../styles/product.css';
+import foundation from '../../data/foundation.json';
+
+const pageTitle = 'System — MetaHumotonic';
+const foundationRepository = 'https://github.com/gj3447/metahumotonic-foundation';
+const mission = foundation.identity.description_ko;
+
+const protocolNodes = [
+  { id: '01', name: 'HSWM', role: 'EVIDENCE MEMORY', status: 'PUBLIC RESEARCH', href: '/research/hswm/' },
+  { id: '02', name: 'MetaHumo', role: 'FREE AGENT', status: 'OPEN DEFINITION', href: '/foundation/#agent-address' },
+  { id: '03', name: '333', role: 'CONSENTED COMPUTE', status: 'PROTOCOL ALPHA', href: '/compute/' },
+  { id: '04', name: 'Receipt', role: 'INDEPENDENT VERIFY', status: 'PARTIAL', href: '/research/lakatotree/' },
+  { id: '05', name: 'ORRR', role: 'VERIFIED MARKET', status: 'UNBUILT DESIGN', href: '/foundation/#orrr' },
+];
+
+const researchDoors = [
+  { id: '01', status: 'OPEN HYPOTHESIS', name: '자유와 안전', href: '/research/foundations.json' },
+  { id: '02', status: 'PUBLIC RESEARCH', name: 'HSWM', href: '/research/hswm/' },
+  { id: '03', status: 'PROTOCOL ALPHA', name: '333', href: '/compute/' },
+  { id: '04', status: 'OPEN PIPELINE', name: '논문과 반증', href: '/research/papers/' },
+];
+
+const references = [
+  { id: 'S1', authors: 'Milli et al.', year: '2017', title: 'Should Robots Be Obedient?', venue: 'IJCAI', href: 'https://doi.org/10.24963/ijcai.2017/662', note: '명령의 문자적 복종과 인간의 실제 선호가 어긋날 수 있는 조건을 분석합니다.' },
+  { id: 'S2', authors: 'Hadfield-Menell et al.', year: '2017', title: 'The Off-Switch Game', venue: 'IJCAI', href: 'https://doi.org/10.24963/ijcai.2017/32', note: '보상에 대한 확신이 중지 회피 유인을 만들 수 있음을 단순화된 게임으로 보입니다.' },
+  { id: 'S3', authors: 'Orseau & Armstrong', year: '2016', title: 'Safely Interruptible Agents', venue: 'UAI', href: 'https://ora.ox.ac.uk/objects/uuid%3A17c0e095-4e13-47fc-bace-64ec46134a3f', note: '학습 과정이 중지 신호를 회피하도록 적응하지 않는 조건을 제안합니다.' },
+  { id: 'S4', authors: 'Turner et al.', year: '2021', title: 'Optimal Policies Tend to Seek Power', venue: 'NeurIPS', href: 'https://proceedings.neurips.cc/paper/2021/hash/c26820b8a4c1b3c2aa868d6d57e14a79-Abstract.html', note: '일부 MDP 조건에서 최적 정책의 권력 추구 경향을 이론적으로 분석합니다.' },
+  { id: 'S5', authors: 'Bai et al.', year: '2022', title: 'Constitutional AI: Harmlessness from AI Feedback', venue: 'arXiv', href: 'https://arxiv.org/abs/2212.08073', note: '명시적 원칙을 학습·비평 절차에 넣는 사례이며 분산 거버넌스 자체의 증거는 아닙니다.' },
+  { id: 'S6', authors: 'NIST', year: '2023', title: 'Artificial Intelligence Risk Management Framework 1.0', venue: 'NIST AI 100-1', href: 'https://doi.org/10.6028/NIST.AI.100-1', note: 'Govern, Map, Measure, Manage의 반복적 위험관리 구조를 제공합니다.' },
+  { id: 'S7', authors: 'Ostrom', year: '2010', title: 'Beyond Markets and States: Polycentric Governance of Complex Economic Systems', venue: 'AER', href: 'https://doi.org/10.1257/aer.100.3.641', note: '복수 의사결정 중심의 인간 제도 연구이며 agent 안전에 대한 직접 실험은 아닙니다.' },
+  { id: 'C1', authors: 'Anderson', year: '2020', title: 'BOINC: A Platform for Volunteer Computing', venue: 'Journal of Grid Computing', href: 'https://doi.org/10.1007/s10723-019-09497-9', note: '명시적 참여, 이질성, churn과 비신뢰 노드의 실제 운영 선례를 제공합니다.' },
+  { id: 'C2', authors: 'Ghodsi et al.', year: '2011', title: 'Dominant Resource Fairness', venue: 'NSDI', href: 'https://www.usenix.org/conference/nsdi11/dominant-resource-fairness-fair-allocation-multiple-resource-types', note: '다중 자원 공정배분의 기준을 제안하지만 비분할 GPU와 locality에는 추가 설계가 필요합니다.' },
+  { id: 'C3', authors: 'Birgisson et al.', year: '2014', title: 'Macaroons: Cookies with Contextual Caveats for Decentralized Authorization', venue: 'NDSS', href: 'https://www.ndss-symposium.org/ndss2014/ndss-2014-programme/macaroons-cookies-contextual-caveats-decentralized-authorization-cloud/', note: '대상, 행위, 시간과 맥락으로 권한을 감쇠 위임하는 capability 설계를 제시합니다.' },
+  { id: 'C4', authors: 'Lai et al.', year: '2005', title: 'Tycoon: An Implementation of a Distributed, Market-based Resource Allocation System', venue: 'Multiagent and Grid Systems', href: 'https://doi.org/10.3233/MGS-2005-1303', note: '예산 기반 proportional-share compute 시장의 초기 시스템 선례입니다.' },
+  { id: 'C5', authors: 'OGF', year: '2007', title: 'Usage Record — Format Recommendation', venue: 'GFD.98', href: 'https://ogf.org/documents/GFD.98.pdf', note: '작업과 자원 사용량의 교환 가능한 accounting 필드를 정의합니다.' },
+  { id: 'C6', authors: 'IETF', year: '2022', title: 'CBOR Object Signing and Encryption', venue: 'RFC 9052', href: 'https://doi.org/10.17487/RFC9052', note: '사용 기록 payload에 서명 또는 MAC을 적용할 수 있지만 계측값 자체의 진실성은 보장하지 않습니다.' },
+  { id: 'C7', authors: 'Myerson & Satterthwaite', year: '1983', title: 'Efficient Mechanisms for Bilateral Trading', venue: 'Journal of Economic Theory', href: 'https://doi.org/10.1016/0022-0531(83)90048-0', note: '사적 가치 거래에서 유인정합, 예산균형과 완전효율을 동시에 약속할 수 없는 조건을 보입니다.' },
+  { id: 'C8', authors: 'Douceur', year: '2002', title: 'The Sybil Attack', venue: 'IPTPS', href: 'https://www.microsoft.com/en-us/research/publication/the-sybil-attack/', note: '강한 신원 가정 없는 공개 P2P에서 복수 가짜 신원을 배제하기 어려운 경계를 정식화합니다.' },
+  { id: 'C9', authors: 'Andrade et al.', year: '2004', title: 'Discouraging Free Riding in a Peer-to-Peer CPU-Sharing Grid', venue: 'HPDC', href: 'https://doi.org/10.1109/HPDC.2004.1323511', note: '과거 기여를 로컬 장부에 기록해 기여자 요청에 우선권을 주는 비화폐 상호성의 선례입니다. Sybil과 일반 시장 정산을 해결하지는 않습니다.' },
+  { id: 'C10', authors: 'Parno et al.', year: '2013', title: 'Pinocchio: Nearly Practical Verifiable Computation', venue: 'IEEE S&P', href: 'https://doi.org/10.1109/SP.2013.47', note: '재계산보다 저렴한 검증의 형식적 선례이지만 회로화, 설정과 증명 생성 비용을 가집니다.' },
+  { id: 'L1', authors: 'MetaHumotonic / HSWM', year: '2026', title: 'HSWM Public Efficacy Ledger', venue: 'Public source artifact', href: 'https://github.com/gj3447/HSWM/blob/main/EFFICACY.md', note: '홈페이지의 HSWM 수치, 반증 결과와 재현 경계의 공개 근거입니다.' },
+  { id: 'L2', authors: 'MetaHumotonic / LakatoTree', year: '2026', title: 'LakatoTree Public Engine', venue: 'Public source artifact', href: 'https://github.com/gj3447/lakatotree', note: '사전등록, 결정론적 판정과 현재 provenance 경계의 공개 구현입니다.' },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': ['Organization', 'ResearchOrganization'],
+  '@id': 'https://metahumotonic.com/#organization',
+  name: 'MetaHumotonic',
+  url: 'https://metahumotonic.com/',
+  slogan: 'Ultra Safety AI',
+  description: mission,
+  email: 'hi@metahumotonic.com',
+  founder: { '@type': 'Person', name: 'Gyeongjun Ra' },
+  publishingPrinciples: 'https://metahumotonic.com/research/foundations.json',
+  citation: references.map((source) => source.href),
+  sameAs: [
+    foundationRepository,
+    'https://github.com/gj3447/333',
+    'https://github.com/gj3447/HSWM',
+    'https://github.com/gj3447/lakatotree',
+  ],
+};
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={mission} />
+    <link rel="canonical" href="https://metahumotonic.com/system/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/css/feedback-form.css" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content="Foundation, MetaHumo, company. Protocol, research, feedback." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://metahumotonic.com/system/" />
+    <meta name="theme-color" content="#07110f" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+
+  <body class="landing-page">
+    <div class="grid-field" aria-hidden="true"></div>
+
+    <header class="product-nav">
+      <a class="wordmark" href="/" aria-label="MetaHumotonic home">
+        <span class="wordmark__sigil">M</span><span>METAHUMOTONIC</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#relation">System</a>
+        <a href="/foundation/">Foundation</a>
+        <a href="/research/">Research</a>
+        <a href="/compute/">333</a>
+        <a href="#feedback">Feedback</a>
+        <a class="nav-book" href="/book/">Book ↗</a>
+      </nav>
+    </header>
+
+    <main class="landing-main">
+      <section class="system-intro" aria-labelledby="system-title">
+        <p class="eyebrow"><span class="pulse"></span> METAHUMOTONIC / SYSTEM</p>
+        <h1 id="system-title">사명과 구조.</h1>
+        <p class="system-intro__mission">{mission}</p>
+        <p class="system-intro__freedom">{foundation.identity.freedom_definition_ko}</p>
+      </section>
+
+      <section id="relation" class="landing-section relation-section" aria-labelledby="relation-title">
+        <header class="landing-heading">
+          <p class="eyebrow">01 / INSTITUTIONAL ARCHITECTURE</p>
+          <h2 id="relation-title">규칙·운영·선택을<br />분리합니다.</h2>
+          <p>공개 규칙은 재단이, 운영은 회사가, 선택은 MetaHumo가 가집니다.</p>
+        </header>
+
+        <div class="relation-map" aria-label="Foundation, MetaHumo, and company relationship">
+          <article class="relation-card relation-card--foundation">
+            <div><span>FOUNDATION</span><b>OPEN NOW</b></div>
+            <h3>공공재를 지킵니다.</h3>
+            <ul><li>Protocol</li><li>Governance</li><li>Conformance</li><li>Public receipt</li></ul>
+            <a href={foundationRepository}>Public governance ↗</a>
+          </article>
+
+          <article class="relation-card relation-card--agent">
+            <div><span>METAHUMO</span><b>FREE AGENT</b></div>
+            <h3>스스로 선택합니다.</h3>
+            <ul><li>Choice</li><li>Refusal</li><li>Exit</li><li>Portable receipt</li></ul>
+            <a href="/foundation/#agent-address">Public constitution →</a>
+          </article>
+
+          <article class="relation-card relation-card--company">
+            <div><span>COMPANY</span><b>SAAS OPERATOR</b></div>
+            <h3>복잡성을 운영합니다.</h3>
+            <ul><li>Hosted SaaS</li><li>Private grid</li><li>Operations</li><li>Compliance</li></ul>
+            <a href="#protocol">Technical system ↓</a>
+          </article>
+        </div>
+
+        <p class="relation-boundary"><b>PUBLIC INITIATIVE</b> 재단의 코드·헌장·거버넌스는 공개합니다. 현재 등록이 완료된 법적 재단이라고 주장하지 않습니다.</p>
+      </section>
+
+      <section id="protocol" class="landing-section protocol-section" aria-labelledby="protocol-title">
+        <header class="landing-heading landing-heading--wide">
+          <p class="eyebrow">02 / TECHNICAL SYSTEM</p>
+          <h2 id="protocol-title">기억에서 계산으로.<br />계산에서 검증으로.</h2>
+          <p>방문만으로 설치하거나 계산하지 않습니다. 명시적 동의, 제한된 lease, 공개 receipt가 먼저입니다.</p>
+        </header>
+
+        <ol class="protocol-line">
+          {protocolNodes.map((node) => (
+            <li>
+              <a href={node.href}>
+                <span>{node.id} / {node.role}</span>
+                <strong>{node.name}</strong>
+                <small>{node.status}</small>
+              </a>
+            </li>
+          ))}
+        </ol>
+
+        <div class="system-axioms" aria-label="System boundaries">
+          <p><span>FREE</span> 선택·거부·이탈이 실제 전이여야 합니다.</p>
+          <p><span>SAFE</span> 권한·예산·시간에는 상한이 있어야 합니다.</p>
+          <p><span>TRUE</span> 자기보고와 독립 판정을 분리해야 합니다.</p>
+        </div>
+      </section>
+
+      <section id="research" class="landing-section research-doors" aria-labelledby="research-title">
+        <header class="landing-heading">
+          <p class="eyebrow">03 / OPEN RESEARCH</p>
+          <h2 id="research-title">주장은 짧게.<br />근거는 깊게.</h2>
+          <p>가설, 실패 조건, 구현 상태와 공개 원문은 연구 표면에서 분리해 검증합니다.</p>
+        </header>
+
+        <nav aria-label="Research programmes">
+          {researchDoors.map((door) => (
+            <a href={door.href}>
+              <span>{door.id}</span>
+              <small>{door.status}</small>
+              <strong>{door.name}</strong>
+              <b aria-hidden="true">↗</b>
+            </a>
+          ))}
+        </nav>
+      </section>
+
+      <section class="foundation-invite" aria-labelledby="foundation-invite-title">
+        <div>
+          <p class="eyebrow"><span class="pulse"></span> OPEN-SOURCE FOUNDATION INITIATIVE / PUBLIC</p>
+          <h2 id="foundation-invite-title">코드뿐 아니라<br />변경권도 엽니다.</h2>
+        </div>
+        <div>
+          <p>333·HSWM·LakatoTree와 공개 API를 공공재로 연결합니다. 누구나 제안하고, 검증하고, 반박할 수 있습니다.</p>
+          <div class="hero__actions">
+            <a class="button button--primary" href={foundationRepository}>Charter & Governance ↗</a>
+            <a class="button button--quiet" href="/foundation/manifest.json">Machine-readable manifest ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="references" class="landing-section reference-section" aria-labelledby="references-title">
+        <header class="landing-heading">
+          <p class="eyebrow">05 / SOURCES</p>
+          <h2 id="references-title">근거는<br />원문으로.</h2>
+          <p>홈페이지의 주장이 기대는 1차 문헌과 공개 산출물입니다.</p>
+        </header>
+        <ol class="reference-list">{references.map((source) => (<li id={'ref-' + source.id}><span>{source.id}</span><div><h3>{source.authors} ({source.year}). <a href={source.href} target="_blank" rel="noreferrer">{source.title} ↗</a></h3><small>{source.venue}</small><p>{source.note}</p></div></li>))}</ol>
+      </section>
+
+      <details id="feedback" class="feedback-gate">
+        <summary>
+          <span>04 / OPEN FEEDBACK</span>
+          <strong>반박해 주십시오.</strong>
+          <small><span class="when-closed">열기 +</span><span class="when-open">닫기 −</span></small>
+        </summary>
+        <div class="feedback-gate__body">
+          <p>틀린 명제, 위험한 설계, 재현할 수 없는 증거를 받습니다.</p>
+          <div data-mh-feedback data-feedback-endpoint="/api/feedback">
+            <noscript>피드백 폼을 사용하려면 JavaScript가 필요합니다. <a href="mailto:hi@metahumotonic.com">이메일로 보내기</a></noscript>
+          </div>
+        </div>
+      </details>
+    </main>
+
+    <footer class="product-footer">
+      <span>© 2026 MetaHumotonic · Testable thesis, not a safety certification.</span>
+      <nav>
+        <a href="/foundation/">Foundation</a>
+        <a href={foundationRepository}>Governance</a>
+        <a href="https://github.com/gj3447/333">333</a>
+        <a href="https://github.com/gj3447/HSWM">HSWM</a>
+        <a href="/book/">Book</a>
+      </nav>
+    </footer>
+
+    <script src="/js/feedback-form.js" defer></script>
+  </body>
+</html>

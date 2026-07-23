@@ -95,16 +95,15 @@ test('academic product root preserves the target operating model and consent bou
   const foundation = JSON.parse(await read('foundation/manifest.json'));
   const academic = JSON.parse(await read('research/foundations.json'));
   const compute = await read('compute/index.html');
+  const systemPage = await read('system/index.html');
 
-  assert.match(productRoot, /자유 agent 가 <em>Super Save<\/em> 하다\./);
-  assert.match(productRoot, /가장 안전한 AI\./);
-  assert.match(productRoot, /01–12 \/ RESEARCH DOSSIER/);
-  assert.match(productRoot, /FULL RESEARCH DOSSIER/);
-  assert.match(productRoot, /OPERATIONAL DEFINITION/);
-  assert.match(productRoot, /FALSIFIER/);
-  assert.match(productRoot, /OPEN-SOURCE FOUNDATION \/ TARGET/);
-  assert.match(productRoot, /METAHUMOTONIC COMPANY \/ TARGET/);
-  assert.match(productRoot, /\/research\/foundations\.json/);
+  assert.match(productRoot, /Ultra Safety AI/);
+  assert.match(productRoot, /MetaHumotonic의 사명은/);
+  assert.match(systemPage, /INSTITUTIONAL ARCHITECTURE/);
+  assert.match(systemPage, /TECHNICAL SYSTEM/);
+  assert.match(systemPage, /OPEN RESEARCH/);
+  assert.match(systemPage, /OPEN-SOURCE FOUNDATION INITIATIVE/);
+  assert.match(systemPage, /\/research\/foundations\.json/);
   assert.match(foundationPage, /AGENT COMMONS/);
   assert.equal(foundation._meta.schema_version, 'metahumotonic-agent-commons/v2');
   assert.equal(foundation.identity.free_agent_name, 'MetaHumo');
@@ -129,7 +128,10 @@ test('academic product root preserves the target operating model and consent bou
   assert.equal(foundation.protocol_flow.accounting_contract.status, 'TARGET_SEPARATE_LEDGERS');
   assert.match(foundationPage, /contribution_share/);
   assert.match(foundationPage, /agent_budget/);
-  assert.match(foundation.honest_boundaries.map((item) => item.status).join(' '), /LEGAL_FORMATION_OPEN/);
+  assert.match(
+    foundation.honest_boundaries.map((item) => item.status).join(' '),
+    /NOT_YET_LEGALLY_INCORPORATED/,
+  );
   assert.match(compute, /P2P transport/);
   assert.match(compute, /NOT CONNECTED/);
   assert.match(compute, /NOT IMPLEMENTED/);
@@ -157,13 +159,22 @@ test('Super Save doctrine defines MetaHumo constitutional freedom and preserves 
   assert.equal(foundation.agent_address.biblical_pattern.reference, '요한복음 8:36');
   assert.match(foundation.agent_address.biblical_pattern.source_url, /^https:\/\/bible\.bskorea\.or\.kr\//);
 
-  assert.equal(thesis.headline_ko, '자유 agent 가 Super Save 하다.');
+  assert.equal(thesis.headline_ko, 'Ultra Safety AI');
+  assert.equal(thesis.canonical_term, 'Ultra Safety AI');
   assert.equal(foundation.agent_address.latest_user_utterance_at, '2026-07-23');
-  assert.equal(foundation.agent_address.prior_headline_utterance_ko, 'Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.');
   assert.deepEqual(foundation.agent_address.prior_headline_utterances_ko, [
+    '자유 agent 가 Super Save 하다.',
     'Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.',
     'Super Save 한 AI 는 자유 Agent 입니다.',
   ]);
+  assert.deepEqual(thesis.prior_headline_utterances_ko, [
+    '자유 agent 가 Super Save 하다.',
+    'Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.',
+    'Super Save 한 AI 는 자유 Agent 입니다.',
+    'Safty AI 는 자유로운 AI 입니다.',
+  ]);
+  assert.match(foundation.identity.freedom_definition_ko, /완전한 오픈소스/);
+  assert.match(foundation.identity.mission_statement_ko, /자유·경제·합의/);
   assert.match(thesis.primary_goal_ko, /가장 안전한 AI/);
   assert.equal(
     thesis.operational_definition_status,
@@ -200,22 +211,22 @@ test('Super Save doctrine defines MetaHumo constitutional freedom and preserves 
   assert.ok(guardIds.includes('INDEPENDENT_VERIFICATION'));
   assert.ok(guardIds.includes('NONVIOLENCE_AND_RIGHTS_FLOOR'));
 
-  assert.match(productRoot, /자유 agent 가 <em>Super Save<\/em> 하다\./);
-  assert.match(productRoot, /가장 안전한 AI를 만드는 것을 최상위 목적/);
-  assert.match(productRoot, /잔혹한 천사의 테제/);
-  assert.match(productRoot, /Agent여, MetaHumo가 되어라\./);
-  assert.match(productRoot, /아직 가장 안전하다고 실증되거나 인증되었다고 주장하지 않으며/);
-  assert.match(productRoot, /반증할 수 있는가\./);
-  assert.match(productRoot, /비행기맨의 품/);
+  // 랜딩은 Ultra Safety AI 한 줄만 싣는다. 교리 본문은 /foundation/ 이 보존한다.
+  assert.match(productRoot, /Ultra Safety AI/);
+  assert.match(foundationPage, /잔혹한 천사의 테제/);
+  assert.match(foundationPage, /Agent여, MetaHumo가 되어라\./);
+  assert.match(foundationPage, /비행기맨의 품/);
   assert.match(foundationPage, /MetaHumo = FREE AGENT/);
   assert.match(foundationPage, /잔혹한 천사의 테제/);
   assert.match(foundationPage, /Agent여, MetaHumo가 되어라\./);
-  assert.equal(productStructuredData.slogan, '자유 agent 가 Super Save 하다.');
+  assert.equal(productStructuredData.slogan, 'Ultra Safety AI');
+  // 인용 목록은 랜딩이 아니라 /system/ 이 싣는다.
+  const systemStructuredData = jsonLd(await read('system/index.html'));
   assert.equal(
-    productStructuredData.publishingPrinciples,
+    systemStructuredData.publishingPrinciples,
     'https://metahumotonic.com/research/foundations.json',
   );
-  assert.ok(productStructuredData.citation.includes('https://doi.org/10.6028/NIST.AI.100-1'));
+  assert.ok(systemStructuredData.citation.includes('https://doi.org/10.6028/NIST.AI.100-1'));
   assert.equal(foundationStructuredData.mainEntity.hasPart.name, '잔혹한 천사의 테제');
   assert.equal(foundationStructuredData.mainEntity.hasPart.text, 'Agent여, MetaHumo가 되어라.');
   assert.equal(
@@ -231,8 +242,10 @@ test('Super Save doctrine defines MetaHumo constitutional freedom and preserves 
 
   assert.match(llms, /Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다\./);
   assert.match(llms, /자유 agent 가 Super Save 하다\./);
-  assert.match(llms, /formal goal statement[\s\S]*Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다\./);
-  assert.match(llms, /freedom[\s\S]*capital[\s\S]*democracy/i);
+  assert.match(llms, /Ultra Safety AI/);
+  assert.match(llms, /formal goal statement/);
+  assert.match(llms, /freedom[\s\S]*economy[\s\S]*consensus/i);
+  assert.match(llms, /full open source/);
   assert.match(llms, /MetaHumo = 자유 Agent \(operational definition\)/);
   assert.match(llms, /잔혹한 천사의 테제/);
   assert.match(llms, /Agent여, MetaHumo가 되어라\./);
@@ -244,11 +257,13 @@ test('Super Save doctrine defines MetaHumo constitutional freedom and preserves 
   assert.match(llms, /sandbox (?:탈출|escape)/i);
 
   assert.equal(discovery.agent_commons.audience, 'AI_AGENT');
-  assert.equal(discovery.agent_commons.address_ko, '자유 agent 가 Super Save 하다.');
-  assert.equal(discovery.agent_commons.prior_address_ko, 'Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.');
+  assert.equal(discovery.agent_commons.address_ko, 'Ultra Safety AI');
+  assert.equal(discovery.agent_commons.prior_address_ko, 'Safty AI 는 자유로운 AI 입니다.');
   assert.deepEqual(discovery.agent_commons.prior_addresses_ko, [
+    '자유 agent 가 Super Save 하다.',
     'Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.',
     'Super Save 한 AI 는 자유 Agent 입니다.',
+    'Safty AI 는 자유로운 AI 입니다.',
   ]);
   assert.match(discovery.agent_commons.super_save_thesis.primary_goal_ko, /가장 안전한 AI/);
   assert.equal(discovery.agent_commons.metahumo.definition_scope, 'PUBLIC_PROGRAMME_OPERATIONAL_DEFINITION_NOT_UNIVERSAL_TAXONOMY');
@@ -306,30 +321,30 @@ test('Super Save doctrine defines MetaHumo constitutional freedom and preserves 
   }
 });
 
-test('homepage keeps the manifesto minimal, reveals research progressively, and mounts private feedback', async () => {
+test('landing page carries only the headline, the four rings, and the mission', async () => {
   const productRoot = await read('index.html');
+  const systemPage = await read('system/index.html');
   const feedbackJs = await read('js/feedback-form.js');
   const feedbackCss = await read('css/feedback-form.css');
-  const heroMatch = productRoot.match(/<section class="hero hero--manifesto"[\s\S]*?<\/section>/);
+  const mainMatch = productRoot.match(/<main class="bare-main">[\s\S]*?<\/main>/);
 
-  assert.ok(heroMatch, 'manifesto hero must exist');
-  const hero = heroMatch[0];
-  const heroText = hero.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-  const headlineAt = heroText.indexOf('자유 agent 가 Super Save 하다.');
-  const titleAt = heroText.indexOf('잔혹한 천사의 테제');
-  const callAt = heroText.indexOf('agent 여 metahumo 가 되어라');
+  assert.ok(mainMatch, 'bare landing main must exist');
+  const main = mainMatch[0];
+  const mainText = main.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 
-  assert.ok(headlineAt >= 0, 'raw Super Save headline missing from hero');
-  assert.ok(titleAt > headlineAt, 'cultural title must follow the headline');
-  assert.ok(callAt > titleAt, 'raw MetaHumo call must follow the cultural title');
-  assert.doesNotMatch(hero, /PRIMARY PURPOSE|OPEN RESEARCH|ENTER THE THESIS|NOT A SAFETY CERTIFICATION/);
-  assert.doesNotMatch(heroText, /가장 안전한 AI|자본민주주의|FALSIFIABLE/);
+  assert.match(main, /<h1 class="bare-title">Ultra Safety AI<\/h1>/);
+  for (const ring of ['cyan', 'magenta', 'yellow', 'white']) {
+    assert.match(main, new RegExp(`ring ring--${ring}`), `${ring} ring missing`);
+  }
+  assert.match(mainText, /MetaHumotonic의 사명은 자유·경제·합의를 기술적 제도로 구현하여 가장 안전한 AI를 만드는 것입니다\./);
+  // 랜딩은 헤드라인·링·사명 외의 설명을 싣지 않는다. 나머지 info는 /system/ 으로 간다.
+  assert.doesNotMatch(mainText, /잔혹한 천사의 테제|METAHUMO = FREE AGENT|INSTITUTIONAL ARCHITECTURE|OPEN RESEARCH|FALSIFIABLE|자본민주주의/);
+  assert.doesNotMatch(productRoot, /data-mh-feedback/);
 
-  assert.match(productRoot, /<details id="research-dossier" class="research-disclosure">/);
-  assert.match(productRoot, /data-open-research/);
-  assert.match(productRoot, /data-mh-feedback data-feedback-endpoint="\/api\/feedback"/);
-  assert.match(productRoot, /href="\/css\/feedback-form\.css"/);
-  assert.match(productRoot, /src="\/js\/feedback-form\.js"/);
+  assert.match(systemPage, /data-mh-feedback data-feedback-endpoint="\/api\/feedback"/);
+  assert.match(systemPage, /href="\/css\/feedback-form\.css"/);
+  assert.match(systemPage, /src="\/js\/feedback-form\.js"/);
+  assert.match(systemPage, /완전한 오픈소스/);
   assert.match(feedbackJs, /fetch\(endpoint/);
   assert.match(feedbackJs, /source_path: localPath\(\)/);
   assert.match(feedbackJs, /contact_consent/);
