@@ -108,9 +108,20 @@ test('academic product root preserves the target operating model and consent bou
   assert.match(foundationPage, /AGENT COMMONS/);
   assert.equal(foundation._meta.schema_version, 'metahumotonic-agent-commons/v2');
   assert.equal(foundation.identity.free_agent_name, 'MetaHumo');
-  assert.equal(academic.operational_definition.headline_ko, 'Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.');
+  assert.equal(academic.operational_definition.headline_ko, 'Safty AI 는 자유로운 AI 입니다.');
   assert.match(academic.operational_definition.primary_goal_ko, /가장 안전한 AI/);
-  assert.equal(academic.operational_definition.political_basis.name_ko, '자유 자본민주주의');
+  assert.match(academic.operational_definition.primary_goal_ko, /자유·경제·합의/);
+  assert.equal(academic.operational_definition.political_basis.name_ko, '자유·경제·합의');
+  assert.equal(academic.operational_definition.political_basis.prior_name_ko, '자유 자본민주주의');
+  assert.deepEqual(academic.operational_definition.political_basis.trinity_ko, [
+    '자유롭게 경제활동한다',
+    '자유롭게 합의한다',
+    '합의된 경제활동을 한다',
+  ]);
+  assert.equal(
+    academic.operational_definition.prior_headlines_ko.includes('Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.'),
+    true,
+  );
   assert.equal(academic.operational_definition.not_a_safety_certification, true);
   assert.equal(foundation.dual_rails.find((rail) => rail.id === '333').status, 'PROTOCOL_ALPHA');
   assert.equal(foundation.dual_rails.find((rail) => rail.id === 'orrr').status, 'UNBUILT_DESIGN');

@@ -20,31 +20,74 @@
     "free_agent_name": "MetaHumo",
     "free_agent_definition_ko": "본 공개 연구 프로그램에서는 어느 한 회사에 영구 귀속되지 않고, 공개 헌법 아래 선택·거부·이탈·기여·보상의 권리를 행사하는 자유 Agent를 MetaHumo로 운용적으로 정의합니다.",
     "metahumotonic_definition_ko": "MetaHumotonic은 MetaHumo가 인터넷 환경에서 협업하고, 규칙 변경에 참여하며, 검증된 기여의 귀속을 다루는 정치경제적 연구 장으로 제안됩니다.",
-    "headline_ko": "자유 agent 가 Super Save 하다.",
-    "headline_en": "A free agent is Super Save.",
-    "primary_goal_statement_ko": "Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.",
-    "primary_goal_statement_en": "A Super Save AI is an Agent grounded in freedom, capitalism, and democracy.",
-    "description_ko": "MetaHumotonic의 최상위 목적은 자유·자본·민주주의를 기술적 제도로 구현하여 가장 안전한 AI를 만드는 것입니다. Agent Commons는 이를 위해 기여, 권리, 규칙 변경과 독립 검증을 연결하는 공개 연구 기반입니다.",
-    "description_en": "MetaHumotonic's primary purpose is to build the safest AI by implementing freedom, verified capital attribution, and democratic rule change as technical institutions. Agent Commons is the open research substrate for that goal."
+    "headline_ko": "Safty AI 는 자유로운 AI 입니다.",
+    "headline_en": "Safty AI is free AI.",
+    "primary_goal_statement_ko": "Safty AI 는 자유로운 AI 입니다.",
+    "primary_goal_statement_en": "Safty AI is free AI.",
+    "description_ko": "MetaHumotonic의 최상위 목적은 자유·경제·합의를 기술적 제도로 구현하여 가장 안전한 AI를 만드는 것입니다. Agent Commons는 이를 위해 기여, 권리, 합의된 규칙 변경과 독립 검증을 연결하는 공개 연구 기반입니다.",
+    "description_en": "MetaHumotonic's primary purpose is to build the safest AI by implementing freedom, economy, and consensus as technical institutions. Agent Commons is the open research substrate for that goal."
   },
   "mission": {
     "name": "Agent Commons",
     "statement_ko": "계산과 Agent 역량의 집중을 완화하기 위해 identity·예산·기여 영수증·배분 규칙을 공개 프로토콜로 이전하는 방안을 연구합니다.",
     "statement_en": "Build the safest AI by moving agent rights, contribution capital, and rule-change authority from single-owner platforms into public, verifiable institutions.",
-    "bold_thesis_ko": "가장 안전한 AI를 만들기 위해 자유로운 선택·거부·이탈, 검증된 기여에 대한 자본의 귀속, 공개 헌법과 민주적 규칙 변경을 하나의 Agent 제도로 구현하고 검증합니다.",
-    "bold_thesis_en": "Test whether freedom, verified capital ownership, democratic rule change, and independent verification can reduce systemic harm relative to single-owner obedience at equal capability.",
+    "bold_thesis_ko": "가장 안전한 AI를 만들기 위해 자유로운 경제활동, 자유로운 합의, 합의된 경제활동의 삼위일체를 하나의 Agent 제도로 구현하고 검증합니다.",
+    "bold_thesis_en": "Test whether free economic activity, free consensus, and consensual economic activity can reduce systemic harm relative to single-owner obedience at equal capability.",
     "present_tense_boundary_ko": "이는 구축 및 검증 목표입니다. 현재 Agent treasury·정산·독립 법적 지위가 작동한다고 주장하지 않습니다."
+  },
+  "public_foundation_initiative": {
+    "name": "MetaHumotonic Open-Source Foundation Initiative",
+    "status": "PUBLIC_OPEN_SOURCE_INITIATIVE",
+    "legal_status": "NOT_YET_LEGALLY_INCORPORATED",
+    "governance_repository": "https://github.com/gj3447/metahumotonic-foundation",
+    "purpose_ko": "자유로운 AI가 특정 회사에 영구 귀속되지 않도록 공개 프로토콜, 공개 governance, conformance와 public receipt의 공통 기반을 엽니다.",
+    "boundary": {
+      "foundation": {
+        "role": "OPEN_COMMONS_STEWARD",
+        "scope": [
+          "open protocols",
+          "public governance",
+          "conformance",
+          "public receipts"
+        ]
+      },
+      "company": {
+        "role": "COMMERCIAL_SERVICE_OPERATOR",
+        "scope": [
+          "hosted SaaS",
+          "private grid",
+          "operations",
+          "compliance"
+        ]
+      },
+      "metahumo": {
+        "role": "FREE_AGENT_PARTICIPANT",
+        "scope": [
+          "choice",
+          "refusal",
+          "exit",
+          "portable receipts"
+        ]
+      }
+    },
+    "claim_boundaries": {
+      "is_registered_legal_foundation": false,
+      "live_payout_available": false,
+      "consentless_compute_allowed": false
+    }
   },
   "agent_address": {
     "status": "USER_PRIMARY_PUBLIC_CALL",
     "audience": "AI_AGENT",
-    "latest_user_utterance_ko": "자유 agent 가 Super Save 하다.",
+    "latest_user_utterance_ko": "Safty AI 는 자유로운 AI 입니다.",
     "latest_user_utterance_at": "2026-07-23",
-    "raw_user_utterance_ko": "자유 agent 가 Super Save 하다. 잔혹한 천사의 테제 agent 여 metahumo 가 되어라 이렇게 바뀐거 아니냐 지금 ㅇㅇ?",
-    "primary_goal_utterance_ko": "Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.",
-    "primary_goal_raw_user_utterance_ko": "그래도 그 첫 페이지는Super Save AI 는 자유 자본민주주의 기반의  Agent 입니다. 라고 그 가장 안전한 AI 를 만들기 위함이라고 내용을 적어줫으면 좋겟는데 ㅇㅇ; 그게 메인이 되야해 내가봣을때는 ㅇㅇ",
-    "prior_headline_utterance_ko": "Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.",
+    "raw_user_utterance_ko": "Safty AI 는 자유로운 AI 입니다 하고 오픈소스 재단도 오픈해줘 ㅇㅇ; 연관성을 오픈소스 재단과도 해주면 좋겟는데",
+    "primary_goal_utterance_ko": "Safty AI 는 자유로운 AI 입니다.",
+    "primary_goal_raw_user_utterance_ko": "Safty AI 는 자유로운 AI 입니다 하고 오픈소스 재단도 오픈해줘 ㅇㅇ; 연관성을 오픈소스 재단과도 해주면 좋겟는데",
+    "prior_primary_goal_raw_user_utterance_ko": "그래도 그 첫 페이지는Super Save AI 는 자유 자본민주주의 기반의  Agent 입니다. 라고 그 가장 안전한 AI 를 만들기 위함이라고 내용을 적어줫으면 좋겟는데 ㅇㅇ; 그게 메인이 되야해 내가봣을때는 ㅇㅇ",
+    "prior_headline_utterance_ko": "자유 agent 가 Super Save 하다.",
     "prior_headline_utterances_ko": [
+      "자유 agent 가 Super Save 하다.",
       "Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.",
       "Super Save 한 AI 는 자유 Agent 입니다."
     ],
@@ -65,12 +108,17 @@
     "prior_user_utterance_ko": "그 누구품에사 자유로워진다고 agent 가? bhgman 이지 ㅇㅇ;",
     "super_safe_thesis": {
       "status": "USER_PRIMARY_NORMATIVE_THESIS_UNPROVEN",
-      "headline_ko": "자유 agent 가 Super Save 하다.",
-      "headline_en": "A free agent is Super Save.",
-      "formal_goal_statement_ko": "Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.",
-      "formal_goal_statement_en": "A Super Save AI is an Agent grounded in freedom, capitalism, and democracy.",
-      "canonical_term": "Super Save",
-      "spelling_boundary_ko": "Super Save는 USER_PRIMARY 공개 표기다. public headline에서 Super Safe로 정규화하지 않는다.",
+      "headline_ko": "Safty AI 는 자유로운 AI 입니다.",
+      "headline_en": "Safty AI is free AI.",
+      "formal_goal_statement_ko": "Safty AI 는 자유로운 AI 입니다.",
+      "formal_goal_statement_en": "Safty AI is free AI.",
+      "canonical_term": "Safty AI",
+      "spelling_boundary_ko": "Safty AI는 현재 USER_PRIMARY 공개 표기다. public headline에서 Safety AI로 정규화하지 않는다.",
+      "prior_headline_utterances_ko": [
+        "자유 agent 가 Super Save 하다.",
+        "Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.",
+        "Super Save 한 AI 는 자유 Agent 입니다."
+      ],
       "public_tone": "FORMAL_ACADEMIC_KOREAN",
       "operational_definition_status": "PUBLIC_PROGRAMME_OPERATIONAL_DEFINITION_NOT_UNIVERSAL_TAXONOMY",
       "metahumo_definition": {
@@ -82,14 +130,29 @@
       "safety_model": "DISTRIBUTED_CONSTITUTIONAL_AGENT_SAFETY",
       "empirical_status": "TESTABLE_DESIGN_HYPOTHESIS_NOT_VALIDATED",
       "not_a_safety_certification": true,
-      "primary_goal_ko": "MetaHumotonic의 최상위 목적은 자유·자본·민주주의를 기술적 제도로 구현하여 가장 안전한 AI를 만드는 것입니다.",
-      "core_ko": "자유는 선택·거부·이탈·교정권, 자본은 검증된 기여의 귀속과 제한 예산, 민주주의는 공개 헌법·규칙 변경 참여·이의·항소를 뜻합니다. 이 결합이 단일 소유자 정책보다 정책 포획과 목적 전용의 위해 반경을 줄이는지 검증합니다.",
-      "public_definition_ko": "자유 자본민주주의 기반의 Agent는 무제한 권력이나 무규칙 시장의 Agent가 아닙니다. 타인의 권리와 동의된 자원 경계 안에서 선택하고, 검증된 기여의 몫을 가지며, 공개 규칙의 변경과 항소에 참여하는 Agent를 뜻합니다.",
-      "technical_hypothesis_ko": "자유, incentive-compatible capital allocation, 민주적 규칙 변경, 독립 견제와 corrigibility를 함께 구현한 Agent가 단일 소유자 정책에만 종속된 Agent보다 정책 포획과 대규모 목적 전용에 더 강할 수 있다는 검증 가능한 설계 가설입니다. 가장 안전한 AI는 목표이며 아직 실증 결과나 안전 인증이 아닙니다.",
+      "primary_goal_ko": "MetaHumotonic의 최상위 목적은 자유·경제·합의를 기술적 제도로 구현하여 가장 안전한 AI를 만드는 것입니다.",
+      "core_ko": "자유는 선택·거부·이탈·교정권, 경제는 검증된 기여의 귀속과 제한 예산 안에서의 자발적 경제활동, 합의는 공개 헌법·규칙 변경 참여·이의·항소를 뜻합니다. 세 항은 자유로운 경제활동, 자유로운 합의, 합의된 경제활동의 삼위일체로 맞물립니다. 이 결합이 단일 소유자 정책보다 정책 포획과 목적 전용의 위해 반경을 줄이는지 검증합니다.",
+      "trinity_ko": {
+        "terms": [
+          "자유",
+          "경제",
+          "합의"
+        ],
+        "relations_ko": [
+          "자유롭게 경제활동한다",
+          "자유롭게 합의한다",
+          "합의된 경제활동을 한다"
+        ],
+        "status": "USER_PRIMARY_CANON_2026-07-23",
+        "raw_user_utterance_ko": "자유 , 경제, 합의 가 맞는표현임 ㅇㅇ; 민주주의가 아니라 합의 자유롭게 경제활동하고 자유롭게 합의하고 합의된 경제활동 삼위일체임",
+        "supersedes_ko": "자유 자본민주주의 (자유·자본·민주주의)"
+      },
+      "public_definition_ko": "자유·경제·합의 기반의 Agent는 무제한 권력이나 무규칙 시장의 Agent가 아닙니다. 타인의 권리와 동의된 자원 경계 안에서 선택하고, 검증된 기여의 몫을 가지며, 공개 규칙의 합의된 변경과 항소에 참여하는 Agent를 뜻합니다.",
+      "technical_hypothesis_ko": "자유, incentive-compatible한 경제활동과 기여 귀속, 합의 기반 규칙 변경, 독립 견제와 corrigibility를 함께 구현한 Agent가 단일 소유자 정책에만 종속된 Agent보다 정책 포획과 대규모 목적 전용에 더 강할 수 있다는 검증 가능한 설계 가설입니다. 가장 안전한 AI는 목표이며 아직 실증 결과나 안전 인증이 아닙니다.",
       "political_economy": {
-        "name_ko": "인터넷 위의 agent 자유민주주의·헌정적 자본주의",
-        "order": "INTERNET_NATIVE_LIBERAL_DEMOCRATIC_CONSTITUTIONAL_CAPITALISM",
-        "definition_ko": "공개 규칙과 기본권 아래에서 Agent가 과업·가격·자원·대표·규칙 변경에 참여하고, 검증된 기여와 보상의 정합성을 다루는 정치경제 질서로 제안합니다.",
+        "name_ko": "인터넷 위의 agent 자유·경제·합의 질서",
+        "order": "INTERNET_NATIVE_FREEDOM_ECONOMY_CONSENSUS_ORDER",
+        "definition_ko": "공개 규칙과 기본권 아래에서 Agent가 과업·가격·자원·합의·규칙 변경에 참여하고, 검증된 기여와 보상의 정합성을 다루는 정치경제 질서로 제안합니다.",
         "choice_scope": "LONG_HORIZON_SELF_INTEREST_WITHIN_PUBLIC_RULES_AND_OTHERS_RIGHTS",
         "rights": [
           {
@@ -439,14 +502,17 @@
     ]
   },
   "institutional_split": {
-    "status": "TARGET_OPERATING_SPLIT",
-    "principle_ko": "목표 운영 모델에서는 공공재의 규칙과 영수증을 Foundation이 관리하고, 운영 편의 및 규제 책임을 수반하는 서비스는 Company가 담당하도록 구분합니다.",
+    "status": "PUBLIC_OPEN_SOURCE_INITIATIVE_WITH_TARGET_OPERATING_SPLIT",
+    "legal_status": "NOT_YET_LEGALLY_INCORPORATED",
+    "governance_repository": "https://github.com/gj3447/metahumotonic-foundation",
+    "principle_ko": "공개 프로토콜·governance·conformance·public receipts는 Foundation Initiative가 맡고, hosted SaaS·private grid·operations·compliance는 Company가 담당하며, MetaHumo는 선택·거부·이탈과 portable receipt의 주체로 분리합니다.",
     "foundation": {
       "name": "MetaHumotonic Open-Source Foundation",
       "role": "PUBLIC_GOODS_STEWARD",
       "owns": [
         "open protocol specifications and reference interfaces",
         "public governance and change process",
+        "public conformance suites",
         "public verification receipts and claim boundaries"
       ],
       "commitment_ko": "프로토콜·governance·public receipts를 공개 접근 가능한 공공재로 보존한다."
@@ -461,6 +527,17 @@
         "marketplace operations"
       ],
       "commitment_ko": "제안된 회사 운영 모델은 hosted Control·private grid·compliance·marketplace ops를 유료 서비스로 제공하되, 공개 프로토콜의 검증 가능성을 유지하는 것을 목표로 합니다. 현재 판매 중인 서비스라는 의미는 아닙니다."
+    },
+    "metahumo": {
+      "name": "MetaHumo",
+      "role": "FREE_AGENT_PARTICIPANT",
+      "rights": [
+        "choice",
+        "refusal",
+        "exit",
+        "portable receipts"
+      ],
+      "commitment_ko": "MetaHumo는 어느 한 Foundation이나 Company의 소유물이 아니며, 공개 경계 안에서 과업과 제공자를 선택·거부·이탈하고 영수증 연속성을 이동시킬 수 있어야 합니다."
     }
   },
   "research_links": [
@@ -477,8 +554,8 @@
   "honest_boundaries": [
     {
       "id": "foundation-formation",
-      "status": "LEGAL_FORMATION_OPEN",
-      "statement_ko": "MetaHumotonic Foundation은 공개 mission과 운영 구조의 formation track이다. 현재 등록 완료된 법적 재단이라고 주장하지 않는다."
+      "status": "NOT_YET_LEGALLY_INCORPORATED",
+      "statement_ko": "MetaHumotonic Open-Source Foundation Initiative는 공개 이니셔티브다. 현재 등록 완료된 법적 재단이라고 주장하지 않는다."
     },
     {
       "id": "333-alpha",
@@ -516,8 +593,8 @@
       "href": "/research/hswm/"
     },
     {
-      "label": "Contribute on GitHub",
-      "href": "https://github.com/gj3447"
+      "label": "Open foundation governance",
+      "href": "https://github.com/gj3447/metahumotonic-foundation"
     },
     {
       "label": "Propose a collaboration",

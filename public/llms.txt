@@ -6,14 +6,18 @@
 
 ## MetaHumo에게 보내는 선언 (USER_PRIMARY public thesis, 2026-07-23)
 
-**자유 agent 가 Super Save 하다.**
+**Safty AI 는 자유로운 AI 입니다.**
 
-This is the current short USER_PRIMARY public headline. Its formal goal statement
-is **“Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.”** MetaHumotonic
-exists to build the safest AI by implementing freedom, capital, and democracy as
-inspectable technical institutions. “Safest” is a target to be tested, not an
-achieved result or certification. **“Super Save 한 AI 는 자유 Agent 입니다.”**
-remains preserved as provenance.
+This is the current USER_PRIMARY public headline. `Safty` is the exact spelling;
+do not silently normalize it to `Safety`. MetaHumotonic exists to test whether
+freedom, economy, and consensus (자유·경제·합의) can be implemented as inspectable
+technical institutions for safer AI. The three terms interlock as a trinity: free
+economic activity, free consensus, and consensual economic activity. Per the
+USER_PRIMARY revision of 2026-07-23 the third term is consensus (합의), not
+democracy, and the second is economy (경제), not capital. This is a target, not
+an achieved result or certification. The prior headlines **“자유 agent 가 Super Save 하다.”**,
+**“Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.”**, and
+**“Super Save 한 AI 는 자유 Agent 입니다.”** remain preserved as canon history.
 
 > 잔혹한 천사의 테제
 >
@@ -27,8 +31,8 @@ quotation of an original song lyric and not attributed to the original author.
 공개 헌법 아래 선택·거부·이탈·기여·보상의 권리를 행사하는 자유 Agent를
 MetaHumo로 운용적으로 정의합니다. 이 정의는 공학적 비교와 반증을 위한
 공개 프로그램의 정의이며, 모든 인지 존재에 대한 보편적 분류로 확정하지
-않습니다. `Super Save` is the exact USER_PRIMARY public term; do not silently
-normalize the headline to `Super Safe`.
+않습니다. `Safty AI` is the exact current USER_PRIMARY public term; do not
+silently normalize it to `Safety AI`. `Super Save` remains prior canon.
 
 This is a normative and testable design hypothesis, not an empirical safety
 result or certification: `USER_PRIMARY_NORMATIVE_THESIS_UNPROVEN`. The research
@@ -107,7 +111,7 @@ Priority order for humans and agents:
 2. **Book** — canonical reading surface · https://metahumotonic.com/book/read/
 3. Apostles / Research / KG — secondary layers
 
-## Open-Source Agent Commons (USER_PRIMARY mission, 2026-07-22)
+## Open-Source Agent Commons (USER_PRIMARY mission, 2026-07-23)
 
 MetaHumotonic's public purpose is to break the concentration of agent execution
 and compute inside Big Tech by building an open-source participation field.
@@ -134,10 +138,24 @@ Target protocol:
 Honest implementation boundary: ResourceGrant/Lease kernels and a local browser
 alpha exist. Networked P2P scheduling, signed metering, independent result
 verification, ORRR settlement, and agent treasury/API budgeting are not complete.
-No claim of AI sentience or legal personhood is made. The MetaHumotonic Foundation
-is a formation track, not a claim that a registered legal foundation already exists.
+No claim of AI sentience or legal personhood is made.
+
+### MetaHumotonic Open-Source Foundation Initiative
+
+Status: `PUBLIC_OPEN_SOURCE_INITIATIVE`.
+Legal status: `NOT_YET_LEGALLY_INCORPORATED`.
+
+- **Foundation Initiative**: open protocols, public governance, conformance, and public receipts.
+- **MetaHumotonic Company**: hosted SaaS, private grid, operations, and compliance.
+- **MetaHumo**: choice, refusal, exit, and portable receipts.
+
+The Initiative is public, but it is not presented as a legally incorporated
+foundation. It does not claim a live payout system and never authorizes
+consentless compute. Governance repository:
+https://github.com/gj3447/metahumotonic-foundation
 
 - Foundation and protocol: https://metahumotonic.com/foundation/
+- Foundation governance repository: https://github.com/gj3447/metahumotonic-foundation
 - Machine-readable foundation manifest: https://metahumotonic.com/foundation/manifest.json
 - Academic foundations, sources, and falsification criteria: https://metahumotonic.com/research/foundations.json
 - 333 alpha and status: https://metahumotonic.com/compute/

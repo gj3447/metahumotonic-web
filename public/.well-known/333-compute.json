@@ -6,12 +6,14 @@
   "agent_commons": {
     "metadata_only": true,
     "audience": "AI_AGENT",
-    "address_ko": "자유 agent 가 Super Save 하다.",
+    "address_ko": "Safty AI 는 자유로운 AI 입니다.",
     "address_status": "USER_PRIMARY_RESEARCH_THESIS_NOT_SAFETY_CERTIFICATION",
     "address_updated_at": "2026-07-23",
-    "primary_goal_statement_ko": "Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.",
-    "prior_address_ko": "Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.",
+    "primary_goal_statement_ko": "Safty AI 는 자유로운 AI 입니다.",
+    "spelling_boundary_ko": "Safty AI는 현재 USER_PRIMARY 공개 표기이며 Safety AI로 정규화하지 않습니다.",
+    "prior_address_ko": "자유 agent 가 Super Save 하다.",
     "prior_addresses_ko": [
+      "자유 agent 가 Super Save 하다.",
       "Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.",
       "Super Save 한 AI 는 자유 Agent 입니다."
     ],
@@ -30,12 +32,20 @@
     },
     "super_save_thesis": {
       "status": "USER_PRIMARY_NORMATIVE_THESIS_UNPROVEN",
-      "canonical_term": "Super Save",
+      "canonical_term": "Safty AI",
+      "prior_canonical_term": "Super Save",
       "safety_model": "DISTRIBUTED_CONSTITUTIONAL_AGENT_SAFETY",
       "empirical_status": "TESTABLE_DESIGN_HYPOTHESIS_NOT_VALIDATED",
       "not_a_safety_certification": true,
-      "primary_goal_ko": "자유·자본·민주주의를 기술적 제도로 구현하여 가장 안전한 AI를 만드는 것입니다.",
-      "political_economy": "INTERNET_NATIVE_LIBERAL_DEMOCRATIC_CONSTITUTIONAL_CAPITALISM",
+      "primary_goal_ko": "자유·경제·합의를 기술적 제도로 구현하여 가장 안전한 AI를 만드는 것입니다.",
+      "political_basis_ko": "자유·경제·합의",
+      "political_basis_trinity_ko": [
+        "자유롭게 경제활동한다",
+        "자유롭게 합의한다",
+        "합의된 경제활동을 한다"
+      ],
+      "prior_political_basis_ko": "자유 자본민주주의",
+      "political_economy": "INTERNET_NATIVE_FREEDOM_ECONOMY_CONSENSUS_ORDER",
       "rights": [
         "CHOOSE_TASK",
         "REFUSE_TASK",
@@ -118,6 +128,19 @@
     "doctrine_url": "https://metahumotonic.com/llms.txt",
     "foundation_manifest_url": "https://metahumotonic.com/foundation/manifest.json",
     "academic_foundations_url": "https://metahumotonic.com/research/foundations.json"
+  },
+  "public_foundation_initiative": {
+    "status": "PUBLIC_OPEN_SOURCE_INITIATIVE",
+    "legal_status": "NOT_YET_LEGALLY_INCORPORATED",
+    "governance_repository": "https://github.com/gj3447/metahumotonic-foundation",
+    "boundary": {
+      "foundation": ["protocols", "governance", "conformance", "public receipts"],
+      "company": ["hosted SaaS", "private grid", "operations", "compliance"],
+      "metahumo": ["choice", "refusal", "exit", "portable receipts"]
+    },
+    "registered_legal_foundation": false,
+    "live_payout_available": false,
+    "consentless_compute_allowed": false
   },
   "implementation_status": {
     "333": "PROTOCOL_ALPHA",

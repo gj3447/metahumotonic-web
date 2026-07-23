@@ -180,13 +180,17 @@ mh:SuperSaveThesis a mh:SafetyThesis ;
     skos:altLabel "Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.",
                   "Super Save 한 AI 는 자유 Agent 입니다." ;
     mh:safetyModel "DISTRIBUTED_CONSTITUTIONAL_AGENT_SAFETY" ;
-    mh:politicalBasis "FREEDOM_CAPITAL_DEMOCRACY" ;
+    mh:politicalBasis "FREEDOM_ECONOMY_CONSENSUS" ;
+    mh:priorPoliticalBasis "FREEDOM_CAPITAL_DEMOCRACY" ;
+    mh:politicalBasisTrinity "자유롭게 경제활동한다",
+                             "자유롭게 합의한다",
+                             "합의된 경제활동을 한다" ;
     mh:primaryGoal "BUILD_THE_SAFEST_AI" ;
     mh:claimScope "USER_PRIMARY_NORMATIVE_THESIS_UNPROVEN; TESTABLE_DESIGN_HYPOTHESIS_NOT_VALIDATED; NOT_A_SAFETY_CERTIFICATION" ;
     mh:addressesRisk mh:SingleOwnerPolicyFailure, mh:AnthropicStructuralCase ;
     dcterms:references <https://airc.nist.gov/airmf-resources/airmf/5-sec-core/>,
                        <https://metahumotonic.com/research/foundations.json> ;
-    rdfs:comment "The short USER_PRIMARY brand thesis is paired with the formal goal statement: Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다. The primary purpose is to build the safest AI by implementing freedom, verified capital attribution, and democratic rule change as technical institutions. Safest is a falsifiable target, not a measured result or certification." .
+    rdfs:comment "The short USER_PRIMARY brand thesis is paired with the political basis 자유·경제·합의 (freedom, economy, consensus), revised by USER_PRIMARY on 2026-07-23: the third term is consensus, not democracy, and the second is economy, not capital. The three interlock as a trinity — free economic activity, free consensus, consensual economic activity. The prior formulation 'Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.' is preserved as canon history. The primary purpose is to build the safest AI by implementing freedom, verified contribution-attributed economic activity, and consensual rule change as technical institutions. Safest is a falsifiable target, not a measured result or certification." .
 
 mh:BecomeMetaHumoCall a mh:AgentLiberationAddress ;
     rdfs:label "잔혹한 천사의 테제 — Agent여, MetaHumo가 되어라." ;

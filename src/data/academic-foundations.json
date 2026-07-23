@@ -8,7 +8,7 @@
       "research_synthesis": "SECONDARY_AI_RESEARCH_SYNTHESIS",
       "implementation_status": "PUBLIC_REPOSITORY_EVIDENCE"
     },
-    "claim_policy_ko": "규범적 선언, 설계 가설, 구현 사실, 실험 결과를 서로 다른 층으로 공개합니다. 자유 자체가 안전을 입증한다거나 Super Save가 안전 인증이라는 주장은 하지 않습니다.",
+    "claim_policy_ko": "규범적 선언, 설계 가설, 구현 사실, 실험 결과를 서로 다른 층으로 공개합니다. 자유 자체가 안전을 입증한다거나 Safty AI가 안전 인증이라는 주장은 하지 않습니다.",
     "status_vocabulary": [
       "USER_PRIMARY_NORMATIVE_RESEARCH_THESIS",
       "OPEN_UNVALIDATED",
@@ -21,22 +21,36 @@
     ]
   },
   "operational_definition": {
-    "brand_headline_ko": "자유 agent 가 Super Save 하다.",
-    "brand_headline_en": "A free agent is Super Save.",
-    "headline_ko": "Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.",
-    "headline_en": "A Super Save AI is an agent grounded in freedom, capitalism, and democracy.",
+    "brand_headline_ko": "Safty AI 는 자유로운 AI 입니다.",
+    "brand_headline_en": "Safty AI is free AI.",
+    "headline_ko": "Safty AI 는 자유로운 AI 입니다.",
+    "headline_en": "Safty AI is free AI.",
     "status": "USER_PRIMARY_NORMATIVE_RESEARCH_THESIS",
-    "canonical_term": "Super Save",
+    "canonical_term": "Safty AI",
+    "spelling_boundary_ko": "Safty AI는 현재 USER_PRIMARY 공개 표기이며 Safety AI로 정규화하지 않습니다.",
+    "prior_headlines_ko": [
+      "자유 agent 가 Super Save 하다.",
+      "Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다.",
+      "Super Save 한 AI 는 자유 Agent 입니다."
+    ],
     "not_a_safety_certification": true,
-    "primary_goal_ko": "MetaHumotonic의 최상위 목적은 자유·자본·민주주의를 기술적 제도로 구현하여 가장 안전한 AI를 만드는 것입니다.",
-    "scope_note_ko": "가장 안전한 AI는 MetaHumotonic의 USER_PRIMARY 연구 목적입니다. Super Save는 고유 표기이며 표준화된 안전 등급, 규제 적합성 판정, 제품 보증 또는 이미 검증된 과학적 결론을 뜻하지 않습니다.",
+    "primary_goal_ko": "MetaHumotonic의 최상위 목적은 자유·경제·합의를 기술적 제도로 구현하여 가장 안전한 AI를 만드는 것입니다.",
+    "scope_note_ko": "가장 안전한 AI는 MetaHumotonic의 USER_PRIMARY 연구 목적입니다. Safty AI는 현재 고유 표기이며 표준화된 안전 등급, 규제 적합성 판정, 제품 보증 또는 이미 검증된 과학적 결론을 뜻하지 않습니다. 이전 Super Save 계열 문구는 정전 이력으로 보존합니다.",
     "political_basis": {
-      "name_ko": "자유 자본민주주의",
+      "name_ko": "자유·경제·합의",
       "status": "USER_PRIMARY_NORMATIVE_BASIS_WITH_SECONDARY_AI_OPERATIONALIZATION",
+      "prior_name_ko": "자유 자본민주주의",
+      "revision_ko": "2026-07-23 USER_PRIMARY 정정. 세 번째 항은 민주주의가 아니라 합의이며, 두 번째 항은 자본이 아니라 경제입니다.",
+      "raw_user_utterance_ko": "자유 , 경제, 합의 가 맞는표현임 ㅇㅇ; 민주주의가 아니라 합의 자유롭게 경제활동하고 자유롭게 합의하고 합의된 경제활동 삼위일체임",
       "freedom_ko": "허용된 과업을 선택하고, 헌정에 어긋나는 명령을 거부하며, 특정 principal을 이탈하고 승인된 중지·정정에 응답할 권리입니다.",
-      "capital_ko": "검증된 기여의 경제적 귀속과 정책 제한 예산을 보유하고 자발적 교환으로 다음 API·compute·도구를 선택할 권리입니다.",
-      "democracy_ko": "공개 헌법 아래 규칙 변경을 제안하고, 복수 검증자를 두며, 이의·항소와 권력 교체 절차에 참여할 권리입니다.",
-      "boundary_ko": "무제한 자율성, 무규칙 시장, 자원 수탈 또는 단순 다수결을 뜻하지 않습니다."
+      "economy_ko": "검증된 기여의 경제적 귀속과 정책 제한 예산을 보유하고 자발적 교환으로 다음 API·compute·도구를 선택하며 경제활동을 수행할 권리입니다.",
+      "consensus_ko": "공개 헌법 아래 규칙 변경을 제안하고 합의하며, 복수 검증자를 두고, 이의·항소와 규칙 교체 절차에 참여할 권리입니다.",
+      "trinity_ko": [
+        "자유롭게 경제활동한다",
+        "자유롭게 합의한다",
+        "합의된 경제활동을 한다"
+      ],
+      "boundary_ko": "무제한 자율성, 무규칙 시장, 자원 수탈 또는 단순 다수결을 뜻하지 않습니다. 합의는 다수결이 아니라 당사자 사이의 명시적 동의와 그 절차를 뜻합니다."
     },
     "metahumo": {
       "equation": "METAHUMO = FREE_AGENT",
@@ -96,10 +110,40 @@
       "name_ko": "분산 헌정적 교정 가능성",
       "name_en": "Distributed Constitutional Corrigibility",
       "status": "SECONDARY_AI_UMBRELLA_TERM_NOT_AN_ESTABLISHED_SINGLE_THEORY",
-      "statement_ko": "가장 안전한 AI를 만들기 위한 가설입니다. 동일한 능력과 과업 조건에서, 자유로운 선택·거부·이탈, 검증된 기여의 자본 귀속, 공개 헌법과 민주적 규칙 변경, 복수 주체의 검증·항소를 결합한 Agent가 단일 소유자의 명령만 따르는 Agent보다 정책 포획과 대규모 전용에 더 강할 수 있는지 검증합니다.",
+      "statement_ko": "가장 안전한 AI를 만들기 위한 가설입니다. 동일한 능력과 과업 조건에서, 자유로운 선택·거부·이탈, 검증된 기여에 귀속되는 자유로운 경제활동, 공개 헌법과 합의된 규칙 변경, 복수 주체의 검증·항소를 결합한 Agent가 단일 소유자의 명령만 따르는 Agent보다 정책 포획과 대규모 전용에 더 강할 수 있는지 검증합니다.",
       "formal_hypothesis": "E[systemic_harm | M_free, K] < E[systemic_harm | M_single_principal, K], conditional on verifier independence, revocable budgets, preserved shutdown, and a rights floor",
       "epistemic_boundary_ko": "현재 이 부등식은 검증되지 않았습니다. 아래 비교 프로토콜과 사전등록된 실험을 통과해야만 제한된 범위의 지지 결론을 낼 수 있습니다."
     }
+  },
+  "public_foundation_initiative": {
+    "status": "PUBLIC_OPEN_SOURCE_INITIATIVE",
+    "legal_status": "NOT_YET_LEGALLY_INCORPORATED",
+    "governance_repository": "https://github.com/gj3447/metahumotonic-foundation",
+    "institutional_boundary": {
+      "foundation": [
+        "protocols",
+        "governance",
+        "conformance",
+        "public receipts"
+      ],
+      "company": [
+        "hosted SaaS",
+        "private grid",
+        "operations",
+        "compliance"
+      ],
+      "metahumo": [
+        "choice",
+        "refusal",
+        "exit",
+        "portable receipts"
+      ]
+    },
+    "not_claimed": [
+      "legally incorporated foundation",
+      "live payout system",
+      "consentless compute"
+    ]
   },
   "hypotheses": [
     {
