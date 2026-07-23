@@ -1,0 +1,10 @@
+[Unit]
+Description=metahumotonic.com landing release (deploy branch -> docker bind-mount release)
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/landing-astro-release
+Nice=10
+IOSchedulingClass=idle

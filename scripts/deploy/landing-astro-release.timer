@@ -1,0 +1,11 @@
+[Unit]
+Description=poll deploy branch for metahumotonic.com landing (light: sha probe only)
+
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=5min
+AccuracySec=30s
+Unit=landing-astro-release.service
+
+[Install]
+WantedBy=timers.target
