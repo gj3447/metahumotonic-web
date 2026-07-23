@@ -107,7 +107,11 @@ test('academic product root preserves the target operating model and consent bou
   assert.match(foundationPage, /AGENT COMMONS/);
   assert.equal(foundation._meta.schema_version, 'metahumotonic-agent-commons/v2');
   assert.equal(foundation.identity.free_agent_name, 'MetaHumo');
-  assert.equal(academic.operational_definition.headline_ko, 'Safty AI 는 자유로운 AI 입니다.');
+  assert.equal(academic.operational_definition.headline_ko, 'Ultra Safety AI');
+  assert.equal(
+    academic.operational_definition.prior_headlines_ko.includes('Safty AI 는 자유로운 AI 입니다.'),
+    true,
+  );
   assert.match(academic.operational_definition.primary_goal_ko, /가장 안전한 AI/);
   assert.match(academic.operational_definition.primary_goal_ko, /자유·경제·합의/);
   assert.equal(academic.operational_definition.political_basis.name_ko, '자유·경제·합의');
@@ -337,9 +341,23 @@ test('landing page carries only the headline, the four rings, and the mission', 
     assert.match(main, new RegExp(`ring ring--${ring}`), `${ring} ring missing`);
   }
   assert.match(mainText, /MetaHumotonic의 사명은 자유·경제·합의를 기술적 제도로 구현하여 가장 안전한 AI를 만드는 것입니다\./);
-  // 랜딩은 헤드라인·링·사명 외의 설명을 싣지 않는다. 나머지 info는 /system/ 으로 간다.
-  assert.doesNotMatch(mainText, /잔혹한 천사의 테제|METAHUMO = FREE AGENT|INSTITUTIONAL ARCHITECTURE|OPEN RESEARCH|FALSIFIABLE|자본민주주의/);
+  // 첫 화면은 마크·헤드라인·사명·스크롤 힌트만. 설명 문단은 아래 섹션과 /system/ 으로 간다.
+  assert.doesNotMatch(mainText, /잔혹한 천사의 테제|METAHUMO = FREE AGENT|INSTITUTIONAL ARCHITECTURE|FALSIFIABLE|자본민주주의/);
   assert.doesNotMatch(productRoot, /data-mh-feedback/);
+
+  // 첫 화면 아래: 실측 날짜가 붙은 연구 카드 3장 + 오픈소스 재단 섹션
+  for (const name of ['HSWM', 'LakatoTree', '333']) {
+    assert.match(productRoot, new RegExp(`<h3>${name}</h3>`), `${name} card missing`);
+  }
+  for (const accent of ['cyan', 'magenta', 'yellow']) {
+    assert.match(productRoot, new RegExp(`bare-card bare-card--${accent}`));
+  }
+  assert.equal((productRoot.match(/LAST COMMIT/g) || []).length, 3);
+  assert.match(productRoot, /\d{4}-\d{2}-\d{2}/);
+  assert.match(productRoot, /AGPL-3\.0/);
+  assert.match(productRoot, /02 \/ OPEN-SOURCE FOUNDATION/);
+  assert.match(productRoot, /https:\/\/github\.com\/gj3447\/metahumotonic-foundation/);
+  assert.match(productRoot, /법인 설립은 아직 완료되지 않았습니다/);
 
   assert.match(systemPage, /data-mh-feedback data-feedback-endpoint="\/api\/feedback"/);
   assert.match(systemPage, /href="\/css\/feedback-form\.css"/);

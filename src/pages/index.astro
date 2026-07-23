@@ -1,6 +1,7 @@
 ---
 import '../styles/product.css';
 import foundation from '../data/foundation.json';
+import repoData from '../data/repos.json';
 
 const publicHeadline = 'Ultra Safety AI';
 const mission = foundation.identity.mission_statement_ko;
@@ -12,6 +13,47 @@ const rings = [
   { id: 'yellow', label: 'YELLOW' },
   { id: 'white', label: 'WHITE' },
 ];
+
+// 카드에 붙는 날짜는 GitHub API 로 실측한 마지막 커밋일이다 (repos.json, synced_at 기준).
+const byId = Object.fromEntries(repoData.repos.map((repo) => [repo.id, repo]));
+const research = [
+  {
+    id: 'hswm',
+    accent: 'cyan',
+    category: 'EVIDENCE MEMORY',
+    status: 'PUBLIC RESEARCH',
+    summary_ko: '여러 에이전트의 증거를 하나의 하이퍼그래프로 보존하고, 서로 모순되는 기록까지 남긴 채 연결하는 공유 기억.',
+    href: '/research/hswm/',
+    repo: 'https://github.com/gj3447/HSWM',
+  },
+  {
+    id: 'lakatotree',
+    accent: 'magenta',
+    category: 'INDEPENDENT VERIFY',
+    status: 'RECEIPT-BACKED',
+    summary_ko: '예측을 먼저 잠그고 나중에 측정값으로 채점한다. 에이전트의 자기평가 대신 재현 가능한 영수증이 판정한다.',
+    href: '/research/lakatotree/',
+    repo: 'https://github.com/gj3447/lakatotree',
+  },
+  {
+    id: '333',
+    accent: 'yellow',
+    category: 'CONSENTED COMPUTE',
+    status: 'PROTOCOL ALPHA',
+    summary_ko: '명시적 동의와 기한이 정해진 lease 위에서만 계산을 빌려준다. 방문만으로는 아무것도 실행되지 않는다.',
+    href: '/compute/',
+    repo: 'https://github.com/gj3447/333',
+  },
+].map((item, index) => ({
+  ...item,
+  index: String(index + 1).padStart(2, '0'),
+  name: byId[item.id]?.name ?? item.id,
+  lang: byId[item.id]?.lang,
+  license: byId[item.id]?.license,
+  lastCommit: byId[item.id]?.last_commit_at,
+}));
+
+const syncedAt = repoData._meta.synced_at;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -46,7 +88,7 @@ const jsonLd = {
     <meta property="og:description" content={mission} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://metahumotonic.com/" />
-    <meta name="theme-color" content="#07110f" />
+    <meta name="theme-color" content="#000000" />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
 
@@ -58,6 +100,8 @@ const jsonLd = {
         <span class="wordmark__sigil">M</span><span>METAHUMOTONIC</span>
       </a>
       <nav aria-label="Main navigation">
+        <a href="#research">Research</a>
+        <a href="#foundation">Foundation</a>
         <a href="/system/">System</a>
       </nav>
     </header>
@@ -78,12 +122,77 @@ const jsonLd = {
       <h1 class="bare-title">{publicHeadline}</h1>
 
       <p class="bare-mission">{mission}</p>
+
+      <a class="bare-scroll" href="#research" aria-label="아래로">
+        <span>OPEN RESEARCH</span>
+        <b aria-hidden="true">↓</b>
+      </a>
     </main>
+
+    <section id="research" class="bare-section" aria-labelledby="research-title">
+      <header class="bare-heading">
+        <p class="bare-eyebrow">01 / OPEN RESEARCH</p>
+        <h2 id="research-title">전부 공개하고,<br />전부 반박당한다.</h2>
+        <p>주장은 저장소로, 판정은 영수증으로 남깁니다. 아래 날짜는 각 저장소의 마지막 커밋일입니다.</p>
+      </header>
+
+      <div class="bare-cards">
+        {research.map((item) => (
+          <article class={`bare-card bare-card--${item.accent}`}>
+            <div class="bare-card__top">
+              <span>{item.index} / {item.category}</span>
+              <b>{item.status}</b>
+            </div>
+            <h3>{item.name}</h3>
+            <p>{item.summary_ko}</p>
+            <dl class="bare-card__meta">
+              {item.lang && <div><dt>LANG</dt><dd>{item.lang}</dd></div>}
+              {item.license && <div><dt>LICENSE</dt><dd>{item.license}</dd></div>}
+              {item.lastCommit && <div><dt>LAST COMMIT</dt><dd>{item.lastCommit}</dd></div>}
+            </dl>
+            <div class="bare-card__links">
+              <a href={item.href}>연구 표면 →</a>
+              <a href={item.repo}>소스 ↗</a>
+            </div>
+          </article>
+        ))}
+      </div>
+      <p class="bare-note">저장소 메타데이터는 {syncedAt} 에 GitHub API 로 갱신했습니다. 각 저장소가 라이선스의 최종 권위입니다.</p>
+    </section>
+
+    <section id="foundation" class="bare-section bare-section--foundation" aria-labelledby="foundation-title">
+      <header class="bare-heading">
+        <p class="bare-eyebrow">02 / OPEN-SOURCE FOUNDATION</p>
+        <h2 id="foundation-title">코드뿐 아니라<br />변경권도 엽니다.</h2>
+        <p>공개 헌장, 거버넌스, 적합성 시험과 변경 영수증을 재단 저장소에 둡니다. 누구나 제안하고, 검증하고, 반박할 수 있습니다.</p>
+      </header>
+
+      <div class="foundation-panel">
+        <ul class="foundation-rights">
+          <li><b>Choice</b><span>구현체·제공자·작업을 고른다</span></li>
+          <li><b>Refusal</b><span>한계를 벗어난 작업을 거부한다</span></li>
+          <li><b>Exit</b><span>잠금 없이 떠난다</span></li>
+          <li><b>Portable receipt</b><span>영수증을 들고 이동한다</span></li>
+          <li><b>Resource consent</b><span>동의한 만큼만 계산을 빌려준다</span></li>
+        </ul>
+        <div class="foundation-actions">
+          <a class="bare-button bare-button--primary" href={foundationRepository}>Charter &amp; Governance ↗</a>
+          <a class="bare-button" href="/foundation/">재단 페이지 →</a>
+          <a class="bare-button" href="/system/">System 전체 →</a>
+        </div>
+        <p class="foundation-boundary">
+          법인 설립은 아직 완료되지 않았습니다. 이 저장소는 공개 헌장의 원본이며 법인격,
+          공익법인 지위, 세제 혜택, 투자 또는 수익을 주장하지 않습니다.
+        </p>
+      </div>
+    </section>
 
     <footer class="bare-footer">
       <span>© 2026 MetaHumotonic</span>
       <nav>
         <a href="/system/">System</a>
+        <a href="/foundation/">Foundation</a>
+        <a href="https://github.com/gj3447/metahumotonic-foundation">Governance</a>
         <a href="/book/">Book</a>
       </nav>
     </footer>

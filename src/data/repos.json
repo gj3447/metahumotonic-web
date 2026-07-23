@@ -2,7 +2,8 @@
   "_meta": {
     "source": "gj3447 public repos",
     "note": "공개 코드 repo — 사이트에서 열람 가능 (public only). private repo는 등재하지 않음.",
-    "synced_at": "2026-07-22"
+    "synced_at": "2026-07-23",
+    "sync_method": "GitHub REST API /repos/gj3447/<name> — pushed_at, license, language 실측"
   },
   "repos": [
     {
@@ -13,7 +14,13 @@
       "url": "https://github.com/gj3447/HSWM",
       "highlight": true,
       "color": "#76f7b0",
-      "tags": ["weighted hypergraph", "auditable memory", "public research"]
+      "tags": [
+        "weighted hypergraph",
+        "auditable memory",
+        "public research"
+      ],
+      "last_commit_at": "2026-07-23",
+      "license": "AGPL-3.0"
     },
     {
       "id": "333",
@@ -23,7 +30,13 @@
       "url": "https://github.com/gj3447/333",
       "highlight": true,
       "color": "#00d7a3",
-      "tags": ["P2P compute", "consensusless transfer", "AGPL-3.0-only"]
+      "tags": [
+        "P2P compute",
+        "consensusless transfer",
+        "AGPL-3.0-only"
+      ],
+      "last_commit_at": "2026-07-22",
+      "license": "AGPL-3.0"
     },
     {
       "id": "lakatotree",
@@ -33,7 +46,13 @@
       "url": "https://github.com/gj3447/lakatotree",
       "highlight": true,
       "color": "#2563eb",
-      "tags": ["deterministic scoring", "research programmes", "receipt-backed"]
+      "tags": [
+        "deterministic scoring",
+        "research programmes",
+        "receipt-backed"
+      ],
+      "last_commit_at": "2026-07-23",
+      "license": "AGPL-3.0"
     },
     {
       "id": "bhgman_tool",
@@ -43,7 +62,11 @@
       "url": "https://github.com/gj3447/bhgman_tool",
       "highlight": false,
       "color": "#f59e0b",
-      "tags": ["multi-agent", "Lean 4 verified", "KG-anchored"]
+      "tags": [
+        "multi-agent",
+        "Lean 4 verified",
+        "KG-anchored"
+      ]
     }
   ]
 }
