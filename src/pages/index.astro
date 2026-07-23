@@ -63,17 +63,19 @@ const jsonLd = {
     </header>
 
     <main class="bare-main">
-      <h1 class="bare-title">{publicHeadline}</h1>
-
-      <div class="ring-grid" aria-hidden="true">
-        {rings.map((ring) => (
-          <div class={`ring ring--${ring.id}`}>
-            <svg viewBox="0 0 100 100" role="presentation" focusable="false">
-              <circle cx="50" cy="50" r="41" />
-            </svg>
-          </div>
-        ))}
+      <div class="mark" aria-hidden="true">
+        <div class="ring-grid">
+          {rings.map((ring) => (
+            <div class={`ring ring--${ring.id}`}>
+              <svg viewBox="0 0 100 100" role="presentation" focusable="false">
+                <circle cx="50" cy="50" r="41" />
+              </svg>
+            </div>
+          ))}
+        </div>
       </div>
+
+      <h1 class="bare-title">{publicHeadline}</h1>
 
       <p class="bare-mission">{mission}</p>
     </main>
