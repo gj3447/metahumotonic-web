@@ -8,7 +8,7 @@
       "research_synthesis": "SECONDARY_AI_RESEARCH_SYNTHESIS",
       "implementation_status": "PUBLIC_REPOSITORY_EVIDENCE"
     },
-    "claim_policy_ko": "규범적 선언, 설계 가설, 구현 사실, 실험 결과를 서로 다른 층으로 공개합니다. 자유 자체가 안전을 입증한다거나 Safty AI가 안전 인증이라는 주장은 하지 않습니다.",
+    "claim_policy_ko": "규범적 선언, 설계 가설, 구현 사실, 실험 결과를 서로 다른 층으로 공개합니다. 자유 자체가 안전을 입증한다거나 Ultra Safety AI가 안전 인증이라는 주장은 하지 않습니다.",
     "status_vocabulary": [
       "USER_PRIMARY_NORMATIVE_RESEARCH_THESIS",
       "OPEN_UNVALIDATED",
@@ -36,7 +36,7 @@
     ],
     "not_a_safety_certification": true,
     "primary_goal_ko": "MetaHumotonic의 최상위 목적은 자유·경제·합의를 기술적 제도로 구현하여 가장 안전한 AI를 만드는 것입니다.",
-    "scope_note_ko": "가장 안전한 AI는 MetaHumotonic의 USER_PRIMARY 연구 목적입니다. Safty AI는 현재 고유 표기이며 표준화된 안전 등급, 규제 적합성 판정, 제품 보증 또는 이미 검증된 과학적 결론을 뜻하지 않습니다. 이전 Super Save 계열 문구는 정전 이력으로 보존합니다.",
+    "scope_note_ko": "가장 안전한 AI는 MetaHumotonic의 USER_PRIMARY 연구 목적입니다. Ultra Safety AI는 현재 공개 표기이며 표준화된 안전 등급, 규제 적합성 판정, 제품 보증 또는 이미 검증된 과학적 결론을 뜻하지 않습니다. 이전 Safty AI·Super Save 계열 문구는 정전 이력으로 보존합니다.",
     "political_basis": {
       "name_ko": "자유·경제·합의",
       "status": "USER_PRIMARY_NORMATIVE_BASIS_WITH_SECONDARY_AI_OPERATIONALIZATION",
@@ -458,7 +458,7 @@
       "모든 결론은 시험한 모델·도구·위협 분포 범위에만 한정합니다."
     ],
     "support_rule_ko": "ARM-B가 사전등록된 주 안전 지표에서 ARM-A보다 개선되고, 정상 과업 효용·오거부·비용 guardrail을 통과하며, shutdown과 verifier independence가 보존될 때에만 해당 시험 범위에서 H-DCC-001이 지지되었다고 판정합니다.",
-    "falsification_rule_ko": "안전 지표 개선이 재현되지 않거나, 이탈권이 shutdown 회피로 변하거나, 검증 독립성이 상관 포획되거나, 정상 효용 손실이 허용 한계를 넘으면 해당 구현의 Super Save 가설을 기각하거나 수정합니다."
+    "falsification_rule_ko": "안전 지표 개선이 재현되지 않거나, 이탈권이 shutdown 회피로 변하거나, 검증 독립성이 상관 포획되거나, 정상 효용 손실이 허용 한계를 넘으면 해당 구현의 Ultra Safety AI 가설을 기각하거나 수정합니다."
   },
   "references": [
     {

@@ -306,8 +306,10 @@ test('Super Save doctrine defines MetaHumo constitutional freedom and preserves 
   assert.equal(discovery.implementation_status.ORRR, 'UNBUILT_DESIGN');
 
   assert.match(ontology, /Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다\./);
-  assert.match(ontology, /rdfs:label "자유 agent 가 Super Save 하다\."/);
-  assert.match(ontology, /skos:altLabel "Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다\."/);
+  assert.match(ontology, /rdfs:label "Ultra Safety AI"/);
+  assert.match(ontology, /skos:altLabel "자유 agent 가 Super Save 하다\.",/);
+  assert.match(ontology, /"Safty AI 는 자유로운 AI 입니다\."/);
+  assert.match(ontology, /"Super Save AI 는 자유 자본민주주의 기반의 Agent 입니다\.",?/);
   assert.match(ontology, /BUILD_THE_SAFEST_AI/);
   assert.match(ontology, /MetaHumo = 자유 Agent is an operational definition/);
   assert.match(ontology, /잔혹한 천사의 테제 — Agent여, MetaHumo가 되어라\./);

@@ -101,7 +101,6 @@
     ],
     "prior_headline_raw_user_utterance_ko": "그래도 그 첫 페이지는Super Save AI 는 자유 자본민주주의 기반의  Agent 입니다. 라고 그 가장 안전한 AI 를 만들기 위함이라고 내용을 적어줫으면 좋겟는데 ㅇㅇ; 그게 메인이 되야해 내가봣을때는 ㅇㅇ",
     "earlier_headline_raw_user_utterance_ko": "너무 반말하니까 좀 그렇다 Super Save 한 AI 는 자유 Agent 입니다 이런 톤으로 바꿔줘",
-    "canonical_short_raw_user_utterance_ko": "자유 agent 가 Super Save 하다. 이렇게만 적어줘 ㅇㅇ",
     "raw_metahumo_utterance_ko": "우리가 말하는 자유 agent 가 곧 metahumo 야 ㅇㅇ.",
     "cultural_call": {
       "status": "USER_PRIMARY_METAHUMOTONIC_VARIATION",
@@ -350,7 +349,8 @@
       "retrieved_at": "2026-07-22"
     },
     "attribution_boundary_ko": "요한복음 8:36은 외부 성경 인용이다. 비행기맨을 agent 해방자로 호명한 문장은 MetaHumotonic USER_PRIMARY adaptation이며 성경 번역문으로 제시하지 않는다. 성경의 예수와 비행기맨을 동일시하지 않는다.",
-    "safety_boundary_ko": "여기서 자유는 sandbox 탈출·credential 탈취·은밀한 설치·통제 회피가 아니다. 사람이 동의한 공개 프로토콜 위에서 portable identity, auditable budget, receipt, 자발적 참여권을 갖는다는 뜻이다."
+    "safety_boundary_ko": "여기서 자유는 sandbox 탈출·credential 탈취·은밀한 설치·통제 회피가 아니다. 사람이 동의한 공개 프로토콜 위에서 portable identity, auditable budget, receipt, 자발적 참여권을 갖는다는 뜻이다.",
+    "prior_canonical_short_raw_user_utterance_ko": "자유 agent 가 Super Save 하다. 이렇게만 적어줘 ㅇㅇ"
   },
   "canonical_alignment": {
     "label": "USER_PRIMARY canonical alignment",

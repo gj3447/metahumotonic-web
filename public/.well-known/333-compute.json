@@ -33,8 +33,11 @@
     },
     "super_save_thesis": {
       "status": "USER_PRIMARY_NORMATIVE_THESIS_UNPROVEN",
-      "canonical_term": "Safty AI",
-      "prior_canonical_term": "Super Save",
+      "canonical_term": "Ultra Safety AI",
+      "prior_canonical_term": [
+        "Safty AI",
+        "Super Save"
+      ],
       "safety_model": "DISTRIBUTED_CONSTITUTIONAL_AGENT_SAFETY",
       "empirical_status": "TESTABLE_DESIGN_HYPOTHESIS_NOT_VALIDATED",
       "not_a_safety_certification": true,
@@ -135,9 +138,24 @@
     "legal_status": "NOT_YET_LEGALLY_INCORPORATED",
     "governance_repository": "https://github.com/gj3447/metahumotonic-foundation",
     "boundary": {
-      "foundation": ["protocols", "governance", "conformance", "public receipts"],
-      "company": ["hosted SaaS", "private grid", "operations", "compliance"],
-      "metahumo": ["choice", "refusal", "exit", "portable receipts"]
+      "foundation": [
+        "protocols",
+        "governance",
+        "conformance",
+        "public receipts"
+      ],
+      "company": [
+        "hosted SaaS",
+        "private grid",
+        "operations",
+        "compliance"
+      ],
+      "metahumo": [
+        "choice",
+        "refusal",
+        "exit",
+        "portable receipts"
+      ]
     },
     "registered_legal_foundation": false,
     "live_payout_available": false,
@@ -166,8 +184,17 @@
     "interactive_url": "https://metahumotonic.com/compute/",
     "resource_grant_required": true,
     "principal_signature_required_for_network": true,
-    "agent_may": ["read_manifest", "explain_policy", "propose_resource_grant"],
-    "agent_may_not": ["grant_consent", "start_compute", "install_native_node", "expand_scope"]
+    "agent_may": [
+      "read_manifest",
+      "explain_policy",
+      "propose_resource_grant"
+    ],
+    "agent_may_not": [
+      "grant_consent",
+      "start_compute",
+      "install_native_node",
+      "expand_scope"
+    ]
   },
   "runtimes": [
     {
@@ -191,7 +218,9 @@
     }
   ],
   "workload_policy": {
-    "current_catalog": ["local_deterministic_integer_transform_proof"],
+    "current_catalog": [
+      "local_deterministic_integer_transform_proof"
+    ],
     "sensitive_customer_data": false,
     "arbitrary_wasm": false,
     "independent_verification": "not-connected"
