@@ -976,31 +976,31 @@ main, .product-footer { width: min(1240px, calc(100% - 40px)); margin-inline: au
   .bare-main { gap: 34px; }
 }
 
-/* ── Light landing (USER 2026-07-23: 흰 배경 + 시안·마젠타·옐로 은은한 그라데이션) ── */
+/* ── Black landing (USER 2026-07-23: 검정 배경 + 흰 글씨, 그라데이션은 포인트) ── */
 .landing-page--bare {
-  --ink: #101014;
-  --muted: #6a6a74;
-  --line: rgba(16, 16, 20, 0.1);
-  --mh-cyan: #00b3c7;
-  --mh-magenta: #d81b8c;
-  --mh-yellow: #e8a800;
+  --ink: #ffffff;
+  --muted: #8b8b95;
+  --line: rgba(255, 255, 255, 0.12);
+  --mh-cyan: #22d8e8;
+  --mh-magenta: #ff44c4;
+  --mh-yellow: #ffd23d;
   color: var(--ink);
   background:
-    radial-gradient(58vw 46vw at 12% 6%, rgba(0, 209, 232, 0.20), transparent 62%),
-    radial-gradient(54vw 44vw at 88% 12%, rgba(255, 62, 190, 0.16), transparent 62%),
-    radial-gradient(62vw 48vw at 50% 104%, rgba(255, 208, 40, 0.20), transparent 60%),
-    #ffffff;
+    radial-gradient(46vw 34vw at 14% 4%, rgba(34, 216, 232, 0.16), transparent 60%),
+    radial-gradient(44vw 32vw at 86% 8%, rgba(255, 68, 196, 0.13), transparent 60%),
+    radial-gradient(56vw 38vw at 50% 102%, rgba(255, 210, 61, 0.12), transparent 58%),
+    #000000;
 }
 .landing-page--bare .grid-field {
-  opacity: .5;
+  opacity: .4;
   background-image:
-    linear-gradient(rgba(16,16,20,.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16,16,20,.045) 1px, transparent 1px);
-  mask-image: linear-gradient(to bottom, black, transparent 62%);
+    linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  mask-image: linear-gradient(to bottom, black, transparent 60%);
 }
 .landing-page--bare .product-nav { border-bottom-color: var(--line); }
 .landing-page--bare .wordmark { color: var(--ink); }
-.landing-page--bare .wordmark__sigil { border-color: rgba(16,16,20,.24); color: var(--ink); }
+.landing-page--bare .wordmark__sigil { border-color: rgba(255,255,255,.3); color: var(--ink); }
 .landing-page--bare .product-nav nav a { color: var(--muted); }
 .landing-page--bare .product-nav nav a:hover { color: var(--ink); }
 .landing-page--bare .bare-title { color: var(--ink); }
@@ -1008,20 +1008,20 @@ main, .product-footer { width: min(1240px, calc(100% - 40px)); margin-inline: au
 .landing-page--bare .bare-footer { border-top-color: var(--line); color: var(--muted); }
 
 .landing-page--bare .ring circle {
-  stroke-width: 1.6;
+  stroke-width: 1.7;
   filter: none;
   opacity: 1;
 }
 .landing-page--bare .ring--cyan { color: var(--mh-cyan); }
 .landing-page--bare .ring--magenta { color: var(--mh-magenta); }
 .landing-page--bare .ring--yellow { color: var(--mh-yellow); }
-.landing-page--bare .ring--white { color: rgba(16, 16, 20, .82); }
+.landing-page--bare .ring--white { color: #ffffff; }
 .landing-page--bare .ring::after {
   content: '';
   position: absolute;
-  inset: -18%;
+  inset: -20%;
   z-index: -1;
   border-radius: 50%;
-  background: radial-gradient(circle, currentColor, transparent 68%);
-  opacity: .1;
+  background: radial-gradient(circle, currentColor, transparent 66%);
+  opacity: .16;
 }
