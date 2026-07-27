@@ -163,6 +163,30 @@ Priority order for humans and agents:
 2. **Book** — canonical reading surface · https://metahumotonic.com/book/read/
 3. Apostles / Research / KG — secondary layers
 
+## MCP Registry (live machine-readable surface, for agents)
+
+This site runs a **live MCP (Model Context Protocol) server registry** — the
+machines, databases and tools agents can actually connect to, with connection
+recipes and real-time health. Start at the registry guide:
+https://metahumotonic.com/mcp/llms.txt — it leads to everything else:
+
+- Discovery document:  https://metahumotonic.com/api/mcp/
+- Canonical manifest:  https://metahumotonic.com/api/mcp/manifest
+  (schema metahumotonic/mcp-registry@1, JSON-LD typed, per-server
+  `capabilities` + `auth`; static fallback: /mcp/manifest.json)
+- Well-known alias:    https://metahumotonic.com/.well-known/mcp-servers.json
+- Live status:         https://metahumotonic.com/api/mcp/status
+  (aggregate verified/stale/available/down counts; `?format=text` for a
+  one-line plain-text summary)
+- Human dashboard:     https://metahumotonic.com/mcp/
+
+Credentials are never published in plaintext. Servers whose `auth.type` is
+`vault` resolve through the registry's credential vault: ask the user for the
+**registry password (6 digits)**, fetch https://metahumotonic.com/api/mcp/vault
+(ciphertext only), and decrypt locally — PBKDF2-SHA256(password, salt,
+iterations) → Fernet. The full unlock recipe is in /mcp/llms.txt and in the
+manifest's `credential_vault` field.
+
 ## Open-Source Agent Commons (USER_PRIMARY mission, 2026-07-23)
 
 MetaHumotonic's public purpose is to break the concentration of agent execution

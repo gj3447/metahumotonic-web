@@ -1,15 +1,9 @@
 ---
 // KG: CONTRACT_Web_MCP — MCP(Model Context Protocol) 서버 레지스트리 대시보드.
-// 에이전트용 머신 리더블 매니페스트: /mcp/manifest.json
+// 서버 목록은 100% 라이브 API(/api/mcp/manifest)에서 렌더 — 코드에 하드코딩 0.
+// 상태 배지는 /api/mcp/status 라이브 health 데이터(초록 verified · 노랑 stale ·
+// 회색 available · 빨강 down). 폐백: /mcp/manifest.json 정적 스냅샷.
 import '../../styles/cosmos.css';
-
-const VERIFIED_AT = '2026-07-27';
-
-const statusMeta = {
-  verified:    { label: 'verified',    color: '#34d399', desc: `${VERIFIED_AT} 실측으로 live 확인` },
-  available:   { label: 'available',   color: '#67e8f9', desc: '설정됨 — 현재 로드되지 않음 (available-not-loaded)' },
-  unused:      { label: 'unused',      color: '#4a5578', desc: '정의됨 — 현재 미사용' },
-};
 
 const categoryMeta = {
   graph:    { label: 'graph',    color: '#a78bfa' },
@@ -19,80 +13,13 @@ const categoryMeta = {
   utility:  { label: 'utility',  color: '#67e8f9' },
 };
 
-// 공개 페이지: 사설 IP 대신 백엔드 위치를 시스템 수준으로만 표기.
-const servers = [
-  // ── graph ──
-  { name: 'bhgman-neo4j', category: 'graph', status: 'available',
-    desc: 'Neo4j 그래프 DB — Cypher read/write, 스키마 인스펙션.',
-    backend: 'Proxmox VM200 data-01',
-    conn: 'stdio · 로컬 바이너리 neo4j-mcp · bolt://localhost:17687 (터널)' },
-  { name: 'airo-neo4j', category: 'graph', status: 'unused',
-    desc: '회사 Neo4j — 외부 네트워크 전용, 현재 미사용.',
-    backend: '외부 회사 네트워크',
-    conn: 'stdio · bolt (회사망) · env NEO4J_USERNAME/PASSWORD' },
-
-  // ── vector ──
-  { name: 'redis', category: 'vector', status: 'verified',
-    desc: 'Redis 8 — 키/값, 스트림, vector similarity search (HNSW). 실측 키 10,606개.',
-    backend: 'Proxmox VM200 data-01',
-    conn: 'stdio · uvx redis-mcp-server · redis://…@127.0.0.1:16379/0 (터널)' },
-
-  // ── document ──
-  { name: 'mongodb', category: 'document', status: 'verified',
-    desc: 'MongoDB — 피드백·로그·앱 데이터 도큐먼트 스토어. 실측 DB 5개.',
-    backend: 'Proxmox VM200 data-01',
-    conn: 'stdio · npx mongodb-mcp-server · 127.0.0.1:37017 (터널)' },
-  { name: 'postgres', category: 'document', status: 'available',
-    desc: 'PostgreSQL maindb — 관계형 스토어, SQL read/write.',
-    backend: 'Proxmox VM200 data-01',
-    conn: 'stdio · uvx postgres-mcp · DATABASE_URI …@127.0.0.1:15432/maindb (터널)' },
-
-  // ── storage ──
-  { name: 'bhgman-minio', category: 'storage', status: 'verified',
-    desc: 'MinIO / AIStor 오브젝트 스토리지 — 버킷·오브젝트·presigned URL·버저닝. 실측 버킷 16개.',
-    backend: 'Proxmox VM200 data-01',
-    conn: 'stdio · 로컬 래퍼 스크립트 → docker mcp-server-aistor · 127.0.0.1:19010 (터널)' },
-  { name: 'macmini-fs', category: 'storage', status: 'available',
-    desc: '맥미니 파일시스템 접근 — /Users/lagyeongjun/CD 루트.',
-    backend: 'Mac mini (bhgman)',
-    conn: 'stdio · ssh bhgman · npx server-filesystem' },
-
-  // ── utility ──
-  { name: 'memory', category: 'utility', status: 'verified',
-    desc: 'Knowledge graph 메모리 — 엔티티·관계·관찰을 세션 간 유지.',
-    backend: '로컬 (macbook)',
-    conn: 'stdio · 로컬 npx @modelcontextprotocol/server-memory' },
-  { name: 'fetch', category: 'utility', status: 'verified',
-    desc: '웹 fetch — URL 콘텐츠 조회·독해.',
-    backend: '로컬 (macbook)',
-    conn: 'stdio · uvx mcp-server-fetch' },
-  { name: 'sequential-thinking', category: 'utility', status: 'verified',
-    desc: '사고 체인 — 동적·반성적 chain-of-thought 문제 해결.',
-    backend: '로컬 (macbook)',
-    conn: 'stdio · npx server-sequential-thinking' },
-  { name: 'lakatotree', category: 'utility', status: 'available',
-    desc: 'LakatoTree 서버 — 판단/측정 레지스트리.',
-    backend: 'Proxmox LXC CT 301',
-    conn: 'stdio · ssh proxmox · pct exec 301 -- … mcp_server.py · Bearer 토큰' },
-  { name: 'openobserve', category: 'utility', status: 'available',
-    desc: 'OpenObserve — 로그·관측성 쿼리.',
-    backend: 'Mac mini (bhgman)',
-    conn: 'stdio · ssh bhgman · uv run mcp-server-openobserve · ZO_ACCESS_KEY' },
-  { name: 'omd', category: 'utility', status: 'available',
-    desc: 'OMD coordination DB 서버.',
-    backend: 'Mac mini (bhgman)',
-    conn: 'stdio · ssh bhgman · omd_server.server' },
-  { name: 'bhgman-tool', category: 'utility', status: 'available',
-    desc: 'bhgman_tool engine — 맥미니 커스텀 툴 엔진.',
-    backend: 'Mac mini (bhgman)',
-    conn: 'stdio · ssh bhgman · bhgman_tool engine' },
-  { name: 'oo-trace', category: 'utility', status: 'available',
-    desc: 'OpenObserve trace HTTP MCP 엔드포인트.',
-    backend: 'OpenObserve (터널 경유)',
-    conn: 'http · http://127.0.0.1:18009/mcp (터널)' },
+const legend = [
+  { label: 'verified',    color: '#34d399', desc: '프로브 실측으로 live 확인 (24h 이내)' },
+  { label: 'stale',       color: '#fbbf24', desc: 'verified였지만 24h 이상 미검증' },
+  { label: 'available',   color: '#9aa4b2', desc: '설정됨 — 현재 로드되지 않음 (available-not-loaded)' },
+  { label: 'down',        color: '#f87171', desc: '마지막 프로브 실패 (unreachable)' },
+  { label: 'unused',      color: '#4a5578', desc: '정의됨 — 현재 미사용' },
 ];
-
-const categories = ['graph', 'vector', 'document', 'storage', 'utility'];
 
 const recipes = [
   { name: 'local-npx', color: '#34d399',
@@ -110,11 +37,19 @@ const recipes = [
 ];
 
 const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: 'MCP Registry — MetaHumotonic',
-  description: 'MetaHumotonic 인프라의 MCP(Model Context Protocol) 서버 레지스트리 대시보드와 에이전트용 머신 리더블 매니페스트.',
-  url: 'https://metahumotonic.com/mcp/',
+  '@context': { schema: 'https://schema.org/', mhb: 'https://metahumotonic.com/mcp/ontology#' },
+  '@type': ['schema:WebPage', 'mhb:McpRegistryDashboard'],
+  'schema:name': 'MCP Registry — MetaHumotonic',
+  'schema:description': 'MetaHumotonic 인프라의 MCP(Model Context Protocol) 서버 레지스트리 대시보드와 에이전트용 머신 리더블 매니페스트.',
+  'schema:url': 'https://metahumotonic.com/mcp/',
+  'schema:mainEntity': {
+    '@type': ['schema:ItemList', 'mhb:McpRegistry'],
+    'schema:name': 'metahumotonic/mcp-registry@1',
+    'schema:distribution': [
+      { '@type': 'schema:DataDownload', 'schema:contentUrl': 'https://metahumotonic.com/api/mcp/manifest', 'schema:encodingFormat': 'application/json', 'schema:description': 'live Mongo-backed manifest (canonical)' },
+      { '@type': 'schema:DataDownload', 'schema:contentUrl': 'https://metahumotonic.com/mcp/manifest.json', 'schema:encodingFormat': 'application/json', 'schema:description': 'static fallback snapshot' },
+    ],
+  },
 };
 ---
 
@@ -123,7 +58,7 @@ const jsonLd = {
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MCP Registry — MetaHumotonic</title>
-  <meta name="description" content="MetaHumotonic 인프라의 MCP 서버 레지스트리 — 15개 서버의 역할, 백엔드 위치, 연결 방식, 검증 상태. 에이전트용 매니페스트 /mcp/manifest.json." />
+  <meta name="description" content="MetaHumotonic 인프라의 MCP 서버 레지스트리 — 서버 역할, 백엔드 위치, 연결 방식, 실시간 검증 상태. 에이전트용 매니페스트 /api/mcp/manifest." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 </head>
@@ -139,14 +74,16 @@ const jsonLd = {
 
     <header class="mcp-header fade-in">
       <h1><span style="color:#a78bfa">MCP</span> Registry</h1>
-      <p class="mcp-desc">MetaHumotonic 인프라의 Model Context Protocol 서버 레지스트리. {servers.length}개 서버의 역할, 백엔드 위치, 연결 방식, 검증 상태.</p>
+      <p class="mcp-desc">MetaHumotonic 인프라의 Model Context Protocol 서버 레지스트리. <span id="srv-count">…</span>개 서버의 역할, 백엔드 위치, 연결 방식, 실시간 검증 상태.</p>
       <p class="registry-source">
-        <span id="registry-source-badge" class="badge badge-static">static snapshot</span>
-        <span id="registry-source-note" class="registry-source-note">빌드 타임 스냅샷 — 로드 시 라이브 API로 갱신</span>
+        <span id="registry-source-badge" class="badge badge-static">loading…</span>
+        <span id="registry-source-note" class="registry-source-note">/api/mcp/manifest + /api/mcp/status 라이브 조회 중</span>
       </p>
+      <p id="status-summary" class="status-summary"></p>
       <p class="mcp-manifest-link">
         에이전트용 머신 리더블 매니페스트 → <a href="/api/mcp/manifest"><code>/api/mcp/manifest</code></a> (live)
         · <a href="/mcp/manifest.json"><code>/mcp/manifest.json</code></a> (정적 폐백)
+        · <a href="/mcp/llms.txt"><code>/mcp/llms.txt</code></a>
       </p>
     </header>
 
@@ -154,7 +91,7 @@ const jsonLd = {
     <section class="section fade-in">
       <h2>상태 범례</h2>
       <div class="legend-row">
-        {Object.values(statusMeta).map(s => (
+        {legend.map(s => (
           <div class="legend-item">
             <span class="badge" style={`color:${s.color}; border-color:${s.color}55; background:${s.color}14;`}>{s.label}</span>
             <span class="legend-desc">{s.desc}</span>
@@ -163,30 +100,11 @@ const jsonLd = {
       </div>
     </section>
 
-    {/* 서버 레지스트리 — 카테고리별 (로드 시 /api/mcp/manifest 라이브 데이터로 갱신) */}
+    {/* 서버 레지스트리 — 100% API 렌더 (빌드 타임 하드코딩 없음) */}
     <div id="registry-sections">
-    {categories.map(cat => (
-      <section class="section fade-in">
-        <h2><span style={`color:${categoryMeta[cat].color}`}>{categoryMeta[cat].label}</span> <span class="cat-count">{servers.filter(s => s.category === cat).length}</span></h2>
-        <div class="server-grid">
-          {servers.filter(s => s.category === cat).map(srv => (
-            <div class="server-card">
-              <div class="srv-head">
-                <h3>{srv.name}</h3>
-                <span class="badge" style={`color:${statusMeta[srv.status].color}; border-color:${statusMeta[srv.status].color}55; background:${statusMeta[srv.status].color}14;`}>
-                  {srv.status === 'verified' ? `verified ${VERIFIED_AT}` : statusMeta[srv.status].label}
-                </span>
-              </div>
-              <p class="srv-desc">{srv.desc}</p>
-              <div class="srv-meta">
-                <div class="srv-row"><span class="srv-key">backend</span><span class="srv-val">{srv.backend}</span></div>
-                <div class="srv-row"><span class="srv-key">connect</span><code class="srv-conn">{srv.conn}</code></div>
-              </div>
-            </div>
-          ))}
-        </div>
+      <section class="section fade-in visible">
+        <p class="section-desc" id="registry-loading">레지스트리 로딩 중…</p>
       </section>
-    ))}
     </div>
 
     {/* 연결 recipe */}
@@ -204,19 +122,22 @@ const jsonLd = {
       </div>
     </section>
 
-    {/* 매니페스트 */}
+    {/* 매니페스트 + AI 에이전트 */}
     <section class="section fade-in">
       <h2>에이전트용 매니페스트</h2>
       <p class="section-desc">
         라이브 API — <a href="/api/mcp/manifest" class="inline-link"><code>https://metahumotonic.com/api/mcp/manifest</code></a> (canonical, Mongo-backed)
         · 정적 폐백 — <a href="/mcp/manifest.json" class="inline-link"><code>/mcp/manifest.json</code></a>
-        · 스키마 <code>metahumotonic/mcp-registry@1</code> · updated {VERIFIED_AT}
+        · 스키마 <code>metahumotonic/mcp-registry@1</code> · <span id="manifest-updated"></span>
       </p>
       <p class="section-desc">
-        읽기 전용 엔드포인트: <code>GET /api/mcp/servers</code> · <code>GET /api/mcp/servers/&#123;name&#125;</code> · <code>GET /api/mcp/manifest</code> · <code>GET /api/mcp/health</code>
+        읽기 전용 엔드포인트: <code>GET /api/mcp/</code> (디스커버리) · <code>GET /api/mcp/servers</code> · <code>GET /api/mcp/servers/&#123;name&#125;</code> · <code>GET /api/mcp/manifest</code> · <code>GET /api/mcp/health</code> · <code>GET /api/mcp/status</code> (<code>?format=text</code>) · <code>GET /api/mcp/vault</code> · <code>GET /.well-known/mcp-servers.json</code>
+      </p>
+      <p class="section-desc">
+        에이전트 문서: <a href="/mcp/llms.txt" class="inline-link"><code>/mcp/llms.txt</code></a> (레지스트리 가이드) · <a href="/llms.txt" class="inline-link"><code>/llms.txt</code></a> (사이트 전체)
       </p>
       <div class="manifest-note">
-        <p>비밀번호·토큰 실제 값은 포함하지 않는다. <code>&lt;REDIS_PASSWORD&gt;</code> 같은 플레이스홀더와 env var 이름만 기재 — 각자의 시크릿 스토어에서 주입할 것.</p>
+        <p>비밀번호·토큰 실제 값은 매니페스트에 없다 — <code>&lt;REDIS_PASSWORD&gt;</code> 같은 플레이스홀더와 env var 이름만 기재. 실제 자격증명은 <code>GET /api/mcp/vault</code>의 암호문 blob(PBKDF2-SHA256→Fernet)에만 있고, 에이전트는 사용자에게 레지스트리 비번(6자리)을 물어봐서 로컬에서 복호화한다. 절차: <code>/mcp/llms.txt</code> 또는 매니페스트의 <code>credential_vault</code> 필드.</p>
       </div>
     </section>
 
@@ -245,6 +166,8 @@ const jsonLd = {
   .mcp-manifest-link { margin-top:1rem; font-size:0.9rem; color:#4a5578; }
   .mcp-manifest-link a code { color:#a78bfa; font-size:0.9rem; }
   .mcp-manifest-link a:hover code { text-decoration:underline; }
+  .status-summary { margin-top:0.7rem; font-size:0.85rem; color:#8892b0; font-family:'JetBrains Mono',monospace; }
+  .status-summary b { font-weight:700; }
 
   .section { padding:2rem 0; }
   .section h2 { font-size:1.3rem; font-weight:700; color:#fff; margin-bottom:0.5rem; }
@@ -278,6 +201,9 @@ const jsonLd = {
   .srv-key { font-size:0.7rem; font-weight:700; color:#4a5578; text-transform:uppercase; letter-spacing:0.06em; flex-shrink:0; width:3.4rem; }
   .srv-val { font-size:0.8rem; color:#e0e6f0; }
   .srv-conn { font-size:0.75rem; color:#67e8f9; font-family:'JetBrains Mono',monospace; line-height:1.5; }
+  .srv-check { font-size:0.75rem; color:#9aa4b2; font-family:'JetBrains Mono',monospace; }
+  .srv-caps { display:flex; flex-wrap:wrap; gap:0.3rem; margin-top:0.15rem; }
+  .srv-cap { font-size:0.65rem; color:#8892b0; border:1px solid rgba(136,146,176,0.25); border-radius:4px; padding:0.05rem 0.35rem; font-family:'JetBrains Mono',monospace; }
 
   /* Recipes */
   .recipe-list { display:flex; flex-direction:column; gap:1rem; }
@@ -313,20 +239,27 @@ const jsonLd = {
 </script>
 
 <script>
-  // Live MCP registry — load-time fetch from the backend API with static fallback.
+  // Live MCP registry — server list + status are rendered 100% from the API.
   // 1) /api/mcp/manifest (canonical, Mongo-backed)  2) /mcp/manifest.json (static snapshot)
-  // 3) neither → keep the build-time cards already rendered above.
+  // Status badges come from /api/mcp/status (live health); if it is unreachable
+  // they are derived from manifest status/verified_at with a 24h stale rule.
   (async () => {
     const badge = document.getElementById('registry-source-badge');
     const note = document.getElementById('registry-source-note');
     const wrap = document.getElementById('registry-sections');
+    const countEl = document.getElementById('srv-count');
+    const summaryEl = document.getElementById('status-summary');
+    const updatedEl = document.getElementById('manifest-updated');
     if (!badge || !wrap) return;
 
-    const STATUS = {
-      verified:    { color: '#34d399' },
-      available:   { color: '#67e8f9' },
-      unused:      { color: '#4a5578' },
-      unreachable: { color: '#f87171' },
+    // H-02 badge colors: 초록 verified · 노랑 stale · 회색 available · 빨강 down
+    const BADGE = {
+      verified:    { color: '#34d399', label: 'verified' },
+      stale:       { color: '#fbbf24', label: 'stale' },
+      available:   { color: '#9aa4b2', label: 'available' },
+      down:        { color: '#f87171', label: 'down' },
+      unused:      { color: '#4a5578', label: 'unused' },
+      unreachable: { color: '#f87171', label: 'down' },
     };
     const CAT = {
       graph:    { label: 'graph',    color: '#a78bfa' },
@@ -336,9 +269,17 @@ const jsonLd = {
       utility:  { label: 'utility',  color: '#67e8f9' },
     };
     const CAT_ORDER = ['graph', 'vector', 'document', 'storage', 'utility'];
+    const STALE_MS = 24 * 3600 * 1000;
 
     const esc = (v) => String(v ?? '').replace(/[&<>"']/g,
       (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    const fmtWhen = (iso) => {
+      if (!iso) return '';
+      const d = new Date(iso);
+      if (isNaN(d)) return String(iso).slice(0, 10);
+      return d.toISOString().replace('T', ' ').slice(0, 16) + 'Z';
+    };
 
     // Human one-liner for a connection recipe — secrets are never in the manifest.
     function connSummary(c) {
@@ -355,26 +296,47 @@ const jsonLd = {
       }
     }
 
-    function cardHtml(s) {
-      const st = STATUS[s.status] || { color: '#8892b0' };
-      const badgeLabel = s.status === 'verified' && s.verified_at
-        ? `verified ${esc(s.verified_at)}` : esc(s.status || 'unknown');
+    // Derive a badge from manifest fields when /api/mcp/status is unreachable.
+    function deriveBadge(s) {
+      const st = s.status || 'unknown';
+      if (st === 'verified') {
+        const t = Date.parse(s.last_probe_at || s.verified_at || '');
+        if (!t || (Date.now() - t) > STALE_MS) return { badge: 'stale', when: s.last_probe_at || s.verified_at };
+        return { badge: 'verified', when: s.last_probe_at || s.verified_at };
+      }
+      if (st === 'unreachable') return { badge: 'down', when: s.last_probe_at || s.verified_at };
+      return { badge: st, when: s.last_probe_at || s.verified_at };
+    }
+
+    function cardHtml(s, healthByName) {
+      const h = healthByName && healthByName[s.name];
+      const derived = h
+        ? { badge: h.badge, when: h.last_check_at || h.last_probe_at || h.verified_at }
+        : deriveBadge(s);
+      const meta = BADGE[derived.badge] || { color: '#8892b0', label: derived.badge };
+      const badgeLabel = derived.badge === 'verified' && (h?.verified_at || s.verified_at)
+        ? `verified ${esc((h?.verified_at || s.verified_at).slice(0, 10))}` : meta.label;
       const conn = connSummary(s.connection);
+      const caps = Array.isArray(s.capabilities) ? s.capabilities.slice(0, 5) : [];
+      const authType = s.auth && s.auth.type === 'vault' ? 'vault 🔒' : null;
       return `
         <div class="server-card">
           <div class="srv-head">
             <h3>${esc(s.name)}</h3>
-            <span class="badge" style="color:${st.color}; border-color:${st.color}55; background:${st.color}14;">${badgeLabel}</span>
+            <span class="badge" style="color:${meta.color}; border-color:${meta.color}55; background:${meta.color}14;">${badgeLabel}</span>
           </div>
           <p class="srv-desc">${esc(s.description)}</p>
           <div class="srv-meta">
             ${s.backend ? `<div class="srv-row"><span class="srv-key">backend</span><span class="srv-val">${esc(s.backend)}</span></div>` : ''}
             ${conn ? `<div class="srv-row"><span class="srv-key">connect</span><code class="srv-conn">${esc(conn)}</code></div>` : ''}
+            ${derived.when ? `<div class="srv-row"><span class="srv-key">check</span><span class="srv-check">마지막 확인: ${esc(fmtWhen(derived.when))}</span></div>` : ''}
+            ${caps.length ? `<div class="srv-row"><span class="srv-key">caps</span><span class="srv-caps">${caps.map(c => `<span class="srv-cap">${esc(c)}</span>`).join('')}</span></div>` : ''}
+            ${authType ? `<div class="srv-row"><span class="srv-key">auth</span><span class="srv-val">${authType} <code class="srv-conn">/api/mcp/vault</code></span></div>` : ''}
           </div>
         </div>`;
     }
 
-    function render(servers) {
+    function render(servers, healthByName) {
       const byCat = {};
       for (const s of servers) (byCat[s.category] ||= []).push(s);
       const cats = [...CAT_ORDER.filter(c => byCat[c]), ...Object.keys(byCat).filter(c => !CAT_ORDER.includes(c))];
@@ -383,7 +345,7 @@ const jsonLd = {
         return `
           <section class="section fade-in visible">
             <h2><span style="color:${meta.color}">${esc(meta.label)}</span> <span class="cat-count">${byCat[cat].length}</span></h2>
-            <div class="server-grid">${byCat[cat].map(cardHtml).join('')}</div>
+            <div class="server-grid">${byCat[cat].map(s => cardHtml(s, healthByName)).join('')}</div>
           </section>`;
       }).join('');
     }
@@ -392,6 +354,15 @@ const jsonLd = {
       const resp = await fetch(url, { headers: { accept: 'application/json' } });
       if (!resp.ok) throw new Error(`${url} -> HTTP ${resp.status}`);
       return resp.json();
+    }
+
+    // Status is additive: badges/summary come from it when reachable.
+    async function fetchStatus() {
+      try {
+        const st = await fetchJson('/api/mcp/status');
+        if (st.source !== 'live' || !st.summary) return null;
+        return st;
+      } catch { return null; }
     }
 
     try {
@@ -406,7 +377,22 @@ const jsonLd = {
         manifest = await fetchJson('/mcp/manifest.json');
         live = false;
       }
-      render(manifest.servers);
+      const status = await fetchStatus();
+      const healthByName = status
+        ? Object.fromEntries(status.servers.map(s => [s.name, s])) : null;
+      render(manifest.servers, healthByName);
+      if (countEl) countEl.textContent = String(manifest.servers.length);
+      if (updatedEl) updatedEl.textContent = `updated ${manifest.updated || '?'}`;
+      if (status && summaryEl) {
+        const s = status.summary;
+        summaryEl.innerHTML =
+          `<b style="color:#34d399">${s.verified} verified</b> · ` +
+          `<b style="color:#fbbf24">${s.stale} stale</b> · ` +
+          `<b style="color:#9aa4b2">${s.available} available</b> · ` +
+          `<b style="color:#f87171">${s.down} down</b> · ` +
+          `<b style="color:#4a5578">${s.unused} unused</b>` +
+          (status.last_verify_at ? ` — last verify ${esc(fmtWhen(status.last_verify_at))}` : '');
+      }
       if (live) {
         badge.textContent = 'live registry API';
         badge.className = 'badge badge-live';
@@ -417,9 +403,10 @@ const jsonLd = {
         note.textContent = '라이브 API unreachable — 정적 /mcp/manifest.json 스냅샷 표시 중';
       }
     } catch {
-      badge.textContent = 'static snapshot';
+      wrap.innerHTML = '<section class="section fade-in visible"><p class="section-desc">레지스트리를 불러올 수 없다 — 라이브 API와 정적 폐백 모두 unreachable.</p></section>';
+      badge.textContent = 'unavailable';
       badge.className = 'badge badge-static';
-      note.textContent = '라이브 API·폐백 모두 unreachable — 빌드 타임 카드 표시 중';
+      note.textContent = '/api/mcp/manifest · /mcp/manifest.json 모두 실패';
     }
   })();
 </script>

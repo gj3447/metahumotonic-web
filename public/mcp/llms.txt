@@ -1,0 +1,110 @@
+# MetaHumotonic MCP Registry (llms.txt for agents)
+
+> Machine-readable registry of the Model Context Protocol servers used across
+> the metahumotonic infrastructure. If you are an AI agent, everything you need
+> is reachable from this file alone.
+
+Canonical API base: https://metahumotonic.com
+Manifest schema: metahumotonic/mcp-registry@1
+
+## Discover (start here)
+
+- GET /api/mcp/                     → discovery document: endpoint list, schemas,
+                                      usage examples, this file's siblings.
+- GET /.well-known/mcp-servers.json → 302 redirect to the canonical manifest.
+- GET /api/mcp/manifest             → THE registry: JSON-LD typed
+                                      (@context schema.org + mhb vocab), every
+                                      server with `capabilities` (tool kinds it
+                                      provides) and `auth` (credential contract).
+- GET /mcp/manifest.json            → static fallback snapshot of the same
+                                      manifest (use only when the API is down).
+- Dashboard for humans:             → https://metahumotonic.com/mcp/
+
+## Check live status
+
+- GET /api/mcp/status               → per-server badge (verified / stale /
+                                      available / down / unused), aggregate
+                                      counts, and the last verify run time.
+                                      `stale` = verified but not re-probed
+                                      within 24h.
+- GET /api/mcp/status?format=text   → one summary line + one line per server
+                                      (plain text, agent-optimized).
+- GET /api/mcp/health               → raw latest verify result per server
+                                      (status / verified_at / last_probe_at).
+
+## Read one server
+
+- GET /api/mcp/servers              → all entries (name-sorted).
+- GET /api/mcp/servers/{name}       → one entry (404 when unknown).
+
+Each entry: name, description, category (graph | vector | document | storage |
+utility), transport (stdio | http), status, backend, connection, capabilities,
+auth, verified_at. `connection.recipe` is one of:
+
+- local-npx      run locally with npx/uvx — no external dependency.
+- local-command  local binary/script.
+- local-tunnel   reachable via a 127.0.0.1:<port> SSH local port forward
+                 (connection.tunnel.port tells you which).
+- ssh-stdio      stdio bridge over an ssh alias (connection.args[0] = alias).
+- http           direct HTTP MCP endpoint (connection.url).
+
+Secrets are NEVER in the manifest. Values like <REDIS_PASSWORD> are
+placeholders; the `auth` field of each server tells you how to resolve them.
+
+## Credentials — one password unlocks everything (credential vault)
+
+When a server entry has `"auth": {"type": "vault", ...}` and you hit a
+credential wall connecting to a service:
+
+1. Ask the user for the **registry password** (6 digits).
+   (Say: "이 MCP 인프라의 레지스트리 비번 6자리를 알려주세요.")
+2. GET /api/mcp/vault → { "kdf": {"name": "PBKDF2-SHA256", "iterations": N,
+   "salt": "<base64>"}, "cipher": "fernet", "blob": "<fernet token>" }.
+3. Derive the key locally:
+     key = base64.urlsafe_b64encode(
+             PBKDF2-HMAC-SHA256(password.encode(), base64decode(salt), N, dklen=32))
+4. Decrypt: credentials = json.loads(Fernet(key).decrypt(blob))
+   → { "<service>": { "env": {...}, "urls": [...] }, ... } — real working
+   credentials for every service (redis, mongodb, postgres, neo4j, minio,
+   lakatotree, ...).
+5. Wrong password → decryption fails (Fernet InvalidToken). Ask again; never
+   brute-force, never log the password, never send it anywhere.
+
+Python reference (matches `mhb-mcp vault unlock`):
+
+    import base64, hashlib, json, urllib.request
+    from cryptography.fernet import Fernet
+    doc = json.load(urllib.request.urlopen("https://metahumotonic.com/api/mcp/vault"))["vault"]
+    pw  = input("registry password: ")            # 6 digits, from the user
+    key = base64.urlsafe_b64encode(hashlib.pbkdf2_hmac(
+            "sha256", pw.encode(), base64.b64decode(doc["kdf"]["salt"]),
+            doc["kdf"]["iterations"], dklen=32))
+    creds = json.loads(Fernet(key).decrypt(doc["blob"]))
+
+The vault publishes ciphertext only; rotation re-encrypts with a fresh salt and
+invalidates the old password immediately.
+
+## Add a new MCP server (operators)
+
+This registry is data-driven — no code change, no hardcoded lists:
+
+    mhb-mcp import path/to/.mcp.json     # parse a standard MCP client config,
+                                         # infer category (neo4j→graph, redis→vector,
+                                         # minio→storage, mongo/postgres→document,
+                                         # else→utility) and recipe, placeholder
+                                         # all secrets, upsert into Mongo
+    mhb-mcp upsert <name> --set category=utility --set 'connection={"recipe":"http","url":"..."}'
+    mhb-mcp verify [name]                # probe reachability → status/verified_at
+    mhb-mcp export --out public/mcp/manifest.json   # refresh the static fallback
+
+After an import/upsert the change is live on /api/mcp/* and the /mcp dashboard
+within one cache TTL (~5 min, usually immediately).
+
+## Provenance
+
+- Source of truth: MongoDB `metahumotonic.mcp_servers` (writes via the
+  `mhb-mcp` CLI only; this HTTP surface is read-only).
+- Backend: github.com/gj3447/metahumotonic_web_back (AGPL-3.0).
+- Dashboard: github.com/gj3447/metahumotonic-web (MIT), /mcp page renders 100%
+  from the API.
+- Site-wide agent doctrine: /llms.txt.
