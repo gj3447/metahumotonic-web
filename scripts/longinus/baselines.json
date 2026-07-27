@@ -2,7 +2,7 @@
   "_meta": {
     "purpose": "Longinus drift-monitoring baseline manifest — committed sha256 of KG-bound source files.",
     "source": "longinus-web-binding-2026-05-25 (KG ReferenceSite binding_state=LIVE)",
-    "generated_at": "2026-07-23",
+    "generated_at": "2026-07-27",
     "policy": "Intent-tagged update: when you intentionally change a tracked file, run `node scripts/longinus/drift-check.mjs --update` in the SAME commit. CI fails if a tracked file's sha256 differs from this manifest without a manifest update (= unexpected drift).",
     "granularity": "file-level sha256 (v1). Future upgrade: per-AST-block hashing (tree-sitter) to exclude whitespace/comment noise — PROM16 D3/D4 consensus.",
     "goodhart_safeguard": "hash match is necessary not sufficient; pair with periodic manual spot-check (PROM16 D1 consensus).",
@@ -16,7 +16,7 @@
     "public/js/ogl.umd.js": "6a619c7bb08629d26e025b08f4cea79edc5144d6c72e8e8d5ac47858e27380fc",
     "public/ontology.ttl": "2e7fc1194528be5f1787d8936765dd91340fe39b3493ec5ee4115ab7717a5877",
     "public/robots.txt": "e1e66d6b07cfa1202d341692e250070d2ef1a5a485113bc613a72a3eb17e6c9e",
-    "public/llms.txt": "babc33b22aa57fe8338a33f4f2cde449fdabf0d285866c00e6aea90c12d96925",
+    "public/llms.txt": "4046e14fb25777edab368288b84c226ef689fb1bc4bdd3d49c761dc827f91031",
     "public/sitemap.xml": "1e955b19edd5197467cc6f33804356fbd16b3b7267171c1dd542ec89b7632102",
     "scripts/build/assemble-site.mjs": "61e8b55d76eda434e69625dcb66a2fe601be9cc2bd6362a1fc4330b8e99fccde",
     "src/components/ApostleSection.astro": "7294ecc97fd3c4558854c3c5556864e8d201a1ba9fe02ef08c2267ec44989681",
