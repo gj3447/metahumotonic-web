@@ -1,0 +1,254 @@
+{
+  "schema": "metahumotonic/mcp-registry@1",
+  "updated": "2026-07-27",
+  "site": "https://metahumotonic.com",
+  "notes": [
+    "Secrets are never included in this manifest. Values like <REDIS_PASSWORD> are placeholders — supply them from your own secret store or environment.",
+    "SSH aliases referenced below: `bhgman` = Mac mini gateway, `proxmox` = Proxmox host (192.168.0.2, reached via ProxyJump bhgman). Define equivalent aliases in your own ~/.ssh/config; ProxyCommand details are intentionally omitted.",
+    "`local-tunnel` recipes assume SSH local port forwards on the client machine (on the reference macbook these are opened by autossh launchd jobs com.macmini.ssh-tunnel*): 16379→redis, 37017→mongo, 15432→postgres, 17687→neo4j, 19010→minio, 18009→oo-trace.",
+    "Database backends run as containers on Proxmox VM200 `data-01` (192.168.0.25).",
+    "status: verified = live-checked on verified_at; available = configured but not currently loaded; unused = defined but not in active use."
+  ],
+  "servers": [
+    {
+      "name": "memory",
+      "description": "Knowledge-graph memory for the agent — entities, relations, observations persisted across sessions.",
+      "category": "utility",
+      "transport": "stdio",
+      "status": "verified",
+      "verified_at": "2026-07-27",
+      "backend": "local (macbook)",
+      "connection": {
+        "recipe": "local-npx",
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-memory@2026.7.4"]
+      }
+    },
+    {
+      "name": "redis",
+      "description": "Redis 8 — key/value, hashes, streams, sorted sets, and vector similarity search (HNSW). 10,606 keys at verification.",
+      "category": "vector",
+      "transport": "stdio",
+      "status": "verified",
+      "verified_at": "2026-07-27",
+      "backend": "Proxmox VM200 data-01 (192.168.0.25), via local tunnel 127.0.0.1:16379",
+      "connection": {
+        "recipe": "local-tunnel",
+        "command": "uvx",
+        "args": ["redis-mcp-server"],
+        "env": {
+          "REDIS_URL": "redis://default:<REDIS_PASSWORD>@127.0.0.1:16379/0"
+        },
+        "tunnel": { "port": 16379, "target": "redis on data-01", "opened_by": "autossh launchd com.macmini.ssh-tunnel*" }
+      }
+    },
+    {
+      "name": "mongodb",
+      "description": "MongoDB — document store for feedback, logs, and app data. 5 databases at verification.",
+      "category": "document",
+      "transport": "stdio",
+      "status": "verified",
+      "verified_at": "2026-07-27",
+      "backend": "Proxmox VM200 data-01 (192.168.0.25), via local tunnel 127.0.0.1:37017",
+      "connection": {
+        "recipe": "local-tunnel",
+        "command": "npx",
+        "args": [
+          "-y",
+          "mongodb-mcp-server",
+          "--connectionString",
+          "mongodb://mongo:<MONGO_PASSWORD>@127.0.0.1:37017/?authSource=admin&directConnection=true"
+        ],
+        "tunnel": { "port": 37017, "target": "mongo on data-01", "opened_by": "autossh launchd com.macmini.ssh-tunnel*" }
+      }
+    },
+    {
+      "name": "bhgman-minio",
+      "description": "MinIO / AIStor object storage — buckets, objects, presigned URLs, tags, versioning. 16 buckets at verification.",
+      "category": "storage",
+      "transport": "stdio",
+      "status": "verified",
+      "verified_at": "2026-07-27",
+      "backend": "Proxmox VM200 data-01 (192.168.0.25), via local tunnel 127.0.0.1:19010",
+      "connection": {
+        "recipe": "local-tunnel",
+        "command": "<local wrapper script>",
+        "args": [],
+        "notes": "A local wrapper script reads credentials from the `mc alias bhgman` config and launches `mcp-server-aistor` in docker with MINIO_ENDPOINT=127.0.0.1:19010. Reproduce with: docker run -i --rm -e MINIO_ENDPOINT=127.0.0.1:19010 -e MINIO_ACCESS_KEY=<from mc alias bhgman> -e MINIO_SECRET_KEY=<from mc alias bhgman> mcp-server-aistor",
+        "tunnel": { "port": 19010, "target": "minio on data-01", "opened_by": "autossh launchd com.macmini.ssh-tunnel*" }
+      }
+    },
+    {
+      "name": "bhgman-neo4j",
+      "description": "Neo4j graph database on data-01 — Cypher read/write, schema inspection.",
+      "category": "graph",
+      "transport": "stdio",
+      "status": "available",
+      "backend": "Proxmox VM200 data-01 (192.168.0.25), via local tunnel 127.0.0.1:17687",
+      "connection": {
+        "recipe": "local-tunnel",
+        "command": "neo4j-mcp",
+        "args": [],
+        "env": {
+          "NEO4J_URI": "bolt://localhost:17687",
+          "NEO4J_USERNAME": "<NEO4J_USERNAME>",
+          "NEO4J_PASSWORD": "<NEO4J_PASSWORD>"
+        },
+        "notes": "Local `neo4j-mcp` binary on the macbook.",
+        "tunnel": { "port": 17687, "target": "neo4j bolt on data-01", "opened_by": "autossh launchd com.macmini.ssh-tunnel*" }
+      }
+    },
+    {
+      "name": "postgres",
+      "description": "PostgreSQL `maindb` on data-01 — relational store, read/write SQL.",
+      "category": "document",
+      "transport": "stdio",
+      "status": "available",
+      "backend": "Proxmox VM200 data-01 (192.168.0.25), via local tunnel 127.0.0.1:15432",
+      "connection": {
+        "recipe": "local-tunnel",
+        "command": "uvx",
+        "args": ["postgres-mcp"],
+        "env": {
+          "DATABASE_URI": "postgresql://postgres:<PG_PASSWORD>@127.0.0.1:15432/maindb"
+        },
+        "tunnel": { "port": 15432, "target": "postgres on data-01", "opened_by": "autossh launchd com.macmini.ssh-tunnel*" }
+      }
+    },
+    {
+      "name": "lakatotree",
+      "description": "LakatoTree server — judgment/measurement registry (판단/측정 레지스트리).",
+      "category": "utility",
+      "transport": "stdio",
+      "status": "available",
+      "backend": "Proxmox LXC CT 301, via ssh proxmox",
+      "connection": {
+        "recipe": "ssh-stdio",
+        "command": "ssh",
+        "args": ["proxmox", "pct exec 301 -- python3 /opt/lakatotree/lakatos/mcp_server.py"],
+        "env": {
+          "LAKATOS_API_TOKEN": "<LAKATOS_API_TOKEN>"
+        },
+        "notes": "Bearer token required (LAKATOS_API_TOKEN). Use the venv interpreter inside CT 301 if python3 does not resolve dependencies. `proxmox` alias = Proxmox host via ProxyJump bhgman."
+      }
+    },
+    {
+      "name": "openobserve",
+      "description": "OpenObserve — logs and observability queries.",
+      "category": "utility",
+      "transport": "stdio",
+      "status": "available",
+      "backend": "Mac mini (bhgman), OpenObserve backend reachable from there",
+      "connection": {
+        "recipe": "ssh-stdio",
+        "command": "ssh",
+        "args": ["bhgman", "uv run mcp-server-openobserve"],
+        "env": {
+          "ZO_ACCESS_KEY": "<ZO_ACCESS_KEY>"
+        },
+        "notes": "Runs remotely on the mac mini from the mcp-server-openobserve project directory; ZO_ACCESS_KEY required."
+      }
+    },
+    {
+      "name": "omd",
+      "description": "OMD coordination DB server.",
+      "category": "utility",
+      "transport": "stdio",
+      "status": "available",
+      "backend": "Mac mini (bhgman)",
+      "connection": {
+        "recipe": "ssh-stdio",
+        "command": "ssh",
+        "args": ["bhgman", "python3 -m omd_server.server"],
+        "notes": "Runs remotely on the mac mini from the omd project checkout."
+      }
+    },
+    {
+      "name": "bhgman-tool",
+      "description": "bhgman_tool engine — custom tool engine on the mac mini.",
+      "category": "utility",
+      "transport": "stdio",
+      "status": "available",
+      "backend": "Mac mini (bhgman)",
+      "connection": {
+        "recipe": "ssh-stdio",
+        "command": "ssh",
+        "args": ["bhgman", "python3 -m bhgman_tool.engine"],
+        "notes": "Runs remotely on the mac mini from the bhgman_tool checkout."
+      }
+    },
+    {
+      "name": "macmini-fs",
+      "description": "Mac mini filesystem access, rooted at /Users/lagyeongjun/CD.",
+      "category": "storage",
+      "transport": "stdio",
+      "status": "available",
+      "backend": "Mac mini (bhgman)",
+      "connection": {
+        "recipe": "ssh-stdio",
+        "command": "ssh",
+        "args": ["bhgman", "npx -y @modelcontextprotocol/server-filesystem /Users/lagyeongjun/CD"]
+      }
+    },
+    {
+      "name": "oo-trace",
+      "description": "OpenObserve trace HTTP MCP endpoint.",
+      "category": "utility",
+      "transport": "http",
+      "status": "available",
+      "backend": "OpenObserve, via local tunnel 127.0.0.1:18009",
+      "connection": {
+        "recipe": "http",
+        "url": "http://127.0.0.1:18009/mcp",
+        "tunnel": { "port": 18009, "target": "oo-trace", "opened_by": "autossh launchd com.macmini.ssh-tunnel*" }
+      }
+    },
+    {
+      "name": "fetch",
+      "description": "Web fetch — retrieve and read URL contents.",
+      "category": "utility",
+      "transport": "stdio",
+      "status": "verified",
+      "verified_at": "2026-07-27",
+      "backend": "local (macbook)",
+      "connection": {
+        "recipe": "local-npx",
+        "command": "uvx",
+        "args": ["mcp-server-fetch"]
+      }
+    },
+    {
+      "name": "sequential-thinking",
+      "description": "Sequential thinking — dynamic, reflective chain-of-thought problem solving.",
+      "category": "utility",
+      "transport": "stdio",
+      "status": "verified",
+      "verified_at": "2026-07-27",
+      "backend": "local (macbook)",
+      "connection": {
+        "recipe": "local-npx",
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+      }
+    },
+    {
+      "name": "airo-neo4j",
+      "description": "Company Neo4j (외부 네트워크) — currently not in active use.",
+      "category": "graph",
+      "transport": "stdio",
+      "status": "unused",
+      "backend": "External company network (10.147.17.7:55200)",
+      "connection": {
+        "recipe": "local-npx",
+        "command": "neo4j-mcp",
+        "args": [],
+        "env": {
+          "NEO4J_URI": "bolt://10.147.17.7:55200",
+          "NEO4J_USERNAME": "<NEO4J_USERNAME>",
+          "NEO4J_PASSWORD": "<NEO4J_PASSWORD>"
+        },
+        "notes": "Unused: reachable only from the company network; not part of the active home-infra set."
+      }
+    }
+  ]
+}
