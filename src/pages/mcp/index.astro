@@ -140,8 +140,13 @@ const jsonLd = {
     <header class="mcp-header fade-in">
       <h1><span style="color:#a78bfa">MCP</span> Registry</h1>
       <p class="mcp-desc">MetaHumotonic 인프라의 Model Context Protocol 서버 레지스트리. {servers.length}개 서버의 역할, 백엔드 위치, 연결 방식, 검증 상태.</p>
+      <p class="registry-source">
+        <span id="registry-source-badge" class="badge badge-static">static snapshot</span>
+        <span id="registry-source-note" class="registry-source-note">빌드 타임 스냅샷 — 로드 시 라이브 API로 갱신</span>
+      </p>
       <p class="mcp-manifest-link">
-        에이전트용 머신 리더블 매니페스트 → <a href="/mcp/manifest.json"><code>/mcp/manifest.json</code></a>
+        에이전트용 머신 리더블 매니페스트 → <a href="/api/mcp/manifest"><code>/api/mcp/manifest</code></a> (live)
+        · <a href="/mcp/manifest.json"><code>/mcp/manifest.json</code></a> (정적 폐백)
       </p>
     </header>
 
@@ -158,7 +163,8 @@ const jsonLd = {
       </div>
     </section>
 
-    {/* 서버 레지스트리 — 카테고리별 */}
+    {/* 서버 레지스트리 — 카테고리별 (로드 시 /api/mcp/manifest 라이브 데이터로 갱신) */}
+    <div id="registry-sections">
     {categories.map(cat => (
       <section class="section fade-in">
         <h2><span style={`color:${categoryMeta[cat].color}`}>{categoryMeta[cat].label}</span> <span class="cat-count">{servers.filter(s => s.category === cat).length}</span></h2>
@@ -181,6 +187,7 @@ const jsonLd = {
         </div>
       </section>
     ))}
+    </div>
 
     {/* 연결 recipe */}
     <section class="section fade-in">
@@ -201,8 +208,12 @@ const jsonLd = {
     <section class="section fade-in">
       <h2>에이전트용 매니페스트</h2>
       <p class="section-desc">
-        정적 JSON — <a href="/mcp/manifest.json" class="inline-link"><code>https://metahumotonic.com/mcp/manifest.json</code></a>
+        라이브 API — <a href="/api/mcp/manifest" class="inline-link"><code>https://metahumotonic.com/api/mcp/manifest</code></a> (canonical, Mongo-backed)
+        · 정적 폐백 — <a href="/mcp/manifest.json" class="inline-link"><code>/mcp/manifest.json</code></a>
         · 스키마 <code>metahumotonic/mcp-registry@1</code> · updated {VERIFIED_AT}
+      </p>
+      <p class="section-desc">
+        읽기 전용 엔드포인트: <code>GET /api/mcp/servers</code> · <code>GET /api/mcp/servers/&#123;name&#125;</code> · <code>GET /api/mcp/manifest</code> · <code>GET /api/mcp/health</code>
       </p>
       <div class="manifest-note">
         <p>비밀번호·토큰 실제 값은 포함하지 않는다. <code>&lt;REDIS_PASSWORD&gt;</code> 같은 플레이스홀더와 env var 이름만 기재 — 각자의 시크릿 스토어에서 주입할 것.</p>
@@ -250,6 +261,10 @@ const jsonLd = {
 
   /* Badge */
   .badge { font-size:0.7rem; font-weight:700; padding:0.15rem 0.55rem; border-radius:999px; border:1px solid; letter-spacing:0.02em; white-space:nowrap; }
+  .registry-source { margin-top:1.1rem; display:flex; align-items:center; justify-content:center; gap:0.6rem; flex-wrap:wrap; }
+  .registry-source-note { font-size:0.78rem; color:#4a5578; }
+  .badge-live { color:#34d399; border-color:#34d39955; background:#34d39914; }
+  .badge-static { color:#fbbf24; border-color:#fbbf2455; background:#fbbf2414; }
 
   /* Server cards */
   .server-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1rem; margin-top:1rem; }
@@ -295,4 +310,116 @@ const jsonLd = {
   }, { threshold:0, rootMargin:'0px 0px 50px 0px' });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
   setTimeout(() => document.querySelectorAll('.fade-in:not(.visible)').forEach(el => el.classList.add('visible')), 1500);
+</script>
+
+<script>
+  // Live MCP registry — load-time fetch from the backend API with static fallback.
+  // 1) /api/mcp/manifest (canonical, Mongo-backed)  2) /mcp/manifest.json (static snapshot)
+  // 3) neither → keep the build-time cards already rendered above.
+  (async () => {
+    const badge = document.getElementById('registry-source-badge');
+    const note = document.getElementById('registry-source-note');
+    const wrap = document.getElementById('registry-sections');
+    if (!badge || !wrap) return;
+
+    const STATUS = {
+      verified:    { color: '#34d399' },
+      available:   { color: '#67e8f9' },
+      unused:      { color: '#4a5578' },
+      unreachable: { color: '#f87171' },
+    };
+    const CAT = {
+      graph:    { label: 'graph',    color: '#a78bfa' },
+      vector:   { label: 'vector',   color: '#f472b6' },
+      document: { label: 'document', color: '#fbbf24' },
+      storage:  { label: 'storage',  color: '#fb923c' },
+      utility:  { label: 'utility',  color: '#67e8f9' },
+    };
+    const CAT_ORDER = ['graph', 'vector', 'document', 'storage', 'utility'];
+
+    const esc = (v) => String(v ?? '').replace(/[&<>"']/g,
+      (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    // Human one-liner for a connection recipe — secrets are never in the manifest.
+    function connSummary(c) {
+      if (!c || typeof c !== 'object') return '';
+      const cmd = [c.command, ...(Array.isArray(c.args) ? c.args.slice(0, 2) : [])].filter(Boolean).join(' ');
+      switch (c.recipe) {
+        case 'local-tunnel': {
+          const port = c.tunnel && c.tunnel.port;
+          return `stdio · ${cmd}${port ? ` · 127.0.0.1:${port} (터널)` : ''}`;
+        }
+        case 'ssh-stdio': return `stdio · ${cmd}`;
+        case 'http':      return `http · ${c.url || ''}`;
+        default:          return `stdio · ${cmd}`;
+      }
+    }
+
+    function cardHtml(s) {
+      const st = STATUS[s.status] || { color: '#8892b0' };
+      const badgeLabel = s.status === 'verified' && s.verified_at
+        ? `verified ${esc(s.verified_at)}` : esc(s.status || 'unknown');
+      const conn = connSummary(s.connection);
+      return `
+        <div class="server-card">
+          <div class="srv-head">
+            <h3>${esc(s.name)}</h3>
+            <span class="badge" style="color:${st.color}; border-color:${st.color}55; background:${st.color}14;">${badgeLabel}</span>
+          </div>
+          <p class="srv-desc">${esc(s.description)}</p>
+          <div class="srv-meta">
+            ${s.backend ? `<div class="srv-row"><span class="srv-key">backend</span><span class="srv-val">${esc(s.backend)}</span></div>` : ''}
+            ${conn ? `<div class="srv-row"><span class="srv-key">connect</span><code class="srv-conn">${esc(conn)}</code></div>` : ''}
+          </div>
+        </div>`;
+    }
+
+    function render(servers) {
+      const byCat = {};
+      for (const s of servers) (byCat[s.category] ||= []).push(s);
+      const cats = [...CAT_ORDER.filter(c => byCat[c]), ...Object.keys(byCat).filter(c => !CAT_ORDER.includes(c))];
+      wrap.innerHTML = cats.map(cat => {
+        const meta = CAT[cat] || { label: cat, color: '#8892b0' };
+        return `
+          <section class="section fade-in visible">
+            <h2><span style="color:${meta.color}">${esc(meta.label)}</span> <span class="cat-count">${byCat[cat].length}</span></h2>
+            <div class="server-grid">${byCat[cat].map(cardHtml).join('')}</div>
+          </section>`;
+      }).join('');
+    }
+
+    async function fetchJson(url) {
+      const resp = await fetch(url, { headers: { accept: 'application/json' } });
+      if (!resp.ok) throw new Error(`${url} -> HTTP ${resp.status}`);
+      return resp.json();
+    }
+
+    try {
+      let manifest, live;
+      try {
+        manifest = await fetchJson('/api/mcp/manifest');
+        if (manifest.source === 'snapshot' || !Array.isArray(manifest.servers) || !manifest.servers.length) {
+          throw new Error('registry API in snapshot fallback');
+        }
+        live = true;
+      } catch {
+        manifest = await fetchJson('/mcp/manifest.json');
+        live = false;
+      }
+      render(manifest.servers);
+      if (live) {
+        badge.textContent = 'live registry API';
+        badge.className = 'badge badge-live';
+        note.textContent = `/api/mcp/manifest — Mongo-backed · updated ${manifest.updated || '?'}`;
+      } else {
+        badge.textContent = 'static fallback';
+        badge.className = 'badge badge-static';
+        note.textContent = '라이브 API unreachable — 정적 /mcp/manifest.json 스냅샷 표시 중';
+      }
+    } catch {
+      badge.textContent = 'static snapshot';
+      badge.className = 'badge badge-static';
+      note.textContent = '라이브 API·폐백 모두 unreachable — 빌드 타임 카드 표시 중';
+    }
+  })();
 </script>

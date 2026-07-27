@@ -2,6 +2,7 @@
   "schema": "metahumotonic/mcp-registry@1",
   "updated": "2026-07-27",
   "site": "https://metahumotonic.com",
+  "deprecated": "This static file is a fallback snapshot. The canonical live registry is https://metahumotonic.com/api/mcp/manifest (Mongo-backed, see also /api/mcp/servers and /api/mcp/health). Refresh this file with: mhb-mcp export --out public/mcp/manifest.json",
   "notes": [
     "Secrets are never included in this manifest. Values like <REDIS_PASSWORD> are placeholders — supply them from your own secret store or environment.",
     "SSH aliases referenced below: `bhgman` = Mac mini gateway, `proxmox` = Proxmox host (192.168.0.2, reached via ProxyJump bhgman). Define equivalent aliases in your own ~/.ssh/config; ProxyCommand details are intentionally omitted.",
