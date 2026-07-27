@@ -54,6 +54,7 @@
       "description": "Company Neo4j (외부 네트워크) — currently not in active use.",
       "status": "unused",
       "transport": "stdio",
+      "notes": "probe skipped: recipe 'local-npx' has no probe (local command)",
       "capabilities": [
         "cypher.read",
         "cypher.write",
@@ -95,6 +96,7 @@
       "status": "verified",
       "transport": "stdio",
       "verified_at": "2026-07-27",
+      "notes": "probe ok: tcp 127.0.0.1:19010 connect",
       "capabilities": [
         "bucket.admin",
         "object.read",
@@ -131,8 +133,10 @@
         }
       },
       "description": "Neo4j graph database on data-01 — Cypher read/write, schema inspection.",
-      "status": "available",
+      "status": "verified",
       "transport": "stdio",
+      "notes": "probe ok: tcp 127.0.0.1:17687 connect",
+      "verified_at": "2026-07-27",
       "capabilities": [
         "cypher.read",
         "cypher.write",
@@ -169,8 +173,10 @@
         "notes": "Runs remotely on the mac mini from the bhgman_tool checkout."
       },
       "description": "bhgman_tool engine — custom tool engine on the mac mini.",
-      "status": "available",
+      "status": "verified",
       "transport": "stdio",
+      "notes": "probe ok: ssh bhgman true",
+      "verified_at": "2026-07-27",
       "capabilities": [
         "tools"
       ],
@@ -198,6 +204,7 @@
       "status": "verified",
       "transport": "stdio",
       "verified_at": "2026-07-27",
+      "notes": "probe skipped: recipe 'local-npx' has no probe (local command)",
       "capabilities": [
         "tools"
       ],
@@ -227,8 +234,10 @@
         "notes": "Bearer token required (LAKATOS_API_TOKEN). Use the venv interpreter inside CT 301 if python3 does not resolve dependencies. `proxmox` alias = Proxmox host via ProxyJump bhgman."
       },
       "description": "LakatoTree server — judgment/measurement registry (판단/측정 레지스트리).",
-      "status": "available",
+      "status": "verified",
       "transport": "stdio",
+      "notes": "probe ok: ssh proxmox true",
+      "verified_at": "2026-07-27",
       "capabilities": [
         "tools"
       ],
@@ -261,8 +270,10 @@
         ]
       },
       "description": "Mac mini filesystem access, rooted at /Users/lagyeongjun/CD.",
-      "status": "available",
+      "status": "verified",
       "transport": "stdio",
+      "notes": "probe ok: ssh bhgman true",
+      "verified_at": "2026-07-27",
       "capabilities": [
         "bucket.admin",
         "object.read",
@@ -294,6 +305,7 @@
       "status": "verified",
       "transport": "stdio",
       "verified_at": "2026-07-27",
+      "notes": "probe skipped: recipe 'local-npx' has no probe (local command)",
       "capabilities": [
         "tools"
       ],
@@ -329,6 +341,7 @@
       "status": "verified",
       "transport": "stdio",
       "verified_at": "2026-07-27",
+      "notes": "probe ok: tcp 127.0.0.1:37017 connect",
       "capabilities": [
         "document.crud",
         "query",
@@ -365,8 +378,10 @@
         "notes": "Runs remotely on the mac mini from the omd project checkout."
       },
       "description": "OMD coordination DB server.",
-      "status": "available",
+      "status": "verified",
       "transport": "stdio",
+      "notes": "probe ok: ssh bhgman true",
+      "verified_at": "2026-07-27",
       "capabilities": [
         "tools"
       ],
@@ -393,8 +408,10 @@
         }
       },
       "description": "OpenObserve trace HTTP MCP endpoint.",
-      "status": "available",
+      "status": "verified",
       "transport": "http",
+      "notes": "probe ok: GET http://127.0.0.1:18009/mcp -> HTTP 406",
+      "verified_at": "2026-07-27",
       "capabilities": [
         "tools"
       ],
@@ -424,8 +441,10 @@
         "notes": "Runs remotely on the mac mini from the mcp-server-openobserve project directory; ZO_ACCESS_KEY required."
       },
       "description": "OpenObserve — logs and observability queries.",
-      "status": "available",
+      "status": "verified",
       "transport": "stdio",
+      "notes": "probe ok: ssh bhgman true",
+      "verified_at": "2026-07-27",
       "capabilities": [
         "tools"
       ],
@@ -465,8 +484,10 @@
         }
       },
       "description": "PostgreSQL `maindb` on data-01 — relational store, read/write SQL.",
-      "status": "available",
+      "status": "verified",
       "transport": "stdio",
+      "notes": "probe ok: tcp 127.0.0.1:15432 connect",
+      "verified_at": "2026-07-27",
       "capabilities": [
         "document.crud",
         "query",
@@ -512,6 +533,7 @@
       "status": "verified",
       "transport": "stdio",
       "verified_at": "2026-07-27",
+      "notes": "probe ok: tcp 127.0.0.1:16379 connect",
       "capabilities": [
         "kv.crud",
         "vector.search",
@@ -551,6 +573,7 @@
       "status": "verified",
       "transport": "stdio",
       "verified_at": "2026-07-27",
+      "notes": "probe skipped: recipe 'local-npx' has no probe (local command)",
       "capabilities": [
         "tools"
       ],
