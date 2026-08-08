@@ -19,8 +19,9 @@
     "verify:build-trace": "node scripts/ooptdd/emit-build-trace.mjs && uv run --python 3.12 --with pyyaml python scripts/ooptdd/verify-build-trace.py"
   },
   "dependencies": {
+    "@astrojs/starlight": "0.41.7",
     "@tailwindcss/postcss": "^4.2.2",
-    "astro": "^6.1.3",
+    "astro": "7.2.0",
     "neo4j-driver": "^6.0.1",
     "tailwindcss": "^4.2.2"
   }

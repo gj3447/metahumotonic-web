@@ -1,0 +1,18 @@
+---
+import { wikiAuthority, type WikiAuthorityId } from '../../lib/wiki';
+
+interface Props {
+  authority: WikiAuthorityId;
+  compact?: boolean;
+}
+
+const { authority, compact = false } = Astro.props;
+const detail = Object.values(wikiAuthority).find((item) => item.id === authority);
+if (!detail) throw new Error(`Unknown wiki authority: ${authority}`);
+---
+
+<span class:list={['wiki-authority', compact && 'wiki-authority--compact']} data-authority={authority} title={detail.description}>
+  <span class="wiki-authority__dot" aria-hidden="true"></span>
+  <span>{authority}</span>
+  {!compact && <small>{detail.label}</small>}
+</span>

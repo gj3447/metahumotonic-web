@@ -68,6 +68,14 @@ test('combined artifact contains both enrollment and publication routes', async 
     'research/papers/index.html',
     'research/program.json',
     'research/foundations.json',
+    'wiki/index.html',
+    'wiki/authority/index.html',
+    'wiki/open-source/index.html',
+    'wiki/axioms/index.html',
+    'wiki/worldview/index.html',
+    'wiki/apostles/index.html',
+    'wiki/apostles/bhgman/index.html',
+    'wiki/data.json',
     'ontology.ttl',
     'void.ttl',
     'llms.txt',
@@ -87,6 +95,32 @@ test('combined artifact contains both enrollment and publication routes', async 
   assert.equal(discovery.protocol.kind, 'custom-discovery-only');
   assert.equal(discovery.discovery.may_start_worker, false);
   assert.equal(discovery.discovery.may_install_software, false);
+});
+
+test('wiki is a default-deny KG projection with explicit authority', async () => {
+  const home = await read('wiki/index.html');
+  const authority = await read('wiki/authority/index.html');
+  const axioms = await read('wiki/axioms/index.html');
+  const bhgman = await read('wiki/apostles/bhgman/index.html');
+  const projection = JSON.parse(await read('wiki/data.json'));
+
+  assert.match(home, /MetaHumotonic Wiki/);
+  assert.match(home, /CANONICAL_USER/);
+  assert.match(home, /KG_DERIVED/);
+  assert.match(authority, /기본값은 비공개|Default deny/);
+  assert.match(axioms, /어떤 연속적인 흐름/);
+  assert.match(bhgman, /비행기맨/);
+  assert.equal(projection.schemaVersion, 'metahumotonic-public-wiki/v1');
+  assert.equal(projection.mode, 'read-only-kg-projection');
+  assert.equal(projection.publicationPolicy.default, 'deny');
+  assert.equal(projection.counts.axioms, 12);
+  assert.equal(projection.counts.apostles, 12);
+  assert.equal(projection.counts.worldviewClusters, 12);
+  assert.equal(projection.apostles.every((item) => item.authority === 'KG_DERIVED'), true);
+  assert.equal(projection.axioms.every((item) => item.authority === 'CANONICAL_USER'), true);
+  assert.doesNotMatch(JSON.stringify(projection), /\/Users\//);
+  assert.doesNotMatch(JSON.stringify(projection), /NEO4J_PASS|password|bolt:\/\//i);
+  assert.doesNotMatch(JSON.stringify(projection), /src\/data|kg_query|source_paths|elementId/i);
 });
 
 test('academic product root preserves the target operating model and consent boundaries', async () => {
@@ -473,6 +507,7 @@ test('semantic and crawler surfaces use the single .com origin', async () => {
   assert.match(sitemap, /https:\/\/metahumotonic\.com\/compute\//);
   assert.match(sitemap, /https:\/\/metahumotonic\.com\/book\//);
   assert.match(sitemap, /https:\/\/metahumotonic\.com\/apostles\//);
+  assert.match(sitemap, /https:\/\/metahumotonic\.com\/wiki\//);
   assert.match(sitemap, /https:\/\/metahumotonic\.com\/foundation\//);
   assert.match(sitemap, /https:\/\/metahumotonic\.com\/research\/hswm\//);
   assert.match(sitemap, /https:\/\/metahumotonic\.com\/research\/papers\//);
@@ -522,6 +557,8 @@ test('public release declares the mixed-license boundary', async () => {
   assert.match(licensing, /Creative Commons Attribution-ShareAlike 4\.0/);
   assert.match(licensing, /_vendor\/ooptdd/);
   assert.match(licensing, /OGL 0\.0\.42/);
+  assert.match(licensing, /Starlight/);
+  assert.match(await readFile(path.join(root, 'LICENSES/STARLIGHT-0.41.7-MIT.txt'), 'utf8'), /^MIT License/);
 });
 
 test('KG access requires an explicit password when live mode is enabled', async () => {

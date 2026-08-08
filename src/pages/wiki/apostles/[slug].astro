@@ -1,0 +1,67 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import WikiAuthorityBadge from '../../../components/wiki/WikiAuthorityBadge.astro';
+import { wikiApostles, wikiAuthority, wikiSidebar } from '../../../lib/wiki';
+
+export function getStaticPaths() {
+  return wikiApostles.map((apostle) => ({
+    params: { slug: apostle.slug },
+    props: { apostle },
+  }));
+}
+
+type Apostle = (typeof wikiApostles)[number];
+const { apostle } = Astro.props as { apostle: Apostle };
+const canonical = new URL(apostle.canonicalUrl, Astro.site);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTerm',
+  name: apostle.name,
+  description: apostle.essence,
+  url: canonical.href,
+  inDefinedTermSet: 'https://metahumotonic.com/wiki/apostles/',
+};
+---
+
+<StarlightPage
+  frontmatter={{
+    title: `${apostle.numeral}. ${apostle.name}`,
+    description: apostle.essence,
+    head: [
+      { tag: 'link', attrs: { rel: 'canonical', href: canonical.href } },
+      { tag: 'script', attrs: { type: 'application/ld+json' }, content: JSON.stringify(jsonLd) },
+    ],
+  }}
+  sidebar={wikiSidebar}
+>
+  <div class="wiki-apostle-hero">
+    <span class="wiki-apostle-hero__icon" aria-hidden="true">{apostle.icon}</span>
+    <div>
+      <p class="wiki-kicker">APOSTLE {apostle.numeral}</p>
+      <p class="wiki-apostle-hero__name">{apostle.name}</p>
+      <p class="wiki-apostle-hero__epithet">{apostle.epithet}</p>
+    </div>
+  </div>
+
+  <WikiAuthorityBadge authority={wikiAuthority.kgDerived.id} />
+
+  <dl class="wiki-fact-grid">
+    <div><dt>역할</dt><dd>{apostle.role}</dd></div>
+    <div><dt>정전 상태</dt><dd>{apostle.status}</dd></div>
+    <div><dt>KG ID</dt><dd><code>{apostle.id}</code></dd></div>
+  </dl>
+
+  <h2>본질</h2>
+  <p class="wiki-essence">{apostle.essence}</p>
+
+  <h2>공개 본문</h2>
+  <p>{apostle.body}</p>
+
+  <aside class="wiki-boundary">
+    <p>
+      이 문서는 KG 정전 미러의 공개 필드만 표시합니다. 원문 출처 경로, 내부 관계,
+      검증 전 AI 해석은 노출하지 않습니다.
+    </p>
+    <a href={apostle.sourceUrl}>기존 사도 상세 표면 보기 →</a>
+  </aside>
+</StarlightPage>

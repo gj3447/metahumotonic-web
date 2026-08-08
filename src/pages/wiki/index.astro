@@ -1,0 +1,103 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import WikiAuthorityBadge from '../../components/wiki/WikiAuthorityBadge.astro';
+import {
+  publicWikiProjection,
+  wikiApostles,
+  wikiAuthority,
+  wikiSidebar,
+} from '../../lib/wiki';
+
+const canonical = new URL('/wiki/', Astro.site);
+---
+
+<StarlightPage
+  frontmatter={{
+    title: 'MetaHumotonic Wiki',
+    description: 'MetaHumotonic KG의 공개 정전 투영 — 공리, 세계관, 12사도',
+    tableOfContents: false,
+    head: [
+      { tag: 'link', attrs: { rel: 'canonical', href: canonical.href } },
+      { tag: 'meta', attrs: { name: 'robots', content: 'index,follow' } },
+    ],
+  }}
+  sidebar={wikiSidebar}
+>
+  <div class="wiki-hero">
+    <p class="wiki-kicker">KG-NATIVE · READ ONLY · PUBLIC ALLOWLIST</p>
+    <h2>지식을 복사하지 않고,<br /><span>정전을 투영합니다.</span></h2>
+    <p class="wiki-lede">
+      이 위키의 편집 원장은 별도 CMS가 아니라 MetaHumotonic Knowledge Graph입니다.
+      공개 검수를 통과한 원문과 KG 미러만 빌드 시점에 정적 문서로 투영합니다.
+    </p>
+    <div class="wiki-actions">
+      <a class="wiki-button wiki-button--primary" href="/wiki/axioms/">선의 공리부터 읽기</a>
+      <a class="wiki-button" href="/wiki/authority/">공개 경계 보기</a>
+    </div>
+  </div>
+
+  <div class="wiki-stat-grid" aria-label="공개 위키 통계">
+    <div><strong>{publicWikiProjection.counts.axioms}</strong><span>선의 공리</span></div>
+    <div><strong>{publicWikiProjection.counts.apostles}</strong><span>사도 문서</span></div>
+    <div><strong>{publicWikiProjection.counts.worldviewClusters}</strong><span>세계관 클러스터</span></div>
+    <div><strong>2</strong><span>공개 권위 계층</span></div>
+  </div>
+
+  <section class="wiki-section" aria-labelledby="wiki-map-title">
+    <div class="wiki-section__head">
+      <div>
+        <p class="wiki-kicker">KNOWLEDGE MAP</p>
+        <h2 id="wiki-map-title">위키 지도</h2>
+      </div>
+      <a href="/wiki/data.json">JSON →</a>
+    </div>
+    <div class="wiki-card-grid wiki-card-grid--three">
+      <a class="wiki-card" href="/wiki/axioms/">
+        <span class="wiki-card__glyph">十二</span>
+        <WikiAuthorityBadge authority={wikiAuthority.canonicalUser.id} compact />
+        <h3>선의 공리</h3>
+        <p>시간에서 메타휴모토닉까지, 사용자 원문 12정의를 그대로 읽습니다.</p>
+      </a>
+      <a class="wiki-card" href="/wiki/worldview/">
+        <span class="wiki-card__glyph">∞</span>
+        <WikiAuthorityBadge authority={wikiAuthority.kgDerived.id} compact />
+        <h3>세계관 지도</h3>
+        <p>600+ 정전 노드의 대표 개념을 12개 클러스터로 탐색합니다.</p>
+      </a>
+      <a class="wiki-card" href="/wiki/apostles/">
+        <span class="wiki-card__glyph">✦</span>
+        <WikiAuthorityBadge authority={wikiAuthority.kgDerived.id} compact />
+        <h3>12사도</h3>
+        <p>존재로서의 12사도와 각 사도의 역할·본질·현재 상태를 봅니다.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="wiki-section" aria-labelledby="apostle-preview-title">
+    <div class="wiki-section__head">
+      <div>
+        <p class="wiki-kicker">APOSTLES</p>
+        <h2 id="apostle-preview-title">12개의 존재</h2>
+      </div>
+      <a href="/wiki/apostles/">전체 보기 →</a>
+    </div>
+    <div class="wiki-apostle-strip">
+      {wikiApostles.map((apostle) => (
+        <a href={apostle.canonicalUrl} title={apostle.epithet}>
+          <span aria-hidden="true">{apostle.icon}</span>
+          <small>{apostle.numeral}</small>
+          <strong>{apostle.name}</strong>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <aside class="wiki-boundary">
+    <WikiAuthorityBadge authority={wikiAuthority.canonicalUser.id} />
+    <WikiAuthorityBadge authority={wikiAuthority.kgDerived.id} />
+    <p>
+      <strong>기본값은 비공개입니다.</strong> 임의의 Neo4j 노드, 내부 경로, 인증정보,
+      AI 해석본은 이 위키에 자동 노출되지 않습니다.
+    </p>
+  </aside>
+</StarlightPage>

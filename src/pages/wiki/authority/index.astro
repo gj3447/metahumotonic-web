@@ -1,0 +1,59 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import WikiAuthorityBadge from '../../../components/wiki/WikiAuthorityBadge.astro';
+import { publicWikiProjection, wikiAuthority, wikiSidebar } from '../../../lib/wiki';
+---
+
+<StarlightPage
+  frontmatter={{
+    title: '공개·정전 경계',
+    description: 'MetaHumotonic Wiki가 KG에서 무엇을 공개하고 무엇을 차단하는지 설명합니다.',
+  }}
+  sidebar={wikiSidebar}
+>
+  <p class="wiki-kicker">PUBLICATION CONTRACT</p>
+  <h2>KG는 정본이고, 위키는 공개 투영입니다.</h2>
+  <p class="wiki-lede">
+    위키에서 글을 직접 편집해 KG와 경쟁하는 두 번째 정본을 만들지 않습니다.
+    변경은 사용자 원문과 KG 검증 절차에서 일어나고, 이 표면은 허용된 필드만 읽습니다.
+  </p>
+
+  <div class="wiki-contract-flow" aria-label="위키 발행 흐름">
+    <div><b>1</b><strong>USER PRIMARY</strong><span>사용자 원문·verdict</span></div>
+    <i aria-hidden="true">→</i>
+    <div><b>2</b><strong>KNOWLEDGE GRAPH</strong><span>정전·provenance·상태</span></div>
+    <i aria-hidden="true">→</i>
+    <div><b>3</b><strong>PUBLIC ALLOWLIST</strong><span>선택된 데이터와 필드</span></div>
+    <i aria-hidden="true">→</i>
+    <div><b>4</b><strong>/WIKI</strong><span>읽기·검색·링크</span></div>
+  </div>
+
+  <h2>현재 공개 권위</h2>
+  <div class="wiki-authority-list">
+    <article>
+      <WikiAuthorityBadge authority={wikiAuthority.canonicalUser.id} />
+      <p>{wikiAuthority.canonicalUser.description}</p>
+    </article>
+    <article>
+      <WikiAuthorityBadge authority={wikiAuthority.kgDerived.id} />
+      <p>{wikiAuthority.kgDerived.description}</p>
+    </article>
+  </div>
+
+  <h2>발행 규칙</h2>
+  <div class="wiki-rule-grid">
+    <article><strong>Default deny</strong><p>공개 표식과 필드 허용 목록이 없으면 나오지 않습니다.</p></article>
+    <article><strong>No arbitrary Cypher</strong><p>브라우저는 Cypher나 Neo4j 인증정보를 받지 않습니다.</p></article>
+    <article><strong>No silent promotion</strong><p>KG 파생 요약을 사용자 원문 정전으로 자동 승격하지 않습니다.</p></article>
+    <article><strong>Static fallback</strong><p>KG가 일시 중단돼도 마지막 검수 스냅샷으로 안전하게 읽힙니다.</p></article>
+  </div>
+
+  <h2>현재 투영</h2>
+  <pre class="wiki-json-summary"><code>{JSON.stringify({
+    schemaVersion: publicWikiProjection.schemaVersion,
+    mode: publicWikiProjection.mode,
+    counts: publicWikiProjection.counts,
+    default: publicWikiProjection.publicationPolicy.default,
+  }, null, 2)}</code></pre>
+  <p><a href="/wiki/data.json">전체 공개 JSON 투영 보기 →</a></p>
+</StarlightPage>

@@ -9,6 +9,7 @@ license that applies depends on the material:
 | Original MetaHumotonic text, visual material, ontology content, and knowledge-graph dataset where copyright subsists | [Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/) |
 | `_vendor/ooptdd/**` | [Apache License 2.0](_vendor/ooptdd/LICENSE), with its [NOTICE](_vendor/ooptdd/NOTICE) |
 | `public/js/ogl.umd.js` (OGL 0.0.42) | [MIT](LICENSES/OGL-0.0.42-MIT.txt), Copyright (c) 2019 Nathan Gordon |
+| `@astrojs/starlight` 0.41.7 (Starlight wiki UI) | [MIT](LICENSES/STARLIGHT-0.41.7-MIT.txt), Copyright (c) 2023 Astro contributors |
 | Other third-party dependencies | Their respective upstream licenses |
 
 For CC BY-SA material, attribute **Gyeongjun Ra (라경준)** and link to

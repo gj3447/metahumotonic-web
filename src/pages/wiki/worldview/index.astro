@@ -1,0 +1,29 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import WikiAuthorityBadge from '../../../components/wiki/WikiAuthorityBadge.astro';
+import { wikiAuthority, wikiSidebar, wikiWorldview } from '../../../lib/wiki';
+---
+
+<StarlightPage
+  frontmatter={{
+    title: '세계관 지도',
+    description: 'MetaHumotonic KG의 공개 세계관 대표 개념을 12개 클러스터로 탐색합니다.',
+  }}
+  sidebar={wikiSidebar}
+>
+  <p class="wiki-kicker">WORLDVIEW · 12 CLUSTERS</p>
+  <WikiAuthorityBadge authority={wikiAuthority.kgDerived.id} />
+  <p class="wiki-lede">KG의 전체 그래프를 덤프하지 않고, 검수된 대표 클러스터와 용어만 공개합니다.</p>
+
+  <div class="wiki-worldview-grid">
+    {wikiWorldview.map((cluster) => (
+      <article id={cluster.id}>
+        <span class="wiki-worldview-grid__num">{cluster.number}</span>
+        <p class="wiki-kicker">{cluster.english}</p>
+        <h2>{cluster.title}</h2>
+        <p>{cluster.gloss}</p>
+        <div class="wiki-term-cloud">{cluster.terms}</div>
+      </article>
+    ))}
+  </div>
+</StarlightPage>

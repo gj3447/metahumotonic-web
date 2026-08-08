@@ -20,7 +20,7 @@ npm run build
 npm run preview
 ```
 
-`npm run build` writes one combined static site to `dist/`: SaaS at `/`, canon entry at `/book/`, and existing publication routes on the same origin. The repository also provides a build-artifact receipt check; it requires `uv` and Python 3.12:
+`npm run build` writes one combined static site to `dist/`: SaaS at `/`, canon entry at `/book/`, the KG-backed public wiki at `/wiki/`, and existing publication routes on the same origin. The repository also provides a build-artifact receipt check; it requires `uv` and Python 3.12:
 
 ```sh
 npm run build
@@ -37,6 +37,12 @@ Public content must keep its authority layer explicit:
 - `PSEUDEPIGRAPHA` — suspected attribution drift, including text that may present AI writing as the user's voice. Quarantine and label it; do not publish it as user canon.
 
 Do not fill gaps in apostle identities, relationships, or doctrine by inference. Preserve unresolved questions and conflicting user-primary sources until the user gives a canonical decision. New public content should retain source provenance rather than replacing source material with a cleaner retrospective story.
+
+## Public wiki
+
+[`/wiki/`](https://metahumotonic.com/wiki/) is an Astro Starlight publication surface, not a second canon database. `src/lib/wiki.ts` builds a typed, read-only projection from reviewed public mirrors in `src/data/`; publication is default-deny and every rendered record carries an explicit authority label. The browser never receives Neo4j credentials, arbitrary Cypher access, private source paths, or KG write tools.
+
+`/wiki/data.json` exposes the same bounded projection for machine readers. Expanding it to additional KG records or relationships requires an explicit public allowlist and publication approval; a KG label or canonical tier alone is not consent to publish.
 
 ## Public-code curation
 

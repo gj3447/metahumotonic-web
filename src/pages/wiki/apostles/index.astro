@@ -1,0 +1,33 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import WikiAuthorityBadge from '../../../components/wiki/WikiAuthorityBadge.astro';
+import { wikiApostles, wikiAuthority, wikiSidebar } from '../../../lib/wiki';
+---
+
+<StarlightPage
+  frontmatter={{
+    title: '12사도',
+    description: 'MetaHumotonic 12사도의 본질, 역할, 현재 정전 상태',
+  }}
+  sidebar={wikiSidebar}
+>
+  <p class="wiki-kicker">THE TWELVE APOSTLES</p>
+  <h2>12사도는 존재이고, 무기는 도구입니다.</h2>
+  <WikiAuthorityBadge authority={wikiAuthority.kgDerived.id} />
+  <p class="wiki-lede">각 문서는 KG 정전 미러에서 공개 필드만 골라 만든 읽기 전용 투영입니다.</p>
+
+  <div class="wiki-apostle-grid">
+    {wikiApostles.map((apostle) => (
+      <a href={apostle.canonicalUrl}>
+        <div class="wiki-apostle-grid__top">
+          <span class="wiki-apostle-grid__icon" aria-hidden="true">{apostle.icon}</span>
+          <span>{apostle.numeral}</span>
+        </div>
+        <h2>{apostle.name}</h2>
+        <p class="wiki-apostle-grid__epithet">{apostle.epithet}</p>
+        <p>{apostle.body}</p>
+        <small>{apostle.status}</small>
+      </a>
+    ))}
+  </div>
+</StarlightPage>

@@ -1,0 +1,31 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import WikiAuthorityBadge from '../../../components/wiki/WikiAuthorityBadge.astro';
+import { wikiAuthority, wikiAxioms, wikiSidebar } from '../../../lib/wiki';
+---
+
+<StarlightPage
+  frontmatter={{
+    title: '선의 공리 12',
+    description: '시간, 존재, 선, 메타휴모토닉으로 이어지는 사용자 원문 공리 12정의',
+  }}
+  sidebar={wikiSidebar}
+>
+  <p class="wiki-kicker">AXIOM OF GOOD · 12 DEFINITIONS</p>
+  <WikiAuthorityBadge authority={wikiAuthority.canonicalUser.id} />
+  <p class="wiki-lede">문장 윤색 없이 사용자 1차 원문의 정의와 영문 미러를 함께 둡니다.</p>
+
+  <ol class="wiki-axiom-list">
+    {wikiAxioms.map((axiom) => (
+      <li id={axiom.id}>
+        <div class="wiki-axiom-list__symbol" aria-hidden="true">{axiom.symbol}</div>
+        <div>
+          <p class="wiki-axiom-list__num">{axiom.num} · {axiom.hanja}</p>
+          <h2>{axiom.name}</h2>
+          <p class="wiki-axiom-list__body">{axiom.body}</p>
+          <p class="wiki-axiom-list__en" lang="en">{axiom.english}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+</StarlightPage>
