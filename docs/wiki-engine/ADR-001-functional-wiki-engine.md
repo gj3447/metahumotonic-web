@@ -7,9 +7,9 @@
 
 ## 결론
 
-위키는 충분히 동적으로 만들 수 있다. 현재 `/wiki`가 정적인 이유는 위키 엔진이어서가 아니라, Astro가 빌드 때 만든 **read-only KG publication projection**이기 때문이다. 현재 코드에는 사용자 신원, 편집 API, revision 저장소, 충돌 처리, diff, 최근 변경이 없다.
+위키는 충분히 동적으로 만들 수 있다. 기존 `/wiki`가 정적이었던 이유는 위키 엔진이어서가 아니라, Astro가 빌드 때 만든 **read-only KG publication projection**만 있었기 때문이다. 이 ADR은 이후 추가되는 community runtime이 따라야 할 계약을 고정하지만, 문서 자체로 배포나 live readiness를 증명하지 않는다.
 
-새 쓰기 경로는 TypeScript의 함수형 코어로 만든다.
+공유 쓰기 의미론은 언어 중립 JSON 계약으로 고정한다. 현재 TypeScript 함수형 코어는 v1 실행 기준선이고, 실제 public REST 경로를 담당할 Python backend도 같은 결정·event·effect 골든 픽스처를 통과해야 한다.
 
 ```text
 decide(state, command) -> events | typed rejection
@@ -19,7 +19,7 @@ effects(event)         -> data-only effect intents
 
 실제 event 처리 경계는 `step(state, event)`다. 유효 event면 다음 state와 effect intent를 함께 돌려주고, 불가능 event면 state를 그대로 보존하면서 `AuditInvalidTransition` intent를 돌려준다. 상태만 필요한 `evolve`와 stream `replay`는 불가능 event를 예외로 중단해 손상된 history를 조용히 통과시키지 않는다.
 
-HTTP, 세션, CSRF, DB transaction, 검색, 렌더링, KG 적용은 코어 밖 port다. 콘텐츠 SHA-256 검산은 결정적 계산이므로 코어가 직접 수행한다. 함수형이라는 말은 특정 함수형 언어를 강제한다는 뜻이 아니라, 상태 전이와 부수효과의 경계를 코드로 강제한다는 뜻이다.
+HTTP, 세션, CSRF, DB transaction, 검색, 렌더링, KG 적용은 코어 밖 port다. 콘텐츠 SHA-256 검산은 결정적 계산이므로 코어가 직접 수행한다. 함수형이라는 말은 TypeScript를 강제한다는 뜻이 아니라, TypeScript와 Python 모두에서 상태 전이와 부수효과의 경계를 같은 계약으로 강제한다는 뜻이다.
 
 ## 왜 엔진인가
 
@@ -55,7 +55,7 @@ Wiki.js는 공식 요구사항상 dedicated domain/subdomain을 전제하며 `/w
 - 커뮤니티 page별 단일 append stream
 - immutable revision과 parent chain
 - command/event/state schema version
-- page lifecycle과 KG proposal lifecycle
+- page lifecycle, content moderation, KG proposal lifecycle
 - optimistic head check와 typed rejection
 - deterministic effect intent
 
@@ -71,9 +71,9 @@ Wiki.js는 공식 요구사항상 dedicated domain/subdomain을 전제하며 `/w
 
 웹 프로세스는 raw Cypher와 KG canon publisher credential을 절대 갖지 않는다.
 
-## 두 개의 직교 FSM
+## 세 개의 직교 FSM
 
-한 개의 거대한 “wiki state” FSM은 삭제 상태와 심사 상태를 섞어 조합 폭발을 만든다. 그래서 page lifecycle과 proposal workflow를 직교 상태로 둔다. 여기에 `lastAppliedCanon`을 별도 projection으로 보존해 community head가 바뀌어도 마지막 USER_PRIMARY canon binding이 사라지지 않게 한다.
+한 개의 거대한 “wiki state” FSM은 삭제, 공개 가시성, KG 심사를 섞어 조합 폭발을 만든다. 그래서 page lifecycle, content moderation, KG proposal workflow를 직교 상태로 둔다. 여기에 `lastAppliedCanon`을 별도 projection으로 보존해 community head가 바뀌어도 마지막 USER_PRIMARY canon binding이 사라지지 않게 한다.
 
 ### 1. Page lifecycle
 
@@ -86,7 +86,21 @@ Wiki.js는 공식 요구사항상 dedicated domain/subdomain을 전제하며 `/w
 
 삭제는 history 삭제가 아니라 tombstone이다. 복구는 과거 revision을 덮어쓰지 않는다.
 
-### 2. KG canon workflow
+### 2. Content moderation
+
+```text
+visible -- PAGE_REPORTED --> visible + private review queue
+visible -- PAGE_QUARANTINED [internal wiki:moderate + exact head] --> quarantined
+quarantined -- PAGE_RELEASED [internal wiki:moderate + exact bound revision/hash] --> visible
+```
+
+새 문서와 새 revision은 `visible`로 들어간다. `PAGE_REPORTED`는 신고를 비공개 검토 queue에 넣는 self-transition일 뿐, 문서를 숨기거나 공개 badge를 붙이지 않는다. 자동 사전검열, pending, rejected 상태는 이 최소 beta 계약에 없다.
+
+격리는 별도 internal operations plane에서만 가능하다. 서버가 확인한 내부 credential이 `wiki:moderate`를 부여하고, 격리 명령은 명령 시점의 정확한 head `revisionId`와 서버 계산 `contentHash`에 결박된다. release도 격리 receipt가 기록한 동일 revision/hash에 정확히 맞아야 한다. 격리 중 public page/list/search/history/diff/recent-change read에서는 문서를 제외하며 community edit은 거부한다. immutable revision history는 삭제하지 않는다.
+
+Public browser, CLI, MCP principal에는 `wiki:moderate`를 주지 않는다. `visible`은 public community surface에 보일 수 있다는 뜻일 뿐 KG review 승인이나 정전 권위를 뜻하지 않으며, report/quarantine/release는 KG workflow를 전이시키지 않는다. 이 machine은 Python public runtime의 필수 계약이고 TypeScript reference에는 contract-only다.
+
+### 3. KG proposal and canon workflow
 
 ```text
 unsubmitted
@@ -102,13 +116,26 @@ unsubmitted
 
 Reviewer 승인과 정전 승인은 다른 사건이다. `review_approved`는 여전히 non-canon이다. `canon_authorized`도 실제 적용 전에는 non-canon이다. 오직 정확한 적용 후 readback receipt가 기록돼야 `canon_applied`다. community head, 마지막 적용 canon, 익명 공개 snapshot도 서로 다른 값이며 익명 공개 승인은 이 FSM 밖의 독립 gate다.
 
-두 machine은 terminal state가 없다. 위키는 계속 편집되며 삭제·거절·supersede도 복구 가능한 운영 상태이기 때문이다.
+KG proposal v2는 review 전에 `proposalId`, typed target, allowlisted `changeSet`, `planHash`, `baseKgSnapshotHash`, `mappingVersion`, `policyVersion`, `sourceRefs`를 불변 payload로 저장해야 한다. 승인과 readback receipt도 이 전체 계획에 결박된다. 기존 TypeScript v1 `ApplyKgCanonRevision` intent에는 이 provenance가 없으므로 실제 Neo4j 적용은 **disabled**다. worker는 이 legacy intent를 외부 호출 없이 `KG_PUBLISH_DISABLED_UNBOUND_PLAN`으로 park 또는 durable failure 처리해야 한다.
+
+`KgProposalSuperseded` payload는 `proposalId`, `revisionId`, `contentHash`, `planHash`, `previousStatus`, nullable `replacementRevisionId`, `reason`을 모두 보존한다. 이전 계약에는 이 complete payload가 없었으며, 이번 계약에서 production requirement로 명시했다.
+
+세 machine은 terminal state가 없다. 위키는 계속 편집되며 삭제·quarantine·거절·supersede도 복구 가능한 운영 상태이기 때문이다.
 
 기계 정본은 [fsm-spec.json](./fsm-spec.json), trace는 [fsm-traces.json](./fsm-traces.json), 생성 diagram은 [fsm-diagram.mmd](./fsm-diagram.mmd)다.
+교차언어 결정·effect의 공유 **manifest**는 [runtime-golden-traces.json](./runtime-golden-traces.json)이다. 현재 validator는 이 파일의 schema와 안전 결박만 검사하며 두 runtime을 실행하지 않는다. TypeScript kernel과 Python runtime/API/PG 테스트는 별도 실행 증거이고, manifest 기반 byte/decision parity runner는 후속 gate다.
+
+## Public API와 actor 신뢰 경계
+
+Public HTTP는 `/api/wiki/v1/sessions`, `/pages`, `/pages/{slug}/revisions`, `/pages/{slug}/submit-review`, `/pages/{slug}/report`의 REST resource로 노출한다. CLI와 MCP도 같은 application service를 호출한다. `/commands`는 내부 domain gateway 이름일 뿐 public HTTP route가 아니다.
+
+격리와 release는 `/internal/wiki/moderation` 아래 별도 operations API다. 이 경로는 public ingress, browser, public CLI/MCP capability 표면에 포함하지 않는다. Public agent는 신고할 수 있지만 격리할 수 없다.
+
+Client는 idempotency key, expected head, content, summary 같은 의도만 보낸다. Submit/moderation의 `content_hash`는 권위 값이 아니라 현재 서버 hash와 비교하는 CAS assertion이다. `actor`, capability, `occurredAt`, event/revision/receipt ID와 권위 content hash는 서버가 인증 principal, trusted clock, ID/hash port로 만든다. Cookie HTTP mutation은 CSRF를 요구하고, CLI/MCP는 scope가 제한된 non-cookie credential을 쓴다. 어느 adapter도 DB row, raw Cypher, KG credential에 직접 접근하지 않는다.
 
 ## command, event, effect
 
-현재 reference slice의 command:
+현재 TypeScript reference slice의 내부 command:
 
 - `CreatePage`
 - `CommitRevision`
@@ -141,7 +168,7 @@ load stream at version N
 COMMIT
 ```
 
-2026-08-08 read-only audit 시 기존 FastAPI backend는 wiki route, 사용자 session/RBAC, CSRF, migration이 없고 production MongoDB는 standalone이었다. Standalone Mongo에서 별도 event·receipt·outbox collection을 다중 문서 transaction으로 묶을 수 없으므로 현재 상태로는 production write adapter가 될 수 없다.
+초기 read-only audit에서 확인한 standalone Mongo 구성은 별도 event·receipt·outbox collection의 다중 문서 transaction을 보장하지 못했다. 이후 별도 Python backend 구현이 추가되었더라도 이 ADR만으로 현재 datastore 구성, migration 적용, backup/restore 또는 production readiness를 확정하지 않는다.
 
 선택지는 두 가지다.
 
@@ -161,9 +188,9 @@ Reference memory adapter의 command fingerprint는 canonical JSON의 SHA-256이�
 - 짧고 bounded한 page별 publication lease 동안 append를 직렬화하고, lease token·stream version·revision/hash를 KG receipt에 함께 결박한다.
 - KG 적용 뒤 authorization/revocation stream을 다시 확인하고 revoke와 엇갈렸으면 반드시 보상 proposal을 내는 reconciliation protocol을 둔다. 이 경우 중간 상태가 public release로 나가지 않도록 별도 gate가 막아야 한다.
 
-lease 만료, worker crash, revoke, 늦게 도착한 성공 응답까지 fault injection으로 통과해야 한다. 현재는 revoke 자체가 미구현이므로 `ApplyKgCanonRevision` intent를 실제 Neo4j adapter에 연결하지 않는다.
+lease 만료, worker crash, revoke, 늦게 도착한 성공 응답까지 fault injection으로 통과해야 한다. 현재는 revoke뿐 아니라 typed KG target/change-set/plan provenance도 미구현이므로 `ApplyKgCanonRevision` intent를 실제 Neo4j adapter에 연결하지 않는다.
 
-## 현재 구현
+## 구현 및 증거 경계
 
 - [core.ts](../../src/lib/wiki-engine/core.ts): `decide`, `evolve`, `replay`, `effects`
 - [types.ts](../../src/lib/wiki-engine/types.ts): readonly tagged unions와 versioned protocol
@@ -171,6 +198,7 @@ lease 만료, worker crash, revoke, 늦게 도착한 성공 응답까지 fault i
 - [projections.ts](../../src/lib/wiki-engine/projections.ts): history, recent changes, wiki-link/backlink projection
 - [wiki-engine.test.ts](../../tests/wiki-engine.test.ts): 충돌·replay·권한 분리·supersede 검증
 - [engine-spec.json](./engine-spec.json): machine-readable engine contract
+- [runtime-golden-traces.json](./runtime-golden-traces.json): TypeScript/Python shared decision/effect manifest (structural validation only; executable parity runner pending)
 
 구현됐다는 뜻:
 
@@ -181,14 +209,18 @@ lease 만료, worker crash, revoke, 늦게 도착한 성공 응답까지 fault i
 - revision author/time과 reviewer/authorizer/publisher provenance가 event envelope와 다르면 replay가 중단된다.
 - community head와 `lastAppliedCanon`이 독립적으로 보존된다.
 
-아직 구현되지 않았다는 뜻:
+별도 Python backend와 site에 community API/UI가 존재할 수 있지만, 그 현재 상태는 해당 runtime test와 배포 readback으로 따로 검증해야 한다. 이 ADR과 JSON trace가 증명하는 것은 계약과 reference-kernel conformance뿐이다.
 
-- 로그인·편집 UI·diff UI·discussion·watchlist
-- durable DB/API/outbox worker
-- global slug unique reservation과 실제 stream-version compare-and-set
+아직 이 계약이 증명하지 않는 것:
+
+- 실제 배포 URL과 운영 datastore migration 상태
+- backup/restore와 실제 stream-version compare-and-set
+- report queue, internal exact-head quarantine/release, 모든 public read projection의 quarantine 제외가 같은 durable transaction 경계를 공유하는지
+- discussion·watchlist
 - 실제 KG proposal/publisher adapter
 - USER_PRIMARY revoke command와 cross-store publisher lease·late-success reconciliation protocol
-- `/api/wiki` ingress와 배포
+- moderation machine의 TypeScript binding (reference는 contract-only)
+- typed KG proposal v2와 publisher provenance binding; 그 전 실제 KG apply는 disabled
 
 ## 정적 사이트를 프로그램으로 바꾸는 기능군
 
@@ -211,10 +243,11 @@ lease 만료, worker crash, revoke, 늦게 도착한 성공 응답까지 fault i
 
 1. transactional datastore와 schema migration을 고른다.
 2. `EventStore.commit(expectedVersion, events, receipt, outbox)` contract test를 먼저 통과시킨다.
-3. FastAPI에 session/RBAC/CSRF가 적용된 typed `/api/wiki/commands`와 read projections를 추가한다.
-4. 기존 canonical projection 경로와 충돌하지 않는 `/wiki/community/:slug`, `/edit`, `/history`, `/diff`, `/wiki/recent-changes`를 progressive hydration으로 붙인다. Astro global base는 바꾸지 않는다.
-5. 공개 editor를 열기 전 concurrent edit, duplicate request, XSS, CSRF, backup/restore, replay를 검증한다.
-6. KG adapter는 별도 작업으로 preview/submit/readback까지만 먼저 연결한다. 정전 적용은 USER_PRIMARY 승인과 격리 publisher가 준비된 뒤 활성화한다.
+3. FastAPI에 session/RBAC/CSRF가 적용된 `/api/wiki/v1/sessions`, `/pages`, `/pages/{slug}/revisions`, `/pages/{slug}/submit-review`와 read projections를 추가한다. 이 REST adapter는 내부 command application gateway로만 진입한다.
+4. 같은 application service에 public report intake와 별도 `/internal/wiki/moderation` exact-head quarantine/release를 결박하고, 모든 public read projection에서 quarantined page를 제외한다.
+5. 기존 canonical projection 경로와 충돌하지 않는 community edit, history, diff, recent-changes surface를 붙인다. Astro global base는 바꾸지 않는다.
+6. 공개 editor를 열기 전 concurrent edit, duplicate request, report rate limit, stale quarantine/release, quarantined edit/read exclusion, XSS, CSRF, backup/restore, replay를 검증한다.
+7. KG adapter는 별도 작업으로 preview/submit/readback까지만 먼저 연결한다. 정전 적용은 USER_PRIMARY 승인과 격리 publisher가 준비된 뒤 활성화한다.
 
 ## 채택 기준
 
@@ -223,6 +256,9 @@ lease 만료, worker crash, revoke, 늦게 도착한 성공 응답까지 fault i
 - event/receipt/outbox atomic commit 검증
 - replay 결과와 live projection hash 일치
 - 사용자 auth/RBAC/CSRF와 renderer sanitization 검증
+- report rate limit과 비공개 queue 검증; report만으로 visibility/badge가 바뀌는 경로 0건
+- public credential의 `wiki:moderate` 보유 0건, exact-head quarantine/release 우회 0건
+- quarantined page의 public read/edit 노출 0건
 - 동일 command의 중복 효과 0건
 - 웹 배포물에서 canon credential 부재 확인
 - exact USER_PRIMARY approval과 KG readback을 건너뛸 경로 0건

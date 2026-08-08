@@ -8,6 +8,14 @@ stateDiagram-v2
     active --> deleted: PAGE_DELETED
     deleted --> active: PAGE_RESTORED
   }
+  state content_moderation {
+    [*] --> visible
+    visible --> visible: PAGE_CREATED
+    visible --> visible: REVISION_COMMITTED
+    visible --> visible: PAGE_REPORTED
+    visible --> quarantined: PAGE_QUARANTINED [moderator_can_quarantine_head]
+    quarantined --> visible: PAGE_RELEASED [moderator_can_release_bound_revision]
+  }
   state kg_canon_workflow {
     [*] --> unsubmitted
     unsubmitted --> in_review: KG_REVIEW_SUBMITTED

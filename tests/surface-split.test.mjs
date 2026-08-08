@@ -508,6 +508,7 @@ test('semantic and crawler surfaces use the single .com origin', async () => {
   assert.match(sitemap, /https:\/\/metahumotonic\.com\/book\//);
   assert.match(sitemap, /https:\/\/metahumotonic\.com\/apostles\//);
   assert.match(sitemap, /https:\/\/metahumotonic\.com\/wiki\//);
+  assert.doesNotMatch(sitemap, /https:\/\/metahumotonic\.com\/wiki\/community\//);
   assert.match(sitemap, /https:\/\/metahumotonic\.com\/foundation\//);
   assert.match(sitemap, /https:\/\/metahumotonic\.com\/research\/hswm\//);
   assert.match(sitemap, /https:\/\/metahumotonic\.com\/research\/papers\//);

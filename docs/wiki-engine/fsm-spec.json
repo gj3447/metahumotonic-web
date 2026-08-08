@@ -7,33 +7,77 @@
     "run_to_completion": "One typed event is selected and reduced completely before the next stream event.",
     "action_order": "Validate payload, evaluate pure guard, select one transition, compute next state, then emit data-only intents."
   },
+  "runtime_binding": {
+    "typescript_reference": "wiki-event/v1 implements page_lifecycle and the legacy KG review topology; its unbound publisher intent is disabled at the adapter boundary.",
+    "python_backend_target": "Implements the public revision surface and must bind this exact reactive quarantine machine before public writes are activated.",
+    "compatibility_rule": "Shared state/effect names and golden outcomes are normative. A runtime may omit moderation only while its public write routes remain disabled. KG canon dispatch remains disabled-unbound-v1 independently of community visibility."
+  },
   "context_schema": {
     "head_revision_id": {"type": "string"},
+    "head_actor_id": {"type": "actor-id"},
     "submitter_id": {"type": "actor-id"},
     "reviewed_revision_id": {"type": "string"},
     "reviewed_content_hash": {"type": "string"},
     "authorized_revision_id": {"type": "string"},
     "authorized_content_hash": {"type": "string"},
-    "authorized_approval_receipt_id": {"type": "string"}
+    "authorized_approval_receipt_id": {"type": "string"},
+    "head_content_hash": {"type": "sha256"},
+    "moderated_revision_id": {"type": "string"},
+    "moderated_content_hash": {"type": "string"},
+    "proposal_id": {"type": "string"},
+    "proposal_plan_hash": {"type": "sha256"}
   },
   "event_schemas": {
-    "PAGE_CREATED": {
+    "PAGE_REPORTED": {
       "type": "object",
-      "required": ["page_id", "revision_id", "actor", "event_id"],
+      "required": ["page_id", "revision_id", "content_hash", "report_id", "reason", "actor", "event_id"],
       "properties": {
         "page_id": {"type": "string"},
         "revision_id": {"type": "string"},
+        "content_hash": {"type": "sha256"},
+        "report_id": {"type": "string"},
+        "reason": {"type": "string"},
+        "actor": {"type": "actor-id"},
+        "event_id": {"type": "string"}
+      }
+    },
+    "PAGE_QUARANTINED": {
+      "type": "object",
+      "required": ["page_id", "revision_id", "content_hash", "moderator_id", "reason_code", "policy_version", "moderation_receipt_id", "actor", "event_id"],
+      "properties": {
+        "page_id": {"type": "string"}, "revision_id": {"type": "string"}, "content_hash": {"type": "sha256"},
+        "moderator_id": {"type": "actor-id"}, "reason_code": {"type": "string"}, "policy_version": {"type": "string"},
+        "moderation_receipt_id": {"type": "string"}, "actor": {"type": "actor-id"}, "event_id": {"type": "string"}
+      }
+    },
+    "PAGE_RELEASED": {
+      "type": "object",
+      "required": ["page_id", "revision_id", "content_hash", "moderator_id", "reason_code", "policy_version", "moderation_receipt_id", "actor", "event_id"],
+      "properties": {
+        "page_id": {"type": "string"}, "revision_id": {"type": "string"}, "content_hash": {"type": "sha256"},
+        "moderator_id": {"type": "actor-id"}, "reason_code": {"type": "string"}, "policy_version": {"type": "string"},
+        "moderation_receipt_id": {"type": "string"}, "actor": {"type": "actor-id"}, "event_id": {"type": "string"}
+      }
+    },
+    "PAGE_CREATED": {
+      "type": "object",
+      "required": ["page_id", "revision_id", "content_hash", "actor", "event_id"],
+      "properties": {
+        "page_id": {"type": "string"},
+        "revision_id": {"type": "string"},
+        "content_hash": {"type": "sha256"},
         "actor": {"type": "actor-id"},
         "event_id": {"type": "string"}
       }
     },
     "REVISION_COMMITTED": {
       "type": "object",
-      "required": ["page_id", "revision_id", "parent_revision_id", "actor", "event_id"],
+      "required": ["page_id", "revision_id", "parent_revision_id", "content_hash", "actor", "event_id"],
       "properties": {
         "page_id": {"type": "string"},
         "revision_id": {"type": "string"},
         "parent_revision_id": {"type": "string"},
+        "content_hash": {"type": "sha256"},
         "actor": {"type": "actor-id"},
         "event_id": {"type": "string"}
       }
@@ -60,44 +104,61 @@
     },
     "KG_REVIEW_SUBMITTED": {
       "type": "object",
-      "required": ["page_id", "revision_id", "content_hash", "actor", "event_id"],
+      "required": ["page_id", "proposal_id", "revision_id", "content_hash", "target_kind", "target_stable_id", "base_kg_snapshot_hash", "change_set", "plan_hash", "mapping_version", "policy_version", "source_refs", "actor", "event_id"],
       "properties": {
         "page_id": {"type": "string"},
+        "proposal_id": {"type": "string"},
         "revision_id": {"type": "string"},
-        "content_hash": {"type": "string"},
+        "content_hash": {"type": "sha256"},
+        "target_kind": {"type": "enum", "values": ["node", "relationship", "property-set"]},
+        "target_stable_id": {"type": "string"},
+        "base_kg_snapshot_hash": {"type": "sha256"},
+        "change_set": {"type": "array", "items": "typed-allowlisted-operation", "minItems": 1},
+        "plan_hash": {"type": "sha256"},
+        "mapping_version": {"type": "string"},
+        "policy_version": {"type": "string"},
+        "source_refs": {"type": "array", "items": "source-ref", "minItems": 1},
         "actor": {"type": "actor-id"},
         "event_id": {"type": "string"}
       }
     },
     "KG_PROPOSAL_APPROVED": {
       "type": "object",
-      "required": ["page_id", "revision_id", "content_hash", "actor", "event_id"],
+      "required": ["page_id", "proposal_id", "revision_id", "content_hash", "plan_hash", "actor", "event_id"],
       "properties": {
         "page_id": {"type": "string"},
+        "proposal_id": {"type": "string"},
         "revision_id": {"type": "string"},
-        "content_hash": {"type": "string"},
+        "content_hash": {"type": "sha256"},
+        "plan_hash": {"type": "sha256"},
         "actor": {"type": "actor-id"},
         "event_id": {"type": "string"}
       }
     },
     "KG_PROPOSAL_REJECTED": {
       "type": "object",
-      "required": ["page_id", "revision_id", "content_hash", "actor", "event_id"],
+      "required": ["page_id", "proposal_id", "revision_id", "content_hash", "plan_hash", "reason", "actor", "event_id"],
       "properties": {
         "page_id": {"type": "string"},
+        "proposal_id": {"type": "string"},
         "revision_id": {"type": "string"},
-        "content_hash": {"type": "string"},
+        "content_hash": {"type": "sha256"},
+        "plan_hash": {"type": "sha256"},
+        "reason": {"type": "string"},
         "actor": {"type": "actor-id"},
         "event_id": {"type": "string"}
       }
     },
     "KG_CANON_AUTHORIZED": {
       "type": "object",
-      "required": ["page_id", "revision_id", "content_hash", "approval_receipt_id", "actor", "event_id"],
+      "required": ["page_id", "proposal_id", "revision_id", "content_hash", "plan_hash", "base_kg_snapshot_hash", "approval_receipt_id", "actor", "event_id"],
       "properties": {
         "page_id": {"type": "string"},
+        "proposal_id": {"type": "string"},
         "revision_id": {"type": "string"},
-        "content_hash": {"type": "string"},
+        "content_hash": {"type": "sha256"},
+        "plan_hash": {"type": "sha256"},
+        "base_kg_snapshot_hash": {"type": "sha256"},
         "approval_receipt_id": {"type": "string"},
         "actor": {"type": "actor-id"},
         "event_id": {"type": "string"}
@@ -105,11 +166,15 @@
     },
     "KG_CANON_APPLIED": {
       "type": "object",
-      "required": ["page_id", "revision_id", "content_hash", "approval_receipt_id", "application_receipt_id", "actor", "event_id"],
+      "required": ["page_id", "proposal_id", "revision_id", "content_hash", "plan_hash", "base_kg_snapshot_hash", "result_kg_snapshot_hash", "approval_receipt_id", "application_receipt_id", "actor", "event_id"],
       "properties": {
         "page_id": {"type": "string"},
+        "proposal_id": {"type": "string"},
         "revision_id": {"type": "string"},
-        "content_hash": {"type": "string"},
+        "content_hash": {"type": "sha256"},
+        "plan_hash": {"type": "sha256"},
+        "base_kg_snapshot_hash": {"type": "sha256"},
+        "result_kg_snapshot_hash": {"type": "sha256"},
         "approval_receipt_id": {"type": "string"},
         "application_receipt_id": {"type": "string"},
         "actor": {"type": "actor-id"},
@@ -118,20 +183,38 @@
     },
     "KG_PROPOSAL_SUPERSEDED": {
       "type": "object",
-      "required": ["page_id", "revision_id", "content_hash", "previous_status", "replacement_revision_id", "reason", "actor", "event_id"],
+      "required": ["page_id", "proposal_id", "revision_id", "content_hash", "plan_hash", "previous_status", "replacement_revision_id", "reason", "actor", "event_id"],
       "properties": {
         "page_id": {"type": "string"},
+        "proposal_id": {"type": "string"},
         "revision_id": {"type": "string"},
-        "content_hash": {"type": "string"},
-        "previous_status": {"type": "string"},
+        "content_hash": {"type": "sha256"},
+        "plan_hash": {"type": "sha256"},
+        "previous_status": {"type": "enum", "values": ["in_review", "review_approved", "rejected"]},
         "replacement_revision_id": {"type": "revision-id-or-null"},
-        "reason": {"type": "string"},
+        "reason": {"type": "enum", "values": ["new_revision", "page_deleted"]},
         "actor": {"type": "actor-id"},
         "event_id": {"type": "string"}
       }
     }
   },
   "guards": {
+    "moderator_can_quarantine_head": {
+      "reads": ["head_revision_id", "head_content_hash", "head_actor_id"],
+      "event_reads": ["revision_id", "content_hash", "actor"],
+      "required_capability": "wiki:moderate",
+      "predicate": "event.actor != head_actor_id && event.revision_id == head_revision_id && event.content_hash == head_content_hash",
+      "pure": true,
+      "synchronous": true
+    },
+    "moderator_can_release_bound_revision": {
+      "reads": ["moderated_revision_id", "moderated_content_hash", "head_actor_id"],
+      "event_reads": ["revision_id", "content_hash", "actor"],
+      "required_capability": "wiki:moderate",
+      "predicate": "event.actor != head_actor_id && event.revision_id == moderated_revision_id && event.content_hash == moderated_content_hash",
+      "pure": true,
+      "synchronous": true
+    },
     "head_matches": {
       "reads": ["head_revision_id"],
       "event_reads": ["parent_revision_id"],
@@ -158,6 +241,28 @@
     }
   },
   "effects": {
+    "QueueModerationReport": {
+      "kind": "command",
+      "payload_schema": {
+        "type": "object",
+        "required": ["page_id", "revision_id", "content_hash", "report_id", "reason"],
+        "properties": {
+          "page_id": {"type": "string"}, "revision_id": {"type": "string"},
+          "content_hash": {"type": "sha256"}, "report_id": {"type": "string"}, "reason": {"type": "string"}
+        }
+      }
+    },
+    "RecordModerationStatus": {
+      "kind": "command",
+      "payload_schema": {
+        "type": "object",
+        "required": ["page_id", "revision_id", "content_hash", "status"],
+        "properties": {
+          "page_id": {"type": "string"}, "revision_id": {"type": "string"},
+          "content_hash": {"type": "sha256"}, "status": {"type": "string"}
+        }
+      }
+    },
     "RecordPageProjection": {
       "kind": "command",
       "payload_schema": {
@@ -196,6 +301,8 @@
     },
     "QueueCanonApplication": {
       "kind": "command",
+      "dispatch_status": "disabled-unbound-v1",
+      "disabled_reason": "Legacy intent lacks proposal_id, typed target/change_set, plan_hash, mapping/policy versions, source refs, and base KG snapshot binding.",
       "payload_schema": {
         "type": "object",
         "required": ["page_id", "revision_id", "content_hash", "approval_receipt_id"],
@@ -279,6 +386,27 @@
           "effects": ["RecordLifecycleChange"],
           "effect_bindings": {"RecordLifecycleChange": {"page_id": "event.page_id", "event_id": "event.event_id"}}
         }
+      ]
+    },
+    {
+      "id": "content_moderation",
+      "initial": "visible",
+      "implementation_status": "python-runtime-binding-required-before-public-write-activation; typescript-reference-contract-only",
+      "states": [
+        {"id": "visible", "kind": "atomic"},
+        {"id": "quarantined", "kind": "atomic"}
+      ],
+      "events": ["PAGE_CREATED", "REVISION_COMMITTED", "PAGE_REPORTED", "PAGE_QUARANTINED", "PAGE_RELEASED"],
+      "invalid_event_policy": {
+        "mode": "reject-and-audit", "guard_false": "reject-and-audit", "state_change": "none", "effect": "AuditInvalidTransition",
+        "effect_binding": {"state": "configuration.state", "event": "event.type", "actor": "event.actor", "reason": "rejection.reason", "event_id": "event.event_id"}
+      },
+      "transitions": [
+        {"id": "create_visible", "from": "visible", "event": "PAGE_CREATED", "to": "visible", "effects": ["RecordModerationStatus"], "effect_bindings": {"RecordModerationStatus": {"page_id": "event.page_id", "revision_id": "event.revision_id", "content_hash": "event.content_hash", "status": "literal:visible"}}},
+        {"id": "edit_visible", "from": "visible", "event": "REVISION_COMMITTED", "to": "visible", "effects": ["RecordModerationStatus"], "effect_bindings": {"RecordModerationStatus": {"page_id": "event.page_id", "revision_id": "event.revision_id", "content_hash": "event.content_hash", "status": "literal:visible"}}},
+        {"id": "report_visible", "from": "visible", "event": "PAGE_REPORTED", "to": "visible", "effects": ["QueueModerationReport"], "effect_bindings": {"QueueModerationReport": {"page_id": "event.page_id", "revision_id": "event.revision_id", "content_hash": "event.content_hash", "report_id": "event.report_id", "reason": "event.reason"}}},
+        {"id": "quarantine_head", "from": "visible", "event": "PAGE_QUARANTINED", "to": "quarantined", "guard": "moderator_can_quarantine_head", "effects": ["RecordModerationStatus"], "effect_bindings": {"RecordModerationStatus": {"page_id": "event.page_id", "revision_id": "event.revision_id", "content_hash": "event.content_hash", "status": "literal:quarantined"}}},
+        {"id": "release_bound_revision", "from": "quarantined", "event": "PAGE_RELEASED", "to": "visible", "guard": "moderator_can_release_bound_revision", "effects": ["RecordModerationStatus"], "effect_bindings": {"RecordModerationStatus": {"page_id": "event.page_id", "revision_id": "event.revision_id", "content_hash": "event.content_hash", "status": "literal:visible"}}}
       ]
     },
     {
@@ -416,7 +544,11 @@
       "Only an active current head may enter KG review.",
       "A new revision or deletion emits KG_PROPOSAL_SUPERSEDED only when the prior KG workflow is in_review review_approved or rejected.",
       "Community edits cannot revoke canon_authorized or canon_applied; the exact authorization stays valid and last-applied canon persists independently of the community head.",
-      "Both machines are intentionally perpetual aggregates; deletion and supersession are recoverable states rather than terminal destruction."
+      "All three machines are intentionally perpetual aggregates; deletion quarantine and supersession are recoverable states rather than terminal destruction.",
+      "PAGE_REPORTED is a visible self-transition that queues private review only; it neither changes public visibility nor adds a public report badge.",
+      "Public reads exclude quarantined pages, and REVISION_COMMITTED has no valid transition while quarantined.",
+      "Moderation visibility is orthogonal to KG review and canon authority: no moderation transition advances or rolls back kg_canon_workflow.",
+      "QueueCanonApplication is a legacy data intent only; dispatch is disabled until a stored KgProposalPlanV2 and exact provenance/readback bindings exist."
     ]
   },
   "safety_properties": [
@@ -436,6 +568,16 @@
       "verification": "Pure-kernel reuse test, durable-store unique constraint, and replay validation."
     },
     {
+      "id": "reactive-quarantine-boundary",
+      "statement": "A report cannot hide or badge content; only an internal wiki:moderate decision bound to the exact current head revision and hash can quarantine, and only the exact recorded binding can release.",
+      "verification": "Positive report/quarantine/release traces plus false-guard traces for stale quarantine and release targets."
+    },
+    {
+      "id": "quarantined-pages-are-read-only-and-hidden",
+      "statement": "Public reads exclude quarantined pages and no community revision transition exists while quarantined.",
+      "verification": "Public-adapter exclusion test plus the quarantined REVISION_COMMITTED invalid-event trace."
+    },
+    {
       "id": "separated-canon-authority",
       "statement": "Independent review approval cannot reach canon_applied without an exact USER_PRIMARY authorization and publisher readback.",
       "verification": "Transition reachability check plus capability and exact-receipt conformance tests."
@@ -449,9 +591,15 @@
   "liveness_properties": [
     {
       "id": "page-remains-editable",
-      "statement": "An active page can accept another valid revision indefinitely.",
-      "assumptions": ["A command carries the current head and the event store remains writable."],
+      "statement": "An active visible page can accept another valid revision indefinitely.",
+      "assumptions": ["The page is not quarantined, a command carries the current head, and the event store remains writable."],
       "verification": "Bounded repeated-edit model test and event-store soak test."
+    },
+    {
+      "id": "quarantine-is-recoverable",
+      "statement": "A quarantined page can return to visible without altering immutable revision history.",
+      "assumptions": ["An authorized internal operator eventually supplies the exact revision and content hash bound by quarantine."],
+      "verification": "Exact-bound release trace and durable projection recovery test."
     },
     {
       "id": "review-eventual-outcome",
@@ -466,7 +614,7 @@
       "verification": "Outbox crash-recovery and KG drift-injection tests."
     }
   ],
-  "trace_fixtures": ["docs/wiki-engine/fsm-traces.json"],
+  "trace_fixtures": ["docs/wiki-engine/fsm-traces.json", "docs/wiki-engine/runtime-golden-traces.json"],
   "conformance": {
     "implementation_step": "src/lib/wiki-engine/core.ts binds command guards to decide, validates domain-event transitions in step, leaves state unchanged with an audit intent for invalid events, and makes replay fail closed.",
     "model_trace_runner": "The fsm-design run_fsm_traces.py runner executes abstract state-topology fixtures with explicit guard outcomes; payload schemas are statically validated but these traces do not execute concrete TypeScript payload validation.",

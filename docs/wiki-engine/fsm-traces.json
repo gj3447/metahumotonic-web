@@ -26,6 +26,40 @@
       ]
     },
     {
+      "id": "moderation-visible-report-quarantine-release",
+      "machine": "content_moderation",
+      "steps": [
+        {"event": "PAGE_CREATED", "guard_results": {}, "expected_state": "visible", "expected_effects": ["RecordModerationStatus"]},
+        {"event": "REVISION_COMMITTED", "guard_results": {}, "expected_state": "visible", "expected_effects": ["RecordModerationStatus"]},
+        {"event": "PAGE_REPORTED", "guard_results": {}, "expected_state": "visible", "expected_effects": ["QueueModerationReport"]},
+        {"event": "PAGE_QUARANTINED", "guard_results": {"moderator_can_quarantine_head": true}, "expected_state": "quarantined", "expected_effects": ["RecordModerationStatus"]},
+        {"event": "PAGE_RELEASED", "guard_results": {"moderator_can_release_bound_revision": true}, "expected_state": "visible", "expected_effects": ["RecordModerationStatus"]}
+      ]
+    },
+    {
+      "id": "moderation-stale-quarantine-blocked",
+      "machine": "content_moderation",
+      "steps": [
+        {"event": "PAGE_QUARANTINED", "guard_results": {"moderator_can_quarantine_head": false}, "expected_state": "visible", "expected_effects": ["AuditInvalidTransition"]}
+      ]
+    },
+    {
+      "id": "moderation-stale-release-blocked",
+      "machine": "content_moderation",
+      "steps": [
+        {"event": "PAGE_QUARANTINED", "guard_results": {"moderator_can_quarantine_head": true}, "expected_state": "quarantined", "expected_effects": ["RecordModerationStatus"]},
+        {"event": "PAGE_RELEASED", "guard_results": {"moderator_can_release_bound_revision": false}, "expected_state": "quarantined", "expected_effects": ["AuditInvalidTransition"]}
+      ]
+    },
+    {
+      "id": "moderation-edit-blocked-while-quarantined",
+      "machine": "content_moderation",
+      "steps": [
+        {"event": "PAGE_QUARANTINED", "guard_results": {"moderator_can_quarantine_head": true}, "expected_state": "quarantined", "expected_effects": ["RecordModerationStatus"]},
+        {"event": "REVISION_COMMITTED", "guard_results": {}, "expected_state": "quarantined", "expected_effects": ["AuditInvalidTransition"]}
+      ]
+    },
+    {
       "id": "canon-happy-path",
       "machine": "kg_canon_workflow",
       "steps": [

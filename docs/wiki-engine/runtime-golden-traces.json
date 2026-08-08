@@ -1,0 +1,163 @@
+{
+  "schema_version": "wiki-runtime-golden/v1",
+  "verification_mode": "structural shared-runtime manifest; the repository validator checks declared cases and safety bindings but does not execute either runtime against this file",
+  "canonicalization": "Intended future executable comparison uses UTF-8 JSON with object keys sorted recursively; arrays preserve order; timestamps and identifiers are fixture values; compare only fields declared under expected.",
+  "runtimes": {
+    "typescript-reference": {
+      "declared_case_kinds": ["kernel-v1"],
+      "known_omissions": ["public-adapter", "moderation-v1", "kg-proposal-v2", "publisher-dispatch"]
+    },
+    "python-backend": {
+      "declared_case_kinds": ["kernel-v1", "public-adapter", "moderation-v1", "kg-proposal-v2", "publisher-dispatch"],
+      "known_gap": "Focused backend tests cover the implemented kernel, adapter, and moderation behavior, but no Python runner currently loads this manifest and KG proposal v2/publisher execution remains disabled."
+    }
+  },
+  "cases": [
+    {
+      "id": "create-page-accepted-effects-ordered",
+      "kind": "kernel-v1",
+      "given": {"state": "initial", "command": "CreatePage", "actor_capabilities": ["wiki:edit"], "content_hash_valid": true},
+      "expected": {
+        "decision": "accepted",
+        "rejection_code": null,
+        "event_types": ["PageCreated"],
+        "effect_types": ["IndexRevision", "UpdateBacklinks", "RenderPage", "AppendRecentChange"],
+        "state": {"lifecycle": "active", "authority": "COMMUNITY", "revisionCount": 1}
+      }
+    },
+    {
+      "id": "stale-commit-rejected-without-effects",
+      "kind": "kernel-v1",
+      "given": {"state": "active-at-r2", "command": "CommitRevision", "expected_head_revision_id": "r1"},
+      "expected": {
+        "decision": "rejected",
+        "rejection_code": "REVISION_CONFLICT",
+        "event_types": [],
+        "effect_types": [],
+        "state_change": "none"
+      }
+    },
+    {
+      "id": "transport-cannot-forge-actor-or-time",
+      "kind": "public-adapter",
+      "given": {"route": "POST /api/wiki/v1/pages/{slug}/revisions", "request_fields": ["idempotencyKey", "content", "actor", "occurredAt"]},
+      "expected": {
+        "decision": "rejected",
+        "rejection_code": "UNTRUSTED_AUTHORITY_FIELD",
+        "event_types": [],
+        "effect_types": [],
+        "state_change": "none"
+      }
+    },
+    {
+      "id": "report-queues-review-without-public-state-change",
+      "kind": "moderation-v1",
+      "given": {"state": "visible-at-r2", "event": "PAGE_REPORTED", "actor_capabilities": ["wiki:report"], "revision_id": "r2", "content_hash": "sha256:r2"},
+      "expected": {
+        "decision": "accepted",
+        "rejection_code": null,
+        "event_types": ["page_reported"],
+        "effect_types": ["moderation_report_requested"],
+        "state": {"moderation": "visible", "public_visible": true, "public_report_badge": false, "kg_workflow": "unchanged", "authority": "COMMUNITY"}
+      }
+    },
+    {
+      "id": "internal-exact-head-quarantine-hides-public-read",
+      "kind": "moderation-v1",
+      "given": {"state": "visible-at-r2", "event": "PAGE_QUARANTINED", "actor_plane": "internal-ops", "actor_capabilities": ["wiki:moderate"], "head_revision_id": "r2", "head_content_hash": "sha256:r2", "revision_id": "r2", "content_hash": "sha256:r2"},
+      "expected": {
+        "decision": "accepted",
+        "rejection_code": null,
+        "event_types": ["page_quarantined"],
+        "effect_types": [],
+        "state": {"moderation": "quarantined", "public_visible": false, "kg_workflow": "unchanged", "authority": "COMMUNITY"}
+      }
+    },
+    {
+      "id": "public-agent-cannot-quarantine",
+      "kind": "moderation-v1",
+      "given": {"state": "visible-at-r2", "event": "PAGE_QUARANTINED", "actor_plane": "public-mcp", "actor_capabilities": ["wiki:read", "wiki:edit", "wiki:submit", "wiki:report"], "revision_id": "r2", "content_hash": "sha256:r2"},
+      "expected": {
+        "decision": "rejected",
+        "rejection_code": "insufficient_scope",
+        "event_types": [],
+        "effect_types": [],
+        "state_change": "none"
+      }
+    },
+    {
+      "id": "release-must-match-quarantine-binding",
+      "kind": "moderation-v1",
+      "given": {"state": "quarantined-at-r2", "event": "PAGE_RELEASED", "actor_plane": "internal-ops", "actor_capabilities": ["wiki:moderate"], "moderated_revision_id": "r2", "moderated_content_hash": "sha256:r2", "revision_id": "r1", "content_hash": "sha256:r1"},
+      "expected": {
+        "decision": "rejected",
+        "rejection_code": "revision_conflict",
+        "event_types": [],
+        "effect_types": [],
+        "state_change": "none"
+      }
+    },
+    {
+      "id": "exact-bound-release-restores-public-read",
+      "kind": "moderation-v1",
+      "given": {"state": "quarantined-at-r2", "event": "PAGE_RELEASED", "actor_plane": "internal-ops", "actor_capabilities": ["wiki:moderate"], "moderated_revision_id": "r2", "moderated_content_hash": "sha256:r2", "revision_id": "r2", "content_hash": "sha256:r2"},
+      "expected": {
+        "decision": "accepted",
+        "rejection_code": null,
+        "event_types": ["page_released"],
+        "effect_types": [],
+        "state": {"moderation": "visible", "public_visible": true, "kg_workflow": "unchanged", "authority": "COMMUNITY"}
+      }
+    },
+    {
+      "id": "quarantined-edit-is-rejected",
+      "kind": "moderation-v1",
+      "given": {"state": "quarantined-at-r2", "command": "CommitRevision", "expected_head_revision_id": "r2"},
+      "expected": {
+        "decision": "rejected",
+        "rejection_code": "page_quarantined",
+        "event_types": [],
+        "effect_types": [],
+        "state_change": "none"
+      }
+    },
+    {
+      "id": "superseded-payload-is-complete",
+      "kind": "kg-proposal-v2",
+      "given": {"state": "in_review", "cause": "new_revision"},
+      "expected": {
+        "decision": "accepted",
+        "rejection_code": null,
+        "event_types": ["KgProposalSuperseded"],
+        "event_payload_required": ["proposalId", "revisionId", "contentHash", "planHash", "previousStatus", "replacementRevisionId", "reason"],
+        "event_payload": {"previousStatus": "in_review", "replacementRevisionId": "page:alpha:r2", "reason": "new_revision"},
+        "effect_types": ["UpdateReviewProjection"],
+        "state": {"kg_workflow": "superseded"}
+      }
+    },
+    {
+      "id": "legacy-kg-intent-cannot-reach-canon-store",
+      "kind": "publisher-dispatch",
+      "given": {"effect": "ApplyKgCanonRevision", "payload_version": "wiki-event/v1", "has_typed_target": false, "has_plan_hash": false, "has_base_kg_snapshot_hash": false},
+      "expected": {
+        "decision": "rejected",
+        "rejection_code": "KG_PUBLISH_DISABLED_UNBOUND_PLAN",
+        "external_calls": 0,
+        "effect_outcome": "durably_failed_or_parked",
+        "kg_apply_enabled": false
+      }
+    },
+    {
+      "id": "kg-plan-base-drift-fails-before-apply",
+      "kind": "kg-proposal-v2",
+      "given": {"state": "canon_authorized", "plan_hash_valid": true, "base_kg_snapshot_matches": false},
+      "expected": {
+        "decision": "rejected",
+        "rejection_code": "KG_BASE_SNAPSHOT_MISMATCH",
+        "event_types": [],
+        "external_calls": 0,
+        "state_change": "none"
+      }
+    }
+  ]
+}

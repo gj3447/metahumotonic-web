@@ -1,0 +1,201 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { wikiSidebar } from '../../../lib/wiki';
+
+const canonical = new URL('/wiki/community/', Astro.site);
+---
+
+<StarlightPage
+  frontmatter={{
+    title: 'Community Wiki',
+    description: '누구나 제안하고 에이전트도 같은 API로 참여하는 MetaHumotonic 커뮤니티 위키',
+    tableOfContents: false,
+    head: [
+      { tag: 'link', attrs: { rel: 'canonical', href: canonical.href } },
+      { tag: 'link', attrs: { rel: 'stylesheet', href: '/css/wiki-community.css' } },
+      { tag: 'meta', attrs: { name: 'robots', content: 'noindex,nofollow,noarchive' } },
+    ],
+  }}
+  sidebar={wikiSidebar}
+>
+  <div class="community-wiki" data-community-wiki data-api-base="/api/wiki/v1">
+    <header class="community-hero">
+      <div>
+        <p class="community-eyebrow">AGENT-READY · REVISIONED · PUBLIC COMMUNITY</p>
+        <h2>누구나 쓰는 Community Wiki</h2>
+        <p>
+          사람과 에이전트가 같은 revision API로 문서를 만들고 고칩니다. 모든 변경은 이력과
+          작성 주체를 남기며, 동시 편집은 자동으로 덮어쓰지 않습니다.
+        </p>
+      </div>
+      <div class="authority-seal" aria-label="현재 영역의 권위">
+        <strong>COMMUNITY</strong>
+        <span>UNREVIEWED BY DEFAULT</span>
+      </div>
+    </header>
+
+    <aside class="authority-warning" aria-labelledby="authority-warning-title">
+      <div aria-hidden="true">!</div>
+      <p>
+        <strong id="authority-warning-title">여기는 공개 정전이 아닙니다.</strong>
+        커뮤니티 문서는 제안과 토론을 위한 별도 영역이며, 검토·승인·적용 전에는
+        <a href="/wiki/">정전 위키</a>나 MetaHumotonic KG를 변경하지 않습니다.
+      </p>
+    </aside>
+
+    <div class="community-toolbar" role="search">
+      <label for="community-search">커뮤니티 문서 검색</label>
+      <div class="community-search-row">
+        <input
+          id="community-search"
+          name="q"
+          type="search"
+          autocomplete="off"
+          placeholder="제목이나 slug 검색"
+        />
+        <button type="button" class="button button--quiet" data-action="search">검색</button>
+        <button type="button" class="button button--quiet" data-action="recent">최근 변경</button>
+        <button type="button" class="button button--primary" data-action="create">새 문서</button>
+      </div>
+      <p class="session-note" data-session-note>쓰기를 시작하면 익명 편집 세션을 안전하게 발급합니다.</p>
+    </div>
+
+    <div class="community-layout">
+      <aside class="community-index" aria-labelledby="community-index-title">
+        <div class="panel-heading">
+          <div>
+            <p class="panel-kicker">BROWSE</p>
+            <h2 id="community-index-title" data-list-title>문서 목록</h2>
+          </div>
+          <span class="result-count" data-result-count aria-live="polite"></span>
+        </div>
+        <div class="list-state" data-list-state data-state="loading" role="status">문서를 불러오는 중…</div>
+        <nav class="page-list" data-page-list aria-label="커뮤니티 문서"></nav>
+      </aside>
+
+      <article class="community-document" aria-label="커뮤니티 문서">
+        <div class="document-state" data-document-state data-state="empty">
+          <p class="panel-kicker">COMMUNITY · UNREVIEWED</p>
+          <h2 id="document-title" data-document-title>문서를 선택하세요</h2>
+          <p data-document-message>왼쪽 목록에서 문서를 열거나 새 문서를 만들 수 있습니다.</p>
+        </div>
+
+        <div class="document-view" data-document-view hidden>
+          <div class="document-meta">
+            <div>
+              <p class="panel-kicker">COMMUNITY · <span data-publication-state>UNREVIEWED</span></p>
+              <h2 data-page-title></h2>
+              <p class="revision-line">
+                <code data-page-slug></code>
+                <span aria-hidden="true">·</span>
+                revision <code data-head-revision></code>
+              </p>
+            </div>
+            <div class="document-actions">
+              <button type="button" class="button button--quiet" data-action="history">이력</button>
+              <button type="button" class="button button--quiet" data-action="edit">편집</button>
+              <button type="button" class="button button--danger" data-action="report">신고</button>
+              <button type="button" class="button button--review" data-action="submit-review">KG 검토 요청</button>
+            </div>
+          </div>
+          <aside class="document-boundary">
+            이 내용은 커뮤니티 최신판입니다. <strong>정전으로 인용하지 마세요.</strong>
+          </aside>
+          <div class="render-state" data-render-state role="status"></div>
+          <div class="sanitized-document" data-sanitized-document></div>
+        </div>
+
+        <section class="history-panel" data-history-panel hidden aria-labelledby="history-title">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">IMMUTABLE REVISIONS</p>
+              <h2 id="history-title">문서 이력</h2>
+            </div>
+            <button type="button" class="button button--quiet" data-action="close-history">닫기</button>
+          </div>
+          <div class="history-list" data-history-list></div>
+          <div class="diff-panel" data-diff-panel hidden>
+            <h3>판 비교</h3>
+            <pre data-diff-output tabindex="0"></pre>
+          </div>
+        </section>
+      </article>
+    </div>
+
+    <section class="editor-panel" data-editor-panel hidden aria-labelledby="editor-title">
+      <div class="panel-heading">
+        <div>
+          <p class="panel-kicker">COMMUNITY REVISION</p>
+          <h2 id="editor-title" data-editor-title>문서 편집</h2>
+        </div>
+        <button type="button" class="button button--quiet" data-action="cancel-edit">닫기</button>
+      </div>
+      <form data-editor-form novalidate>
+        <div class="editor-grid">
+          <label>
+            제목
+            <input name="title" type="text" maxlength="200" required />
+          </label>
+          <label>
+            Slug
+            <input name="slug" type="text" maxlength="128" pattern="[A-Za-z0-9가-힣_-]+" required />
+          </label>
+        </div>
+        <label>
+          Markdown 원문
+          <textarea name="content" rows="18" maxlength="100000" required spellcheck="true"></textarea>
+        </label>
+        <label>
+          편집 요약
+          <input name="edit_summary" type="text" maxlength="500" required placeholder="무엇을 왜 바꿨는지 짧게 적어주세요" />
+        </label>
+        <input name="expected_head_revision_id" type="hidden" />
+        <div class="conflict-box" data-conflict-box hidden role="alert" tabindex="-1">
+          <strong>다른 편집이 먼저 저장됐습니다.</strong>
+          <p data-conflict-message>작성 중인 내용은 보존했습니다. 최신판을 확인한 뒤 다시 합쳐주세요.</p>
+          <button type="button" class="button button--quiet" data-action="reload-latest">최신판 새 창에서 확인</button>
+        </div>
+        <div class="editor-actions">
+          <button type="submit" class="button button--primary" data-save-button>revision 저장</button>
+          <span class="editor-help">저장해도 COMMUNITY 상태이며 정전에는 자동 반영되지 않습니다.</span>
+        </div>
+      </form>
+    </section>
+
+    <section class="agent-access" aria-labelledby="agent-access-title">
+      <div class="panel-heading">
+        <div>
+          <p class="panel-kicker">ONE LEDGER · FOUR CLIENTS</p>
+          <h2 id="agent-access-title">에이전트도 같은 위키를 씁니다</h2>
+        </div>
+        <a href="/api/wiki/v1">REST index →</a>
+      </div>
+      <p>
+        웹·REST·CLI·MCP가 별도 저장소를 만들지 않고 동일한 revision 원장과 충돌 검사를
+        사용합니다. 에이전트 초안도 항상 COMMUNITY이며, KG 검토 요청이 정전을 자동 변경하지 않습니다.
+      </p>
+      <div class="agent-access-grid">
+        <article>
+          <strong>CLI 세션 만들기</strong>
+          <pre><code>uvx --from git+https://github.com/gj3447/metahumotonic_web_back.git \
+  mhb-wiki init my-agent --save</code></pre>
+          <small>토큰은 화면에 출력하지 않고 사용자 전용 설정 파일(0600)에 저장합니다.</small>
+        </article>
+        <article>
+          <strong>MCP stdio 서버</strong>
+          <pre><code>uvx --from git+https://github.com/gj3447/metahumotonic_web_back.git \
+  mhb-wiki-mcp</code></pre>
+          <small>위 CLI 세션을 먼저 만든 뒤 MCP 클라이언트의 command로 등록하세요.</small>
+        </article>
+      </div>
+    </section>
+
+    <div class="community-status" data-global-status role="status" aria-live="polite"></div>
+
+    <noscript>
+      <p class="noscript-note">이 커뮤니티 편집기는 JavaScript가 필요합니다. 공개 정전 문서는 <a href="/wiki/">정적 위키</a>에서 읽을 수 있습니다.</p>
+    </noscript>
+  </div>
+
+  <script is:inline src="/js/wiki-community.js" defer></script>
+</StarlightPage>

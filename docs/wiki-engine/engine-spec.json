@@ -9,7 +9,7 @@
       "history recent-change and backlink projection functions"
     ],
     "planned_consumers": [
-      "authenticated same-origin wiki API",
+      "same-origin community wiki API",
       "search render and backlink projection workers",
       "isolated USER_PRIMARY-authorized KG publisher"
     ],
@@ -26,12 +26,12 @@
     ]
   },
   "boundary": {
-    "owns": "Versioned commands, immutable page events, pure state evolution, per-page lifecycle, exact-revision proposal workflow, and deterministic effect intents.",
+    "owns": "Versioned commands, immutable page events, pure state evolution, per-page lifecycle, exact-head reactive quarantine, exact-revision proposal workflow, and deterministic effect intents.",
     "mechanism": "decide(state, command) returns events or a typed rejection; step(state, event) returns validated immutable state plus intents; evolve and replay throw on an invalid stored event; effects(event) maps an already validated event to data-only intents.",
     "state_authority": "Exactly one append stream per community page id; event stream plus command receipt and outbox are the durable write authority.",
     "policy_outside": [
       "Identity provider and capability assignment",
-      "Content moderation and namespace policy",
+      "Moderation policy classification and namespace policy",
       "Markdown or wiki-markup rendering policy",
       "USER_PRIMARY semantic ratification decision",
       "Anonymous public-release consent and snapshot selection",
@@ -43,6 +43,83 @@
       "Owning authentication sessions or CSRF implementation",
       "Replacing the existing read-only canonical KG projection",
       "Implementing title rename and global slug reservation in the first vertical slice"
+    ]
+  },
+  "public_community_api": {
+    "base_path": "/api/wiki/v1",
+    "transport_adapters": ["same-origin HTTP", "CLI", "MCP"],
+    "application_service_rule": "REST, CLI, and MCP adapters map their public operations into the same internal command application gateway and consume the same decision receipt; /commands is not a public HTTP route, and no adapter writes event, projection, outbox, or KG storage directly.",
+    "client_supplied": [
+      "operation implied by the REST route or CLI/MCP method plus an opaque idempotency key",
+      "page slug or page id selected through a public resource route",
+      "expected head revision id for mutating an existing page",
+      "content, edit summary, title, and human review reason where applicable"
+    ],
+    "server_derived": [
+      "actor id and capabilities from the authenticated principal",
+      "occurredAt from the trusted server clock",
+      "page, revision, event, effect, and receipt identifiers",
+      "authoritative content SHA-256 and canonical command fingerprint; submit and moderation callers may supply an expected hash only as a compare-and-set assertion",
+      "moderation and KG policy versions"
+    ],
+    "forbidden_request_fields": [
+      "actor or capabilities",
+      "occurredAt or committedAt",
+      "event, effect, approval, application, or moderation receipt identifiers",
+      "raw Cypher, database selectors, filesystem paths, or credential material"
+    ],
+    "read_routes": [
+      "GET /pages",
+      "GET /pages/{slug}",
+      "GET /pages/{slug}/history",
+      "GET /pages/{slug}/diff?from_revision_id={revisionId}&to_revision_id={revisionId}",
+      "GET /recent-changes?limit={1..100}&offset={0..10000}"
+    ],
+    "write_routes": [
+      "POST /sessions",
+      "POST /pages",
+      "POST /pages/{slug}/revisions",
+      "POST /pages/{slug}/submit-review",
+      "POST /pages/{slug}/report"
+    ],
+    "write_success_response": "A CommandResponse receipt containing command_id, page_id, stream_version, event_ids, replayed, and authority=community. The HTTP status distinguishes created, accepted-for-queueing, and ordinary success.",
+    "write_rejection_response": "A non-2xx HTTP response whose JSON detail contains the stable domain code and a safe message. Validation errors use FastAPI's bounded validation envelope. Bodies and secrets are never echoed into logs."
+  },
+  "internal_moderation_api": {
+    "base_path": "/internal/wiki/moderation",
+    "exposure": "Operations plane only. It is outside the public /api/wiki ingress prefix and omitted from public CLI, MCP, and browser capabilities.",
+    "routes": [
+      "GET /reports",
+      "POST /reports/{effect_id}/resolve",
+      "GET /pages/{slug}",
+      "POST /pages/{slug}/quarantine",
+      "POST /pages/{slug}/release"
+    ],
+    "authority": "A server-verified internal key derives the moderator actor and wiki:moderate capability. Request bodies cannot supply actor, capability, time, event id, or receipt id.",
+    "target_binding": "The REST operator supplies expected_head_revision_id and content_hash; the server normalizes them to the domain target binding and compares both to the current head before quarantine or release. Because edits are forbidden while quarantined, an accepted release necessarily matches the exact revision and hash bound by quarantine."
+  },
+  "actor_trust_boundary": {
+    "rule": "Transport input is untrusted. Only the server command factory may construct a domain Actor or authority-bearing timestamp.",
+    "principals": {
+      "public_human_or_agent": ["wiki:read", "wiki:edit", "wiki:submit", "wiki:report"],
+      "internal_moderation_operator": ["wiki:read", "wiki:moderate"],
+      "independent_reviewer": ["wiki:read", "kg:review"],
+      "user_primary_authorizer": ["wiki:read", "kg:authorize"],
+      "isolated_publisher": ["kg:publish"]
+    },
+    "separation_rules": [
+      "A submitter cannot approve or reject the same KG proposal.",
+      "Moderation visibility does not imply KG review approval or canon authority.",
+      "Only the isolated publisher identity may report an application readback.",
+      "HTTP, CLI, and MCP callers cannot select a stronger principal than their verified credential maps to.",
+      "Public browser, CLI, and MCP sessions are never issued wiki:moderate; quarantine and release exist only on the separately keyed internal operations plane."
+    ],
+    "abuse_controls": [
+      "Per-principal and per-network rate limits with bounded request bodies.",
+      "CSRF protection for cookie-authenticated HTTP writes; CLI and MCP use scoped non-cookie credentials.",
+      "Namespace allowlist, normalized slug validation, renderer sanitization, and outbound-link policy.",
+      "A report queues review without changing visibility; only an exact-head internal moderation decision can quarantine, and quarantine never deletes immutable history.",
+      "Audit records contain opaque identifiers, hashes, policy versions, and reason codes but no page body or secret."
     ]
   },
   "model": {
@@ -62,6 +139,7 @@
   },
   "state_model": {
     "page_lifecycle": ["absent", "active", "deleted"],
+    "moderation_workflow": ["visible", "quarantined"],
     "kg_workflow": [
       "unsubmitted",
       "in_review",
@@ -79,6 +157,9 @@
       "CommitRevision",
       "DeletePage",
       "RestorePage",
+      "ReportPage",
+      "QuarantinePage",
+      "ReleasePage",
       "SubmitForKgReview",
       "ApproveKgProposal",
       "RejectKgProposal",
@@ -90,6 +171,9 @@
       "RevisionCommitted",
       "PageDeleted",
       "PageRestored",
+      "PageReported",
+      "PageQuarantined",
+      "PageReleased",
       "KgReviewSubmitted",
       "KgProposalApproved",
       "KgReviewRejected",
@@ -105,16 +189,73 @@
       "RemoveSearchDocument",
       "RebuildPageProjection",
       "UpdateReviewProjection",
+      "QueueModerationReport",
+      "RecordModerationStatus",
       "ApplyKgCanonRevision",
       "AuditInvalidTransition"
     ],
-    "versioning": "Commands, events, and state carry independent v1 schema identifiers; incompatible event changes require an upcaster and replay test before activation."
+    "runtime_extensions": {
+      "python_backend": {
+        "commands": ["ReportPage", "QuarantinePage", "ReleasePage"],
+        "events": ["PAGE_REPORTED", "PAGE_QUARANTINED", "PAGE_RELEASED"],
+        "effects": ["QueueModerationReport", "RecordModerationStatus"],
+        "activation": "Public writes require durable reports plus an internal exact-head quarantine and release path. Public adapters never receive wiki:moderate."
+      },
+      "planned": {
+        "commands": ["PrepareKgProposalPlanV2"],
+        "activation": "Kg proposal preview and review may be added, but canon-store dispatch remains disabled until every kg_publisher_gate condition passes."
+      }
+    },
+    "versioning": "The executable TypeScript reference carries wiki-command/event/state v1. Moderation and KG proposal-plan payloads are additive runtime contracts, with KgProposalPlanV2 required before publisher activation; incompatible stored-event changes require an upcaster and replay test before activation."
+  },
+  "payload_requirements": {
+    "common_event_envelope": ["schemaVersion", "eventId", "commandId", "pageId", "actorId", "occurredAt"],
+    "revision": ["revisionId", "parentRevisionId", "content", "contentHash", "editSummary", "authorId", "committedAt"],
+    "moderation_decision": ["revisionId", "contentHash", "moderatorId", "decision", "reasonCode", "policyVersion", "moderationReceiptId"],
+    "kg_proposal_plan_v2": [
+      "proposalId",
+      "revisionId",
+      "contentHash",
+      "targetKind",
+      "targetStableId",
+      "baseKgSnapshotHash",
+      "changeSet",
+      "planHash",
+      "mappingVersion",
+      "policyVersion",
+      "sourceRefs"
+    ],
+    "kg_superseded_event": ["proposalId", "revisionId", "contentHash", "planHash", "previousStatus", "replacementRevisionId", "reason"],
+    "publisher_readback_v2": ["proposalId", "revisionId", "contentHash", "planHash", "baseKgSnapshotHash", "resultKgSnapshotHash", "approvalReceiptId", "applicationReceiptId", "publisherId", "appliedAt"]
+  },
+  "kg_publisher_gate": {
+    "status": "disabled-unbound-v1",
+    "reason": "The TypeScript v1 ApplyKgCanonRevision intent is not bound to a typed KG target, normalized changeSet, planHash, mappingVersion, policyVersion, sourceRefs, or base KG snapshot. Executing it would lose publisher provenance and target semantics.",
+    "legacy_intent_disposition": "Persist and audit the intent, but the dispatcher must return KG_PUBLISH_DISABLED_UNBOUND_PLAN and must not call Neo4j or another canon store.",
+    "enable_only_after": [
+      "A versioned KgProposalPlanV2 schema is implemented by every runtime and stored immutably before review.",
+      "Approval receipt is cryptographically bound to proposalId, revisionId, contentHash, planHash, target, and baseKgSnapshotHash.",
+      "Isolated publisher performs allowlisted typed operations only, verifies base snapshot and plan hash, and exact-reads back the result.",
+      "Fault tests cover duplicate delivery, target drift, base drift, timeout, crash after apply, forged receipt, and late success.",
+      "USER_PRIMARY revoke versus in-flight publication has a bounded lease or proven reconciliation protocol."
+    ]
+  },
+  "cross_runtime_fixture_contract": {
+    "fixture": "docs/wiki-engine/runtime-golden-traces.json",
+    "required_runtimes": ["typescript-reference", "python-backend"],
+    "current_verification": "The repository validator checks fixture schema, required cases, safety fields, and contract bindings. It does not execute either runtime against every fixture, so executable byte-for-byte or decision parity is not yet claimed.",
+    "future_executable_comparison": "When runtime fixture runners exist, compare canonical JSON decision kind, rejection code, ordered domain events, ordered effect intents, and resulting public state. Runtime-specific stack traces and object identity are excluded.",
+    "legacy_boundary": "TypeScript v1 remains the current executable reference. Python may not claim publisher conformance until KgProposalPlanV2 exists in both the durable event schema and the isolated publisher; until then both runtimes must produce the disabled publisher outcome."
   },
   "invariants": [
     "A revision is immutable, names its parent revision id, and its declared content SHA-256 equals a kernel recomputation over the body.",
     "Stored event provenance fields are redundant by design and must match the event actor and occurrence time during replay; mismatches fail closed.",
     "A revision id is unique for the lifetime of one page stream and cannot name both a child and its parent.",
     "CommitRevision succeeds only when expectedHeadRevisionId equals the current head.",
+    "A report is a visibility-preserving self-transition and cannot quarantine or publicly badge a page.",
+    "Quarantine requires wiki:moderate plus an exact current head revision and content hash; release requires the exact revision and hash bound by the quarantine receipt.",
+    "Public page, list, search, history, diff, and recent-change reads exclude quarantined pages.",
+    "CommitRevision is rejected while the page is quarantined; an internal operator must release the bound head first.",
     "Only the active current head revision may enter KG review.",
     "The submitter cannot review the same revision.",
     "Independent review approval never authorizes canon mutation by itself.",
@@ -131,7 +272,7 @@
     "Identity.verify(session) -> trusted actor capabilities",
     "Kernel.sha256(content) -> deterministic validation of the digest declared by a revision command",
     "ProjectionWorker.handle(effectIntent) -> idempotent effect receipt",
-    "CanonPublisher.apply(exactRevision, approvalReceipt) -> exact KG readback receipt",
+    "CanonPublisher.apply(KgProposalPlanV2, boundApprovalReceipt) -> exact KG readback receipt; port dispatch is disabled until the v2 plan exists",
     "Clock and identifier sources live outside the kernel and are supplied in commands",
     "The server command factory derives actor capabilities and timestamps from trusted identity and clock ports; browser fields are never treated as authority",
     "ReceiptVerifier binds approval and application receipt ids to trusted external readback before constructing canon commands"
@@ -160,6 +301,7 @@
     "KG target or base hash drift fails the isolated publisher and records no canon_applied event.",
     "A community edit racing an already-running exact authorized KG effect does not revoke that authority; the readback records lastAppliedCanon independently of the newer community head.",
     "A future USER_PRIMARY revoke racing an already-running KG effect is an explicit unimplemented deployment blocker until lease expiry and late-success reconciliation are fault-injection tested.",
+    "A stale quarantine or release target rejects without changing visibility or acknowledging the moderation decision.",
     "Unknown or invalid lifecycle transition rejects without state change, emits an audit intent, and makes replay fail closed.",
     "A standalone Mongo deployment cannot satisfy the required multi-record atomic commit and is not a production adapter."
   ],
@@ -182,6 +324,7 @@
   "security": [
     "Same-origin authenticated mutations require CSRF protection and trusted server-derived capabilities.",
     "Community edits, review, USER_PRIMARY authorization, canon publishing, and anonymous release use separate capabilities and identities.",
+    "Public human and agent credentials omit wiki:moderate; the internal moderation plane is not mounted below the public /api/wiki route.",
     "The public wiki API exposes typed commands only and cannot accept raw Cypher, arbitrary filesystem paths, or credential material.",
     "Rendered output escapes raw HTML and unsafe URL schemes according to a versioned renderer policy.",
     "The canon publisher is a separate non-web process with least privilege, exact base-hash checks, and exact readback; adding revocation requires a bounded publication lease or proven reconciliation protocol."
@@ -196,9 +339,10 @@
   ],
   "implementation_slices": [
     "Slice 1 implemented: pure TypeScript command-event kernel, cryptographically bound in-memory command receipts, immutable transaction model, history recent-change backlink projections, and targeted tests.",
-    "Slice 2 planned: durable event receipt and outbox schema on a transactional datastore plus authenticated typed API.",
-    "Slice 3 planned: editor history diff recent-changes UI hydrated under the existing /wiki routes.",
-    "Slice 4 planned: isolated proposal review authorization and canon publisher adapters with exact readback; USER_PRIMARY revoke requires a bounded publication lease or late-success reconciliation protocol.",
+    "Slice 2 separately implemented in the Python backend: durable event receipt and outbox schema plus typed public API; this document does not claim deployment or live readiness.",
+    "Slice 3 separately implemented in the site and Python backend: editor history diff and recent-changes surfaces; this document does not claim deployment or live readiness.",
+    "Slice 3a required before public-write activation: durable report intake plus internal exact-head quarantine/release and public-read exclusion for quarantined pages.",
+    "Slice 4 planned and disabled: typed proposal-plan review authorization and isolated canon publisher with exact readback; activation also requires a bounded publication lease or late-success reconciliation protocol for USER_PRIMARY revoke.",
     "Slice 5 planned and independently gated: anonymous public-release consent and immutable snapshot publication."
   ],
   "falsifiers": [
