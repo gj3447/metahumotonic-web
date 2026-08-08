@@ -15,7 +15,7 @@ push main ──► GHA build-and-deploy ──► force-push `deploy` 브랜치
                         └─ 바뀌었을 때만: dist.tar.gz → releases/<sha256>/html
                                           → current 심링크 원자 교체
                                           → docker restart landing-astro-subpages-canary
-                                          → :18080 프로브, 실패 시 자동 롤백
+                                          → :18080 직접-origin 3면 검증, 실패 시 자동 롤백
                                               │
                                               ▼
         CF → cloudflared → traefik → svc infra/landing-astro-subpages-pve
@@ -27,9 +27,42 @@ push main ──► GHA build-and-deploy ──► force-push `deploy` 브랜치
 
 ```bash
 sudo install -m 0755 scripts/deploy/pve-release.sh /usr/local/bin/landing-astro-release
+sudo install -m 0755 scripts/deploy/verify-live.sh /usr/local/bin/landing-astro-verify-live
 sudo install -m 0644 landing-astro-release.{service,timer} /etc/systemd/system/
 sudo systemctl daemon-reload && sudo systemctl enable --now landing-astro-release.timer
 ```
+
+배포 전에는 `index.html`, `wiki/index.html`, `wiki/data.json`,
+`SURFACE_MANIFEST.json` 네 파일이 모두 비어 있지 않은지 확인한다. 또한
+`wiki/data.json` 을 JSON 으로 파싱하고 `schemaVersion` 이 정확히
+`metahumotonic-public-wiki/v1` 인지 확인한 뒤에만 `current` 를 교체한다.
+
+재시작 뒤에는 direct origin 에 아래 계약을 최대 10회 재시도한다. 하나라도 끝까지
+실패하면 `current` 를 이전 릴리스로 되돌리고 컨테이너를 다시 시작한 뒤, 이전 릴리스의
+세 표면도 다시 검증한다. 롤백 검증까지 실패하면 `CRITICAL`을 남기고 실패 종료한다.
+이미 처리한 commit이어도 타이머는 세 표면을 다시 확인하며, 불건전하면 같은 릴리스를
+재시작해 bind mount를 다시 연결하고 성공 readback 전에는 state를 갱신하지 않는다.
+
+| 경로 | 예상 상태 | 예상 Content-Type |
+|---|---:|---|
+| `/` | `200` | `text/html` |
+| `/wiki/` | `200` | `text/html` |
+| `/wiki/data.json` | `200` | `application/json` |
+
+루트와 wiki HTML은 서로 다른 title marker까지 확인하므로 루트 fallback이 `/wiki/`의
+성공으로 오인되지 않는다. `/wiki/data.json` 응답도 동일한 wiki schema version 으로
+다시 검증한다.
+`PROBE_URL` 은 기존과 같이 direct-origin 루트 URL 로 사용할 수 있다. 검증기만
+독립 실행할 때는 첫 인자가 우선한다.
+
+```bash
+scripts/deploy/verify-live.sh http://192.168.0.24:18080/
+PROBE_URL=http://192.168.0.24:18080/ scripts/deploy/verify-live.sh
+```
+
+`/health` 와 `/ready` 는 공개 웹 surface 가 아니다. 현재 공개/direct-origin Nginx 에서
+두 경로의 예상 응답은 `404`이며, 별도 내부 운영 health/readiness 신호가 필요할 때만
+내부 전용 경로로 구성한다. 공개 배포 검증기가 이 둘에 `200`을 요구하지 않는다.
 
 ### 동작 확인
 

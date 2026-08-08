@@ -28,6 +28,9 @@ jobs:
       - name: Install
         run: npm ci
 
+      - name: Validate deployment guards
+        run: bash -n scripts/deploy/pve-release.sh scripts/deploy/verify-live.sh
+
       - name: Build
         run: npm run build
 
