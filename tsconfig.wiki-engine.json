@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "noEmit": true
+  },
+  "include": ["src/lib/wiki-engine/**/*.ts", "tests/wiki-engine.test.ts"],
+  "exclude": ["dist", "node_modules"]
+}

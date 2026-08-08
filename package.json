@@ -15,7 +15,12 @@
     "prebuild:kg": "node scripts/prebuild/dump-kg.mjs",
     "test:compute-consent": "node --test tests/compute-consent.test.mjs",
     "test:site-surface": "node --test tests/surface-split.test.mjs",
-    "test:release": "npm run test:compute-consent && npm run test:site-surface",
+    "test:wiki-engine": "node --experimental-strip-types --test tests/wiki-engine.test.ts",
+    "typecheck:wiki-engine": "tsc -p tsconfig.wiki-engine.json --noEmit",
+    "verify:wiki-contracts": "node scripts/wiki-engine/verify-contracts.mjs docs/wiki-engine/engine-spec.json docs/wiki-engine/fsm-spec.json docs/wiki-engine/fsm-traces.json",
+    "verify:wiki-diagram": "node scripts/wiki-engine/verify-generated-diagram.mjs docs/wiki-engine/fsm-spec.json docs/wiki-engine/fsm-diagram.mmd",
+    "verify:wiki-engine": "npm run typecheck:wiki-engine && npm run test:wiki-engine && npm run verify:wiki-contracts && npm run verify:wiki-diagram",
+    "test:release": "npm run test:compute-consent && npm run test:site-surface && npm run verify:wiki-engine",
     "verify:build-trace": "node scripts/ooptdd/emit-build-trace.mjs && uv run --python 3.12 --with pyyaml python scripts/ooptdd/verify-build-trace.py"
   },
   "dependencies": {
@@ -24,5 +29,8 @@
     "astro": "7.2.0",
     "neo4j-driver": "^6.0.1",
     "tailwindcss": "^4.2.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
   }
 }

@@ -1,0 +1,24 @@
+%% Generated from fsm-spec.json. Do not edit this diagram directly.
+stateDiagram-v2
+  direction LR
+  state page_lifecycle {
+    [*] --> absent
+    absent --> active: PAGE_CREATED
+    active --> active: REVISION_COMMITTED [head_matches]
+    active --> deleted: PAGE_DELETED
+    deleted --> active: PAGE_RESTORED
+  }
+  state kg_canon_workflow {
+    [*] --> unsubmitted
+    unsubmitted --> in_review: KG_REVIEW_SUBMITTED
+    rejected --> in_review: KG_REVIEW_SUBMITTED
+    superseded --> in_review: KG_REVIEW_SUBMITTED
+    canon_applied --> in_review: KG_REVIEW_SUBMITTED
+    in_review --> review_approved: KG_PROPOSAL_APPROVED [reviewer_is_distinct]
+    in_review --> rejected: KG_PROPOSAL_REJECTED [reviewer_is_distinct]
+    review_approved --> canon_authorized: KG_CANON_AUTHORIZED [authorization_matches_review]
+    canon_authorized --> canon_applied: KG_CANON_APPLIED [application_matches_authorization]
+    in_review --> superseded: KG_PROPOSAL_SUPERSEDED
+    review_approved --> superseded: KG_PROPOSAL_SUPERSEDED
+    rejected --> superseded: KG_PROPOSAL_SUPERSEDED
+  }

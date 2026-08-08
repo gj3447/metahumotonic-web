@@ -1,0 +1,475 @@
+{
+  "schema_version": "fsm-spec/v1",
+  "name": "metahumotonic-wiki-lifecycles",
+  "execution": {
+    "step_interface": "step(configuration, typed_event) -> next_configuration, effect_intents",
+    "event_queue": "External events are FIFO per page stream; emitted intents never re-enter the reducer synchronously.",
+    "run_to_completion": "One typed event is selected and reduced completely before the next stream event.",
+    "action_order": "Validate payload, evaluate pure guard, select one transition, compute next state, then emit data-only intents."
+  },
+  "context_schema": {
+    "head_revision_id": {"type": "string"},
+    "submitter_id": {"type": "actor-id"},
+    "reviewed_revision_id": {"type": "string"},
+    "reviewed_content_hash": {"type": "string"},
+    "authorized_revision_id": {"type": "string"},
+    "authorized_content_hash": {"type": "string"},
+    "authorized_approval_receipt_id": {"type": "string"}
+  },
+  "event_schemas": {
+    "PAGE_CREATED": {
+      "type": "object",
+      "required": ["page_id", "revision_id", "actor", "event_id"],
+      "properties": {
+        "page_id": {"type": "string"},
+        "revision_id": {"type": "string"},
+        "actor": {"type": "actor-id"},
+        "event_id": {"type": "string"}
+      }
+    },
+    "REVISION_COMMITTED": {
+      "type": "object",
+      "required": ["page_id", "revision_id", "parent_revision_id", "actor", "event_id"],
+      "properties": {
+        "page_id": {"type": "string"},
+        "revision_id": {"type": "string"},
+        "parent_revision_id": {"type": "string"},
+        "actor": {"type": "actor-id"},
+        "event_id": {"type": "string"}
+      }
+    },
+    "PAGE_DELETED": {
+      "type": "object",
+      "required": ["page_id", "revision_id", "actor", "event_id"],
+      "properties": {
+        "page_id": {"type": "string"},
+        "revision_id": {"type": "string"},
+        "actor": {"type": "actor-id"},
+        "event_id": {"type": "string"}
+      }
+    },
+    "PAGE_RESTORED": {
+      "type": "object",
+      "required": ["page_id", "revision_id", "actor", "event_id"],
+      "properties": {
+        "page_id": {"type": "string"},
+        "revision_id": {"type": "string"},
+        "actor": {"type": "actor-id"},
+        "event_id": {"type": "string"}
+      }
+    },
+    "KG_REVIEW_SUBMITTED": {
+      "type": "object",
+      "required": ["page_id", "revision_id", "content_hash", "actor", "event_id"],
+      "properties": {
+        "page_id": {"type": "string"},
+        "revision_id": {"type": "string"},
+        "content_hash": {"type": "string"},
+        "actor": {"type": "actor-id"},
+        "event_id": {"type": "string"}
+      }
+    },
+    "KG_PROPOSAL_APPROVED": {
+      "type": "object",
+      "required": ["page_id", "revision_id", "content_hash", "actor", "event_id"],
+      "properties": {
+        "page_id": {"type": "string"},
+        "revision_id": {"type": "string"},
+        "content_hash": {"type": "string"},
+        "actor": {"type": "actor-id"},
+        "event_id": {"type": "string"}
+      }
+    },
+    "KG_PROPOSAL_REJECTED": {
+      "type": "object",
+      "required": ["page_id", "revision_id", "content_hash", "actor", "event_id"],
+      "properties": {
+        "page_id": {"type": "string"},
+        "revision_id": {"type": "string"},
+        "content_hash": {"type": "string"},
+        "actor": {"type": "actor-id"},
+        "event_id": {"type": "string"}
+      }
+    },
+    "KG_CANON_AUTHORIZED": {
+      "type": "object",
+      "required": ["page_id", "revision_id", "content_hash", "approval_receipt_id", "actor", "event_id"],
+      "properties": {
+        "page_id": {"type": "string"},
+        "revision_id": {"type": "string"},
+        "content_hash": {"type": "string"},
+        "approval_receipt_id": {"type": "string"},
+        "actor": {"type": "actor-id"},
+        "event_id": {"type": "string"}
+      }
+    },
+    "KG_CANON_APPLIED": {
+      "type": "object",
+      "required": ["page_id", "revision_id", "content_hash", "approval_receipt_id", "application_receipt_id", "actor", "event_id"],
+      "properties": {
+        "page_id": {"type": "string"},
+        "revision_id": {"type": "string"},
+        "content_hash": {"type": "string"},
+        "approval_receipt_id": {"type": "string"},
+        "application_receipt_id": {"type": "string"},
+        "actor": {"type": "actor-id"},
+        "event_id": {"type": "string"}
+      }
+    },
+    "KG_PROPOSAL_SUPERSEDED": {
+      "type": "object",
+      "required": ["page_id", "revision_id", "content_hash", "previous_status", "replacement_revision_id", "reason", "actor", "event_id"],
+      "properties": {
+        "page_id": {"type": "string"},
+        "revision_id": {"type": "string"},
+        "content_hash": {"type": "string"},
+        "previous_status": {"type": "string"},
+        "replacement_revision_id": {"type": "revision-id-or-null"},
+        "reason": {"type": "string"},
+        "actor": {"type": "actor-id"},
+        "event_id": {"type": "string"}
+      }
+    }
+  },
+  "guards": {
+    "head_matches": {
+      "reads": ["head_revision_id"],
+      "event_reads": ["parent_revision_id"],
+      "pure": true,
+      "synchronous": true
+    },
+    "reviewer_is_distinct": {
+      "reads": ["submitter_id"],
+      "event_reads": ["actor"],
+      "pure": true,
+      "synchronous": true
+    },
+    "authorization_matches_review": {
+      "reads": ["reviewed_revision_id", "reviewed_content_hash"],
+      "event_reads": ["revision_id", "content_hash"],
+      "pure": true,
+      "synchronous": true
+    },
+    "application_matches_authorization": {
+      "reads": ["authorized_revision_id", "authorized_content_hash", "authorized_approval_receipt_id"],
+      "event_reads": ["revision_id", "content_hash", "approval_receipt_id", "application_receipt_id"],
+      "pure": true,
+      "synchronous": true
+    }
+  },
+  "effects": {
+    "RecordPageProjection": {
+      "kind": "command",
+      "payload_schema": {
+        "type": "object",
+        "required": ["page_id", "event_id"],
+        "properties": {"page_id": {"type": "string"}, "event_id": {"type": "string"}}
+      }
+    },
+    "RecordRevisionProjection": {
+      "kind": "command",
+      "payload_schema": {
+        "type": "object",
+        "required": ["page_id", "revision_id"],
+        "properties": {"page_id": {"type": "string"}, "revision_id": {"type": "string"}}
+      }
+    },
+    "RecordLifecycleChange": {
+      "kind": "command",
+      "payload_schema": {
+        "type": "object",
+        "required": ["page_id", "event_id"],
+        "properties": {"page_id": {"type": "string"}, "event_id": {"type": "string"}}
+      }
+    },
+    "RecordReviewStatus": {
+      "kind": "command",
+      "payload_schema": {
+        "type": "object",
+        "required": ["page_id", "revision_id", "status"],
+        "properties": {
+          "page_id": {"type": "string"},
+          "revision_id": {"type": "string"},
+          "status": {"type": "string"}
+        }
+      }
+    },
+    "QueueCanonApplication": {
+      "kind": "command",
+      "payload_schema": {
+        "type": "object",
+        "required": ["page_id", "revision_id", "content_hash", "approval_receipt_id"],
+        "properties": {
+          "page_id": {"type": "string"},
+          "revision_id": {"type": "string"},
+          "content_hash": {"type": "string"},
+          "approval_receipt_id": {"type": "string"}
+        }
+      }
+    },
+    "AuditInvalidTransition": {
+      "kind": "audit",
+      "payload_schema": {
+        "type": "object",
+        "required": ["state", "event", "actor", "reason", "event_id"],
+        "properties": {
+          "state": {"type": "string"},
+          "event": {"type": "string"},
+          "actor": {"type": "actor-id"},
+          "reason": {"type": "string"},
+          "event_id": {"type": "string"}
+        }
+      }
+    }
+  },
+  "machines": [
+    {
+      "id": "page_lifecycle",
+      "initial": "absent",
+      "states": [
+        {"id": "absent", "kind": "atomic"},
+        {"id": "active", "kind": "atomic"},
+        {"id": "deleted", "kind": "atomic"}
+      ],
+      "events": ["PAGE_CREATED", "REVISION_COMMITTED", "PAGE_DELETED", "PAGE_RESTORED"],
+      "invalid_event_policy": {
+        "mode": "reject-and-audit",
+        "guard_false": "reject-and-audit",
+        "state_change": "none",
+        "effect": "AuditInvalidTransition",
+        "effect_binding": {
+          "state": "configuration.state",
+          "event": "event.type",
+          "actor": "event.actor",
+          "reason": "rejection.reason",
+          "event_id": "event.event_id"
+        }
+      },
+      "transitions": [
+        {
+          "id": "create_page",
+          "from": "absent",
+          "event": "PAGE_CREATED",
+          "to": "active",
+          "effects": ["RecordPageProjection"],
+          "effect_bindings": {"RecordPageProjection": {"page_id": "event.page_id", "event_id": "event.event_id"}}
+        },
+        {
+          "id": "commit_revision",
+          "from": "active",
+          "event": "REVISION_COMMITTED",
+          "to": "active",
+          "guard": "head_matches",
+          "effects": ["RecordRevisionProjection"],
+          "effect_bindings": {"RecordRevisionProjection": {"page_id": "event.page_id", "revision_id": "event.revision_id"}}
+        },
+        {
+          "id": "delete_page",
+          "from": "active",
+          "event": "PAGE_DELETED",
+          "to": "deleted",
+          "effects": ["RecordLifecycleChange"],
+          "effect_bindings": {"RecordLifecycleChange": {"page_id": "event.page_id", "event_id": "event.event_id"}}
+        },
+        {
+          "id": "restore_page",
+          "from": "deleted",
+          "event": "PAGE_RESTORED",
+          "to": "active",
+          "effects": ["RecordLifecycleChange"],
+          "effect_bindings": {"RecordLifecycleChange": {"page_id": "event.page_id", "event_id": "event.event_id"}}
+        }
+      ]
+    },
+    {
+      "id": "kg_canon_workflow",
+      "initial": "unsubmitted",
+      "states": [
+        {"id": "unsubmitted", "kind": "atomic"},
+        {"id": "in_review", "kind": "atomic"},
+        {"id": "review_approved", "kind": "atomic"},
+        {"id": "canon_authorized", "kind": "atomic"},
+        {"id": "canon_applied", "kind": "atomic"},
+        {"id": "rejected", "kind": "atomic"},
+        {"id": "superseded", "kind": "atomic"}
+      ],
+      "events": [
+        "KG_REVIEW_SUBMITTED",
+        "KG_PROPOSAL_APPROVED",
+        "KG_PROPOSAL_REJECTED",
+        "KG_CANON_AUTHORIZED",
+        "KG_CANON_APPLIED",
+        "KG_PROPOSAL_SUPERSEDED"
+      ],
+      "invalid_event_policy": {
+        "mode": "reject-and-audit",
+        "guard_false": "reject-and-audit",
+        "state_change": "none",
+        "effect": "AuditInvalidTransition",
+        "effect_binding": {
+          "state": "configuration.state",
+          "event": "event.type",
+          "actor": "event.actor",
+          "reason": "rejection.reason",
+          "event_id": "event.event_id"
+        }
+      },
+      "transitions": [
+        {
+          "id": "submit_new",
+          "from": "unsubmitted",
+          "event": "KG_REVIEW_SUBMITTED",
+          "to": "in_review",
+          "effects": ["RecordReviewStatus"],
+          "effect_bindings": {"RecordReviewStatus": {"page_id": "event.page_id", "revision_id": "event.revision_id", "status": "literal:in_review"}}
+        },
+        {
+          "id": "resubmit_rejected",
+          "from": "rejected",
+          "event": "KG_REVIEW_SUBMITTED",
+          "to": "in_review",
+          "effects": ["RecordReviewStatus"],
+          "effect_bindings": {"RecordReviewStatus": {"page_id": "event.page_id", "revision_id": "event.revision_id", "status": "literal:in_review"}}
+        },
+        {
+          "id": "resubmit_superseded",
+          "from": "superseded",
+          "event": "KG_REVIEW_SUBMITTED",
+          "to": "in_review",
+          "effects": ["RecordReviewStatus"],
+          "effect_bindings": {"RecordReviewStatus": {"page_id": "event.page_id", "revision_id": "event.revision_id", "status": "literal:in_review"}}
+        },
+        {
+          "id": "submit_after_applied",
+          "from": "canon_applied",
+          "event": "KG_REVIEW_SUBMITTED",
+          "to": "in_review",
+          "effects": ["RecordReviewStatus"],
+          "effect_bindings": {"RecordReviewStatus": {"page_id": "event.page_id", "revision_id": "event.revision_id", "status": "literal:in_review"}}
+        },
+        {
+          "id": "approve_proposal",
+          "from": "in_review",
+          "event": "KG_PROPOSAL_APPROVED",
+          "to": "review_approved",
+          "guard": "reviewer_is_distinct",
+          "effects": ["RecordReviewStatus"],
+          "effect_bindings": {"RecordReviewStatus": {"page_id": "event.page_id", "revision_id": "event.revision_id", "status": "literal:review_approved"}}
+        },
+        {
+          "id": "reject_proposal",
+          "from": "in_review",
+          "event": "KG_PROPOSAL_REJECTED",
+          "to": "rejected",
+          "guard": "reviewer_is_distinct",
+          "effects": ["RecordReviewStatus"],
+          "effect_bindings": {"RecordReviewStatus": {"page_id": "event.page_id", "revision_id": "event.revision_id", "status": "literal:rejected"}}
+        },
+        {
+          "id": "authorize_canon",
+          "from": "review_approved",
+          "event": "KG_CANON_AUTHORIZED",
+          "to": "canon_authorized",
+          "guard": "authorization_matches_review",
+          "effects": ["QueueCanonApplication"],
+          "effect_bindings": {"QueueCanonApplication": {"page_id": "event.page_id", "revision_id": "event.revision_id", "content_hash": "event.content_hash", "approval_receipt_id": "event.approval_receipt_id"}}
+        },
+        {
+          "id": "record_canon_application",
+          "from": "canon_authorized",
+          "event": "KG_CANON_APPLIED",
+          "to": "canon_applied",
+          "guard": "application_matches_authorization",
+          "effects": ["RecordReviewStatus"],
+          "effect_bindings": {"RecordReviewStatus": {"page_id": "event.page_id", "revision_id": "event.revision_id", "status": "literal:canon_applied"}}
+        },
+        {
+          "id": "supersede_review",
+          "from": "in_review",
+          "event": "KG_PROPOSAL_SUPERSEDED",
+          "to": "superseded",
+          "effects": ["RecordReviewStatus"],
+          "effect_bindings": {"RecordReviewStatus": {"page_id": "event.page_id", "revision_id": "event.revision_id", "status": "literal:superseded"}}
+        },
+        {
+          "id": "supersede_review_approval",
+          "from": "review_approved",
+          "event": "KG_PROPOSAL_SUPERSEDED",
+          "to": "superseded",
+          "effects": ["RecordReviewStatus"],
+          "effect_bindings": {"RecordReviewStatus": {"page_id": "event.page_id", "revision_id": "event.revision_id", "status": "literal:superseded"}}
+        },
+        {
+          "id": "supersede_rejection",
+          "from": "rejected",
+          "event": "KG_PROPOSAL_SUPERSEDED",
+          "to": "superseded",
+          "effects": ["RecordReviewStatus"],
+          "effect_bindings": {"RecordReviewStatus": {"page_id": "event.page_id", "revision_id": "event.revision_id", "status": "literal:superseded"}}
+        }
+      ]
+    }
+  ],
+  "coordination": {
+    "event_protocol": "The command decider emits an ordered macrostep. RevisionCommitted or PageDeleted is reduced by page_lifecycle before a following KgProposalSuperseded is reduced by kg_canon_workflow; no machine calls the other synchronously.",
+    "global_invariants": [
+      "Only an active current head may enter KG review.",
+      "A new revision or deletion emits KG_PROPOSAL_SUPERSEDED only when the prior KG workflow is in_review review_approved or rejected.",
+      "Community edits cannot revoke canon_authorized or canon_applied; the exact authorization stays valid and last-applied canon persists independently of the community head.",
+      "Both machines are intentionally perpetual aggregates; deletion and supersession are recoverable states rather than terminal destruction."
+    ]
+  },
+  "safety_properties": [
+    {
+      "id": "append-only-revisions",
+      "statement": "An accepted edit appends one child revision and never mutates an earlier revision.",
+      "verification": "Kernel immutability test, event-store contract test, and replay hash comparison."
+    },
+    {
+      "id": "optimistic-head",
+      "statement": "REVISION_COMMITTED is accepted only when its parent is the current head.",
+      "verification": "head_matches truth table and concurrent append integration test."
+    },
+    {
+      "id": "revision-id-unique",
+      "statement": "A revision id occurs at most once in a page stream and can never be reused to create a self-cycle or overwrite identity.",
+      "verification": "Pure-kernel reuse test, durable-store unique constraint, and replay validation."
+    },
+    {
+      "id": "separated-canon-authority",
+      "statement": "Independent review approval cannot reach canon_applied without an exact USER_PRIMARY authorization and publisher readback.",
+      "verification": "Transition reachability check plus capability and exact-receipt conformance tests."
+    },
+    {
+      "id": "supersession-preserves-history",
+      "statement": "A changed or deleted page supersedes only pre-canon proposal states without deleting review receipts; community authority cannot revoke USER_PRIMARY authorization or an applied-canon receipt.",
+      "verification": "Replay fixtures across every pre-canon supersede transition plus invalid-transition fixtures from canon_authorized."
+    }
+  ],
+  "liveness_properties": [
+    {
+      "id": "page-remains-editable",
+      "statement": "An active page can accept another valid revision indefinitely.",
+      "assumptions": ["A command carries the current head and the event store remains writable."],
+      "verification": "Bounded repeated-edit model test and event-store soak test."
+    },
+    {
+      "id": "review-eventual-outcome",
+      "statement": "An in-review proposal eventually becomes approved rejected or superseded.",
+      "assumptions": ["A reviewer verdict or a superseding page change is eventually delivered."],
+      "verification": "Workflow monitor plus bounded transition exploration."
+    },
+    {
+      "id": "authorized-application-eventual-readback",
+      "statement": "A canon-authorized revision eventually records canon_applied or remains visibly pending with a retryable outbox intent.",
+      "assumptions": ["The isolated publisher eventually succeeds or emits a durable failed-attempt receipt."],
+      "verification": "Outbox crash-recovery and KG drift-injection tests."
+    }
+  ],
+  "trace_fixtures": ["docs/wiki-engine/fsm-traces.json"],
+  "conformance": {
+    "implementation_step": "src/lib/wiki-engine/core.ts binds command guards to decide, validates domain-event transitions in step, leaves state unchanged with an audit intent for invalid events, and makes replay fail closed.",
+    "model_trace_runner": "The fsm-design run_fsm_traces.py runner executes abstract state-topology fixtures with explicit guard outcomes; payload schemas are statically validated but these traces do not execute concrete TypeScript payload validation.",
+    "contract_tests": "Abstract traces validate the semantic FSM, while focused pure-kernel tests cover the critical reference slice. A complete transition-to-command mapping and durable-adapter integration suite remain production gates."
+  }
+}

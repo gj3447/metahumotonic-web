@@ -1,0 +1,212 @@
+{
+  "schema_version": "engine-spec/v1",
+  "name": "metahumotonic-functional-wiki-engine",
+  "purpose": "Own deterministic community-wiki revision semantics and emit typed intents for projections and a separately authorized KG canon workflow.",
+  "decision": {
+    "verdict": "engine",
+    "current_consumers": [
+      "functional command conformance harness",
+      "history recent-change and backlink projection functions"
+    ],
+    "planned_consumers": [
+      "authenticated same-origin wiki API",
+      "search render and backlink projection workers",
+      "isolated USER_PRIMARY-authorized KG publisher"
+    ],
+    "fit_evidence": [
+      "Every edit must remain an immutable revision that can rebuild several read models by replay.",
+      "Concurrent editors require one per-page append authority with optimistic expected-head checks.",
+      "Browser editing, projection workers, and an offline KG publisher must share one versioned command-event contract without sharing credentials.",
+      "Idempotent command receipts and effect outbox recovery are operational semantics, not a UI helper concern."
+    ],
+    "alternatives_considered": [
+      "A CRUD page module was rejected because overwriting rows loses replayable history and makes projection recovery ambiguous.",
+      "Direct browser-to-Neo4j writes were rejected because community content is not canon and the web process must not own canon credentials.",
+      "Adopting MediaWiki wholesale remains a deployment alternative, but does not remove the project-specific KG authority boundary."
+    ]
+  },
+  "boundary": {
+    "owns": "Versioned commands, immutable page events, pure state evolution, per-page lifecycle, exact-revision proposal workflow, and deterministic effect intents.",
+    "mechanism": "decide(state, command) returns events or a typed rejection; step(state, event) returns validated immutable state plus intents; evolve and replay throw on an invalid stored event; effects(event) maps an already validated event to data-only intents.",
+    "state_authority": "Exactly one append stream per community page id; event stream plus command receipt and outbox are the durable write authority.",
+    "policy_outside": [
+      "Identity provider and capability assignment",
+      "Content moderation and namespace policy",
+      "Markdown or wiki-markup rendering policy",
+      "USER_PRIMARY semantic ratification decision",
+      "Anonymous public-release consent and snapshot selection",
+      "Search ranking and UI presentation"
+    ],
+    "non_goals": [
+      "Raw Cypher access from the browser or wiki API",
+      "Automatic promotion of a reviewed proposal into KG canon",
+      "Owning authentication sessions or CSRF implementation",
+      "Replacing the existing read-only canonical KG projection",
+      "Implementing title rename and global slug reservation in the first vertical slice"
+    ]
+  },
+  "model": {
+    "resources": [
+      "community page stream",
+      "command receipt",
+      "transactional effect outbox",
+      "rebuildable read projections",
+      "exact USER_PRIMARY approval receipt",
+      "exact KG application readback receipt"
+    ],
+    "work_units": [
+      "one command decision against one page stream",
+      "one atomic event append plus receipt and outbox commit",
+      "one idempotent projection or isolated publisher effect"
+    ]
+  },
+  "state_model": {
+    "page_lifecycle": ["absent", "active", "deleted"],
+    "kg_workflow": [
+      "unsubmitted",
+      "in_review",
+      "review_approved",
+      "canon_authorized",
+      "canon_applied",
+      "rejected",
+      "superseded"
+    ],
+    "authority_rule": "All editable revisions remain COMMUNITY. A canon_applied receipt records a separately authorized projection of one exact revision in lastAppliedCanon; later community edits neither mutate nor revoke that binding."
+  },
+  "protocol": {
+    "commands": [
+      "CreatePage",
+      "CommitRevision",
+      "DeletePage",
+      "RestorePage",
+      "SubmitForKgReview",
+      "ApproveKgProposal",
+      "RejectKgProposal",
+      "AuthorizeKgCanonApplication",
+      "RecordKgCanonApplication"
+    ],
+    "events": [
+      "PageCreated",
+      "RevisionCommitted",
+      "PageDeleted",
+      "PageRestored",
+      "KgReviewSubmitted",
+      "KgProposalApproved",
+      "KgReviewRejected",
+      "KgCanonApplicationAuthorized",
+      "KgCanonApplicationRecorded",
+      "KgProposalSuperseded"
+    ],
+    "effects": [
+      "IndexRevision",
+      "UpdateBacklinks",
+      "RenderPage",
+      "AppendRecentChange",
+      "RemoveSearchDocument",
+      "RebuildPageProjection",
+      "UpdateReviewProjection",
+      "ApplyKgCanonRevision",
+      "AuditInvalidTransition"
+    ],
+    "versioning": "Commands, events, and state carry independent v1 schema identifiers; incompatible event changes require an upcaster and replay test before activation."
+  },
+  "invariants": [
+    "A revision is immutable, names its parent revision id, and its declared content SHA-256 equals a kernel recomputation over the body.",
+    "Stored event provenance fields are redundant by design and must match the event actor and occurrence time during replay; mismatches fail closed.",
+    "A revision id is unique for the lifetime of one page stream and cannot name both a child and its parent.",
+    "CommitRevision succeeds only when expectedHeadRevisionId equals the current head.",
+    "Only the active current head revision may enter KG review.",
+    "The submitter cannot review the same revision.",
+    "Independent review approval never authorizes canon mutation by itself.",
+    "Canon application requires an exact USER_PRIMARY approval receipt bound to the reviewed revision.",
+    "canon_applied requires an exact application readback receipt from the isolated publisher.",
+    "A newer revision or community-page deletion may supersede only a pre-canon proposal; it cannot revoke canon_authorized or lastAppliedCanon authority.",
+    "The community head and lastAppliedCanon are independent values and may intentionally reference different revisions.",
+    "The wiki web process never receives raw Cypher or canon publisher credentials.",
+    "Replaying the same ordered event stream yields the same state and projections."
+  ],
+  "ports": [
+    "EventStore.load(pageId) -> ordered events plus stream version",
+    "EventStore.commit(expectedStreamVersion, events, commandReceipt, outboxIntents) -> commit receipt",
+    "Identity.verify(session) -> trusted actor capabilities",
+    "Kernel.sha256(content) -> deterministic validation of the digest declared by a revision command",
+    "ProjectionWorker.handle(effectIntent) -> idempotent effect receipt",
+    "CanonPublisher.apply(exactRevision, approvalReceipt) -> exact KG readback receipt",
+    "Clock and identifier sources live outside the kernel and are supplied in commands",
+    "The server command factory derives actor capabilities and timestamps from trusted identity and clock ports; browser fields are never treated as authority",
+    "ReceiptVerifier binds approval and application receipt ids to trusted external readback before constructing canon commands"
+  ],
+  "runtime": {
+    "ordering": "Events in one page stream are totally ordered by the append version; streams may execute independently.",
+    "concurrency": "Load and append use expected stream version; domain commands also bind the expected head revision so stale edits return REVISION_CONFLICT.",
+    "backpressure": "The API bounds command body size and outbox workers claim a bounded batch; lag does not block the committed revision.",
+    "cancellation": "Cancellation before atomic commit has no domain effect; after commit the durable outbox owns eventual completion.",
+    "timeouts": "Transport, projection, and KG publisher timeouts are adapter policy; no wall clock or retry loop runs inside decide or evolve.",
+    "external_effect_race": "A newer COMMUNITY head does not cancel an exact USER_PRIMARY authorization, so its late publisher success remains recordable. The reference slice has no USER_PRIMARY revoke command; production keeps KG application disabled until future revoke versus in-flight publisher races have a bounded lease or proven reconciliation protocol."
+  },
+  "durability": {
+    "persistence": "Append-only events are the source of truth; snapshots and read models are disposable accelerators.",
+    "atomic_commit": "Event append, command-id receipt, and effect outbox rows commit in one datastore transaction or the command fails closed.",
+    "recovery": "Rebuild state and projections by replay; resume unacknowledged outbox intents by deterministic effect id.",
+    "effect_idempotency": "Every effect id derives from event id and effect index; consumers persist completion before acknowledging delivery.",
+    "migration": "Versioned event upcasters are pure and covered by golden replay fixtures; destructive history rewrites are forbidden."
+  },
+  "failure_model": [
+    "Stale expected head rejects without appending an event.",
+    "A reused revision id rejects as REVISION_ID_REUSED before an event can create a self-cycle or identity alias.",
+    "Reused command id with a different canonical payload rejects as IDEMPOTENCY_KEY_REUSED.",
+    "Duplicate delivery returns the original decision and schedules no second effect.",
+    "Projection failure leaves the committed event intact and retries only the outbox intent.",
+    "KG target or base hash drift fails the isolated publisher and records no canon_applied event.",
+    "A community edit racing an already-running exact authorized KG effect does not revoke that authority; the readback records lastAppliedCanon independently of the newer community head.",
+    "A future USER_PRIMARY revoke racing an already-running KG effect is an explicit unimplemented deployment blocker until lease expiry and late-success reconciliation are fault-injection tested.",
+    "Unknown or invalid lifecycle transition rejects without state change, emits an audit intent, and makes replay fail closed.",
+    "A standalone Mongo deployment cannot satisfy the required multi-record atomic commit and is not a production adapter."
+  ],
+  "observability": {
+    "traces": [
+      "command id page id actor id decision code stream version and emitted event ids",
+      "outbox effect id attempt count completion receipt and redacted error class",
+      "KG approval receipt id base hash target hash and application readback receipt id"
+    ],
+    "metrics": [
+      "command acceptance and rejection counts by code",
+      "edit conflict rate",
+      "event append latency",
+      "outbox age and retry count",
+      "projection replay drift count",
+      "KG authorization-to-readback latency and failed drift checks"
+    ],
+    "redaction": "Never log page bodies, session tokens, raw credentials, private source paths, or raw Cypher; log hashes and opaque receipt ids."
+  },
+  "security": [
+    "Same-origin authenticated mutations require CSRF protection and trusted server-derived capabilities.",
+    "Community edits, review, USER_PRIMARY authorization, canon publishing, and anonymous release use separate capabilities and identities.",
+    "The public wiki API exposes typed commands only and cannot accept raw Cypher, arbitrary filesystem paths, or credential material.",
+    "Rendered output escapes raw HTML and unsafe URL schemes according to a versioned renderer policy.",
+    "The canon publisher is a separate non-web process with least privilege, exact base-hash checks, and exact readback; adding revocation requires a bounded publication lease or proven reconciliation protocol."
+  ],
+  "verification": [
+    "Production conformance tests cover every command acceptance and typed rejection branch.",
+    "Abstract FSM traces select every transition and exercise every guard-false and invalid-event policy.",
+    "Replay tests compare state history recent changes and backlinks before and after rebuild.",
+    "Model-based bounded command sequences assert invariants and original-state immutability.",
+    "Adapter contract tests inject append conflict duplicate delivery outbox crash and KG hash drift.",
+    "End-to-end tests verify auth CSRF body limits escaped rendering and absence of canon credentials in the web deployment."
+  ],
+  "implementation_slices": [
+    "Slice 1 implemented: pure TypeScript command-event kernel, cryptographically bound in-memory command receipts, immutable transaction model, history recent-change backlink projections, and targeted tests.",
+    "Slice 2 planned: durable event receipt and outbox schema on a transactional datastore plus authenticated typed API.",
+    "Slice 3 planned: editor history diff recent-changes UI hydrated under the existing /wiki routes.",
+    "Slice 4 planned: isolated proposal review authorization and canon publisher adapters with exact readback; USER_PRIMARY revoke requires a bounded publication lease or late-success reconciliation protocol.",
+    "Slice 5 planned and independently gated: anonymous public-release consent and immutable snapshot publication."
+  ],
+  "falsifiers": [
+    "If the product remains read-only with no durable edits or shared projections, collapse this to the existing static projection module.",
+    "If a maintained upstream engine can satisfy /wiki routing exact authority gates and operational constraints with less custom code, retain only a KG adapter instead of this engine.",
+    "If the selected datastore cannot atomically commit event receipt and outbox, do not deploy the write path.",
+    "If replay cannot reconstruct byte-identical current state and stable projection hashes, the event contract is invalid.",
+    "If any web credential can directly mutate KG canon, the security boundary has failed and the feature must remain disabled.",
+    "If a future USER_PRIMARY revoke versus in-flight KG application race cannot be closed or safely reconciled, revocation and the KG application adapter must remain disabled."
+  ]
+}

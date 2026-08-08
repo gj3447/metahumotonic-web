@@ -1,0 +1,130 @@
+{
+  "cases": [
+    {
+      "id": "page-create-edit-delete-restore",
+      "machine": "page_lifecycle",
+      "steps": [
+        {"event": "PAGE_CREATED", "guard_results": {}, "expected_state": "active", "expected_effects": ["RecordPageProjection"]},
+        {"event": "REVISION_COMMITTED", "guard_results": {"head_matches": true}, "expected_state": "active", "expected_effects": ["RecordRevisionProjection"]},
+        {"event": "PAGE_DELETED", "guard_results": {}, "expected_state": "deleted", "expected_effects": ["RecordLifecycleChange"]},
+        {"event": "PAGE_RESTORED", "guard_results": {}, "expected_state": "active", "expected_effects": ["RecordLifecycleChange"]}
+      ]
+    },
+    {
+      "id": "page-stale-parent",
+      "machine": "page_lifecycle",
+      "steps": [
+        {"event": "PAGE_CREATED", "guard_results": {}, "expected_state": "active", "expected_effects": ["RecordPageProjection"]},
+        {"event": "REVISION_COMMITTED", "guard_results": {"head_matches": false}, "expected_state": "active", "expected_effects": ["AuditInvalidTransition"]}
+      ]
+    },
+    {
+      "id": "page-invalid-delete-before-create",
+      "machine": "page_lifecycle",
+      "steps": [
+        {"event": "PAGE_DELETED", "guard_results": {}, "expected_state": "absent", "expected_effects": ["AuditInvalidTransition"]}
+      ]
+    },
+    {
+      "id": "canon-happy-path",
+      "machine": "kg_canon_workflow",
+      "steps": [
+        {"event": "KG_REVIEW_SUBMITTED", "guard_results": {}, "expected_state": "in_review", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_PROPOSAL_APPROVED", "guard_results": {"reviewer_is_distinct": true}, "expected_state": "review_approved", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_CANON_AUTHORIZED", "guard_results": {"authorization_matches_review": true}, "expected_state": "canon_authorized", "expected_effects": ["QueueCanonApplication"]},
+        {"event": "KG_CANON_APPLIED", "guard_results": {"application_matches_authorization": true}, "expected_state": "canon_applied", "expected_effects": ["RecordReviewStatus"]}
+      ]
+    },
+    {
+      "id": "canon-self-review-blocked",
+      "machine": "kg_canon_workflow",
+      "steps": [
+        {"event": "KG_REVIEW_SUBMITTED", "guard_results": {}, "expected_state": "in_review", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_PROPOSAL_APPROVED", "guard_results": {"reviewer_is_distinct": false}, "expected_state": "in_review", "expected_effects": ["AuditInvalidTransition"]}
+      ]
+    },
+    {
+      "id": "canon-authorization-hash-drift",
+      "machine": "kg_canon_workflow",
+      "steps": [
+        {"event": "KG_REVIEW_SUBMITTED", "guard_results": {}, "expected_state": "in_review", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_PROPOSAL_APPROVED", "guard_results": {"reviewer_is_distinct": true}, "expected_state": "review_approved", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_CANON_AUTHORIZED", "guard_results": {"authorization_matches_review": false}, "expected_state": "review_approved", "expected_effects": ["AuditInvalidTransition"]}
+      ]
+    },
+    {
+      "id": "canon-application-readback-mismatch",
+      "machine": "kg_canon_workflow",
+      "steps": [
+        {"event": "KG_REVIEW_SUBMITTED", "guard_results": {}, "expected_state": "in_review", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_PROPOSAL_APPROVED", "guard_results": {"reviewer_is_distinct": true}, "expected_state": "review_approved", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_CANON_AUTHORIZED", "guard_results": {"authorization_matches_review": true}, "expected_state": "canon_authorized", "expected_effects": ["QueueCanonApplication"]},
+        {"event": "KG_CANON_APPLIED", "guard_results": {"application_matches_authorization": false}, "expected_state": "canon_authorized", "expected_effects": ["AuditInvalidTransition"]}
+      ]
+    },
+    {
+      "id": "canon-reject-and-resubmit",
+      "machine": "kg_canon_workflow",
+      "steps": [
+        {"event": "KG_REVIEW_SUBMITTED", "guard_results": {}, "expected_state": "in_review", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_PROPOSAL_REJECTED", "guard_results": {"reviewer_is_distinct": true}, "expected_state": "rejected", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_REVIEW_SUBMITTED", "guard_results": {}, "expected_state": "in_review", "expected_effects": ["RecordReviewStatus"]}
+      ]
+    },
+    {
+      "id": "canon-supersede-review-and-resubmit",
+      "machine": "kg_canon_workflow",
+      "steps": [
+        {"event": "KG_REVIEW_SUBMITTED", "guard_results": {}, "expected_state": "in_review", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_PROPOSAL_SUPERSEDED", "guard_results": {}, "expected_state": "superseded", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_REVIEW_SUBMITTED", "guard_results": {}, "expected_state": "in_review", "expected_effects": ["RecordReviewStatus"]}
+      ]
+    },
+    {
+      "id": "canon-supersede-review-approval",
+      "machine": "kg_canon_workflow",
+      "steps": [
+        {"event": "KG_REVIEW_SUBMITTED", "guard_results": {}, "expected_state": "in_review", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_PROPOSAL_APPROVED", "guard_results": {"reviewer_is_distinct": true}, "expected_state": "review_approved", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_PROPOSAL_SUPERSEDED", "guard_results": {}, "expected_state": "superseded", "expected_effects": ["RecordReviewStatus"]}
+      ]
+    },
+    {
+      "id": "canon-community-cannot-supersede-authorization",
+      "machine": "kg_canon_workflow",
+      "steps": [
+        {"event": "KG_REVIEW_SUBMITTED", "guard_results": {}, "expected_state": "in_review", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_PROPOSAL_APPROVED", "guard_results": {"reviewer_is_distinct": true}, "expected_state": "review_approved", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_CANON_AUTHORIZED", "guard_results": {"authorization_matches_review": true}, "expected_state": "canon_authorized", "expected_effects": ["QueueCanonApplication"]},
+        {"event": "KG_PROPOSAL_SUPERSEDED", "guard_results": {}, "expected_state": "canon_authorized", "expected_effects": ["AuditInvalidTransition"]}
+      ]
+    },
+    {
+      "id": "canon-submit-new-proposal-after-applied",
+      "machine": "kg_canon_workflow",
+      "steps": [
+        {"event": "KG_REVIEW_SUBMITTED", "guard_results": {}, "expected_state": "in_review", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_PROPOSAL_APPROVED", "guard_results": {"reviewer_is_distinct": true}, "expected_state": "review_approved", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_CANON_AUTHORIZED", "guard_results": {"authorization_matches_review": true}, "expected_state": "canon_authorized", "expected_effects": ["QueueCanonApplication"]},
+        {"event": "KG_CANON_APPLIED", "guard_results": {"application_matches_authorization": true}, "expected_state": "canon_applied", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_REVIEW_SUBMITTED", "guard_results": {}, "expected_state": "in_review", "expected_effects": ["RecordReviewStatus"]}
+      ]
+    },
+    {
+      "id": "canon-supersede-rejection",
+      "machine": "kg_canon_workflow",
+      "steps": [
+        {"event": "KG_REVIEW_SUBMITTED", "guard_results": {}, "expected_state": "in_review", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_PROPOSAL_REJECTED", "guard_results": {"reviewer_is_distinct": true}, "expected_state": "rejected", "expected_effects": ["RecordReviewStatus"]},
+        {"event": "KG_PROPOSAL_SUPERSEDED", "guard_results": {}, "expected_state": "superseded", "expected_effects": ["RecordReviewStatus"]}
+      ]
+    },
+    {
+      "id": "canon-invalid-apply-before-review",
+      "machine": "kg_canon_workflow",
+      "steps": [
+        {"event": "KG_CANON_APPLIED", "guard_results": {"application_matches_authorization": true}, "expected_state": "unsubmitted", "expected_effects": ["AuditInvalidTransition"]}
+      ]
+    }
+  ]
+}
