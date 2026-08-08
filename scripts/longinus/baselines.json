@@ -6,7 +6,7 @@
     "policy": "Intent-tagged update: when you intentionally change a tracked file, run `node scripts/longinus/drift-check.mjs --update` in the SAME commit. CI fails if a tracked file's sha256 differs from this manifest without a manifest update (= unexpected drift).",
     "granularity": "file-level sha256 (v1). Future upgrade: per-AST-block hashing (tree-sitter) to exclude whitespace/comment noise — PROM16 D3/D4 consensus.",
     "goodhart_safeguard": "hash match is necessary not sufficient; pair with periodic manual spot-check (PROM16 D1 consensus).",
-    "last_update_intent": "intentional --update run"
+    "last_update_intent": "intentional deployment-guard CI update"
   },
   "baselines": {
     "Dockerfile": "cd16648f85c2fccff26570b179aa28742d215e487f8d4dcf7bf127e43d15231c",
@@ -53,6 +53,6 @@
     "src/styles/compute.css": "7d771f4af41cc6bdcf98f5d252e3182939ec33c19f986d1a9bbee547d08735d2",
     "src/styles/landing.css": "267daf1188b2cd4da1c992e219997cb0589bf9e1d8d12b95a8c1a0db551d68e5",
     "src/styles/product.css": "f4ed3a9f46bbafe745692713eaa38f611726de2c4d6fec2986fbae2f5e1474f3",
-    ".github/workflows/build-and-deploy.yml": "e6cdb71443307a5955147512f722bb5e0d4855f063233bdf3c420353703c3d59"
+    ".github/workflows/build-and-deploy.yml": "01336f546a8aee82d5443b3c87d17fd9afa67236c9a939fd9a5f72b0d84fcaab"
   }
 }
