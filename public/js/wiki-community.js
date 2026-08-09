@@ -12,6 +12,15 @@
     listState: $('[data-list-state]'),
     listTitle: $('[data-list-title]'),
     resultCount: $('[data-result-count]'),
+    drawer: $('[data-navigation-drawer]'),
+    drawerToggle: $('[data-action="toggle-navigation"]'),
+    allPagesAction: $('[data-action="all-pages"]'),
+    recentAction: $('[data-action="recent"]'),
+    currentSection: $('[data-current-section]'),
+    currentList: $('[data-current-page]'),
+    recentList: $('[data-recent-list]'),
+    recentEmpty: $('[data-recent-empty]'),
+    documentPanel: $('[data-document-panel]'),
     documentState: $('[data-document-state]'),
     documentTitle: $('[data-document-title]'),
     documentMessage: $('[data-document-message]'),
@@ -43,8 +52,17 @@
     editorMode: 'create',
     listAbort: null,
     pageAbort: null,
+    historyAbort: null,
+    diffAbort: null,
     sessionPromise: null,
+    listRequestKey: '',
+    recentPages: [],
+    drawerReturnFocus: null,
+    editorReturnFocus: null,
+    historyReturnFocus: null,
   };
+
+  const recentStorageKey = 'metahumotonic.communityWiki.recentPages.v1';
 
   const pick = (object, ...keys) => {
     for (const key of keys) {
@@ -198,6 +216,54 @@
     };
   }
 
+  function mergeRecentPages(items, page, limit = 6) {
+    const candidate = {
+      slug: String(page?.slug || ''),
+      title: String(page?.title || page?.slug || '제목 없음'),
+      updatedAt: String(page?.updatedAt || ''),
+    };
+    if (!candidate.slug) return Array.isArray(items) ? items.slice(0, limit) : [];
+    const previous = Array.isArray(items) ? items : [];
+    return [candidate, ...previous.filter((item) => String(item?.slug || '') !== candidate.slug)]
+      .filter((item) => item.slug)
+      .slice(0, limit);
+  }
+
+  function uniquePagesBySlug(items) {
+    const seen = new Set();
+    return (Array.isArray(items) ? items : []).filter((item) => {
+      const slug = normalizePage(item).slug;
+      if (!slug || seen.has(slug)) return false;
+      seen.add(slug);
+      return true;
+    });
+  }
+
+  function preparePageItems(items, deduplicate = true) {
+    const pages = Array.isArray(items) ? items : [];
+    return deduplicate ? uniquePagesBySlug(pages) : pages.slice();
+  }
+
+  function readRecentPages() {
+    try {
+      const parsed = JSON.parse(window.localStorage.getItem(recentStorageKey) || '[]');
+      return (Array.isArray(parsed) ? parsed : [])
+        .map((item) => ({
+          slug: String(item?.slug || ''),
+          title: String(item?.title || item?.slug || '제목 없음'),
+          updatedAt: String(item?.updatedAt || ''),
+        }))
+        .filter((item) => item.slug)
+        .slice(0, 6);
+    } catch {
+      return [];
+    }
+  }
+
+  function writeRecentPages(items) {
+    try { window.localStorage.setItem(recentStorageKey, JSON.stringify(items)); } catch { /* local preference only */ }
+  }
+
   function pagePath(slug, suffix = '') {
     return `/pages/${encodeURIComponent(slug)}${suffix}`;
   }
@@ -208,59 +274,139 @@
     history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
   }
 
-  function renderPageList(items) {
+  function makePageButton(raw, options = {}) {
+    const page = normalizePage(raw);
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.dataset.slug = page.slug;
+    button.dataset.pageLink = '';
+    button.setAttribute('aria-current', state.page?.slug === page.slug ? 'page' : 'false');
+    const title = document.createElement('strong');
+    title.textContent = page.title;
+    const meta = document.createElement('small');
+    if (options.meta === 'date') {
+      meta.textContent = page.updatedAt ? formatDate(page.updatedAt) : page.slug;
+    } else if (options.meta === 'change') {
+      const parts = [page.summary || '변경 기록'];
+      if (page.revisionId) parts.push(`revision ${page.revisionId}`);
+      parts.push(page.updatedAt ? formatDate(page.updatedAt) : '시간 미상');
+      meta.textContent = parts.join(' · ');
+    } else {
+      meta.textContent = `${page.slug || 'no-slug'}${page.updatedAt ? ` · ${formatDate(page.updatedAt)}` : ''}`;
+    }
+    button.append(title, meta);
+    button.addEventListener('click', () => {
+      loadPage(page.slug, { focusDocument: true });
+      setNavigationOpen(false);
+    });
+    return button;
+  }
+
+  function markActivePage(slug) {
+    root.querySelectorAll('[data-page-link]').forEach((button) => {
+      button.setAttribute('aria-current', button.dataset.slug === slug ? 'page' : 'false');
+    });
+  }
+
+  function renderCurrentPage(page) {
+    elements.currentList.replaceChildren();
+    elements.currentSection.hidden = !page?.slug;
+    if (page?.slug) elements.currentList.append(makePageButton(page));
+  }
+
+  function renderRecentPages() {
+    elements.recentList.replaceChildren();
+    elements.recentEmpty.hidden = state.recentPages.length > 0;
+    state.recentPages.forEach((page) => elements.recentList.append(makePageButton(page, { meta: 'date' })));
+  }
+
+  function rememberViewedPage(page) {
+    state.recentPages = mergeRecentPages(state.recentPages, page);
+    writeRecentPages(state.recentPages);
+    renderRecentPages();
+  }
+
+  function setNavigationMode(mode) {
+    const recent = mode === 'recent';
+    elements.allPagesAction.setAttribute('aria-pressed', String(!recent));
+    elements.recentAction.setAttribute('aria-pressed', String(recent));
+  }
+
+  function renderPageList(items, options = {}) {
+    const pages = preparePageItems(items, options.deduplicate !== false);
     elements.list.replaceChildren();
-    elements.resultCount.textContent = `${items.length}개`;
-    if (!items.length) {
+    elements.resultCount.textContent = `${pages.length}개`;
+    if (!pages.length) {
       setListState('조건에 맞는 커뮤니티 문서가 없습니다.', 'empty');
       return;
     }
     setListState('');
-    items.forEach((raw) => {
-      const page = normalizePage(raw);
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.dataset.slug = page.slug;
-      button.setAttribute('aria-current', state.page?.slug === page.slug ? 'page' : 'false');
-      const title = document.createElement('strong');
-      title.textContent = page.title;
-      const meta = document.createElement('small');
-      meta.textContent = `${page.slug || 'no-slug'}${page.updatedAt ? ` · ${formatDate(page.updatedAt)}` : ''}`;
-      button.append(title, meta);
-      button.addEventListener('click', () => loadPage(page.slug));
-      elements.list.append(button);
-    });
+    pages.forEach((raw) => elements.list.append(makePageButton(raw, { meta: options.meta })));
   }
 
   async function loadList(query = '') {
+    const requestKey = `pages:${query}`;
+    if (state.listRequestKey === requestKey) return;
     state.listAbort?.abort();
-    state.listAbort = new AbortController();
+    const controller = new AbortController();
+    state.listAbort = controller;
+    state.listRequestKey = requestKey;
     elements.listTitle.textContent = query ? '검색 결과' : '문서 목록';
+    setNavigationMode('pages');
     setListState('문서를 불러오는 중…');
     try {
-      const payload = await api('/pages', { params: { q: query, limit: 50 }, signal: state.listAbort.signal });
+      const payload = await api('/pages', { params: { q: query, limit: 50 }, signal: controller.signal });
+      if (state.listAbort !== controller) return;
       renderPageList(pick(payload, 'items', 'pages', 'results') || (Array.isArray(payload) ? payload : []));
     } catch (error) {
-      if (error.name === 'AbortError') return;
+      if (error.name === 'AbortError' || state.listAbort !== controller) return;
       setListState(error.message || '문서 목록을 불러오지 못했습니다.', 'error');
+    } finally {
+      if (state.listAbort === controller) {
+        state.listAbort = null;
+        state.listRequestKey = '';
+      }
     }
   }
 
   async function loadRecent() {
+    const requestKey = 'recent';
+    if (state.listRequestKey === requestKey) return;
     state.listAbort?.abort();
-    state.listAbort = new AbortController();
+    const controller = new AbortController();
+    state.listAbort = controller;
+    state.listRequestKey = requestKey;
     elements.listTitle.textContent = '최근 변경';
+    setNavigationMode('recent');
     setListState('최근 변경을 불러오는 중…');
     try {
-      const payload = await api('/recent-changes', { params: { limit: 50 }, signal: state.listAbort.signal });
-      renderPageList(pick(payload, 'items', 'changes', 'results') || (Array.isArray(payload) ? payload : []));
+      const payload = await api('/recent-changes', { params: { limit: 50 }, signal: controller.signal });
+      if (state.listAbort !== controller) return;
+      renderPageList(
+        pick(payload, 'items', 'changes', 'results') || (Array.isArray(payload) ? payload : []),
+        { deduplicate: false, meta: 'change' },
+      );
     } catch (error) {
-      if (error.name === 'AbortError') return;
+      if (error.name === 'AbortError' || state.listAbort !== controller) return;
       setListState(error.message || '최근 변경을 불러오지 못했습니다.', 'error');
+    } finally {
+      if (state.listAbort === controller) {
+        state.listAbort = null;
+        state.listRequestKey = '';
+      }
     }
   }
 
-  function showPage(page) {
+  function showPage(page, options = {}) {
+    const pageRequestController = options.pageRequestController || null;
+    if (state.pageAbort && state.pageAbort !== pageRequestController) {
+      state.pageAbort.abort();
+      state.pageAbort = null;
+    }
+    state.historyAbort?.abort();
+    state.diffAbort?.abort();
+    state.historyAbort = null;
+    state.diffAbort = null;
     state.page = page;
     elements.documentState.hidden = true;
     elements.documentView.hidden = false;
@@ -282,26 +428,42 @@
       elements.rendered.innerHTML = page.sanitizedHtml;
     }
     updatePageQuery(page.slug);
-    root.querySelectorAll('[data-page-list] button').forEach((button) => {
-      button.setAttribute('aria-current', button.dataset.slug === page.slug ? 'page' : 'false');
-    });
-  }
-
-  async function loadPage(slug) {
-    if (!slug) return;
-    state.pageAbort?.abort();
-    state.pageAbort = new AbortController();
-    setDocumentEmpty('문서를 불러오는 중…', slug, 'loading');
-    try {
-      const payload = await api(pagePath(slug), { signal: state.pageAbort.signal });
-      showPage(normalizePage(pick(payload, 'page') || payload));
-    } catch (error) {
-      if (error.name === 'AbortError') return;
-      setDocumentEmpty('문서를 열지 못했습니다', error.message || '잠시 뒤 다시 시도해 주세요.', 'error');
+    rememberViewedPage(page);
+    renderCurrentPage(page);
+    markActivePage(page.slug);
+    if (options.focusDocument) {
+      if (options.announce !== false) setStatus(`${page.title} 문서를 열었습니다.`, 'success');
+      elements.documentPanel.focus({ preventScroll: false });
     }
   }
 
-  function openEditor(mode) {
+  async function loadPage(slug, options = {}) {
+    if (!slug) return;
+    state.pageAbort?.abort();
+    const controller = new AbortController();
+    state.pageAbort = controller;
+    setDocumentEmpty('문서를 불러오는 중…', slug, 'loading');
+    try {
+      const payload = await api(pagePath(slug), { signal: controller.signal });
+      if (state.pageAbort !== controller) return null;
+      showPage(
+        normalizePage(pick(payload, 'page') || payload),
+        { ...options, pageRequestController: controller },
+      );
+      return state.page;
+    } catch (error) {
+      if (error.name === 'AbortError' || state.pageAbort !== controller) return null;
+      setDocumentEmpty('문서를 열지 못했습니다', error.message || '잠시 뒤 다시 시도해 주세요.', 'error');
+      setStatus(error.message || '문서를 열지 못했습니다.', 'error');
+      if (options.focusDocument) elements.documentPanel.focus({ preventScroll: false });
+      return null;
+    } finally {
+      if (state.pageAbort === controller) state.pageAbort = null;
+    }
+  }
+
+  function openEditor(mode, returnFocus = document.activeElement) {
+    state.editorReturnFocus = returnFocus;
     state.editorMode = mode;
     elements.conflictBox.hidden = true;
     const form = elements.editorForm.elements;
@@ -348,6 +510,8 @@
       setStatus('COMMUNITY revision이 저장됐습니다. 정전에는 반영되지 않았습니다.', 'success');
       await loadList(elements.search.value.trim());
       if (page.slug && page.revisionId) showPage(page); else await loadPage(slug);
+      elements.documentPanel.focus({ preventScroll: false });
+      state.editorReturnFocus = null;
     } catch (error) {
       const conflict = conflictKind(error);
       if (conflict === 'revision_conflict') {
@@ -371,12 +535,25 @@
 
   async function loadHistory() {
     if (!state.page) return;
+    const pageContext = { slug: state.page.slug, revisionId: state.page.revisionId };
+    state.historyAbort?.abort();
+    state.diffAbort?.abort();
+    const controller = new AbortController();
+    state.historyAbort = controller;
+    state.diffAbort = null;
+    state.historyReturnFocus = document.activeElement;
     elements.documentView.hidden = true;
     elements.historyPanel.hidden = false;
     elements.historyList.textContent = '이력을 불러오는 중…';
     elements.diffPanel.hidden = true;
+    elements.historyPanel.focus({ preventScroll: false });
     try {
-      const payload = await api(pagePath(state.page.slug, '/history'));
+      const payload = await api(pagePath(pageContext.slug, '/history'), { signal: controller.signal });
+      if (
+        state.historyAbort !== controller
+        || state.page?.slug !== pageContext.slug
+        || state.page?.revisionId !== pageContext.revisionId
+      ) return;
       const items = pick(payload, 'items', 'revisions', 'history') || [];
       elements.historyList.replaceChildren();
       if (!items.length) {
@@ -397,41 +574,77 @@
         compare.type = 'button';
         compare.className = 'button button--quiet';
         compare.textContent = '현재판과 비교';
-        compare.disabled = revisionId === state.page.revisionId;
-        compare.addEventListener('click', () => loadDiff(revisionId, state.page.revisionId));
+        compare.disabled = revisionId === pageContext.revisionId;
+        compare.addEventListener('click', () => loadDiff(pageContext, revisionId, pageContext.revisionId));
         wrapper.append(copy, compare);
         elements.historyList.append(wrapper);
       });
     } catch (error) {
+      if (error.name === 'AbortError' || state.historyAbort !== controller) return;
       elements.historyList.textContent = error.message || '이력을 불러오지 못했습니다.';
+    } finally {
+      if (state.historyAbort === controller) state.historyAbort = null;
     }
   }
 
-  async function loadDiff(fromRevisionId, toRevisionId) {
+  async function loadDiff(pageContext, fromRevisionId, toRevisionId) {
+    if (
+      !pageContext?.slug
+      || state.page?.slug !== pageContext.slug
+      || state.page?.revisionId !== pageContext.revisionId
+    ) return;
+    state.diffAbort?.abort();
+    const controller = new AbortController();
+    state.diffAbort = controller;
     elements.diffPanel.hidden = false;
     elements.diffOutput.textContent = '차이를 계산하는 중…';
     try {
-      const payload = await api(pagePath(state.page.slug, '/diff'), {
+      const payload = await api(pagePath(pageContext.slug, '/diff'), {
         params: { from_revision_id: fromRevisionId, to_revision_id: toRevisionId },
+        signal: controller.signal,
       });
+      if (
+        state.diffAbort !== controller
+        || state.page?.slug !== pageContext.slug
+        || state.page?.revisionId !== pageContext.revisionId
+      ) return;
       elements.diffOutput.textContent = String(pick(payload, 'unified_diff', 'unifiedDiff', 'diff') || '변경 내용이 없습니다.');
       elements.diffOutput.focus();
     } catch (error) {
+      if (error.name === 'AbortError' || state.diffAbort !== controller) return;
       elements.diffOutput.textContent = error.message || '판 비교를 불러오지 못했습니다.';
+    } finally {
+      if (state.diffAbort === controller) state.diffAbort = null;
     }
   }
 
   async function submitReview() {
     if (!state.page) return;
     if (!window.confirm('현재 COMMUNITY revision을 KG 검토 대기열에 제출할까요? 제출만으로 정전이 되지는 않습니다.')) return;
+    const pageContext = {
+      slug: state.page.slug,
+      revisionId: state.page.revisionId,
+      contentHash: state.page.contentHash,
+    };
     setStatus('KG 검토 요청을 제출하는 중…');
     try {
-      await api(pagePath(state.page.slug, '/submit-review'), {
+      await api(pagePath(pageContext.slug, '/submit-review'), {
         method: 'POST',
-        body: { revision_id: state.page.revisionId, content_hash: state.page.contentHash },
+        body: { revision_id: pageContext.revisionId, content_hash: pageContext.contentHash },
       });
-      setStatus('검토 요청을 제출했습니다. 아직 COMMUNITY이며 정전이 아닙니다.', 'success');
-      await loadPage(state.page.slug);
+      if (
+        state.page?.slug !== pageContext.slug
+        || state.page?.revisionId !== pageContext.revisionId
+      ) {
+        setStatus(`${pageContext.slug} revision의 검토 요청을 제출했습니다. 현재 문서는 그대로 유지합니다.`, 'success');
+        return;
+      }
+      const refreshed = await loadPage(pageContext.slug, { focusDocument: true, announce: false });
+      if (refreshed) {
+        setStatus('검토 요청을 제출했습니다. 아직 COMMUNITY이며 정전이 아닙니다.', 'success');
+      } else {
+        setStatus('검토 요청은 제출됐지만 문서 새로고침에 실패했습니다. 다시 열어 확인해 주세요.', 'error');
+      }
     } catch (error) {
       setStatus(error.message || '검토 요청을 제출하지 못했습니다.', 'error');
     }
@@ -468,31 +681,117 @@
     return Number.isNaN(date.getTime()) ? String(value) : new Intl.DateTimeFormat('ko-KR', { dateStyle: 'medium', timeStyle: 'short' }).format(date);
   }
 
+  function isDrawerViewport() {
+    return Boolean(window.matchMedia?.('(max-width: 1100px)').matches);
+  }
+
+  function setNavigationOpen(open, returnFocus = true) {
+    const next = Boolean(open && isDrawerViewport());
+    if (next) state.drawerReturnFocus = document.activeElement;
+    elements.drawer.dataset.open = String(next);
+    elements.drawerToggle.setAttribute('aria-expanded', String(next));
+    if (next) {
+      setTimeout(() => elements.search.focus(), 0);
+    } else {
+      const returnTarget = state.drawerReturnFocus;
+      state.drawerReturnFocus = null;
+      if (returnFocus) returnTarget?.focus?.();
+    }
+  }
+
+  function editorReturnFocusTarget() {
+    return isDrawerViewport() ? elements.drawerToggle : document.activeElement;
+  }
+
+  function runCreateAction(
+    closeDrawer = setNavigationOpen,
+    showEditor = openEditor,
+    returnTarget = editorReturnFocusTarget(),
+  ) {
+    closeDrawer(false, false);
+    showEditor('create', returnTarget);
+  }
+
+  function closeEditor() {
+    elements.editorPanel.hidden = true;
+    state.editorReturnFocus?.focus?.();
+    state.editorReturnFocus = null;
+  }
+
+  function closeHistory() {
+    state.historyAbort?.abort();
+    state.diffAbort?.abort();
+    state.historyAbort = null;
+    state.diffAbort = null;
+    elements.historyPanel.hidden = true;
+    elements.documentView.hidden = false;
+    state.historyReturnFocus?.focus?.();
+    state.historyReturnFocus = null;
+  }
+
   let searchTimer;
-  elements.search.addEventListener('input', () => {
+  function cancelScheduledSearch() {
     clearTimeout(searchTimer);
-    searchTimer = setTimeout(() => loadList(elements.search.value.trim()), 250);
+    searchTimer = undefined;
+  }
+
+  function runListCommand(command) {
+    cancelScheduledSearch();
+    return command();
+  }
+
+  function scheduleSearch() {
+    cancelScheduledSearch();
+    searchTimer = setTimeout(() => {
+      searchTimer = undefined;
+      loadList(elements.search.value.trim());
+    }, 250);
+  }
+
+  elements.search.addEventListener('input', () => {
+    scheduleSearch();
   });
   elements.search.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') { event.preventDefault(); loadList(elements.search.value.trim()); }
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      runListCommand(() => loadList(elements.search.value.trim()));
+    }
   });
   elements.editorForm.addEventListener('submit', saveEditor);
   root.addEventListener('click', (event) => {
     const action = event.target.closest('[data-action]')?.dataset.action;
     if (!action) return;
-    if (action === 'search') loadList(elements.search.value.trim());
-    if (action === 'recent') loadRecent();
-    if (action === 'create') openEditor('create');
+    if (action === 'search') runListCommand(() => loadList(elements.search.value.trim()));
+    if (action === 'recent') runListCommand(loadRecent);
+    if (action === 'all-pages') {
+      elements.search.value = '';
+      runListCommand(loadList);
+    }
+    if (action === 'toggle-navigation') setNavigationOpen(elements.drawer.dataset.open !== 'true');
+    if (action === 'close-navigation') setNavigationOpen(false);
+    if (action === 'clear-viewed') {
+      state.recentPages = [];
+      writeRecentPages([]);
+      renderRecentPages();
+    }
+    if (action === 'create') runCreateAction();
     if (action === 'edit') openEditor('edit');
     if (action === 'history') loadHistory();
-    if (action === 'close-history') { elements.historyPanel.hidden = true; elements.documentView.hidden = false; }
-    if (action === 'cancel-edit') elements.editorPanel.hidden = true;
+    if (action === 'close-history') closeHistory();
+    if (action === 'cancel-edit') closeEditor();
     if (action === 'submit-review') submitReview();
     if (action === 'report') reportPage();
     if (action === 'reload-latest' && state.page) window.open(`${window.location.pathname}?page=${encodeURIComponent(state.page.slug)}`, '_blank', 'noopener');
   });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && elements.drawer.dataset.open === 'true') setNavigationOpen(false);
+  });
+  const drawerMedia = window.matchMedia?.('(max-width: 1100px)');
+  drawerMedia?.addEventListener?.('change', () => setNavigationOpen(false, false));
 
   const initialSlug = new URLSearchParams(window.location.search).get('page');
+  state.recentPages = readRecentPages();
+  renderRecentPages();
   loadList();
   if (initialSlug) loadPage(initialSlug);
 })();

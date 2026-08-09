@@ -43,25 +43,68 @@ const canonical = new URL('/wiki/community/', Astro.site);
       </p>
     </aside>
 
-    <div class="community-toolbar" role="search">
-      <label for="community-search">커뮤니티 문서 검색</label>
-      <div class="community-search-row">
-        <input
-          id="community-search"
-          name="q"
-          type="search"
-          autocomplete="off"
-          placeholder="제목이나 slug 검색"
-        />
-        <button type="button" class="button button--quiet" data-action="search">검색</button>
-        <button type="button" class="button button--quiet" data-action="recent">최근 변경</button>
-        <button type="button" class="button button--primary" data-action="create">새 문서</button>
-      </div>
-      <p class="session-note" data-session-note>쓰기를 시작하면 익명 편집 세션을 안전하게 발급합니다.</p>
-    </div>
+    <button
+      type="button"
+      class="button navigation-toggle"
+      data-action="toggle-navigation"
+      aria-controls="community-navigation"
+      aria-expanded="false"
+    >
+      문서 탐색
+    </button>
 
     <div class="community-layout">
-      <aside class="community-index" aria-labelledby="community-index-title">
+      <aside
+        id="community-navigation"
+        class="community-index"
+        data-navigation-drawer
+        data-open="false"
+        aria-label="커뮤니티 위키 탐색"
+      >
+        <div class="navigation-heading">
+          <div>
+            <p class="panel-kicker">COMMUNITY NAVIGATION</p>
+            <h2>문서 탐색</h2>
+          </div>
+          <button type="button" class="button navigation-close" data-action="close-navigation" aria-label="문서 탐색 닫기">×</button>
+        </div>
+
+        <button type="button" class="button button--primary create-page-action" data-action="create">+ 새 문서 만들기</button>
+
+        <div class="rail-search" role="search">
+          <label for="community-search">커뮤니티 문서 검색</label>
+          <div class="community-search-row">
+            <input
+              id="community-search"
+              name="q"
+              type="search"
+              autocomplete="off"
+              placeholder="제목이나 slug 검색"
+            />
+            <button type="button" class="button button--quiet" data-action="search">검색</button>
+          </div>
+        </div>
+
+        <div class="navigation-shortcuts" aria-label="문서 목록 보기">
+          <button type="button" class="button button--quiet" data-action="all-pages" aria-pressed="true">모든 문서</button>
+          <button type="button" class="button button--quiet" data-action="recent" aria-pressed="false">최근 변경</button>
+        </div>
+
+        <section class="rail-section current-page-section" data-current-section hidden aria-labelledby="current-page-title">
+          <h3 id="current-page-title">현재 문서</h3>
+          <nav class="page-list page-list--compact" data-current-page aria-label="현재 문서"></nav>
+        </section>
+
+        <section class="rail-section" data-recent-section aria-labelledby="recently-viewed-title">
+          <div class="rail-section-heading">
+            <h3 id="recently-viewed-title">최근 본 문서</h3>
+            <button type="button" class="rail-text-action" data-action="clear-viewed">비우기</button>
+          </div>
+          <p class="rail-empty" data-recent-empty>아직 이 브라우저에서 연 문서가 없습니다.</p>
+          <nav class="page-list page-list--compact" data-recent-list aria-label="최근 본 문서"></nav>
+        </section>
+
+        <section class="rail-section page-results" aria-labelledby="community-index-title">
         <div class="panel-heading">
           <div>
             <p class="panel-kicker">BROWSE</p>
@@ -71,9 +114,11 @@ const canonical = new URL('/wiki/community/', Astro.site);
         </div>
         <div class="list-state" data-list-state data-state="loading" role="status">문서를 불러오는 중…</div>
         <nav class="page-list" data-page-list aria-label="커뮤니티 문서"></nav>
+        </section>
+        <p class="session-note" data-session-note>쓰기를 시작하면 익명 편집 세션을 안전하게 발급합니다.</p>
       </aside>
 
-      <article class="community-document" aria-label="커뮤니티 문서">
+      <article class="community-document" data-document-panel aria-label="커뮤니티 문서" tabindex="-1">
         <div class="document-state" data-document-state data-state="empty">
           <p class="panel-kicker">COMMUNITY · UNREVIEWED</p>
           <h2 id="document-title" data-document-title>문서를 선택하세요</h2>
@@ -105,7 +150,7 @@ const canonical = new URL('/wiki/community/', Astro.site);
           <div class="sanitized-document" data-sanitized-document></div>
         </div>
 
-        <section class="history-panel" data-history-panel hidden aria-labelledby="history-title">
+        <section class="history-panel" data-history-panel hidden aria-labelledby="history-title" tabindex="-1">
           <div class="panel-heading">
             <div>
               <p class="panel-kicker">IMMUTABLE REVISIONS</p>

@@ -99,6 +99,7 @@ export const wikiSidebar = [
     label: 'MetaHumotonic Wiki',
     items: [
       { label: '위키 홈', link: '/wiki/' },
+      { label: '커뮤니티 위키 · 편집', link: '/wiki/community/' },
       { label: '공개·정전 경계', link: '/wiki/authority/' },
       { label: '오픈소스 기반', link: '/wiki/open-source/' },
       { label: '선의 공리 12', link: '/wiki/axioms/' },
