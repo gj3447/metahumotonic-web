@@ -33,12 +33,14 @@ export type BatchReport = {
   readonly byIssue: Readonly<Record<PathIssue, number>>;
   readonly autoRemediable: readonly Remediation[];
   readonly needsDecision: readonly Decision[];
+  readonly notApplicable: readonly Decision[];
   readonly samples: Readonly<Partial<Record<PathIssue, readonly string[]>>>;
 };
 
 const ALL_ISSUES: readonly PathIssue[] = Object.freeze([
   'EMPTY', 'MACHINE_ABSOLUTE', 'MISSING_LEADING_SLASH',
   'ABSOLUTE_OUTSIDE_CHECKOUT', 'LINE_ANCHOR', 'PROSE_ANNOTATION', 'EMBEDDED_HOST_TRACE',
+  'NOT_A_FILE_REFERENCE',
 ]) as readonly PathIssue[];
 
 // 기계적으로 유도 가능한 결함만 자동 교정 대상이다.
@@ -52,6 +54,7 @@ const DECISION_REASON: Readonly<Partial<Record<PathIssue, string>>> = Object.fre
   ABSOLUTE_OUTSIDE_CHECKOUT: '알려진 체크아웃 루트 밖 절대경로. 시스템 경로일 수 있어 건드리지 않는다.',
   EMBEDDED_HOST_TRACE: '경로 내부에 호스트 흔적이 인코딩돼 있어 단순 접두 제거로 해결되지 않는다.',
   EMPTY: '값이 비어 있다. 참조 자체를 폐기할지 결정 필요.',
+  NOT_A_FILE_REFERENCE: '/dev/null 류 출력 리다이렉트 기록. 파일 참조가 아니므로 위생 대상에서 제외 — 결함이 아니다.',
 });
 
 // caller 가 넘긴 row 를 참조로 보관하면 보고서가 외부 변형에 오염된다.
@@ -94,8 +97,16 @@ export const classifyBatch = (rows: readonly PathRow[]): BatchReport => {
       })),
   );
 
+  // 파일 참조가 아닌 값은 결함이 아니다 — 결정대기에 섞으면 alert fatigue(D3 함정).
+  const isNotApplicable = (p: ParsedSourcePath): boolean => p.issues.includes('NOT_A_FILE_REFERENCE');
+
   const needsDecision: readonly Decision[] = Object.freeze(
-    withIssues.filter(([, p]) => !isDerivable(p)).map(([row, p]) =>
+    withIssues.filter(([, p]) => !isDerivable(p) && !isNotApplicable(p)).map(([row, p]) =>
+      Object.freeze({ row, issues: p.issues, reason: reasonFor(p.issues) })),
+  );
+
+  const notApplicable: readonly Decision[] = Object.freeze(
+    withIssues.filter(([, p]) => isNotApplicable(p)).map(([row, p]) =>
       Object.freeze({ row, issues: p.issues, reason: reasonFor(p.issues) })),
   );
 
@@ -112,6 +123,6 @@ export const classifyBatch = (rows: readonly PathRow[]): BatchReport => {
   return Object.freeze({
     total: rows.length,
     clean: parsed.length - withIssues.length,
-    byIssue, autoRemediable, needsDecision, samples,
+    byIssue, autoRemediable, needsDecision, notApplicable, samples,
   });
 };

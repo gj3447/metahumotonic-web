@@ -11,9 +11,14 @@
 //
 // 입력 형식: PathRow[] — [{ "nodeId": "...", "property": "file_path", "value": "..." }, ...]
 //
-// 행을 만드는 정본 쿼리(자격증명 보유자가 실행):
+// 행을 만드는 정본 쿼리(자격증명 보유자가 실행).
+// 분모를 좁힌 이유(2026-08-11 전수조사): file_path 5,524개 중 2,744개가
+// AuditEvent/ARCHIVED 노드로 소스 바인딩이 아니었다(빈 값 1,582 + /dev/null 610).
+// 바인딩 증거(binding_state/sourcePath/boundBy)가 있는 노드만 위생 대상이다 —
+// 분모를 잘못 잡으면 진짜 결함(바인딩 중 기계절대경로 52건)이 노이즈에 묻힌다.
 //   MATCH (n) WHERE n.file_path IS NOT NULL
 //     AND apoc.meta.cypher.type(n.file_path) = 'STRING'
+//     AND (n.binding_state IS NOT NULL OR n.sourcePath IS NOT NULL OR n.boundBy IS NOT NULL)
 //   RETURN { nodeId: coalesce(n.id, n.name, toString(elementId(n))),
 //            property: 'file_path',
 //            value: toString(n.file_path) } AS row

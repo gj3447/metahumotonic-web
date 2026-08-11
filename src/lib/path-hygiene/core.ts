@@ -29,8 +29,12 @@ const structuralIssues = (raw: string, m: CheckoutPattern | null): readonly Path
     : raw.startsWith('/') ? ['ABSOLUTE_OUTSIDE_CHECKOUT'] : [];
 
 /** 경로 문자열의 결함 목록. 순수·결정적. */
+// AuditEvent 가 명령줄 출력 리다이렉트를 그대로 저장한 값. "/dev/null)" 괄호 오염형 실측.
+const NOT_A_FILE = /^\/dev\/null\)?$/;
+
 export const issuesOf = (raw: string): readonly PathIssue[] => {
   if (raw.length === 0) return Object.freeze<PathIssue[]>(['EMPTY']);
+  if (NOT_A_FILE.test(raw)) return Object.freeze<PathIssue[]>(['NOT_A_FILE_REFERENCE']);
   const m = matchCheckout(raw);
   return Object.freeze([...structuralIssues(raw, m), ...contentIssues(raw)]);
 };
