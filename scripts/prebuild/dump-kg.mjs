@@ -38,9 +38,23 @@ function toJS(v) {
   return v;
 }
 
+// 체크아웃 위치에 종속되지 않는 레포 상대경로로 정규화한다.
+// 2026-08-11: 기존 구현은 /Users/<x>/CD/ (macmini) 만 처리해서
+// dev-01 형태 /home/<x>/CD/ 경로 약 1,562개가 미정규화로 출력됐다.
+// KG 에는 sourcePathRepoRelative 가 이미 채워져 있으므로(1,628개)
+// 장기적으로는 이 함수 대신 그 속성을 쿼리에서 읽는 것이 정본이다.
+const CHECKOUT_ROOTS = [
+  /^\/home\/[^/]+\/CD\//,
+  /^\/Users\/[^/]+\/CD\//,
+  /^Users\/[^/]+\/CD\//,   // 선행 슬래시가 누락된 형태
+];
+
 function publicSourcePath(sourcePath) {
   if (typeof sourcePath !== 'string') return sourcePath;
-  return sourcePath.replace(/^\/Users\/[^/]+\/CD\//, '');
+  for (const re of CHECKOUT_ROOTS) {
+    if (re.test(sourcePath)) return sourcePath.replace(re, '');
+  }
+  return sourcePath;
 }
 
 async function run(session, cypher, params = {}) {
