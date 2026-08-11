@@ -54,6 +54,12 @@ const DECISION_REASON: Readonly<Partial<Record<PathIssue, string>>> = Object.fre
   EMPTY: '값이 비어 있다. 참조 자체를 폐기할지 결정 필요.',
 });
 
+// caller 가 넘긴 row 를 참조로 보관하면 보고서가 외부 변형에 오염된다.
+// FLR-H M1 F3 역학("caller 입력을 재귀적으로 write-detect")을 도입해 발견한 결함 —
+// 얕은 Object.freeze 는 중첩 참조를 보호하지 못한다. 값 복사 후 동결한다.
+const freezeRow = (r: PathRow): PathRow =>
+  Object.freeze({ nodeId: r.nodeId, property: r.property, value: r.value });
+
 const isDerivable = (p: ParsedSourcePath): boolean =>
   p.issues.length > 0
   && p.issues.every((i) => DERIVABLE.includes(i))
@@ -68,7 +74,10 @@ const reasonFor = (issues: readonly PathIssue[]): string =>
 /** 행 묶음을 판정해 보고서를 만든다. 순수·결정적이며 입력을 변형하지 않는다. */
 export const classifyBatch = (rows: readonly PathRow[]): BatchReport => {
   const parsed: readonly (readonly [PathRow, ParsedSourcePath])[] =
-    rows.map((row) => Object.freeze([row, parseSourcePath(row.value)] as const));
+    rows.map((raw) => {
+      const row = freezeRow(raw);
+      return Object.freeze([row, parseSourcePath(row.value)] as const);
+    });
 
   const withIssues = parsed.filter(([, p]) => p.issues.length > 0);
 
