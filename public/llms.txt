@@ -186,6 +186,25 @@ restricted data public. This is a canonical target and proposed implementation
 ladder, not a claim of present completion, efficacy, consciousness, or universal
 coverage.
 
+### Philosophy before code (USER_PRIMARY direction; principles proposed)
+
+The implementation order begins with philosophical commitments, not code:
+
+1. relational ontology — an entity is not an isolated payload;
+2. genealogical temporality — identity is a traceable lineage of change;
+3. memory/truth separation — preservation is not endorsement, and the world model is not the world;
+4. productive fallibility — contradiction and failure remain causes of correction;
+5. difference-preserving unity — one cognitive entity is not one voice or fused consciousness;
+6. causal agency — persistent state must causally change action and subsequent learning;
+7. participation and dignity — humans are active participants, not extractable fuel;
+8. open exterior / protected interior — open protocols do not imply open private memory;
+9. cognitive sovereignty and subsidiarity — admission, activation, judgment, update, and forgetting are powers that must be separated;
+10. open-ended teleology — no single reward, vote, model, or pleasure signal represents the whole.
+
+Only the instruction to establish philosophy before implementation is direct
+USER_PRIMARY canon. These ten names and their engineering implications are a
+transparent SECONDARY_AI proposal awaiting specific ratification.
+
 Human-readable canon and engineering ladder:
 https://metahumotonic.com/book/human-universal-body/
 Public HSWM research boundary:
