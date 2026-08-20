@@ -205,6 +205,33 @@ Only the instruction to establish philosophy before implementation is direct
 USER_PRIMARY canon. These ten names and their engineering implications are a
 transparent SECONDARY_AI proposal awaiting specific ratification.
 
+### Hypergraph Semantic Weight Map technical core
+
+USER_PRIMARY further fixes the most important center as the Hypergraph Semantic
+Weight Map itself: a large hypergraph learning structure operated through LLM
+token events. The current technical formalization is:
+
+`LLM token event -> sparse role-aware n-ary activation -> typed LLM function
+cell -> external outcome -> causal credit -> versioned delta-W/delta-H -> changed
+next activation`.
+
+`H` is the role- and provenance-bearing persistent hypergraph; `W` is an
+operator-valued macro-synapse; `A` is volatile token-carried activation; `F` is
+a set of replaceable typed LLM function cells; and `Pi` is the constitutional
+capability, provenance, validation, privacy, budget, and rollback membrane.
+Semantic compatibility, causal efficacy, evidence support, momentary activation,
+and execution permission must not be collapsed into one scalar.
+
+The strongest direct prior found in the primary-source review is the July 2026
+Hyperon deep-dive, which already proposes a weighted cognitive metagraph,
+LLM/AtomSpace read-write integration, token-position provenance, validation,
+promotion, permissions, predictive coding, and rollback. HSWM therefore does
+not claim novelty for “LLM + weighted hypergraph.” Its unjudged research burden
+is to implement and causally demonstrate an external-outcome-bound, versioned
+macro-W/H learning loop that preserves history and changes subsequent token
+processing. Existing HSWM code does not yet establish this integrated neural
+core.
+
 Human-readable canon and engineering ladder:
 https://metahumotonic.com/book/human-universal-body/
 Public HSWM research boundary:
