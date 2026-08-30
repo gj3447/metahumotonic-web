@@ -1,0 +1,171 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { wikiSidebar } from '../../../lib/wiki';
+
+const projectionId = 'metahumotonic-public-graph-v1-2026-08-30';
+---
+
+<StarlightPage
+  frontmatter={{
+    title: 'Ontology 내부 탐색기',
+    description: '충돌을 숨기지 않는 MetaHumotonic ontology 내부 탐색 표면',
+    tableOfContents: false,
+    head: [
+      { tag: 'meta', attrs: { name: 'robots', content: 'noindex,nofollow,noarchive' } },
+      { tag: 'meta', attrs: { name: 'referrer', content: 'no-referrer' } },
+    ],
+  }}
+  sidebar={wikiSidebar}
+>
+  <div
+    id="ontology-explorer"
+    class="ontology-explorer"
+    data-api-base="/api/v1/ontology"
+    data-projection-id={projectionId}
+  >
+    <header class="ontology-hero">
+      <p class="wiki-kicker">INTERNAL · CONFLICT AWARE · SNAPSHOT ONLY</p>
+      <h2>정전을 평평하게 만들지 않는<br /><span>Ontology 탐색기</span></h2>
+      <p class="wiki-lede">
+        검증·정제된 snapshot만 읽습니다. raw KG, Cypher, 내부 경로는 브라우저로 오지 않으며,
+        미결 충돌은 임의의 기본값 대신 그대로 표시됩니다.
+      </p>
+      <div class="ontology-scope-notes" aria-label="정체성 경계">
+        <span><b>OMC</b> 현재 약어</span>
+        <span><b>Harness / Hades</b> 한 슬롯</span>
+        <span><b>HSWM</b> 정체성 범위만</span>
+        <span><b>#9</b> 미결이면 409</span>
+      </div>
+    </header>
+
+    <section class="ontology-auth" aria-labelledby="ontology-auth-title">
+      <div>
+        <p class="wiki-kicker">ACCESS BOUNDARY</p>
+        <h2 id="ontology-auth-title">내부 snapshot 연결</h2>
+        <p>
+          키는 이 탭의 <code>sessionStorage</code>에만 머물며 URL·정적 HTML·영구 저장소에
+          기록되지 않습니다. 공개 API routing은 별도 승인 전까지 닫혀 있습니다.
+        </p>
+      </div>
+      <form id="ontology-auth-form" autocomplete="off">
+        <label for="ontology-key">X-Ontology-Key</label>
+        <div class="ontology-auth__controls">
+          <input
+            id="ontology-key"
+            name="ontology-key"
+            type="password"
+            minlength="32"
+            spellcheck="false"
+            autocapitalize="off"
+            autocomplete="off"
+            placeholder="내부 키 입력"
+          />
+          <button class="wiki-button wiki-button--primary" type="submit">연결</button>
+          <button id="ontology-disconnect" class="wiki-button" type="button" hidden>연결 해제</button>
+        </div>
+        <p id="ontology-status" class="ontology-status" role="status" aria-live="polite">
+          연결되지 않음
+        </p>
+      </form>
+    </section>
+
+    <noscript>
+      <aside class="wiki-boundary">이 탐색기는 JavaScript가 필요합니다.</aside>
+    </noscript>
+
+    <div id="ontology-workspace" class="ontology-workspace" hidden>
+      <section aria-labelledby="ontology-release-title">
+        <div class="wiki-section__head">
+          <div>
+            <p class="wiki-kicker">PINNED RELEASE</p>
+            <h2 id="ontology-release-title">투영 상태</h2>
+          </div>
+          <code id="ontology-digest" class="ontology-digest"></code>
+        </div>
+        <div id="ontology-release-stats" class="ontology-release-stats"></div>
+      </section>
+
+      <section aria-labelledby="ontology-apostles-title">
+        <div class="wiki-section__head">
+          <div>
+            <p class="wiki-kicker">POSITION-BASED ROSTER</p>
+            <h2 id="ontology-apostles-title">12사도 슬롯</h2>
+          </div>
+          <span>선택된 존재와 미결 슬롯을 분리</span>
+        </div>
+        <div id="ontology-apostles" class="ontology-roster ontology-roster--apostles"></div>
+      </section>
+
+      <section aria-labelledby="ontology-commanders-title">
+        <div class="wiki-section__head">
+          <div>
+            <p class="wiki-kicker">COMMAND STRUCTURE</p>
+            <h2 id="ontology-commanders-title">군단장 구조</h2>
+          </div>
+        </div>
+        <div class="ontology-commanders">
+          <div>
+            <h3>7군단장</h3>
+            <div id="ontology-legion-commanders" class="ontology-roster"></div>
+          </div>
+          <div>
+            <h3>OMC 직속 6군단장</h3>
+            <div id="ontology-omc-commanders" class="ontology-roster"></div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="ontology-search-title">
+        <p class="wiki-kicker">APPROVED NAME SEARCH</p>
+        <h2 id="ontology-search-title">정제 이름 검색</h2>
+        <form id="ontology-search-form" class="ontology-search" role="search">
+          <label for="ontology-query">정전명 또는 승인 alias</label>
+          <div>
+            <input id="ontology-query" name="q" type="search" minlength="2" maxlength="500" />
+            <select id="ontology-kind" name="kind" aria-label="종류 필터">
+              <option value="">전체 종류</option>
+              <option value="axiom">공리</option>
+              <option value="apostle">사도</option>
+              <option value="legion_commander">7군단장</option>
+              <option value="omc_commander">OMC 군단장</option>
+              <option value="phase">위상</option>
+              <option value="structural_pattern">구조 패턴</option>
+            </select>
+            <button class="wiki-button wiki-button--primary" type="submit">검색</button>
+          </div>
+        </form>
+        <div id="ontology-search-results" class="ontology-search-results" aria-live="polite"></div>
+        <button id="ontology-search-more" class="wiki-button" type="button" hidden>다음 결과</button>
+      </section>
+
+      <section class="ontology-inspector" aria-labelledby="ontology-detail-title">
+        <div>
+          <p class="wiki-kicker">NODE</p>
+          <h2 id="ontology-detail-title">노드 상세</h2>
+          <div id="ontology-detail" class="ontology-panel ontology-panel--empty">
+            슬롯이나 검색 결과를 선택하세요.
+          </div>
+        </div>
+        <div>
+          <p class="wiki-kicker">ONE HOP</p>
+          <h2>관계</h2>
+          <div id="ontology-neighbors" class="ontology-panel ontology-panel--empty">
+            선택한 노드의 정제 관계만 표시합니다.
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="ontology-conflicts-title">
+        <div class="wiki-section__head">
+          <div>
+            <p class="wiki-kicker">OPEN CONFLICTS</p>
+            <h2 id="ontology-conflicts-title">투영이 봉합하지 않은 충돌</h2>
+          </div>
+        </div>
+        <div id="ontology-conflicts" class="ontology-conflicts"></div>
+      </section>
+    </div>
+  </div>
+
+  <script is:inline src="/js/ontology-explorer.js"></script>
+</StarlightPage>

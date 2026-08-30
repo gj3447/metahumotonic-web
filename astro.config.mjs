@@ -11,8 +11,11 @@ export default defineConfig({
   integrations: [
     sitemap({
       // Community pages contain reactive-moderation UGC. Keep them out of the
-      // crawl graph during the public beta even though the shell is reachable.
-      filter: (page) => !page.startsWith('https://metahumotonic.com/wiki/community/'),
+      // crawl graph during the public beta. The ontology shell is likewise
+      // reachable but its data surface is internal, key-gated, and noindex.
+      filter: (page) =>
+        !page.startsWith('https://metahumotonic.com/wiki/community/') &&
+        !page.startsWith('https://metahumotonic.com/wiki/ontology/'),
     }),
     starlight({
       title: 'MetaHumotonic Wiki',
@@ -38,6 +41,16 @@ export default defineConfig({
     }),
   ],
   vite: {
+    server: {
+      // Local-only same-origin bridge. Production routing remains a separate,
+      // explicitly ratified deployment concern.
+      proxy: {
+        '/api/v1/ontology': {
+          target: 'http://127.0.0.1:8000',
+          changeOrigin: false,
+        },
+      },
+    },
     css: {
       postcss: {
         plugins: [],

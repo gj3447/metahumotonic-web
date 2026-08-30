@@ -44,6 +44,23 @@ Do not fill gaps in apostle identities, relationships, or doctrine by inference.
 
 `/wiki/data.json` exposes the same bounded projection for machine readers. Expanding it to additional KG records or relationships requires an explicit public allowlist and publication approval; a KG label or canonical tier alone is not consent to publish.
 
+### Internal ontology explorer
+
+`/wiki/ontology/` is a noindex static shell for the conflict-aware ontology
+facade. It embeds neither the ontology snapshot nor a credential. An operator
+enters an independent `X-Ontology-Key`; the client retains it only in the
+current tab's `sessionStorage`, validates the pinned release metadata, and
+renders server-side allowlisted DTOs with DOM `textContent` rather than HTML
+injection. Slot 9 remains visibly unresolved, OMC is the current abbreviation,
+Harness/Hades occupies one slot, and HSWM is shown as identity scope rather than
+implementation completeness.
+
+Local Astro development proxies `/api/v1/ontology/*` to
+`http://127.0.0.1:8000`. Production ingress is intentionally not opened while
+the release is `INTERNAL_ONLY`; the shell handles that state without bundling a
+fallback snapshot. Do not place the internal key in frontend source, build
+variables, URLs, or deployment artifacts.
+
 ## Public-code curation
 
 [`src/data/repos.json`](src/data/repos.json) is a curated allowlist of repositories that visitors can inspect publicly. Entries must use a confirmed public URL and a plain description supported by the repository itself. Private repositories and internal paths do not belong in this file.

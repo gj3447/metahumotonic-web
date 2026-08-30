@@ -101,6 +101,7 @@ export const wikiSidebar = [
       { label: '위키 홈', link: '/wiki/' },
       { label: '커뮤니티 위키 · 편집', link: '/wiki/community/' },
       { label: '공개·정전 경계', link: '/wiki/authority/' },
+      { label: 'Ontology 내부 탐색기 · 키 필요', link: '/wiki/ontology/' },
       { label: '오픈소스 기반', link: '/wiki/open-source/' },
       { label: '선의 공리 12', link: '/wiki/axioms/' },
       { label: '세계관 지도', link: '/wiki/worldview/' },

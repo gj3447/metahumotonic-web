@@ -20,6 +20,7 @@ const required = [
   'research/program.json',
   'wiki/index.html',
   'wiki/authority/index.html',
+  'wiki/ontology/index.html',
   'wiki/open-source/index.html',
   'wiki/axioms/index.html',
   'wiki/worldview/index.html',
@@ -77,6 +78,9 @@ const manifest = {
     '/ontology.ttl',
     '/void.ttl',
     '/llms.txt',
+  ],
+  internal_shell_routes: [
+    '/wiki/ontology/',
   ],
   consent_boundary: {
     page_visit_may_start_worker: false,
