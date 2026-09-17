@@ -1,0 +1,55 @@
+{
+  "schema": "metahumotonic/drift-review@1",
+  "reviewed_base": "c1b1b2fc69522985eafb0b6aaaa3b5e9c466dfd5",
+  "reviewed_head": "c41eaaec74e333836118caac661e042a3ba0affb",
+  "entries": [
+    {
+      "path": "astro.config.mjs",
+      "before": "7598417b0888e994195bd305428a20b4afc8b1484d9fc0817d767748c1f911d6",
+      "after": "64301fecdb116a60038b9326108587bd502f970bfaf14ca9c08f28a9d90fb472",
+      "reason": "Prior committed sitemap exclusion and local-only ontology proxy; no public credential or ingress expansion."
+    },
+    {
+      "path": "public/llms.txt",
+      "before": "4046e14fb25777edab368288b84c226ef689fb1bc4bdd3d49c761dc827f91031",
+      "after": "7ba172ed64d5f1c45952ac1be74a9c4385b03f5cc3ff9a29f7e735a9725c8aa7",
+      "reason": "Prior committed HSWM human-universal-body documentation; preserve existing authority disclaimers and content, no canon rewrite."
+    },
+    {
+      "path": "public/sitemap.xml",
+      "before": "bc1748c7d8ebd0c857a782a72e4c36ae5b7e93a930d9ae6b77ae8383cef24015",
+      "after": "a1a9707f3b4734d8d5c45bee603864817e2c401a27b794c9f7b111657cf89e47",
+      "reason": "Prior committed public human-universal-body URL."
+    },
+    {
+      "path": "scripts/build/assemble-site.mjs",
+      "before": "cd4831def2c116608ceab2d79d95d1edfc4e5eb95c9380a755a60fed52c90555",
+      "after": "47be00aac6b01c85623107cbc1c77346c29bcc62ca05e4fa8d7aeed33e815cb1",
+      "reason": "Prior committed internal_shell_routes and required ontology shell artifact."
+    },
+    {
+      "path": "src/pages/book/index.astro",
+      "before": "da8bf1118feab7c92008ac9c1fa4d9c894386e474c74b05107abc18ab965ac49",
+      "after": "7c2c3c24639aa2ea30102a07b0ecab64a8ecc3b4512debbd3c568303c215cf9a",
+      "reason": "Prior committed navigation link to human-universal-body."
+    },
+    {
+      "path": "src/pages/research/hswm/index.astro",
+      "before": "f0eadeeb6da69558743cd1d2be1a435a5618de8c6cc2152ba5fa954ed1c9aa45",
+      "after": "7071fa09180f2ee35ad1e70c8d4fea342691ea4dba44430a2fa60ae3d1483b78",
+      "reason": "Prior committed long-term-goal link."
+    },
+    {
+      "path": ".github/workflows/build-and-deploy.yml",
+      "before": "01336f546a8aee82d5443b3c87d17fd9afa67236c9a939fd9a5f72b0d84fcaab",
+      "after": "e3c817011b91264448e4a1f6aecdeb91972139e4fd5752a9df84e4aee2f48438",
+      "reason": "Use tested .node-version for CI; couple drift check to release tests."
+    }
+  ],
+  "negative_controls": {
+    "unmodified": "PASS",
+    "modified_source": "REJECTED",
+    "missing_source": "REJECTED"
+  },
+  "scope": "hash drift reconciliation; not user-canon endorsement"
+}

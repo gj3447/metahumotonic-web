@@ -25,7 +25,8 @@
     "test:release": "npm run test:build-runtime && npm run test:compute-consent && npm run test:site-surface && npm run test:wiki-community && npm run test:ontology-explorer && npm run verify:wiki-engine",
     "verify:build-trace": "node scripts/ooptdd/emit-build-trace.mjs && uv run --python 3.12 --with pyyaml python scripts/ooptdd/verify-build-trace.py",
     "test:build-runtime": "node --test tests/build-runtime.test.mjs",
-    "verify": "npm run build && npm run test:release"
+    "verify": "npm run build && npm run test:release && npm run verify:drift",
+    "verify:drift": "node scripts/longinus/drift-check.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.3",

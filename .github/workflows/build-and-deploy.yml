@@ -35,7 +35,7 @@ jobs:
         run: npm run build
 
       - name: Verify consent and surface contracts
-        run: npm run test:release
+        run: npm run test:release && npm run verify:drift
 
       # ooptdd 측정층 — 빌드 산출물(dist/)을 읽어back 해 KG 실물 착지를 positive-assert.
       # GENERATOR(Node) → build-trace.jsonl → VERIFIER(Python ooptdd). RED 면 배포 안 함.
