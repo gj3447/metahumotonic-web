@@ -156,14 +156,25 @@ function makeHarness({
 
 const settle = () => new Promise((resolve) => setImmediate(resolve));
 
-async function waitFor(predicate, maxTurns = 50) {
-  if (predicate()) return;
-  for (let turn = 0; turn < maxTurns; turn += 1) {
-    await settle();
-    if (predicate()) return;
+async function waitFor(predicate, timeoutMs = 2000) {
+  // WebCrypto completes on another worker; 50 setImmediate turns may elapse
+  // before it is scheduled on a busy host. Keep a real, bounded deadline.
+  const deadline = performance.now() + timeoutMs;
+  while (!predicate()) {
+    assert.ok(performance.now() < deadline, `condition was not met within ${timeoutMs}ms`);
+    await new Promise((resolve) => setTimeout(resolve, 1));
   }
-  assert.fail(`condition was not met after ${maxTurns} event-loop turns`);
 }
+
+test('async wait allows independently scheduled work to finish', async () => {
+  let ready = false;
+  const timer = setTimeout(() => { ready = true; }, 15);
+  try { await waitFor(() => ready); } finally { clearTimeout(timer); }
+});
+
+test('async wait fails closed at its deadline', async () => {
+  await assert.rejects(waitFor(() => false, 5), /condition was not met within 5ms/);
+});
 
 test('page load creates no worker and explicit consent gates start', async () => {
   const source = await readFile(new URL('../public/js/333-contributor.js', import.meta.url), 'utf8');

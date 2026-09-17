@@ -27,6 +27,22 @@ npm run build
 npm run verify:build-trace
 ```
 
+## Reproducible verification
+
+The tested Node version is pinned in `.node-version` (24.20.0). Run the project
+as the development account; the administrator's system Node may be older.
+`npm run build` checks the minimum runtime before loading Astro, uses the same
+Node executable for every build step, and bounds Pagefind's worker pools.
+
+```sh
+npm ci
+npm run verify
+```
+
+`verify` builds before running artifact-dependent tests. Do not run release
+tests against an absent or unrelated `dist/`. Keep each checkout in its own
+workspace root so a parent project's TypeScript settings cannot interfere.
+
 ## Canon layers
 
 Public content must keep its authority layer explicit:
