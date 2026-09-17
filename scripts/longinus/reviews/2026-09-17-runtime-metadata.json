@@ -1,0 +1,26 @@
+{
+  "schema": "metahumotonic/review@1",
+  "authority": "SECONDARY_AI",
+  "user_instruction": "Repair runtime mismatch and stale web metadata; preserve existing concurrent fixes.",
+  "changes": [
+    {
+      "path": "Dockerfile",
+      "before_sha256": "cd16648f85c2fccff26570b179aa28742d215e487f8d4dcf7bf127e43d15231c",
+      "after_sha256": "e04e0f2c8e196ebae4b5c94c6f2af3bee30fc06e39a6419d347f2324e6ccae86"
+    },
+    {
+      "path": "src/data/repos.json",
+      "before_sha256": "d9487cd437a73cbbdfb30bed2816d844d5a05b34db970719e60cd020400f2721",
+      "after_sha256": "628263bbe1ba427dc960e1f1f9a086a521bbfa1573392c0e962d66164c7acfd5"
+    }
+  ],
+  "evidence": [
+    "Node official release SHA-256 verified by mh-repair-node-install-20260917-a4",
+    "GitHub repository and default-branch commit metadata read by mh-repair-deploy-preflight-20260917-a5"
+  ],
+  "constraints": [
+    "Do not refresh other baseline hashes",
+    "No changes to canonical philosophical content",
+    "Preserve 4784327 build pools, test deadlines and drift gates"
+  ]
+}

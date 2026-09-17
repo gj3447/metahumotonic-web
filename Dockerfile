@@ -1,8 +1,9 @@
 # KG: CONTRACT_Web_Deploy, ATOM_Web_Deploy
 # Multi-stage build: Node → Nginx static
-FROM node:22-alpine AS builder
+FROM node:24.21.0-alpine AS builder
 WORKDIR /app
 COPY package.json package-lock.json ./
+COPY scripts/check-runtime.mjs ./scripts/check-runtime.mjs
 RUN npm ci
 COPY . .
 RUN npm run build

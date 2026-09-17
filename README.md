@@ -1,8 +1,8 @@
 # metahumotonic.com
 
-This repository builds the public Astro site for [metahumotonic.com](https://metahumotonic.com). The root is the MetaHumotonic Agent Operations and 333 Compute product surface; [`/book/`](https://metahumotonic.com/book/) is the preserved canon/publication entry. The publication does not give AI interpretation authority to create or revise canon.
+This repository builds the public Astro site for [metahumotonic.com](https://metahumotonic.com). The root is the Ultra Safety AI research landing surface; [`/book/`](https://metahumotonic.com/book/) is the preserved canon/publication entry. The publication does not give AI interpretation authority to create or revise canon.
 
-The backend API lives in [`metahumotonic-web-back`](https://github.com/gj3447/metahumotonic-web-back). Development follows the OMD coordination, ooptdd measurement, and LakatoTree judgment stack documented in [`docs/DEV_STACK.md`](docs/DEV_STACK.md).
+The backend API lives in [`metahumotonic-web-back`](https://github.com/gj3447/metahumotonic-web-back). Development follows canonical-main single-writer coordination, ooptdd measurement, and LakatoTree judgment documented in [`docs/DEV_STACK.md`](docs/DEV_STACK.md).
 
 ## Local development
 
@@ -100,3 +100,5 @@ Original MetaHumotonic text, visual material, ontology content, and KG data are
 available under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 Vendored and third-party material retains its own license. See
 [`LICENSING.md`](LICENSING.md) for the exact scope and attribution map.
+
+Project-specific runtime selection: `./scripts/with-node.sh npm run verify`. See `docs/RUNTIME.md`.

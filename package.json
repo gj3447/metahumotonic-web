@@ -26,7 +26,9 @@
     "verify:build-trace": "node scripts/ooptdd/emit-build-trace.mjs && uv run --python 3.12 --with pyyaml python scripts/ooptdd/verify-build-trace.py",
     "test:build-runtime": "node --test tests/build-runtime.test.mjs",
     "verify": "npm run build && npm run test:release && npm run verify:drift",
-    "verify:drift": "node scripts/longinus/drift-check.mjs"
+    "verify:drift": "node scripts/longinus/drift-check.mjs",
+    "preinstall": "node scripts/check-runtime.mjs",
+    "check:runtime": "node scripts/check-runtime.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.3",

@@ -1,3 +1,14 @@
+# Deployment evidence update — 2026-09-17
+
+The active VM100 compose binds the whole release tree read-only and Nginx resolves
+current/html inside that tree. This differs from the older leaf-directory mount
+explained below. Do not infer restart requirements from that older mount alone;
+use the current controlled pve-release script and direct/public readback. The
+archived Mac/Multipass route remains retired. Build/CI success is not deployment.
+Node is pinned by .node-version; see docs/RUNTIME.md.
+
+The older 2026-07-23 investigation below is preserved as historical evidence.
+
 # Deploy pipeline
 
 ## 현재 운영 경로 (Pattern B — GHA → deploy branch → VM100 systemd timer) ✅
