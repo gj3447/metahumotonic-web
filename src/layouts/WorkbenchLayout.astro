@@ -1,0 +1,47 @@
+---
+import '../styles/workbench.css';
+import foundation from '../data/foundation.json';
+interface Props { title?: string; description?: string; path?: string; }
+const { title = 'MetaHumotonic — Ultra Safety AI', description = '생각을 잇고, 세계를 짓다. HSWM·USL·HSPINE에서 게임과 세계관까지, MetaHumotonic의 연구와 창작을 탐색하는 작업실.', path = '/' } = Astro.props;
+const canonical = new URL(path, 'https://metahumotonic.com').href;
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'Organization', name: 'MetaHumotonic',
+  '@id': 'https://metahumotonic.com/#organization', url: 'https://metahumotonic.com/',
+  slogan: 'Ultra Safety AI', description: foundation.identity.mission_statement_ko,
+  publishingPrinciples: 'https://metahumotonic.com/foundation/',
+  disambiguatingDescription: 'Ultra Safety AI는 연구 목표입니다. 안전 인증이 아니고, 측정된 결과도 아닙니다. 아무도 끌 수 없는 AI를 뜻하지 않습니다.',
+};
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#111411" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />
+  </head>
+  <body class="workbench">
+    <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
+    <header class="site-header">
+      <a href="/" class="brand" aria-label="MetaHumotonic 홈"><span class="brand-mark" aria-hidden="true">m<span>↗</span></span><span>metahumotonic<span class="brand-dot">.</span></span></a>
+      <nav class="site-nav" aria-label="주요 메뉴">
+        <a href="/#projects">작업</a><a href="/#universe">세계관</a><a href="/wiki/">위키 <span aria-hidden="true">↗</span></a>
+      </nav>
+      <a class="header-link" href="https://github.com/gj3447/metahumotonic-web" target="_blank" rel="noopener noreferrer">OPEN SOURCE <span aria-hidden="true">↗</span></a>
+    </header>
+    <slot />
+    <footer class="site-footer">
+      <div class="footer-top"><a href="/" class="footer-wordmark">metahumotonic<span>.</span></a><p>하나의 답보다, 이어지는 질문들.</p></div>
+      <div class="footer-bottom"><span>© {new Date().getUTCFullYear()} MetaHumotonic</span><nav aria-label="하단 메뉴"><a href="/book/">Book</a><a href="/system/">System</a><a href="/foundation/">Foundation</a><a href="/projects/data.json">공개 데이터 ↗</a></nav></div>
+      <p class="footer-boundary">Ultra Safety AI는 연구 목표이며 안전 인증이 아닙니다. Testable thesis, not a safety certification.</p>
+    </footer>
+  </body>
+</html>

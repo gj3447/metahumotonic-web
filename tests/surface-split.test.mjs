@@ -423,48 +423,29 @@ test('Super Save doctrine defines MetaHumo constitutional freedom and preserves 
   }
 });
 
-test('landing page carries only the headline, the four rings, and the mission', async () => {
+// The owner requested a workbench redesign on 2026-09-21. The July one-line
+// composition is superseded, not the consent/canon/disclaimer contracts.
+test('workbench landing exposes current work without claiming live KG or completed products', async () => {
   const productRoot = await read('index.html');
   const systemPage = await read('system/index.html');
   const feedbackJs = await read('js/feedback-form.js');
   const feedbackCss = await read('css/feedback-form.css');
-  const mainMatch = productRoot.match(/<main class="bare-main">[\s\S]*?<\/main>/);
-
-  assert.ok(mainMatch, 'bare landing main must exist');
-  const main = mainMatch[0];
-  const mainText = main.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-
-  assert.match(main, /<h1 class="bare-title">Ultra Safety AI<\/h1>/);
-  for (const ring of ['cyan', 'magenta', 'yellow', 'white']) {
-    assert.match(main, new RegExp(`ring ring--${ring}`), `${ring} ring missing`);
+  assert.match(productRoot, /생각을 잇고/);
+  assert.match(productRoot, /세계를 짓다/);
+  for (const name of ['HSWM', 'USL', 'HSPINE', '버엑시', 'Game Hub', '333', 'LakatoTree', 'soopoolim']) {
+    assert.ok(productRoot.includes(name), `${name} missing`);
   }
-  // USER 정전 2026-07-23: 첫 화면은 "Ultra Safety AI" 한 줄 + 그 밑에 Metahumotonic. 부제·수식·사명 문장 동거 금지.
-  assert.match(main, /<p class="bare-wordmark">Metahumotonic<\/p>/);
-  assert.equal(mainText, 'Ultra Safety AI Metahumotonic OPEN RESEARCH ↓');
-  assert.doesNotMatch(mainText, /사명은|mission/i);
-  // 한정어는 화면이 아니라 기계 표면에 둔다 (근거 없는 주장으로 읽히지 않도록).
-  assert.match(productRoot, /disambiguatingDescription/);
+  assert.equal((productRoot.match(/data-project-id=/g) || []).length, 8);
+  assert.match(productRoot, /data-project-controls/);
+  assert.match(productRoot, /data-graph-node/);
+  assert.match(productRoot, /실시간 KG가 아닙니다/);
+  assert.match(productRoot, /EDITORIAL_SUMMARY|편집/);
   assert.match(productRoot, /안전 인증이 아니고, 측정된 결과도 아닙니다/);
   assert.match(productRoot, /아무도 끌 수 없는 AI를 뜻하지 않습니다/);
-  assert.match(productRoot, /Testable thesis, not a safety certification\./);
-  // 첫 화면은 마크·헤드라인·워드마크·스크롤 힌트만. 설명 문단은 아래 섹션과 /system/ 으로 간다.
-  assert.doesNotMatch(mainText, /잔혹한 천사의 테제|METAHUMO = FREE AGENT|INSTITUTIONAL ARCHITECTURE|FALSIFIABLE|자본민주주의/);
-  assert.doesNotMatch(productRoot, /data-mh-feedback/);
-
-  // 첫 화면 아래: 실측 날짜가 붙은 연구 카드 3장 + 오픈소스 재단 섹션
-  for (const name of ['HSWM', 'LakatoTree', '333']) {
-    assert.match(productRoot, new RegExp(`<h3>${name}</h3>`), `${name} card missing`);
-  }
-  for (const accent of ['cyan', 'magenta', 'yellow']) {
-    assert.match(productRoot, new RegExp(`bare-card bare-card--${accent}`));
-  }
-  assert.equal((productRoot.match(/LAST COMMIT/g) || []).length, 3);
-  assert.match(productRoot, /\d{4}-\d{2}-\d{2}/);
-  assert.match(productRoot, /AGPL-3\.0/);
-  assert.match(productRoot, /02 \/ OPEN-SOURCE FOUNDATION/);
-  assert.match(productRoot, /https:\/\/github\.com\/gj3447\/metahumotonic-foundation/);
-  assert.match(productRoot, /법인 설립은 아직 완료되지 않았습니다/);
-
+  assert.match(productRoot, /Testable thesis, not a safety certification/);
+  assert.doesNotMatch(productRoot, /LAST COMMIT|data-mh-feedback/);
+  assert.match(productRoot, /href="\/book\/"/);
+  assert.match(productRoot, /href="\/foundation\/"/);
   assert.match(systemPage, /data-mh-feedback data-feedback-endpoint="\/api\/feedback"/);
   assert.match(systemPage, /href="\/css\/feedback-form\.css"/);
   assert.match(systemPage, /src="\/js\/feedback-form\.js"/);

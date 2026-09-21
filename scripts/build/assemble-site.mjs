@@ -9,6 +9,8 @@ const root = process.cwd();
 const dist = resolve(root, 'dist');
 const required = [
   'index.html',
+  'projects/data.json',
+  'projects/hswm/index.html',
   'book/index.html',
   'book/read/index.html',
   'book/333/index.html',
@@ -48,6 +50,15 @@ const manifest = {
   publication_entrypoint: '/book/',
   product_routes: [
     '/',
+    '/projects/data.json',
+    '/projects/hswm/',
+    '/projects/usl/',
+    '/projects/hspine/',
+    '/projects/vexi/',
+    '/projects/game-hub/',
+    '/projects/333/',
+    '/projects/lakatotree/',
+    '/projects/soopoolim/',
     '/compute/',
     '/foundation/',
     '/foundation/manifest.json',
