@@ -1,6 +1,5 @@
 import {
   existsSync,
-  rmSync,
   writeFileSync,
 } from 'node:fs';
 import { resolve } from 'node:path';
@@ -10,6 +9,24 @@ const dist = resolve(root, 'dist');
 const required = [
   'index.html',
   'projects/data.json',
+  'projects/index.html',
+  'services/index.html',
+  'services/data.json',
+  'services/graph.jsonld',
+  'services/usl.json',
+  'mcp/index.html',
+  'mcp/manifest.json',
+  'mcp/llms.txt',
+  'developers/index.html',
+  'apostles/index.html',
+  'axioms/index.html',
+  'philosophy/index.html',
+  'agents/index.html',
+  'projects/maplelineage/index.html',
+  'learn/index.html',
+  'learn/data.json',
+  'learn/graph.jsonld',
+  'learn/usl.json',
   'projects/hswm/index.html',
   'book/index.html',
   'book/read/index.html',
@@ -37,11 +54,6 @@ for (const relative of required) {
   }
 }
 
-// The former visual demo remains source history only and must not escape into
-// the public release. All current Book paths are first-class Astro routes, so
-// development and production resolve the same URLs.
-rmSync(resolve(dist, '333-legacy'), { recursive: true, force: true });
-
 const manifest = {
   schema_version: 'metahumotonic-site/v2',
   surface: 'combined',
@@ -51,6 +63,25 @@ const manifest = {
   product_routes: [
     '/',
     '/projects/data.json',
+    '/projects/',
+    '/services/',
+    '/services/data.json',
+    '/services/graph.jsonld',
+    '/services/usl.json',
+    '/mcp/',
+    '/mcp/manifest.json',
+    '/mcp/llms.txt',
+    '/developers/',
+    '/api/services.json',
+    '/axioms/',
+    '/philosophy/',
+    '/agents/',
+    '/projects/maplelineage/',
+    '/learn/',
+    '/learn/data.json',
+    '/learn/graph.jsonld',
+    '/learn/usl.json',
+    '/learn/publication.json',
     '/projects/hswm/',
     '/projects/usl/',
     '/projects/hspine/',

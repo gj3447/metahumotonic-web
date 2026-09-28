@@ -1,0 +1,44 @@
+{
+  "schema": "metahumotonic/meaning-simulation-review@1",
+  "observedAt": "2026-09-28T04:02:49Z",
+  "productionReleaseSha256": "63e707abefe8f96713ddc323670a046c2ec4c77432a1d67f63b16f070ed1a22f",
+  "previousReleaseSha256": "beccfbc31f851a895915cd7ff759b7d562ba79daf95f0ea06cf06b9cc7782063",
+  "source": {
+    "learningGraphEdition": "2026-09-27",
+    "publicNodes": 8,
+    "activeDirectedRelations": 7,
+    "curatedRoutes": 3,
+    "directKgRuntimeQuery": false
+  },
+  "verification": {
+    "build": "PASS",
+    "releaseTests": "PASS",
+    "typecheck": "PASS",
+    "longinusBoundFiles": "45/45 OK",
+    "chromiumWidths": [1440, 768, 390, 320],
+    "axeScans": 24,
+    "axeViolations": 0,
+    "horizontalOverflow": false,
+    "consoleErrors": 0,
+    "workers": 0,
+    "externalRequests": 0,
+    "reducedMotionAndNoJs": "PASS",
+    "oneShotAnimation": "PASS",
+    "publicChromiumRouteSelection": "PASS"
+  },
+  "publicReadback": {
+    "exactFiles": 9,
+    "paths": [
+      "/",
+      "/services/",
+      "/learn/",
+      "/learn/graph.jsonld",
+      "/_astro/WorkbenchLayout.DUrFeOHV.css",
+      "/_astro/ideas.CyNgeUzY.css",
+      "/_astro/index.D5YhSVvR.css",
+      "/_astro/learning-hub.Cc3p1VTK.css",
+      "/_astro/page.Dwipeu-R.js"
+    ]
+  },
+  "status": "PASS"
+}

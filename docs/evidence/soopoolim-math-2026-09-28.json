@@ -1,0 +1,42 @@
+{
+  "schema": "metahumotonic/soopoolim-math-review@1",
+  "observedAt": "2026-09-28T04:50:31Z",
+  "productionReleaseSha256": "c01dc16173c10fae48775d1e9204cdc610c89a0b31423172bdc719a3e1f9f866",
+  "previousReleaseSha256": "63e707abefe8f96713ddc323670a046c2ec4c77432a1d67f63b16f070ed1a22f",
+  "model": {
+    "homepagePublicNodes": 9,
+    "homepageActiveDirectedRelations": 8,
+    "homepageCuratedRoutes": 4,
+    "soopoolimRoute": ["philosophy", "projects", "soopoolim"],
+    "syntheticEventRoles": 6,
+    "syntheticEventIncidences": 6,
+    "possiblePairwiseProjectionLines": 15,
+    "liveCommunityData": false
+  },
+  "verification": {
+    "build": "PASS",
+    "releaseTests": "PASS",
+    "typecheck": "PASS",
+    "longinusBoundFiles": "45/45 OK",
+    "chromiumWidths": [1440, 768, 390, 320],
+    "axeScans": 26,
+    "axeViolations": 0,
+    "horizontalOverflow": false,
+    "consoleErrors": 0,
+    "workers": 0,
+    "externalRequests": 0,
+    "reducedMotionAndNoJs": "PASS",
+    "publicChromiumWidths": [1440, 390],
+    "publicHomeRouteAndMathToggle": "PASS"
+  },
+  "publicReadback": {
+    "exactFiles": 10,
+    "paths": [
+      "/", "/projects/soopoolim/", "/services/", "/learn/graph.jsonld",
+      "/_astro/WorkbenchLayout.DUrFeOHV.css", "/_astro/_slug_.BSSaHTGq.css",
+      "/_astro/ideas.CyNgeUzY.css", "/_astro/index.l-lh2zaa.css",
+      "/_astro/learning-hub.Cc3p1VTK.css", "/_astro/page.Dwipeu-R.js"
+    ]
+  },
+  "status": "PASS"
+}

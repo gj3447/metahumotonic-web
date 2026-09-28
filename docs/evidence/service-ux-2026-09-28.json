@@ -1,0 +1,43 @@
+{
+  "schema": "metahumotonic/service-ux-review@1",
+  "observedAt": "2026-09-28T02:08:51Z",
+  "productionReleaseSha256": "beccfbc31f851a895915cd7ff759b7d562ba79daf95f0ea06cf06b9cc7782063",
+  "previousReleaseSha256": "d790bb5f96f474f580fc64e28ef51c0470c1fdaafd1115d492829bd71a40f20e",
+  "method": {
+    "externalGuidance": [
+      "https://www.w3.org/TR/wcag/",
+      "https://designsystem.digital.gov/components/card/",
+      "https://designsystem.digital.gov/components/header/",
+      "https://designsystem.digital.gov/components/side-navigation/"
+    ],
+    "realUserResearch": false,
+    "chromiumWidths": [1440, 768, 390, 320],
+    "axeScans": 24,
+    "axeViolations": 0,
+    "horizontalOverflow": false,
+    "consoleErrors": 0,
+    "mobileServiceJumpUnobscured": true,
+    "mobileMapLabelMinimumPx": 12
+  },
+  "releaseTests": "PASS",
+  "typecheck": "PASS",
+  "sourceDrift": "45/45 bound files OK",
+  "publicReadback": {
+    "exactFiles": 11,
+    "paths": [
+      "/",
+      "/services/",
+      "/developers/",
+      "/mcp/",
+      "/projects/",
+      "/philosophy/",
+      "/services/data.json",
+      "/services/graph.jsonld",
+      "/services/usl.json",
+      "/_astro/WorkbenchLayout.DUrFeOHV.css",
+      "/_astro/services.D5wc2Bea.css"
+    ],
+    "apiRootRedirect": "302 https://metahumotonic.com/developers/"
+  },
+  "status": "PASS"
+}

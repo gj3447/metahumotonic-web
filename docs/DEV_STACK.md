@@ -13,6 +13,9 @@ Python verifier. Build success is not proof of deployment. The remote source
 revision, artifact identity and live public/origin responses are separate evidence.
 LakatoTree judgments require actual measurement receipts; do not invent verdicts.
 
-The root is the Ultra Safety AI research landing; /book/ is the publication entry.
+The root is the company website: products, research, company beliefs, and learning.
+See docs/SEMANTIC_COMPANY_WEBSITE_2026-09-27.md for the current owner-requested
+projects/apostles/axioms hierarchy, public graph, and deployment evidence.
+/book/ remains the publication entry.
 The private ontology boundary and canonical/community authority split remain intact.
 The TS/Effect migration must preserve these boundaries and stateful backend contracts.

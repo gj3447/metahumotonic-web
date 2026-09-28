@@ -1,0 +1,82 @@
+{
+  "origin": "isolated-loopback-preview",
+  "checkedAt": "2026-09-27T08:37:15.073Z",
+  "sizes": [
+    {
+      "width": 1440,
+      "overflow": false,
+      "search": true,
+      "filters": true,
+      "emptyReset": true,
+      "companyNavigation": true,
+      "detail": true
+    },
+    {
+      "width": 768,
+      "overflow": false,
+      "search": true,
+      "filters": true,
+      "emptyReset": true,
+      "companyNavigation": true,
+      "detail": true
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "search": true,
+      "filters": true,
+      "emptyReset": true,
+      "companyNavigation": true,
+      "detail": true
+    },
+    {
+      "width": 320,
+      "overflow": false,
+      "search": true,
+      "filters": true,
+      "emptyReset": true,
+      "companyNavigation": true,
+      "detail": true
+    }
+  ],
+  "functionality": {
+    "noJs": true,
+    "localLinks": 32,
+    "learningNoJs": true,
+    "learningKeyboardAndFilters": true
+  },
+  "accessibility": [
+    {
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "page": "projects",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "page": "learn",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "width": 390,
+      "violations": []
+    },
+    {
+      "page": "projects",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "page": "learn",
+      "width": 390,
+      "violations": []
+    }
+  ],
+  "consoleErrors": [],
+  "workers": 0,
+  "externalRequests": [],
+  "passed": true
+}

@@ -1,412 +1,51 @@
 ---
-// KG: CONTRACT_Web_MCP — MCP(Model Context Protocol) 서버 레지스트리 대시보드.
-// 서버 목록은 100% 라이브 API(/api/mcp/manifest)에서 렌더 — 코드에 하드코딩 0.
-// 상태 배지는 /api/mcp/status 라이브 health 데이터(초록 verified · 노랑 stale ·
-// 회색 available · 빨강 down). 폐백: /mcp/manifest.json 정적 스냅샷.
-import '../../styles/cosmos.css';
+import WorkbenchLayout from '../../layouts/WorkbenchLayout.astro';
+import { pageGraph } from '../../lib/public-content';
 
-const categoryMeta = {
-  graph:    { label: 'graph',    color: '#a78bfa' },
-  vector:   { label: 'vector',   color: '#f472b6' },
-  document: { label: 'document', color: '#fbbf24' },
-  storage:  { label: 'storage',  color: '#fb923c' },
-  utility:  { label: 'utility',  color: '#67e8f9' },
-};
-
-const legend = [
-  { label: 'verified',    color: '#34d399', desc: '프로브 실측으로 live 확인 (24h 이내)' },
-  { label: 'stale',       color: '#fbbf24', desc: 'verified였지만 24h 이상 미검증' },
-  { label: 'available',   color: '#9aa4b2', desc: '설정됨 — 현재 로드되지 않음 (available-not-loaded)' },
-  { label: 'down',        color: '#f87171', desc: '마지막 프로브 실패 (unreachable)' },
-  { label: 'unused',      color: '#4a5578', desc: '정의됨 — 현재 미사용' },
+const reading = [
+  { title: '공개 manifest', href: '/api/mcp/manifest', text: '레지스트리가 제공하는 기계 가독 형식을 직접 읽습니다.' },
+  { title: '발견 문서', href: '/api/mcp/', text: '공개 discovery 응답이 있을 때 그 응답을 확인합니다.' },
+  { title: '서비스 공개 목록', href: '/services/data.json', text: '검토된 공개 서비스 경로와 접근 경계를 읽습니다.' },
 ];
-
-const recipes = [
-  { name: 'local-npx', color: '#34d399',
-    desc: '맥북 로컬에서 npx/uvx로 바로 실행. 외부 의존성 없음.',
-    example: '{ "command": "npx", "args": ["-y", "@modelcontextprotocol/server-memory@2026.7.4"] }' },
-  { name: 'ssh-stdio', color: '#67e8f9',
-    desc: 'ssh alias + 원격 커맨드로 stdio 브릿지. bhgman = 맥미니, proxmox = Proxmox 호스트(ProxyJump bhgman). ssh config에 동일 alias를 정의하면 됨.',
-    example: '{ "command": "ssh", "args": ["bhgman", "npx -y @modelcontextprotocol/server-filesystem /Users/lagyeongjun/CD"] }' },
-  { name: 'local-tunnel', color: '#a78bfa',
-    desc: '127.0.0.1:<port> 로컬 포트포워드 경유. 맥북에서는 autossh launchd(com.macmini.ssh-tunnel*)가 포트를 열어준다. 16379 redis · 37017 mongo · 15432 postgres · 17687 neo4j · 19010 minio · 18009 oo-trace.',
-    example: '{ "command": "uvx", "args": ["redis-mcp-server"], "env": { "REDIS_URL": "redis://default:<REDIS_PASSWORD>@127.0.0.1:16379/0" } }' },
-  { name: 'http', color: '#fbbf24',
-    desc: 'HTTP MCP 엔드포인트에 직접 연결.',
-    example: '{ "url": "http://127.0.0.1:18009/mcp" }' },
-];
-
-const jsonLd = {
-  '@context': { schema: 'https://schema.org/', mhb: 'https://metahumotonic.com/mcp/ontology#' },
-  '@type': ['schema:WebPage', 'mhb:McpRegistryDashboard'],
-  'schema:name': 'MCP Registry — MetaHumotonic',
-  'schema:description': 'MetaHumotonic 인프라의 MCP(Model Context Protocol) 서버 레지스트리 대시보드와 에이전트용 머신 리더블 매니페스트.',
-  'schema:url': 'https://metahumotonic.com/mcp/',
-  'schema:mainEntity': {
-    '@type': ['schema:ItemList', 'mhb:McpRegistry'],
-    'schema:name': 'metahumotonic/mcp-registry@1',
-    'schema:distribution': [
-      { '@type': 'schema:DataDownload', 'schema:contentUrl': 'https://metahumotonic.com/api/mcp/manifest', 'schema:encodingFormat': 'application/json', 'schema:description': 'live Mongo-backed manifest (canonical)' },
-      { '@type': 'schema:DataDownload', 'schema:contentUrl': 'https://metahumotonic.com/mcp/manifest.json', 'schema:encodingFormat': 'application/json', 'schema:description': 'static fallback snapshot' },
-    ],
-  },
-};
 ---
 
-<html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MCP Registry — MetaHumotonic</title>
-  <meta name="description" content="MetaHumotonic 인프라의 MCP 서버 레지스트리 — 서버 역할, 백엔드 위치, 연결 방식, 실시간 검증 상태. 에이전트용 매니페스트 /api/mcp/manifest." />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-</head>
-
-<body>
-  <div class="starfield-bg" aria-hidden="true"></div>
-  <div class="vignette" aria-hidden="true"></div>
-
-  <div class="page-wrap">
-    <nav class="breadcrumb">
-      <a href="/">MetaHumotonic</a> <span>›</span> <span>MCP</span>
-    </nav>
-
-    <header class="mcp-header fade-in">
-      <h1><span style="color:#a78bfa">MCP</span> Registry</h1>
-      <p class="mcp-desc">MetaHumotonic 인프라의 Model Context Protocol 서버 레지스트리. <span id="srv-count">…</span>개 서버의 역할, 백엔드 위치, 연결 방식, 실시간 검증 상태.</p>
-      <p class="registry-source">
-        <span id="registry-source-badge" class="badge badge-static">loading…</span>
-        <span id="registry-source-note" class="registry-source-note">/api/mcp/manifest + /api/mcp/status 라이브 조회 중</span>
-      </p>
-      <p id="status-summary" class="status-summary"></p>
-      <p class="mcp-manifest-link">
-        에이전트용 머신 리더블 매니페스트 → <a href="/api/mcp/manifest"><code>/api/mcp/manifest</code></a> (live)
-        · <a href="/mcp/manifest.json"><code>/mcp/manifest.json</code></a> (정적 폐백)
-        · <a href="/mcp/llms.txt"><code>/mcp/llms.txt</code></a>
-      </p>
+<WorkbenchLayout title="MCP 안내 — MetaHumotonic" description="MetaHumotonic의 공개 MCP 발견 자료를 안전한 경계와 함께 소개합니다." path="/mcp/" structuredData={pageGraph('/mcp/', 'MCP 안내', ['usl', 'hspine', 'agents'])}>
+  <main id="main-content" class="mcp-main shell">
+    <nav class="breadcrumb" aria-label="현재 위치"><a href="/">홈</a><span aria-hidden="true">/</span><span aria-current="page">MCP</span></nav>
+    <header class="mcp-hero">
+      <div><p class="eyebrow">MODEL CONTEXT PROTOCOL · PUBLIC GUIDE</p><h1>도구를 찾기 전에,<br /><em>경계를 읽습니다.</em></h1><p>MCP는 도구와 데이터를 연결하는 방식입니다. 이 공개 페이지는 발견 자료와 읽기 경로를 안내하며, 사설 인프라의 주소·연결 설정·자격증명은 노출하지 않습니다.</p></div>
+      <div class="mcp-map" aria-hidden="true"><span class="mcp-map-core">MCP</span><i class="mcp-link mcp-link-a"></i><i class="mcp-link mcp-link-b"></i><i class="mcp-link mcp-link-c"></i><span class="mcp-node mcp-node-a">READ</span><span class="mcp-node mcp-node-b">VERIFY</span><span class="mcp-node mcp-node-c">BOUNDARY</span></div>
     </header>
 
-    {/* 상태 범례 */}
-    <section class="section fade-in">
-      <h2>상태 범례</h2>
-      <div class="legend-row">
-        {legend.map(s => (
-          <div class="legend-item">
-            <span class="badge" style={`color:${s.color}; border-color:${s.color}55; background:${s.color}14;`}>{s.label}</span>
-            <span class="legend-desc">{s.desc}</span>
-          </div>
-        ))}
-      </div>
+    <section class="mcp-flow" aria-labelledby="flow-title"><div class="section-heading"><div><p class="eyebrow">HOW TO READ</p><h2 id="flow-title">응답에서 확인하고,<br />권한은 따로 받습니다.</h2></div><p>각 공개 응답은 현재 제공되는 범위의 기록입니다.<br />이 페이지는 서버 수나 가용성을 대신 주장하지 않습니다.</p></div>
+      <ol><li><span>01</span><h3>문서를 엽니다</h3><p>공개 manifest와 discovery 응답을 읽어 제공 형식을 확인합니다.</p></li><li><span>02</span><h3>응답을 검토합니다</h3><p>최신 상태와 사용 가능 범위는 실제 응답의 필드와 시각으로 판단합니다.</p></li><li><span>03</span><h3>권한을 분리합니다</h3><p>운영 도구와 내부 데이터는 별도 인증과 조직의 접근 절차를 거칩니다.</p></li></ol>
     </section>
 
-    {/* 서버 레지스트리 — 100% API 렌더 (빌드 타임 하드코딩 없음) */}
-    <div id="registry-sections">
-      <section class="section fade-in visible">
-        <p class="section-desc" id="registry-loading">레지스트리 로딩 중…</p>
-      </section>
-    </div>
+    <section class="mcp-reading" aria-labelledby="reading-title"><div class="section-heading"><div><p class="eyebrow">MACHINE-READABLE ENTRY</p><h2 id="reading-title">공개 자료를 읽는 입구.</h2></div><p>링크는 읽기용 자료입니다. 실행 명령이나<br />접속 비밀을 포함하지 않습니다.</p></div><div class="mcp-reading-grid">{reading.map((item, index) => <a href={item.href}><span class="mini-label">0{index + 1} / READ ONLY</span><h3>{item.title}</h3><p>{item.text}</p><b aria-hidden="true">↗</b></a>)}</div></section>
 
-    {/* 연결 recipe */}
-    <section class="section fade-in">
-      <h2>연결 Recipe</h2>
-      <p class="section-desc">매니페스트의 <code>connection.recipe</code> 4종. 에이전트는 이 정보로 자기 <code>.mcp.json</code> 엔트리를 생성할 수 있다.</p>
-      <div class="recipe-list">
-        {recipes.map(r => (
-          <div class="recipe-card">
-            <h3 style={`color:${r.color}`}>{r.name}</h3>
-            <p>{r.desc}</p>
-            <pre><code>{r.example}</code></pre>
-          </div>
-        ))}
-      </div>
-    </section>
+    <aside class="mcp-boundary"><div><p class="eyebrow">SERVICE DIRECTORY</p><h2>사람을 위한 서비스와<br />도구를 위한 자료를 함께.</h2></div><div><p>제품, 연구, 철학 자료와 공개 개발 표면은 서비스 디렉터리에서 이어집니다. 내부 운영 시스템은 공개 그래프의 연결 대상이 아닙니다.</p><a class="text-link" href="/services/">전체 서비스 보기 →</a><a class="text-link" href="/developers/">개발자 자료 보기 →</a></div></aside>
+  </main>
+</WorkbenchLayout>
 
-    {/* 매니페스트 + AI 에이전트 */}
-    <section class="section fade-in">
-      <h2>에이전트용 매니페스트</h2>
-      <p class="section-desc">
-        라이브 API — <a href="/api/mcp/manifest" class="inline-link"><code>https://metahumotonic.com/api/mcp/manifest</code></a> (canonical, Mongo-backed)
-        · 정적 폐백 — <a href="/mcp/manifest.json" class="inline-link"><code>/mcp/manifest.json</code></a>
-        · 스키마 <code>metahumotonic/mcp-registry@1</code> · <span id="manifest-updated"></span>
-      </p>
-      <p class="section-desc">
-        읽기 전용 엔드포인트: <code>GET /api/mcp/</code> (디스커버리) · <code>GET /api/mcp/servers</code> · <code>GET /api/mcp/servers/&#123;name&#125;</code> · <code>GET /api/mcp/manifest</code> · <code>GET /api/mcp/health</code> · <code>GET /api/mcp/status</code> (<code>?format=text</code>) · <code>GET /api/mcp/vault</code> · <code>GET /.well-known/mcp-servers.json</code>
-      </p>
-      <p class="section-desc">
-        에이전트 문서: <a href="/mcp/llms.txt" class="inline-link"><code>/mcp/llms.txt</code></a> (레지스트리 가이드) · <a href="/llms.txt" class="inline-link"><code>/llms.txt</code></a> (사이트 전체)
-      </p>
-      <div class="manifest-note">
-        <p>비밀번호·토큰 실제 값은 매니페스트에 없다 — <code>&lt;REDIS_PASSWORD&gt;</code> 같은 플레이스홀더와 env var 이름만 기재. 실제 자격증명은 <code>GET /api/mcp/vault</code>의 암호문 blob(PBKDF2-SHA256→Fernet)에만 있고, 에이전트는 사용자에게 레지스트리 비번(6자리)을 물어봐서 로컬에서 복호화한다. 절차: <code>/mcp/llms.txt</code> 또는 매니페스트의 <code>credential_vault</code> 필드.</p>
-      </div>
-    </section>
-
-    <footer class="page-footer">
-      <a href="/" class="back-link">← Home</a>
-      <a href="/api" class="back-link">API & Services →</a>
-    </footer>
-  </div>
-</body>
-</html>
-
-<style is:global>
-  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
-  body { font-family:'Inter',system-ui,sans-serif; background:#050810; color:#e0e6f0; line-height:1.6; overflow-x:hidden; }
-  a { color:inherit; text-decoration:none; }
-  .page-wrap { position:relative; z-index:1; max-width:1000px; margin:0 auto; padding:0 clamp(1rem,3vw,3rem); }
-
-  .breadcrumb { padding:1.5rem 0; font-size:0.85rem; color:#4a5578; }
-  .breadcrumb a { color:#67e8f9; } .breadcrumb a:hover { text-decoration:underline; }
-  .breadcrumb span { margin:0 0.3rem; }
-
-  .mcp-header { text-align:center; padding:2rem 0 3rem; }
-  .mcp-header h1 { font-size:clamp(2rem,5vw,3rem); font-weight:800; color:#fff; margin-bottom:1rem; }
-  .mcp-desc { font-size:1.1rem; color:#8892b0; max-width:640px; margin:0 auto; }
-  .mcp-manifest-link { margin-top:1rem; font-size:0.9rem; color:#4a5578; }
-  .mcp-manifest-link a code { color:#a78bfa; font-size:0.9rem; }
-  .mcp-manifest-link a:hover code { text-decoration:underline; }
-  .status-summary { margin-top:0.7rem; font-size:0.85rem; color:#8892b0; font-family:'JetBrains Mono',monospace; }
-  .status-summary b { font-weight:700; }
-
-  .section { padding:2rem 0; }
-  .section h2 { font-size:1.3rem; font-weight:700; color:#fff; margin-bottom:0.5rem; }
-  .cat-count { font-size:0.8rem; color:#4a5578; font-weight:500; vertical-align:middle; }
-  .section-desc { font-size:0.9rem; color:#4a5578; margin-bottom:1.5rem; }
-  .section-desc code { color:#67e8f9; font-size:0.85rem; }
-  .inline-link code { color:#a78bfa; }
-  .inline-link:hover code { text-decoration:underline; }
-
-  /* Legend */
-  .legend-row { display:flex; flex-wrap:wrap; gap:1rem; margin-top:1rem; }
-  .legend-item { display:flex; align-items:center; gap:0.6rem; background:rgba(13,27,42,0.6); border:1px solid rgba(107,76,153,0.15); border-radius:10px; padding:0.6rem 0.9rem; }
-  .legend-desc { font-size:0.8rem; color:#8892b0; }
-
-  /* Badge */
-  .badge { font-size:0.7rem; font-weight:700; padding:0.15rem 0.55rem; border-radius:999px; border:1px solid; letter-spacing:0.02em; white-space:nowrap; }
-  .registry-source { margin-top:1.1rem; display:flex; align-items:center; justify-content:center; gap:0.6rem; flex-wrap:wrap; }
-  .registry-source-note { font-size:0.78rem; color:#4a5578; }
-  .badge-live { color:#34d399; border-color:#34d39955; background:#34d39914; }
-  .badge-static { color:#fbbf24; border-color:#fbbf2455; background:#fbbf2414; }
-
-  /* Server cards */
-  .server-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1rem; margin-top:1rem; }
-  .server-card { background:rgba(13,27,42,0.6); border:1px solid rgba(107,76,153,0.15); border-radius:12px; padding:1.1rem 1.25rem; backdrop-filter:blur(8px); transition:border-color 0.3s; }
-  .server-card:hover { border-color:rgba(167,139,250,0.3); }
-  .srv-head { display:flex; align-items:center; justify-content:space-between; gap:0.75rem; margin-bottom:0.5rem; }
-  .srv-head h3 { font-size:1rem; color:#fff; font-weight:600; font-family:'JetBrains Mono',monospace; }
-  .srv-desc { font-size:0.85rem; color:#8892b0; margin-bottom:0.75rem; }
-  .srv-meta { display:flex; flex-direction:column; gap:0.35rem; border-top:1px solid rgba(107,76,153,0.12); padding-top:0.6rem; }
-  .srv-row { display:flex; gap:0.6rem; align-items:baseline; }
-  .srv-key { font-size:0.7rem; font-weight:700; color:#4a5578; text-transform:uppercase; letter-spacing:0.06em; flex-shrink:0; width:3.4rem; }
-  .srv-val { font-size:0.8rem; color:#e0e6f0; }
-  .srv-conn { font-size:0.75rem; color:#67e8f9; font-family:'JetBrains Mono',monospace; line-height:1.5; }
-  .srv-check { font-size:0.75rem; color:#9aa4b2; font-family:'JetBrains Mono',monospace; }
-  .srv-caps { display:flex; flex-wrap:wrap; gap:0.3rem; margin-top:0.15rem; }
-  .srv-cap { font-size:0.65rem; color:#8892b0; border:1px solid rgba(136,146,176,0.25); border-radius:4px; padding:0.05rem 0.35rem; font-family:'JetBrains Mono',monospace; }
-
-  /* Recipes */
-  .recipe-list { display:flex; flex-direction:column; gap:1rem; }
-  .recipe-card { background:rgba(13,27,42,0.6); border:1px solid rgba(107,76,153,0.15); border-radius:12px; padding:1rem 1.25rem; backdrop-filter:blur(8px); }
-  .recipe-card h3 { font-size:0.95rem; font-weight:600; margin-bottom:0.4rem; font-family:'JetBrains Mono',monospace; }
-  .recipe-card p { font-size:0.85rem; color:#8892b0; margin-bottom:0.6rem; }
-  .recipe-card pre { font-size:0.78rem; color:#67e8f9; font-family:'JetBrains Mono',monospace; background:rgba(0,0,0,0.3); padding:0.6rem 0.75rem; border-radius:6px; overflow-x:auto; line-height:1.5; white-space:pre-wrap; }
-
-  /* Manifest note */
-  .manifest-note { background:rgba(251,191,36,0.05); border:1px solid rgba(251,191,36,0.25); border-radius:10px; padding:0.9rem 1.1rem; }
-  .manifest-note p { font-size:0.85rem; color:#c9b478; }
-  .manifest-note code { color:#fbbf24; font-size:0.8rem; }
-
-  .page-footer { display:flex; justify-content:space-between; padding:3rem 0; }
-  .back-link { color:#67e8f9; font-size:0.9rem; font-weight:500; }
-  .back-link:hover { text-decoration:underline; }
-
-  .fade-in { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease,transform 0.6s ease; }
-  .fade-in.visible { opacity:1; transform:none; }
-
-  @media (max-width:480px) {
-    .server-grid { grid-template-columns:1fr; }
-    .srv-head { flex-direction:column; align-items:flex-start; gap:0.4rem; }
-  }
+<style>
+  .mcp-main { padding-block:30px 100px; }
+  .mcp-hero { display:grid; grid-template-columns:1.1fr .9fr; gap:70px; align-items:center; padding:50px 0 88px; border-bottom:1px solid var(--border); }
+  .mcp-hero h1 { font-size:clamp(43px,5.8vw,74px); font-weight:550; letter-spacing:-.065em; line-height:1.14; }
+  .mcp-hero h1 em { color:#566e5c; font-style:normal; }
+  .mcp-hero p:last-child { max-width:55ch; margin-top:24px; color:var(--muted); font-size:16px; line-height:1.9; }
+  .mcp-map { min-height:320px; position:relative; overflow:hidden; border:1px solid #33493c; border-radius:7px; background:#17221e; color:#e7f0e8; }
+  .mcp-map-core { position:absolute; z-index:2; top:50%; left:50%; display:grid; place-items:center; width:92px; aspect-ratio:1; transform:translate(-50%,-50%); border:1px solid #d9e7d9; border-radius:50%; background:#17221e; font:500 22px var(--mono); letter-spacing:.08em; }
+  .mcp-link { position:absolute; z-index:1; top:50%; left:50%; width:35%; border-top:1px solid #b8d6c0; transform-origin:left center; }
+  .mcp-link-a { transform:rotate(-145deg); } .mcp-link-b { transform:rotate(-16deg); } .mcp-link-c { transform:rotate(102deg); }
+  .mcp-node { position:absolute; display:grid; place-items:center; width:74px; aspect-ratio:1; border:1px solid rgba(208,231,212,.7); border-radius:50%; font:10px var(--mono); letter-spacing:.04em; }
+  .mcp-node-a { top:40px; left:41px; color:#a7e8d6; } .mcp-node-b { top:72px; right:30px; color:#bce7fe; } .mcp-node-c { bottom:35px; left:82px; color:#ffe88e; }
+  .mcp-flow { padding:95px 0 0; }
+  .mcp-flow ol { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:0; padding:0; list-style:none; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .mcp-flow li { min-height:220px; padding:27px; border-left:1px solid var(--border); } .mcp-flow li:first-child { padding-left:0; border-left:0; } .mcp-flow li:last-child { padding-right:0; }
+  .mcp-flow li > span { font:11px var(--mono); color:var(--muted); } .mcp-flow h3 { margin:30px 0 10px; font-size:24px; letter-spacing:-.04em; font-weight:550; } .mcp-flow li p { color:var(--muted); font-size:14px; line-height:1.75; }
+  .mcp-reading { padding-top:95px; } .mcp-reading-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+  .mcp-reading-grid a { position:relative; min-height:250px; display:flex; flex-direction:column; padding:28px; border:1px solid var(--border); border-radius:6px; transition:background .18s; } .mcp-reading-grid a:hover { background:var(--surface); }
+  .mcp-reading-grid h3 { margin:36px 0 12px; font-size:26px; line-height:1.2; font-weight:550; letter-spacing:-.045em; } .mcp-reading-grid p { color:var(--muted); font-size:14px; line-height:1.75; } .mcp-reading-grid b { margin-top:auto; align-self:flex-end; font-size:20px; font-weight:400; }
+  .mcp-boundary { display:grid; grid-template-columns:1fr 1fr; gap:60px; margin-top:95px; padding:50px; border-radius:7px; background:#e5ece2; } .mcp-boundary h2 { font-size:clamp(27px,3vw,39px); line-height:1.35; } .mcp-boundary > div:last-child { color:#4e6254; } .mcp-boundary .text-link { margin:17px 26px 0 0; color:var(--text); }
+  @media (max-width:760px) { .mcp-hero,.mcp-boundary { grid-template-columns:1fr; gap:34px; } .mcp-hero { padding:32px 0 60px; } .mcp-map { min-height:240px; } .mcp-flow ol,.mcp-reading-grid { grid-template-columns:1fr; } .mcp-flow li,.mcp-flow li:first-child,.mcp-flow li:last-child { min-height:auto; padding:25px 0; border-left:0; border-top:1px solid var(--border); } .mcp-flow li:first-child { border-top:0; } .mcp-reading { padding-top:60px; } .mcp-reading-grid a { min-height:190px; } .mcp-boundary { margin-top:60px; padding:30px; } }
 </style>
-
-<script>
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, { threshold:0, rootMargin:'0px 0px 50px 0px' });
-  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
-  setTimeout(() => document.querySelectorAll('.fade-in:not(.visible)').forEach(el => el.classList.add('visible')), 1500);
-</script>
-
-<script>
-  // Live MCP registry — server list + status are rendered 100% from the API.
-  // 1) /api/mcp/manifest (canonical, Mongo-backed)  2) /mcp/manifest.json (static snapshot)
-  // Status badges come from /api/mcp/status (live health); if it is unreachable
-  // they are derived from manifest status/verified_at with a 24h stale rule.
-  (async () => {
-    const badge = document.getElementById('registry-source-badge');
-    const note = document.getElementById('registry-source-note');
-    const wrap = document.getElementById('registry-sections');
-    const countEl = document.getElementById('srv-count');
-    const summaryEl = document.getElementById('status-summary');
-    const updatedEl = document.getElementById('manifest-updated');
-    if (!badge || !wrap) return;
-
-    // H-02 badge colors: 초록 verified · 노랑 stale · 회색 available · 빨강 down
-    const BADGE = {
-      verified:    { color: '#34d399', label: 'verified' },
-      stale:       { color: '#fbbf24', label: 'stale' },
-      available:   { color: '#9aa4b2', label: 'available' },
-      down:        { color: '#f87171', label: 'down' },
-      unused:      { color: '#4a5578', label: 'unused' },
-      unreachable: { color: '#f87171', label: 'down' },
-    };
-    const CAT = {
-      graph:    { label: 'graph',    color: '#a78bfa' },
-      vector:   { label: 'vector',   color: '#f472b6' },
-      document: { label: 'document', color: '#fbbf24' },
-      storage:  { label: 'storage',  color: '#fb923c' },
-      utility:  { label: 'utility',  color: '#67e8f9' },
-    };
-    const CAT_ORDER = ['graph', 'vector', 'document', 'storage', 'utility'];
-    const STALE_MS = 24 * 3600 * 1000;
-
-    const esc = (v) => String(v ?? '').replace(/[&<>"']/g,
-      (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-
-    const fmtWhen = (iso) => {
-      if (!iso) return '';
-      const d = new Date(iso);
-      if (isNaN(d)) return String(iso).slice(0, 10);
-      return d.toISOString().replace('T', ' ').slice(0, 16) + 'Z';
-    };
-
-    // Human one-liner for a connection recipe — secrets are never in the manifest.
-    function connSummary(c) {
-      if (!c || typeof c !== 'object') return '';
-      const cmd = [c.command, ...(Array.isArray(c.args) ? c.args.slice(0, 2) : [])].filter(Boolean).join(' ');
-      switch (c.recipe) {
-        case 'local-tunnel': {
-          const port = c.tunnel && c.tunnel.port;
-          return `stdio · ${cmd}${port ? ` · 127.0.0.1:${port} (터널)` : ''}`;
-        }
-        case 'ssh-stdio': return `stdio · ${cmd}`;
-        case 'http':      return `http · ${c.url || ''}`;
-        default:          return `stdio · ${cmd}`;
-      }
-    }
-
-    // Derive a badge from manifest fields when /api/mcp/status is unreachable.
-    function deriveBadge(s) {
-      const st = s.status || 'unknown';
-      if (st === 'verified') {
-        const t = Date.parse(s.last_probe_at || s.verified_at || '');
-        if (!t || (Date.now() - t) > STALE_MS) return { badge: 'stale', when: s.last_probe_at || s.verified_at };
-        return { badge: 'verified', when: s.last_probe_at || s.verified_at };
-      }
-      if (st === 'unreachable') return { badge: 'down', when: s.last_probe_at || s.verified_at };
-      return { badge: st, when: s.last_probe_at || s.verified_at };
-    }
-
-    function cardHtml(s, healthByName) {
-      const h = healthByName && healthByName[s.name];
-      const derived = h
-        ? { badge: h.badge, when: h.last_check_at || h.last_probe_at || h.verified_at }
-        : deriveBadge(s);
-      const meta = BADGE[derived.badge] || { color: '#8892b0', label: derived.badge };
-      const badgeLabel = derived.badge === 'verified' && (h?.verified_at || s.verified_at)
-        ? `verified ${esc((h?.verified_at || s.verified_at).slice(0, 10))}` : meta.label;
-      const conn = connSummary(s.connection);
-      const caps = Array.isArray(s.capabilities) ? s.capabilities.slice(0, 5) : [];
-      const authType = s.auth && s.auth.type === 'vault' ? 'vault 🔒' : null;
-      return `
-        <div class="server-card">
-          <div class="srv-head">
-            <h3>${esc(s.name)}</h3>
-            <span class="badge" style="color:${meta.color}; border-color:${meta.color}55; background:${meta.color}14;">${badgeLabel}</span>
-          </div>
-          <p class="srv-desc">${esc(s.description)}</p>
-          <div class="srv-meta">
-            ${s.backend ? `<div class="srv-row"><span class="srv-key">backend</span><span class="srv-val">${esc(s.backend)}</span></div>` : ''}
-            ${conn ? `<div class="srv-row"><span class="srv-key">connect</span><code class="srv-conn">${esc(conn)}</code></div>` : ''}
-            ${derived.when ? `<div class="srv-row"><span class="srv-key">check</span><span class="srv-check">마지막 확인: ${esc(fmtWhen(derived.when))}</span></div>` : ''}
-            ${caps.length ? `<div class="srv-row"><span class="srv-key">caps</span><span class="srv-caps">${caps.map(c => `<span class="srv-cap">${esc(c)}</span>`).join('')}</span></div>` : ''}
-            ${authType ? `<div class="srv-row"><span class="srv-key">auth</span><span class="srv-val">${authType} <code class="srv-conn">/api/mcp/vault</code></span></div>` : ''}
-          </div>
-        </div>`;
-    }
-
-    function render(servers, healthByName) {
-      const byCat = {};
-      for (const s of servers) (byCat[s.category] ||= []).push(s);
-      const cats = [...CAT_ORDER.filter(c => byCat[c]), ...Object.keys(byCat).filter(c => !CAT_ORDER.includes(c))];
-      wrap.innerHTML = cats.map(cat => {
-        const meta = CAT[cat] || { label: cat, color: '#8892b0' };
-        return `
-          <section class="section fade-in visible">
-            <h2><span style="color:${meta.color}">${esc(meta.label)}</span> <span class="cat-count">${byCat[cat].length}</span></h2>
-            <div class="server-grid">${byCat[cat].map(s => cardHtml(s, healthByName)).join('')}</div>
-          </section>`;
-      }).join('');
-    }
-
-    async function fetchJson(url) {
-      const resp = await fetch(url, { headers: { accept: 'application/json' } });
-      if (!resp.ok) throw new Error(`${url} -> HTTP ${resp.status}`);
-      return resp.json();
-    }
-
-    // Status is additive: badges/summary come from it when reachable.
-    async function fetchStatus() {
-      try {
-        const st = await fetchJson('/api/mcp/status');
-        if (st.source !== 'live' || !st.summary) return null;
-        return st;
-      } catch { return null; }
-    }
-
-    try {
-      let manifest, live;
-      try {
-        manifest = await fetchJson('/api/mcp/manifest');
-        if (manifest.source === 'snapshot' || !Array.isArray(manifest.servers) || !manifest.servers.length) {
-          throw new Error('registry API in snapshot fallback');
-        }
-        live = true;
-      } catch {
-        manifest = await fetchJson('/mcp/manifest.json');
-        live = false;
-      }
-      const status = await fetchStatus();
-      const healthByName = status
-        ? Object.fromEntries(status.servers.map(s => [s.name, s])) : null;
-      render(manifest.servers, healthByName);
-      if (countEl) countEl.textContent = String(manifest.servers.length);
-      if (updatedEl) updatedEl.textContent = `updated ${manifest.updated || '?'}`;
-      if (status && summaryEl) {
-        const s = status.summary;
-        summaryEl.innerHTML =
-          `<b style="color:#34d399">${s.verified} verified</b> · ` +
-          `<b style="color:#fbbf24">${s.stale} stale</b> · ` +
-          `<b style="color:#9aa4b2">${s.available} available</b> · ` +
-          `<b style="color:#f87171">${s.down} down</b> · ` +
-          `<b style="color:#4a5578">${s.unused} unused</b>` +
-          (status.last_verify_at ? ` — last verify ${esc(fmtWhen(status.last_verify_at))}` : '');
-      }
-      if (live) {
-        badge.textContent = 'live registry API';
-        badge.className = 'badge badge-live';
-        note.textContent = `/api/mcp/manifest — Mongo-backed · updated ${manifest.updated || '?'}`;
-      } else {
-        badge.textContent = 'static fallback';
-        badge.className = 'badge badge-static';
-        note.textContent = '라이브 API unreachable — 정적 /mcp/manifest.json 스냅샷 표시 중';
-      }
-    } catch {
-      wrap.innerHTML = '<section class="section fade-in visible"><p class="section-desc">레지스트리를 불러올 수 없다 — 라이브 API와 정적 폐백 모두 unreachable.</p></section>';
-      badge.textContent = 'unavailable';
-      badge.className = 'badge badge-static';
-      note.textContent = '/api/mcp/manifest · /mcp/manifest.json 모두 실패';
-    }
-  })();
-</script>

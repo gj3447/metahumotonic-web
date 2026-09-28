@@ -1,0 +1,15 @@
+---
+import WorkbenchLayout from '../../layouts/WorkbenchLayout.astro';
+import SemanticLinks from '../../components/SemanticLinks.astro';
+import foundation from '../../data/foundation.json';
+import { pageGraph } from '../../lib/public-content';
+import '../../styles/ideas.css';
+---
+<WorkbenchLayout title="철학 — MetaHumotonic" description="선의 공리와 사도, 자유·경제·합의의 사명. 메타휴모토닉의 이름과 철학에서 제품과 연구까지 이어 읽습니다." path="/philosophy/" structuredData={pageGraph('/philosophy/', '메타휴모토닉의 철학', ['philosophy'])}>
+  <main id="main-content" class="ideas-main shell">
+    <header class="ideas-heading"><p class="eyebrow">OUR PHILOSOPHY</p><h1>무엇을 만들기 전에,<br /><em>무엇을 믿는지.</em></h1><p>메타휴모토닉의 생각은 정의에서 시작합니다.<br />철학은 이야기와 연구, 제품을 통해 서로 다른 모습으로 이어집니다.</p></header>
+    <div class="philosophy-chapters"><article><span class="mini-label">01 / DEFINITIONS</span><h2>선의 공리</h2><p>시간과 존재, 선과 악, 자존자와 특이점. ‘메타휴모토닉’이라는 이름까지 이어지는 열두 정의입니다.</p><blockquote>어떤 존재가 자존자일 때, 그리고 특이점일 때.</blockquote><a class="text-link" href="/axioms/">열두 정의 읽기 ↗</a></article><article><span class="mini-label">02 / WORLDS</span><h2>사도</h2><p>관측, 물리학, 자아, 시간, 존재와 사랑. 사도는 세계관 속에서 생각이 존재와 이야기의 모습을 갖는 자리입니다.</p><a class="text-link" href="/apostles/">열두 사도 만나기 ↗</a><a class="text-link" href="/book/">Book으로 이어 읽기 ↗</a></article><article><span class="mini-label">03 / MISSION</span><h2>Ultra Safety AI</h2><p>{foundation.identity.mission_statement_ko}</p><a class="text-link" href="/agents/">사명과 Agent의 실행 방향 ↗</a><a class="text-link" href="/foundation/">공개 헌장 읽기 ↗</a></article></div>
+    <section class="freedom-statement"><p class="eyebrow">FREEDOM, IN THE OPEN</p><h2>자유는 완전한 오픈소스.</h2><p>{foundation.identity.freedom_definition_ko}</p><a class="text-link" href="https://github.com/gj3447">공개 코드 살펴보기 ↗</a></section>
+    <SemanticLinks nodeId="philosophy" />
+  </main>
+</WorkbenchLayout>

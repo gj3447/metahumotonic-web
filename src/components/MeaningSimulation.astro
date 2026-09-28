@@ -1,0 +1,72 @@
+---
+import hub from '../data/learning-hub.json';
+import { meaningSimulationEdges, meaningSimulationNodes, meaningSimulationRoutes } from '../lib/meaning-simulation';
+import '../styles/meaning-simulation.css';
+
+const positions: Record<string, { x: number; y: number; short: string; type: string }> = {
+  philosophy: { x: 15, y: 50, short: '철학', type: 'ORIGIN' },
+  axioms: { x: 43, y: 17, short: '선의 공리', type: 'IDEA' },
+  apostles: { x: 83, y: 13, short: '12사도', type: 'WORLD' },
+  projects: { x: 46, y: 48, short: '프로젝트', type: 'CATALOG' },
+  vexi: { x: 84, y: 46, short: '버엑시', type: 'GAME' },
+  soopoolim: { x: 89, y: 66, short: '수풀림', type: 'COMMUNITY' },
+  agents: { x: 43, y: 78, short: 'Ultra Safety AI', type: 'AGENT' },
+  usl: { x: 70, y: 73, short: 'USL', type: 'LINK MODEL' },
+  hswm: { x: 88, y: 91, short: 'HSWM', type: 'RESEARCH' },
+};
+const first = meaningSimulationRoutes[0];
+const routeCount = String(meaningSimulationRoutes.length).padStart(2, '0');
+const firstNodes = new Set(first.steps.map(step => step.id));
+const firstEdges = new Set(first.steps.slice(1).map((step, index) => `${first.steps[index].id}->${step.id}`));
+const edgeLines = meaningSimulationEdges.map(edge => {
+  const from = positions[edge.from];
+  const to = positions[edge.to];
+  if (!from || !to) throw new Error(`Meaning simulation visual position is missing: ${edge.id}`);
+  return { ...edge, d: `M ${from.x * 10} ${from.y * 6} L ${to.x * 10} ${to.y * 6}` };
+});
+---
+<section id="semantic-simulation" class="meaning-section" aria-labelledby="meaning-title">
+  <div class="shell">
+    <div class="meaning-heading">
+      <div><p class="eyebrow">MEANING IN MOTION</p><h2 id="meaning-title">생각의 연결을,<br /><span>직접 따라가 보세요.</span></h2></div>
+      <p>하나의 질문이 원문과 세계관, 제품과 연구로 이어지는 길. 검토된 공개 관계 중 한 경로를 골라 탐색해 보세요.</p>
+    </div>
+    <div class="meaning-console" data-meaning-simulation data-routes={JSON.stringify(meaningSimulationRoutes)} data-active-route={first.id}>
+      <div class="meaning-console-bar"><span><i aria-hidden="true"></i> PUBLIC SEMANTIC MODEL</span><span>{meaningSimulationNodes.length} NODES <span aria-hidden="true">/</span> {meaningSimulationEdges.length} LINKS <span aria-hidden="true">/</span> {hub.edition.replaceAll('-', '.')}</span></div>
+      <div class="meaning-console-body">
+        <div class="meaning-visual" role="group" aria-label="검토된 공개 관계 그래프. 오른쪽에서 경로를 고르거나 각 노드 링크를 열 수 있습니다.">
+          <div class="meaning-grid" aria-hidden="true"></div>
+          <div class="meaning-orbit meaning-orbit--a" aria-hidden="true"></div><div class="meaning-orbit meaning-orbit--b" aria-hidden="true"></div>
+          <svg class="meaning-edges" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true">
+            {edgeLines.map(edge => <path d={edge.d} class:list={['meaning-edge', { 'is-in-route': firstEdges.has(`${edge.from}->${edge.to}`) }]} data-edge-from={edge.from} data-edge-to={edge.to} />)}
+          </svg>
+          {meaningSimulationNodes.map((node, index) => <a href={node.href} class:list={['meaning-node', { 'is-in-route': firstNodes.has(node.id), 'meaning-node--origin': node.id === 'philosophy' }]} data-node-id={node.id} style={`--node-x:${positions[node.id].x}%;--node-y:${positions[node.id].y}%;`} aria-label={`${node.title} 읽기`}>
+            <span class="meaning-node-index">{String(index + 1).padStart(2, '0')} <span aria-hidden="true">↗</span></span><strong>{positions[node.id].short}</strong><span class="meaning-node-type">{positions[node.id].type}</span>
+          </a>)}
+          <span class="meaning-visual-caption" aria-hidden="true">THOUGHT → RELATION → POSSIBILITY</span>
+        </div>
+        <div class="meaning-control">
+          <div class="meaning-control-header"><span>EXPLORE A PATH</span><span data-meaning-control-number>01 / {routeCount}</span></div>
+          <nav class="meaning-route-list" aria-label="의미 연결 시뮬레이션 경로">
+            {meaningSimulationRoutes.map((route, index) => <a href={`/learn/#entity-${route.steps.at(-1)?.id}`} data-route-id={route.id} aria-current={route.id === first.id ? 'true' : undefined}><span>0{index + 1}</span><strong>{route.label}</strong><span aria-hidden="true">↗</span></a>)}
+          </nav>
+          <div class="meaning-mobile-track" data-meaning-mobile-track aria-hidden="true">
+            {first.steps.map((step, index) => <span class="meaning-track-item" style={`--step-order:${index}`}><b>{String(index + 1).padStart(2, '0')}</b><small>{positions[step.id].short}</small></span>)}
+          </div>
+          <div class="meaning-path-detail">
+            <p class="meaning-path-kicker">SELECTED PATH <span data-meaning-path-number>01 / {routeCount}</span></p>
+            <h3 data-meaning-title>{first.title}</h3>
+            <p class="meaning-path-summary" data-meaning-summary>{first.summary}</p>
+            <ol class="meaning-step-list" data-meaning-steps>
+              {first.steps.map((step, index) => <li><span>0{index + 1}</span><div>{step.edgeLabel && <small>{step.edgeLabel}</small>}<a href={step.href}>{step.title} <span aria-hidden="true">↗</span></a></div></li>)}
+            </ol>
+          </div>
+          <p class="meaning-status sr-only" role="status" data-meaning-status></p>
+          <a class="meaning-full-link" href="/learn/">공개 학습 그래프 전체 보기 <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <p class="meaning-console-note">검토된 공개 그래프의 탐색 모형입니다. 관계는 읽기 경로이며 실시간 운영 상태나 실행 권한을 뜻하지 않습니다.</p>
+    </div>
+  </div>
+</section>
+<script>import '../scripts/meaning-simulation.ts';</script>

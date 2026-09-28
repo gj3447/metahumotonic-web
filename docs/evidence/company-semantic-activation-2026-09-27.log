@@ -1,0 +1,16 @@
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+[2026-09-27T13:47:48+0000] release source -> manual-artifact:01de03b23cff30dd0dbeaa9ba437798cba36f969a6bf90dc3e30827d5c6c80ef
+{"schema": "metahumotonic/publication-verification@1", "observedAt": "2026-09-27T13:47:48.709848+00:00", "scope": "local artifact readback", "verifierSha256": "6d02f9c12c7a9592f29017b1a2cf3256b62522606dac09dadf16b4ad280a71d4", "sourceDigest": "sha256:5933313125cc604c8ba3d4a017c17e6a1b6690878369b1282d0f38d8655a71e1", "nodes": 51, "relations": 79, "surfaces": 5, "files": {"index.html": "86d219ada4f505aa4e2b1b2b00c6673a0d1c5c55c32220a830974b81cd535287", "learn/index.html": "a0f0be0b3a7f1b69c20a96863d58d6378e97bcf3a84cddc07285480ac3c0c266", "learn/data.json": "4e59918037656ad1e07be38209d4f37a5acaa0efca8b9ced4f9b6d2d09685dbd", "learn/graph.jsonld": "c3f41a888c6eb94e9160a396bd68d579d338f3ad38be34bd522c25efe8f5c60f", "learn/usl.json": "af199c5596ce6d0831fa94b632012d378a0c013f5beed8823a60e27622474142"}, "status": "PASS"}
+[2026-09-27T13:47:48+0000] current: /opt/metahumotonic/canary/landing-astro-subpages/releases/90bab303976307d828cc43c3496dd12c407d042bfcfcff3b58e3526aabdd0993 -> /opt/metahumotonic/canary/landing-astro-subpages/releases/01de03b23cff30dd0dbeaa9ba437798cba36f969a6bf90dc3e30827d5c6c80ef
+curl: (7) Failed to connect to 192.168.0.24 port 18080 after 0 ms: Couldn't connect to server
+[verify-live] FAIL /: request failed (expected status=200, content-type=text/html)
+[2026-09-27T13:47:49+0000] direct-origin verification attempt 1/10 failed
+[verify-live] PASS /: status=200, content-type=text/html
+[verify-live] PASS /wiki/: status=200, content-type=text/html
+[verify-live] PASS /wiki/data.json: status=200, content-type=application/json
+[verify-live] PASS /wiki/data.json: schemaVersion=metahumotonic-public-wiki/v1
+{"schema": "metahumotonic/publication-verification@1", "observedAt": "2026-09-27T13:47:50.466170+00:00", "scope": "read-only HTTP readback", "verifierSha256": "6d02f9c12c7a9592f29017b1a2cf3256b62522606dac09dadf16b4ad280a71d4", "sourceDigest": "sha256:5933313125cc604c8ba3d4a017c17e6a1b6690878369b1282d0f38d8655a71e1", "nodes": 51, "relations": 79, "surfaces": 5, "files": {"index.html": "86d219ada4f505aa4e2b1b2b00c6673a0d1c5c55c32220a830974b81cd535287", "learn/index.html": "a0f0be0b3a7f1b69c20a96863d58d6378e97bcf3a84cddc07285480ac3c0c266", "learn/data.json": "4e59918037656ad1e07be38209d4f37a5acaa0efca8b9ced4f9b6d2d09685dbd", "learn/graph.jsonld": "c3f41a888c6eb94e9160a396bd68d579d338f3ad38be34bd522c25efe8f5c60f", "learn/usl.json": "af199c5596ce6d0831fa94b632012d378a0c013f5beed8823a60e27622474142"}, "status": "PASS"}
+[2026-09-27T13:47:50+0000] deployed 01de03b23cff30dd0dbeaa9ba437798cba36f969a6bf90dc3e30827d5c6c80ef (commit manual-artifact:01de03b23cff30dd0dbeaa9ba437798cba36f969a6bf90dc3e30827d5c6c80ef) OK
+/opt/metahumotonic/canary/landing-astro-subpages/releases/01de03b23cff30dd0dbeaa9ba437798cba36f969a6bf90dc3e30827d5c6c80ef
+production activation complete; backup=/opt/metahumotonic/canary/landing-astro-subpages/operations/company-semantic-20260927-01de03b23cff30dd0dbeaa9ba437798cba36f969a6bf90dc3e30827d5c6c80ef

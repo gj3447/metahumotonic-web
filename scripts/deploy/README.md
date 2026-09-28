@@ -1,3 +1,14 @@
+# 실제 배포 — 2026-09-27
+
+회사/사도/공리 공개 웹의 배포와 readback은
+[시멘틱 회사 웹사이트](../../docs/SEMANTIC_COMPANY_WEBSITE_2026-09-27.md)에 기록한다.
+현재 배포 도구는 GitHub branch 방식과 검토된 로컬 아티팩트 방식을 함께 지원한다.
+로컬 방식은 `LOCAL_ARTIFACT`와 독립적으로 확인한 `EXPECTED_ARTIFACT_SHA256`이 필요하다.
+공통 잠금·활성화 전 검증·활성화 후 해시 readback·롤백을 통과한 후에만 성공한다.
+`last_commit`은 마지막 처리한 GitHub deploy commit이며, 수동 산출물의 해시는
+릴리스 root의 `manual-artifact`에 별도로 남긴다. 타이머는 다음 새 GitHub commit에서
+정상적으로 자동 배포를 이어간다.
+
 # Deployment evidence update — 2026-09-17
 
 The active VM100 compose binds the whole release tree read-only and Nginx resolves

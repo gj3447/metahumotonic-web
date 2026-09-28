@@ -1,5 +1,10 @@
 # MetaHumotonic company positioning
 
+> Historical business-positioning proposal. The current website scope follows
+> [the owner’s 2026-09-27 direction](COMPANY_WEBSITE_2026-09-27.md): company, products,
+> research and learning. The proposed Control SaaS and revenue model below are
+> not evidence of launched products and do not define the current homepage.
+
 ## Category
 
 MetaHumotonic is an **Agent Operations and Verified Compute** company.

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "metahumotonic-workbench/v1",
-  "edition": "2026-09-21",
+  "edition": "2026-09-27",
   "publication": {
     "mode": "curated-public-snapshot",
     "authority": "EDITORIAL_SUMMARY",
@@ -220,7 +220,7 @@
     },
     {
       "id": "soopoolim",
-      "name": "soopoolim",
+      "name": "수풀림",
       "subtitle": "커뮤니티를 맥락과 시간으로 연결",
       "category": "systems",
       "status": "development",
@@ -233,7 +233,8 @@
         "커뮤니티",
         "방송",
         "콘텐츠",
-        "플랫폼"
+        "플랫폼",
+        "soopoolim"
       ],
       "links": [
         {
@@ -248,6 +249,32 @@
       ],
       "evidenceLabel": "프로젝트 문서 · 공개용 편집 요약",
       "reviewedAt": "2026-09-21",
+      "public": true
+    },
+    {
+      "id": "maplelineage",
+      "name": "메이플리니지",
+      "subtitle": "성장과 거래가 이어지는 게임 세계",
+      "category": "games",
+      "status": "development",
+      "symbol": "◇",
+      "summary": "캐릭터의 성장과 게임 속 거래를 함께 설계합니다. 아이템과 장비, 거래의 규칙을 하나의 플레이 경험으로 연결하는 게임 프로젝트입니다.",
+      "question": "캐릭터를 키우는 즐거움과, 함께 만드는 게임 경제를 연결한다면?",
+      "description": "메이플리니지는 캐릭터의 성장, 아이템과 장비, 게임 내 거래를 다루는 개발 중인 게임 프로젝트입니다. 독립된 게임 백엔드에서 장비와 경매 등 게임 규칙을 구현하며 플레이 경험을 만들어 갑니다.",
+      "boundary": "개발 중인 프로젝트의 소개입니다. 정식 출시나 공개 플레이 가능 여부, 외부 게임 회사와의 제휴를 뜻하지 않습니다.",
+      "tags": [
+        "MapleLineage",
+        "게임",
+        "성장",
+        "거래"
+      ],
+      "links": [],
+      "related": [
+        "vexi",
+        "game-hub"
+      ],
+      "evidenceLabel": "프로젝트 README · 공개용 편집 요약",
+      "reviewedAt": "2026-09-27",
       "public": true
     }
   ]

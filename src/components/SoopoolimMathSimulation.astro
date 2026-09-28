@@ -1,0 +1,47 @@
+---
+import '../styles/soopoolim-math-simulation.css';
+
+const roles = [
+  { id: 'community', label: '커뮤니티', x: 320, y: 53 },
+  { id: 'host', label: '호스트', x: 520, y: 126 },
+  { id: 'crew', label: '크루', x: 520, y: 269 },
+  { id: 'game', label: '게임', x: 320, y: 333 },
+  { id: 'platform', label: '플랫폼', x: 120, y: 269 },
+  { id: 'audience', label: '관객', x: 120, y: 126 },
+] as const;
+const pairs = roles.flatMap((left, index) => roles.slice(index + 1).map(right => ({ left, right })));
+---
+<section id="soopoolim-math" class="soop-sim" data-soop-sim data-mode="hyperedge" aria-labelledby="soop-sim-title">
+  <div class="soop-sim-heading">
+    <div><p class="eyebrow">SOOPOOLIM · A MATHEMATICAL LENS</p><h2 id="soop-sim-title">선 15개보다,<br /><span>사건 하나.</span></h2></div>
+    <p>수풀림이 관계를 왜 ‘누가 누구와 연결됐나’보다 ‘어떤 사건에 어떤 역할로 참여했나’로 읽는지 살펴보세요.</p>
+  </div>
+  <div class="soop-sim-panel">
+    <div class="soop-sim-topline"><span>COMMUNITY / EVENT / CONTEXT</span><span>ILLUSTRATIVE MODEL</span></div>
+    <div class="soop-sim-body">
+      <div class="soop-sim-diagram">
+        <svg viewBox="0 0 640 385" role="img" aria-labelledby="soop-diagram-title soop-diagram-desc">
+          <title id="soop-diagram-title">하나의 공동 사건과 여섯 참여 역할</title>
+          <desc id="soop-diagram-desc">여섯 역할이 하나의 사건에 함께 참여합니다. 쌍별 관계로 펼치면 가능한 선이 열다섯 개가 되지만, 그 선만으로 사건의 의미가 증명되지는 않습니다.</desc>
+          <g class="soop-sim-pairs" aria-hidden="true">{pairs.map(({ left, right }) => <line x1={left.x} y1={left.y} x2={right.x} y2={right.y} />)}</g>
+          <g class="soop-sim-incidences" aria-hidden="true">{roles.map(role => <line x1="320" y1="193" x2={role.x} y2={role.y} />)}</g>
+          <g class="soop-sim-event" aria-hidden="true"><circle cx="320" cy="193" r="50" /><circle cx="320" cy="193" r="42" /><text x="320" y="189">하나의</text><text x="320" y="208">공동 사건</text></g>
+          <g class="soop-sim-nodes" aria-hidden="true">{roles.map(role => <g transform={`translate(${role.x} ${role.y})`}><circle r="36" /><text y="4">{role.label}</text></g>)}</g>
+        </svg>
+        <div class="soop-sim-mobile-roles"><span class="soop-sim-mobile-event">공동 사건 하나</span>{roles.map(role => <span>{role.label}</span>)}</div>
+        <div class="soop-sim-formula"><span>6 ROLES</span><strong>6 × 5 ÷ 2 = 15</strong><span>POSSIBLE PAIRS</span></div>
+      </div>
+      <div class="soop-sim-reading">
+        <div class="soop-sim-controls" data-soop-controls hidden role="group" aria-label="수풀림 수학 모형 보기 방식"><button type="button" data-soop-mode="hyperedge" aria-pressed="true">사건으로 보기</button><button type="button" data-soop-mode="pairs" aria-pressed="false">선으로 펼치기</button></div>
+        <p class="soop-sim-kicker" data-soop-kicker>01 / HYPEREDGE</p>
+        <h3 data-soop-reading-title>여섯 역할, 하나의 사건</h3>
+        <p data-soop-reading-copy>커뮤니티를 중심으로 여러 역할이 같은 사건에 참여합니다. 참여의 맥락은 사건에 남고, 시간은 별도의 정점으로, 출처는 근거 사슬로 보존합니다.</p>
+        <p class="soop-sim-equation"><span>H = (V, E, I, ρ)</span><small>정점 · 사건 · 참여 · 역할</small></p>
+        <p class="soop-sim-caveat">이 도형은 합성 예시입니다. 실제 인물 관계, 친밀도, 실시간 데이터나 개인 정보를 나타내지 않습니다.</p>
+        <p class="sr-only" role="status" data-soop-status></p>
+      </div>
+    </div>
+    <div class="soop-sim-footer"><span>수풀림은 출처·시간·역할을 보존하는 커뮤니티 중심 하이퍼그래프를 개발합니다.</span><a href="https://soopoolim.metahumotonic.com/" target="_blank" rel="noopener noreferrer">수풀림 사이트 열기 <span aria-hidden="true">↗</span></a></div>
+  </div>
+</section>
+<script>import '../scripts/soopoolim-math-simulation.ts';</script>

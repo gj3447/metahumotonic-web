@@ -16,7 +16,16 @@
   },
   "include": [
     "src/lib/workbench.ts",
+    "src/lib/public-content.ts",
+    "src/lib/service-directory.ts",
+    "src/lib/meaning-simulation.ts",
     "src/scripts/workbench.ts",
-    "src/pages/projects/data.json.ts"
+    "src/pages/projects/data.json.ts",
+    "src/scripts/learning-hub.ts",
+    "src/scripts/meaning-simulation.ts",
+    "src/scripts/soopoolim-math-simulation.ts",
+    "src/pages/learn/*.ts",
+    "src/pages/services/*.ts",
+    "src/pages/api/services.json.ts"
   ]
 }

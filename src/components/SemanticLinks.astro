@@ -1,0 +1,10 @@
+---
+import { relatedContent, localHref } from '../lib/public-content';
+interface Props { nodeId: string; }
+const { nodeId } = Astro.props;
+const links = relatedContent(nodeId);
+---
+<aside class="content-connections" aria-label="관련 자료" data-semantic-for={nodeId}>
+  <div class="connection-heading"><h2>이어서 살펴보기</h2><a class="text-link" href={`/learn/#entity-${nodeId}`}>연결 지도 ↗</a></div>
+  <ul>{links.map(({ node, edge }) => <li><a href={localHref(node.href) === Astro.url.pathname ? `/learn/#entity-${node.id}` : localHref(node.href)}><span>{node.title}<small>{edge.label}</small></span><span aria-hidden="true">↗</span></a></li>)}</ul>
+</aside>

@@ -1,0 +1,12 @@
+{
+  "schema": "metahumotonic/website-release-source@1",
+  "sourceMode": "reviewed-local-working-tree",
+  "gitBase": "b46fe868b9b3f16699a21bc8f958a190a1adb86c",
+  "sourceDigest": "sha256:5933313125cc604c8ba3d4a017c17e6a1b6690878369b1282d0f38d8655a71e1",
+  "artifactSha256": "01de03b23cff30dd0dbeaa9ba437798cba36f969a6bf90dc3e30827d5c6c80ef",
+  "helpers": {
+    "pve-release.sh": "50d61bae0ff8dd25f43094b9c6ca3b4592a6ce92a37b7aac8abe6f035ab09fa9",
+    "verify-live.sh": "db858985d80c1664755a8c98efd2fb89bf840660e6f22ea06541a1903bec1cfd",
+    "learning_publication.py": "6d02f9c12c7a9592f29017b1a2cf3256b62522606dac09dadf16b4ad280a71d4"
+  }
+}

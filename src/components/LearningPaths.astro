@@ -1,0 +1,12 @@
+---
+import hub from '../data/learning-hub.json';
+const { compact = false } = Astro.props;
+const node = (id: string) => hub.nodes.find(item => item.id === id)!;
+---
+<div class:list={['learning-paths', { 'learning-paths--compact': compact }]}>
+  {(compact ? hub.paths.slice(0, 4) : hub.paths).map((path, index) => <article class="learning-path" id={`path-${path.id}`}>
+    <span class="mini-label">0{index + 1} / {path.title}</span>
+    <h3>{path.question}</h3><p>{path.description}</p>
+    <ol>{path.steps.map(id => <li><a href={`/learn/#entity-${id}`}>{node(id).title}<span aria-hidden="true">↗</span></a></li>)}</ol>
+  </article>)}
+</div>

@@ -1,0 +1,11 @@
+---
+import WorkbenchLayout from '../../layouts/WorkbenchLayout.astro';
+import { pageGraph } from '../../lib/public-content';
+import ProjectCatalogue from '../../components/ProjectCatalogue.astro';
+---
+<WorkbenchLayout title="제품과 프로젝트 — MetaHumotonic" description="수풀림·버엑시·메이플리니지부터 HSWM·USL·HSPINE까지. 메타휴모토닉의 제품, 연구, 개발 프로젝트를 만나보세요." path="/projects/" structuredData={pageGraph("/projects/", "프로젝트", ["projects"])}>
+  <main id="main-content" class="catalog-main shell">
+    <header class="catalog-heading"><p class="eyebrow">PRODUCTS & PROJECTS</p><h1>아이디어가<br />경험이 되는 곳.</h1><p>사람을 연결하는 서비스, 새로운 세계를 여는 게임,<br />그리고 그 바탕을 만드는 연구를 살펴보세요.</p></header>
+    <ProjectCatalogue />
+  </main>
+</WorkbenchLayout>

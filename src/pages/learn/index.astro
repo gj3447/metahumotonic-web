@@ -1,0 +1,37 @@
+---
+import WorkbenchLayout from '../../layouts/WorkbenchLayout.astro';
+import LearningPaths from '../../components/LearningPaths.astro';
+import HubMedia from '../../components/HubMedia.astro';
+import hub from '../../data/learning-hub.json';
+import '../../styles/learning-hub.css';
+const kinds: Record<string, string> = { concept: '개념', article: '글', project: '프로그램', repository: 'GitHub', channel: '채널', video: '영상', apostle: '사도' };
+const related = (id: string) => hub.edges.filter(edge => edge.from === id && edge.status === 'ACTIVE').map(edge => ({ edge, node: hub.nodes.find(node => node.id === edge.to)! }));
+const local = (url: string) => url.startsWith('https://metahumotonic.com/') ? url.slice('https://metahumotonic.com'.length) : url;
+---
+<WorkbenchLayout title="처음부터 이어 읽기 — MetaHumotonic" description="선의 공리에서 세계관, 자유·경제·합의, HSWM·USL·HSPINE과 GitHub·YouTube로 이어지는 학습 지도." path="/learn/" structuredData={hub.jsonld}>
+  <main id="main-content">
+    <header class="learning-intro shell"><nav class="breadcrumb" aria-label="현재 위치"><a href="/">홈</a><span aria-hidden="true">/</span><span aria-current="page">처음부터 이어 읽기</span></nav>
+      <p class="eyebrow">A READER'S MAP / METAHUMOTONIC</p><h1>하나의 질문에서,<br /><em>다음 연결로.</em></h1>
+      <p>메타휴모토닉은 무슨 뜻일까요?<br />철학의 원문에서 시작해, 만드는 프로그램과 공개된 코드·영상까지.<br class="desktop-break" /> 궁금한 질문을 골라 나만의 순서로 읽어보세요.</p>
+      <div class="hero-actions"><a class="button button-primary" href="#paths">읽을 순서 고르기 ↓</a><a class="text-link" href="#connections">개념으로 찾아보기 →</a></div>
+    </header>
+    <section id="paths" class="learning-path-section shell" aria-labelledby="paths-title"><div class="section-heading"><div><p class="eyebrow">READING PATHS</p><h2 id="paths-title">지금 궁금한 것부터.</h2></div><p>정해진 정답 대신,<br />다음 원문으로 이어지는 여섯 갈래.</p></div><LearningPaths /></section>
+    <section id="connections" class="learning-connections shell" aria-labelledby="connections-title">
+      <div class="section-heading"><div><p class="eyebrow">FOLLOW THE CONNECTION</p><h2 id="connections-title">무엇이 어떻게<br />이어지는지.</h2></div><p>항목을 열면 설명과 출처,<br />이어 읽을 글이 함께 보입니다.</p></div>
+      <div class="learning-controls" data-learning-controls hidden><label for="learning-query">개념·사도·프로젝트·영상 찾기<input id="learning-query" type="search" placeholder="예: USL, 자유, 선의 공리" maxlength="120" autocomplete="off" /></label><div class="learning-filters" role="group" aria-label="자료 종류"><button type="button" data-learning-kind="all" aria-pressed="true">전체</button>{Object.entries(kinds).map(([kind, label]) => <button type="button" data-learning-kind={kind} aria-pressed="false">{label}</button>)}</div></div>
+      <p class="hub-caption" role="status" aria-live="polite" data-learning-count>{hub.nodes.length}개 항목</p>
+      <div class="semantic-list">{hub.nodes.map(node => <details class="semantic-entry" id={`entity-${node.id}`} data-learning-id={node.id} data-kind={node.kind} data-search={`${node.title} ${node.summary}`} open={node.id === 'metahumotonic'}>
+        <summary><span class="mini-label">{kinds[node.kind]}</span><h3>{node.title}</h3><span class="entry-chevron" aria-hidden="true">+</span></summary>
+        <div class="semantic-body"><div class="semantic-description"><p>{node.summary}</p><a class="text-link" href={local(node.href)} target={node.href.startsWith('https://metahumotonic.com/') ? undefined : '_blank'} rel={node.href.startsWith('https://metahumotonic.com/') ? undefined : 'noopener noreferrer'}>{node.kind === 'video' ? 'YouTube에서 보기' : node.kind === 'repository' ? 'GitHub에서 읽기' : '원문·소개 열기'} ↗</a></div>
+          {related(node.id).length > 0 && <div class="semantic-related"><h4>이어서 살펴보기</h4><ul>{related(node.id).map(({ edge, node: target }) => <li id={`edge-${edge.id}`}><span>{edge.label}</span><a href={`#entity-${target.id}`}>{target.title} <span aria-hidden="true">→</span></a></li>)}</ul></div>}
+          <div class="semantic-sources"><span>출처</span>{node.sources.map(source => <a href={local(source.url)}>{source.label} ↗</a>)}<small>소개·연결: 편집 안내 · 확인 {node.reviewedAt}</small></div>
+        </div>
+      </details>)}</div>
+      <div class="learning-empty" data-learning-empty hidden><p>이 검색어에 맞는 항목이 없어요.</p><button type="button" class="button button-secondary" data-learning-reset>전체 연결 보기</button></div>
+      <noscript><p class="hub-caption">모든 항목을 표시합니다. 항목을 열어 설명과 출처를 읽을 수 있습니다.</p></noscript>
+    </section>
+    <HubMedia />
+    <section class="hub-data shell" aria-label="공개 연결 데이터"><details><summary>이 지도를 데이터로 읽고 싶다면 <span aria-hidden="true">↗</span></summary><p>화면과 JSON-LD, USL 입력은 같은 공개 카탈로그에서 만들어집니다. 관계는 읽기 안내이며 접근 권한이나 실행 명령이 아닙니다.</p><div class="hub-data-links"><a href="/learn/data.json">카탈로그 JSON ↗</a><a href="/learn/graph.jsonld">JSON-LD ↗</a><a href="/learn/usl.json">USL 그래프 ↗</a><a href="/projects/usl/">USL 소개 →</a></div><dl>{Object.entries(hub.relationDescriptions).map(([relation, description]) => <div><dt id={`relation-${relation.toLowerCase().replaceAll('_', '-')}`}>{relation}</dt><dd>{description}</dd></div>)}</dl><p class="hub-digest">공개본 식별자 <code>{hub.sourceDigest}</code></p></details></section>
+  </main>
+  <script src="../../scripts/learning-hub.ts"></script>
+</WorkbenchLayout>

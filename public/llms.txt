@@ -237,29 +237,14 @@ https://metahumotonic.com/book/human-universal-body/
 Public HSWM research boundary:
 https://metahumotonic.com/research/hswm/
 
-## MCP Registry (live machine-readable surface, for agents)
+## MCP discovery
 
-This site runs a **live MCP (Model Context Protocol) server registry** — the
-machines, databases and tools agents can actually connect to, with connection
-recipes and real-time health. Start at the registry guide:
-https://metahumotonic.com/mcp/llms.txt — it leads to everything else:
-
-- Discovery document:  https://metahumotonic.com/api/mcp/
-- Canonical manifest:  https://metahumotonic.com/api/mcp/manifest
-  (schema metahumotonic/mcp-registry@1, JSON-LD typed, per-server
-  `capabilities` + `auth`; static fallback: /mcp/manifest.json)
-- Well-known alias:    https://metahumotonic.com/.well-known/mcp-servers.json
-- Live status:         https://metahumotonic.com/api/mcp/status
-  (aggregate verified/stale/available/down counts; `?format=text` for a
-  one-line plain-text summary)
-- Human dashboard:     https://metahumotonic.com/mcp/
-
-Credentials are never published in plaintext. Servers whose `auth.type` is
-`vault` resolve through the registry's credential vault: ask the user for the
-**registry password (6 digits)**, fetch https://metahumotonic.com/api/mcp/vault
-(ciphertext only), and decrypt locally — PBKDF2-SHA256(password, salt,
-iterations) → Fernet. The full unlock recipe is in /mcp/llms.txt and in the
-manifest's `credential_vault` field.
+The public MCP guide is https://metahumotonic.com/mcp/ . Read the live
+discovery, manifest, and status responses at /api/mcp/ , /api/mcp/manifest ,
+and /api/mcp/status to determine current registration and verification state.
+The old static /mcp/manifest.json snapshot and shared credential instructions
+were retired because they could misrepresent both availability and access.
+Discovery links do not grant authorization to internal tools or data.
 
 ## Open-Source Agent Commons (USER_PRIMARY mission, 2026-07-23)
 

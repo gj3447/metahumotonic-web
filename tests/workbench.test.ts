@@ -54,10 +54,10 @@ test('search normalizes width, case and whitespace and ANDs multiple words', () 
 });
 test('category filtering and related work neither mutate nor expose denied entries', () => {
   const before = JSON.stringify(projects);
-  assert.equal(filterProjects(projects, 'all', '').length, 8);
+  assert.equal(filterProjects(projects, 'all', '').length, 9);
   assert.equal(filterProjects(projects, 'research', '').length, 3);
   assert.equal(filterProjects(projects, 'systems', '').length, 3);
-  assert.equal(filterProjects(projects, 'games', '').length, 2);
+  assert.equal(filterProjects(projects, 'games', '').length, 3);
   assert.equal(filterProjects(projects, 'unknown', '').length, 0);
   assert.equal(relatedProjects(projects[0], projects).length, 3);
   assert.equal(JSON.stringify(projects), before);
@@ -84,18 +84,23 @@ test('published API matches source selection and excludes internal source locati
   const api = JSON.parse(await readDist('projects/data.json'));
   assert.deepEqual(api, publicProjection(catalogue.edition, projects));
   assert.doesNotMatch(JSON.stringify(api), /\/home\/|\/Users\/|192\.168\.|NEO4J|bolt:|capability_url|source_ref|PRIVATE_THREAD/);
-  assert.equal(api.projects.length, 8);
+  assert.equal(api.projects.length, 9);
 });
-test('new homepage preserves no-JS content, accessible controls and no automatic compute', async () => {
+test('company home leads to products, research and learning without automatic compute', async () => {
   const html = await readDist('index.html');
   assert.match(html, /lang="ko"/);
   assert.match(html, /본문으로 건너뛰기/);
-  assert.equal((html.match(/data-project-id=/g) ?? []).length, 8);
-  assert.equal((html.match(/data-graph-node=/g) ?? []).length, 5);
+  for (const id of ['products', 'research', 'company', 'start', 'watch']) assert.ok(html.includes(`id="${id}"`));
+  for (const id of ['soopoolim', 'vexi', 'maplelineage']) assert.ok(html.includes(`href="/projects/${id}/"`));
+  assert.match(html, /href="\/projects\/"/);
+  assert.doesNotMatch(html, /data-graph-node|333-contributor\.js|333-compute-worker\.js|data-mh-feedback/);
+});
+test('project directory preserves all no-JS content and accessible filter controls', async () => {
+  const html = await readDist('projects/index.html');
+  assert.equal((html.match(/data-project-id=/g) ?? []).length, 9);
   assert.match(html, /aria-live="polite"/);
   assert.match(html, /type="search"/);
   assert.match(html, /<noscript>/);
-  assert.doesNotMatch(html, /333-contributor\.js|333-compute-worker\.js|data-mh-feedback/);
 });
 test('browser code uses published DOM only and no unsafe HTML or network side effects', async () => {
   const client = await readFile(new URL('../src/scripts/workbench.ts', import.meta.url), 'utf8');

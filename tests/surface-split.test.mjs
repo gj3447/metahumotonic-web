@@ -423,26 +423,26 @@ test('Super Save doctrine defines MetaHumo constitutional freedom and preserves 
   }
 });
 
-// The owner requested a workbench redesign on 2026-09-21. The July one-line
-// composition is superseded, not the consent/canon/disclaimer contracts.
-test('workbench landing exposes current work without claiming live KG or completed products', async () => {
+// The owner requested a company website on 2026-09-27. Product discovery
+// leads the home; the full searchable directory has its own route.
+test('company landing introduces products and research with an honest public directory', async () => {
   const productRoot = await read('index.html');
+  const directory = await read('projects/index.html');
   const systemPage = await read('system/index.html');
   const feedbackJs = await read('js/feedback-form.js');
   const feedbackCss = await read('css/feedback-form.css');
-  assert.match(productRoot, /생각을 잇고/);
-  assert.match(productRoot, /세계를 짓다/);
-  for (const name of ['HSWM', 'USL', 'HSPINE', '버엑시', 'Game Hub', '333', 'LakatoTree', 'soopoolim']) {
+  assert.match(productRoot, /Ultra Safety AI/);
+  assert.match(productRoot, /자유에서 시작하다/);
+  for (const name of ['HSWM', 'USL', 'HSPINE', '버엑시', '수풀림', '메이플리니지', 'LakatoTree']) {
     assert.ok(productRoot.includes(name), `${name} missing`);
+    assert.ok(directory.includes(name), `${name} missing from directory`);
   }
-  assert.equal((productRoot.match(/data-project-id=/g) || []).length, 8);
-  assert.match(productRoot, /data-project-controls/);
-  assert.match(productRoot, /data-graph-node/);
-  assert.match(productRoot, /실시간 KG가 아닙니다/);
-  assert.match(productRoot, /EDITORIAL_SUMMARY|편집/);
+  assert.equal((directory.match(/data-project-id=/g) || []).length, 9);
+  assert.match(directory, /data-project-controls/);
+  assert.match(productRoot, /개발 중/);
   assert.match(productRoot, /안전 인증이 아니고, 측정된 결과도 아닙니다/);
   assert.match(productRoot, /아무도 끌 수 없는 AI를 뜻하지 않습니다/);
-  assert.match(productRoot, /Testable thesis, not a safety certification/);
+  assert.match(productRoot, /연구 목표이며 안전 인증이 아닙니다/);
   assert.doesNotMatch(productRoot, /LAST COMMIT|data-mh-feedback/);
   assert.match(productRoot, /href="\/book\/"/);
   assert.match(productRoot, /href="\/foundation\/"/);

@@ -1,0 +1,13 @@
+---
+import WorkbenchLayout from '../../layouts/WorkbenchLayout.astro';
+import { axioms, axiomNodeId, pageGraph } from '../../lib/public-content';
+import '../../styles/ideas.css';
+---
+<WorkbenchLayout title="선의 공리 — MetaHumotonic" description="시간에서 존재와 선을 거쳐 메타휴모토닉까지. 선의 공리의 열두 정의를 원문 그대로 읽습니다." path="/axioms/" structuredData={pageGraph('/axioms/', '선의 공리', axioms.map(a => axiomNodeId(a.n)))}>
+  <main id="main-content" class="ideas-main shell">
+    <header class="ideas-heading axiom-heading"><p class="eyebrow">THE AXIOM OF GOOD</p><h1>시간. 존재. 선.<br /><em>그리고 메타휴모토닉.</em></h1><p>세계를 이해하기 위해, 먼저 말의 뜻을 정합니다.<br />열두 정의를 순서대로 읽거나, 궁금한 이름에서 시작해 보세요.</p><p class="source-caption">아래 정의는 사용자 원문을 그대로 싣습니다. 소개와 읽기 안내는 원문과 구분합니다.</p></header>
+    <nav class="axiom-index" aria-label="열두 공리 바로가기">{axioms.map(a => <a href={`#axiom-${a.n}`}><span>{a.num}</span>{a.kor}</a>)}</nav>
+    <section class="axiom-reading-list" aria-label="선의 공리 원문">{axioms.map(a => <article id={`axiom-${a.n}`} class="axiom-reading" data-axiom={a.n}><div class="axiom-number"><span>{a.num}</span><span aria-hidden="true">{a.symbol}</span></div><div><p class="mini-label">{a.hanja}</p><h2>{a.kor}</h2><blockquote>{a.body}</blockquote><p lang="en" class="axiom-translation">{a.en}</p><div class="axiom-reading-links"><a href={`/wiki/axioms/#axiom-${a.n}`}>원문 출처 ↗</a><a href={`/learn/#entity-${axiomNodeId(a.n)}`}>이 개념 이어 읽기 →</a><a href={`#axiom-${a.n}`} aria-label={`${a.kor} 고정 링크`}>#</a></div></div></article>)}</section>
+    <nav class="next-reading" aria-label="다음 읽기"><a href="/philosophy/">철학의 전체 흐름 ←</a><a href="/apostles/">이 정의에서 이어지는 세계, 사도 →</a></nav>
+  </main>
+</WorkbenchLayout>

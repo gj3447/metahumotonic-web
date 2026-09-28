@@ -23,7 +23,7 @@ export function main() {
   const pkg = JSON.parse(readFileSync(packagePath, 'utf8'));
   const binary = typeof pkg.bin === 'string' ? pkg.bin : pkg.bin.astro;
   const env = buildEnvironment(process.env);
-  for (const args of [[resolve(dirname(packagePath), binary), 'build'], ['scripts/build/assemble-site.mjs']]) {
+  for (const args of [[resolve(dirname(packagePath), binary), 'build'], ['scripts/build/assemble-site.mjs'], ['scripts/build/write-learning-publication.mjs']]) {
     const result = spawnSync(process.execPath, args, { env, stdio: 'inherit' });
     if (result.error) throw result.error;
     if (result.status !== 0) return result.status ?? 1;

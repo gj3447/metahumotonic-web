@@ -1,0 +1,88 @@
+{
+  "schema": "metahumotonic/service-hub-readback@1",
+  "observedAt": "2026-09-28T01:23:33.775648+00:00",
+  "scope": "public HTTPS compared byte-for-byte with independently pinned local artifact",
+  "artifactSha256": "d790bb5f96f474f580fc64e28ef51c0470c1fdaafd1115d492829bd71a40f20e",
+  "browserWidths": [
+    1440,
+    768,
+    390,
+    320
+  ],
+  "axeScans": 24,
+  "axeViolations": 0,
+  "serviceGraph": {
+    "publicServices": 14,
+    "projectIntroductions": 9,
+    "internalRoleDescriptions": 4,
+    "uslNodes": 28,
+    "uslRelations": 27,
+    "rdfTriples": 238
+  },
+  "mcpLiveRegistrations": 0,
+  "apiRootRedirect": "302 https://metahumotonic.com/developers/",
+  "siteWideLlmsRoute": "public /llms.txt is served by a separate existing route; it is not the static artifact file",
+  "files": [
+    {
+      "path": "/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "9fa0cc0bfa98a0b766b890f2348783e61325d5de53255bf2a21218d135fc6aa3"
+    },
+    {
+      "path": "/services/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "44bf42a33c547c3ddffb4727f3899847f570fd0d0b40d19bb5c4db2cf4e7fcbe"
+    },
+    {
+      "path": "/services/data.json",
+      "status": 200,
+      "contentType": "application/json",
+      "sha256": "63a5657932c05d21fd04bec8fa6e908dcfa57d29f557aa9930c3de871c3934af"
+    },
+    {
+      "path": "/services/graph.jsonld",
+      "status": 200,
+      "contentType": "application/ld+json",
+      "sha256": "03f07cb1e700e8adcb1c71ed79ab7e231942261ba265606c9191d5019ce9caa3"
+    },
+    {
+      "path": "/services/usl.json",
+      "status": 200,
+      "contentType": "application/json",
+      "sha256": "fb38df66d950b3869d27274a5729f2f29b82aeaf9ac02bd7ddf2c3143044e348"
+    },
+    {
+      "path": "/developers/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "de5b1c5f8cddc42cda20164df4d16110ef1fce29858b3f38a90e1e1c302b8032"
+    },
+    {
+      "path": "/mcp/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "5a4d1a0d54201596fa99842f72579dff7b8ad8ee9aa7edb9d19c1f9327eae2cf"
+    },
+    {
+      "path": "/mcp/manifest.json",
+      "status": 200,
+      "contentType": "application/json",
+      "sha256": "8b3c022cb38e94072d2b2172c85d0a2894716841498e7513873dd4c88740541e"
+    },
+    {
+      "path": "/mcp/llms.txt",
+      "status": 200,
+      "contentType": "text/plain",
+      "sha256": "f0075b78d506d12726a3cc2d44395fd028a42938841eebd9865560d1bc837b52"
+    },
+    {
+      "path": "/api/services.json",
+      "status": 200,
+      "contentType": "application/json",
+      "sha256": "096ac28c37eed74155c453e7aed8b06dd5f711fc8ed014594ca856ce7b81a195"
+    }
+  ],
+  "status": "PASS"
+}

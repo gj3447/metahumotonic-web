@@ -1,0 +1,18 @@
+---
+import hub from '../data/learning-hub.json';
+const channel = hub.nodes.find(node => node.kind === 'channel')!;
+const videos = hub.nodes.filter(node => node.kind === 'video');
+const topics = (id: string) => hub.edges.filter(edge => edge.from === id && edge.status === 'ACTIVE').map(edge => hub.nodes.find(node => node.id === edge.to)!);
+---
+<section id="watch" class="hub-media shell" aria-labelledby="watch-title">
+  <div class="section-heading"><div><p class="eyebrow">WATCH & CONNECT</p><h2 id="watch-title">읽던 생각을,<br />영상으로 만나다.</h2></div><a class="text-link" href={channel.href} target="_blank" rel="noopener noreferrer">YouTube · @metahumotonic ↗</a></div>
+  <p class="hub-section-intro">채널에 게시된 영상에서 시작해, 관련 글과 프로젝트로 이어가세요.</p>
+  <div class="hub-video-grid">{videos.map((video, index) => <article class="hub-video">
+    <a class={`video-cover video-cover--${index}`} href={video.href} target="_blank" rel="noopener noreferrer" aria-label={`${video.title} — YouTube에서 보기 (새 창)`}>
+      <span class="mini-label">METAHUMOTONIC / VIDEO 0{index + 1}</span><span class="video-glyph" aria-hidden="true">{['◎', '✳', '∿'][index]}</span><span class="video-play"><span aria-hidden="true">▷</span> YouTube에서 보기 ↗</span>
+    </a>
+    <h3><a href={video.href} target="_blank" rel="noopener noreferrer">{video.title}</a></h3><p>{video.summary}</p>
+    <div class="video-reading">{topics(video.id).map(topic => <a href={`/learn/#entity-${topic.id}`}>{topic.title} 이어 읽기 <span aria-hidden="true">→</span></a>)}</div>
+  </article>)}</div>
+  <p class="hub-caption">{channel.title}의 공개 게시 목록 · {hub.edition} 확인</p>
+</section>

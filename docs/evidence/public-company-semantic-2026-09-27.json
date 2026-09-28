@@ -1,0 +1,280 @@
+{
+  "schema": "metahumotonic/public-company-readback@1",
+  "observedAt": "2026-09-27T13:48:44.201240+00:00",
+  "status": "PASS",
+  "scope": "public HTTPS readback against independently retained local artifact",
+  "artifactSha256": "01de03b23cff30dd0dbeaa9ba437798cba36f969a6bf90dc3e30827d5c6c80ef",
+  "sourceDigest": "sha256:5933313125cc604c8ba3d4a017c17e6a1b6690878369b1282d0f38d8655a71e1",
+  "files": {
+    "_astro/ProjectCatalogue.astro_astro_type_script_index_0_lang.Cb229F5V.js": {
+      "url": "https://metahumotonic.com/_astro/ProjectCatalogue.astro_astro_type_script_index_0_lang.Cb229F5V.js",
+      "status": 200,
+      "contentType": "application/javascript",
+      "sha256": "20610ee8822f1228e77f9f422d0bb1fbf9b1bae71ed1845335966c2a1d1ef7c6"
+    },
+    "_astro/Search.astro_astro_type_script_index_0_lang.B-Vh4ymV.js": {
+      "url": "https://metahumotonic.com/_astro/Search.astro_astro_type_script_index_0_lang.B-Vh4ymV.js",
+      "status": 200,
+      "contentType": "application/javascript",
+      "sha256": "d4e3cd7bbcc9bbd0b914bc2540ff483b73934fb6e221c21ac6f514df90d995ba"
+    },
+    "_astro/WorkbenchLayout.CAF63D0Q.css": {
+      "url": "https://metahumotonic.com/_astro/WorkbenchLayout.CAF63D0Q.css",
+      "status": 200,
+      "contentType": "text/css",
+      "sha256": "bb99b7e5e7a7b8b251b5882d5a1eee8b307151d3fff38a19e393dacf41a6b9f7"
+    },
+    "_astro/ideas.CyNgeUzY.css": {
+      "url": "https://metahumotonic.com/_astro/ideas.CyNgeUzY.css",
+      "status": 200,
+      "contentType": "text/css",
+      "sha256": "8ae34e635de8c9f14853cd077424ab60b670438bb01ad5c8393bcc3469fed775"
+    },
+    "_astro/index.DWqAmNt3.css": {
+      "url": "https://metahumotonic.com/_astro/index.DWqAmNt3.css",
+      "status": 200,
+      "contentType": "text/css",
+      "sha256": "5c5b5d0e9f4a0765462fb321ca950f17c06f52b8e924fadb561f115c28bfe705"
+    },
+    "_astro/index.astro_astro_type_script_index_0_lang.CHH12fHT.js": {
+      "url": "https://metahumotonic.com/_astro/index.astro_astro_type_script_index_0_lang.CHH12fHT.js",
+      "status": 200,
+      "contentType": "application/javascript",
+      "sha256": "27517cd67605d55e56574042898ad916983187967c36d05172964b323060efd1"
+    },
+    "_astro/landing.ciNMMdqx.css": {
+      "url": "https://metahumotonic.com/_astro/landing.ciNMMdqx.css",
+      "status": 200,
+      "contentType": "text/css",
+      "sha256": "504551c2ff14de6847ebbd6daafe181b4edbffe73c79f57d2cbf270b86d7c917"
+    },
+    "_astro/learning-hub.Cc3p1VTK.css": {
+      "url": "https://metahumotonic.com/_astro/learning-hub.Cc3p1VTK.css",
+      "status": 200,
+      "contentType": "text/css",
+      "sha256": "69ae3abaa517ae32d4a7c2a3b18572514d2e7959789dcce12aca17611912a98e"
+    },
+    "_astro/middleware.D8Zk64Be.css": {
+      "url": "https://metahumotonic.com/_astro/middleware.D8Zk64Be.css",
+      "status": 200,
+      "contentType": "text/css",
+      "sha256": "6bfdc4f8d60d5b8fca0070e6732c0e5c9635258f406bb6a741449acd4793694f"
+    },
+    "_astro/page.Dwipeu-R.js": {
+      "url": "https://metahumotonic.com/_astro/page.Dwipeu-R.js",
+      "status": 200,
+      "contentType": "application/javascript",
+      "sha256": "c99ac0eaf0068f03b4abe3a28b0a7bf0f28524b9dad3b23d77d54dfd453a62ae"
+    },
+    "_astro/print.ehPL0gv-.css": {
+      "url": "https://metahumotonic.com/_astro/print.ehPL0gv-.css",
+      "status": 200,
+      "contentType": "text/css",
+      "sha256": "4d7d25c3d697e6d36e64afb9edef136e6d2e4c50f70a48000ca90f9b059e3622"
+    },
+    "agents/index.html": {
+      "url": "https://metahumotonic.com/agents/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "0d9b0935f2fbbaa04b7be00337c071c712f044d608e6b8b07b6d43fc23f3d445"
+    },
+    "apostles/bhgman/index.html": {
+      "url": "https://metahumotonic.com/apostles/bhgman/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "ea511e82bf2fca616b89c029e6bd52c152d2bfe056f7147b154f2838dd6ec14a"
+    },
+    "apostles/dimension-walker/index.html": {
+      "url": "https://metahumotonic.com/apostles/dimension-walker/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "0315709f741ae15a90e8fcb9a2439b974403fa33021d750777df6a1c53729500"
+    },
+    "apostles/gipbajon/index.html": {
+      "url": "https://metahumotonic.com/apostles/gipbajon/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "a0e40380808be3e208658ca3a9041ee84bf6ec2cb40100a9288f9542e4a78e79"
+    },
+    "apostles/great-river/index.html": {
+      "url": "https://metahumotonic.com/apostles/great-river/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "d3d93616ff3f8b65b9e528e3db810173b38582fcd460ac5cb1ae5b38b65ab552"
+    },
+    "apostles/hoh/index.html": {
+      "url": "https://metahumotonic.com/apostles/hoh/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "0343cb270e6e21ee7af7d7be4004b4b58fe8b7db9414c31fcf7dcad696d99595"
+    },
+    "apostles/ice-orca-dragon/index.html": {
+      "url": "https://metahumotonic.com/apostles/ice-orca-dragon/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "33bb974f5741298624d43a054ca5df200bb93b89965baf6193a2a6bf63a6c6cb"
+    },
+    "apostles/index.html": {
+      "url": "https://metahumotonic.com/apostles/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "d00d4744c0a24748a3f055e0f30f0931d4ff04587f2160f5848b86756fe90f1e"
+    },
+    "apostles/jesus/index.html": {
+      "url": "https://metahumotonic.com/apostles/jesus/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "c1c9d32c7b165e4ee15c87ae624d2c33358c6a67b60f38c1d41814b86b702ca3"
+    },
+    "apostles/liquest-tree/index.html": {
+      "url": "https://metahumotonic.com/apostles/liquest-tree/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "cfd2f6a3966db1a4491aa87915b1920c0e7045b99b0251144ad3ddec7a703793"
+    },
+    "apostles/monsoon/index.html": {
+      "url": "https://metahumotonic.com/apostles/monsoon/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "bbeba372772bc33d7cad48c46234ec96bf0ce6042d22ba3e4048f3b8060a71a6"
+    },
+    "apostles/orbital-cloud/index.html": {
+      "url": "https://metahumotonic.com/apostles/orbital-cloud/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "478c2946ab313f1cdfd77b6abc5243dd7db71e70f65279f8d6c000a75e940b48"
+    },
+    "apostles/spacegirl/index.html": {
+      "url": "https://metahumotonic.com/apostles/spacegirl/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "bbcad09359062e949d0f6e3e032246f3a4329fbf8399f5d49d8f2e7b4a4e5a5a"
+    },
+    "apostles/superhollow-knight/index.html": {
+      "url": "https://metahumotonic.com/apostles/superhollow-knight/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "e2b9a9d5d208724de19f161ed9278045dd1f5121c09bc2f33c8fcb19b8ddceaf"
+    },
+    "axioms/index.html": {
+      "url": "https://metahumotonic.com/axioms/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "919a11af36d2ee1c8ee3a2ec473723645130e66bb23249fbbacf9970b93852b6"
+    },
+    "book/index.html": {
+      "url": "https://metahumotonic.com/book/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "5795b213c2ab2d07bc30e07b59f65ec98975406b13bc2cac57a7af475908430a"
+    },
+    "index.html": {
+      "url": "https://metahumotonic.com/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "86d219ada4f505aa4e2b1b2b00c6673a0d1c5c55c32220a830974b81cd535287"
+    },
+    "learn/data.json": {
+      "url": "https://metahumotonic.com/learn/data.json",
+      "status": 200,
+      "contentType": "application/json",
+      "sha256": "4e59918037656ad1e07be38209d4f37a5acaa0efca8b9ced4f9b6d2d09685dbd"
+    },
+    "learn/graph.jsonld": {
+      "url": "https://metahumotonic.com/learn/graph.jsonld",
+      "status": 200,
+      "contentType": "application/ld+json",
+      "sha256": "c3f41a888c6eb94e9160a396bd68d579d338f3ad38be34bd522c25efe8f5c60f"
+    },
+    "learn/index.html": {
+      "url": "https://metahumotonic.com/learn/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "a0f0be0b3a7f1b69c20a96863d58d6378e97bcf3a84cddc07285480ac3c0c266"
+    },
+    "learn/usl.json": {
+      "url": "https://metahumotonic.com/learn/usl.json",
+      "status": 200,
+      "contentType": "application/json",
+      "sha256": "af199c5596ce6d0831fa94b632012d378a0c013f5beed8823a60e27622474142"
+    },
+    "philosophy/index.html": {
+      "url": "https://metahumotonic.com/philosophy/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "ddcf6b5987522c2e235650db5d89e2854a80cc078bbb86f2c00df9ac28e53100"
+    },
+    "projects/333/index.html": {
+      "url": "https://metahumotonic.com/projects/333/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "ba5c2c879a88cbb02265790dfb06fff6c22cff820b3b6e35746c23e082e10d41"
+    },
+    "projects/game-hub/index.html": {
+      "url": "https://metahumotonic.com/projects/game-hub/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "0b093ae27b3422c350e0ba74e92ad677608162d07fcc58bc7043bd64a360f0a2"
+    },
+    "projects/hspine/index.html": {
+      "url": "https://metahumotonic.com/projects/hspine/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "86ab417ecdab157e0d3110ac49e2ffdf85b877223bc785649663390f43aa06dd"
+    },
+    "projects/hswm/index.html": {
+      "url": "https://metahumotonic.com/projects/hswm/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "1f51b69dbca07d4513cc2bd46c8d5c725769c091cf65ff80c1543c7479f9417c"
+    },
+    "projects/index.html": {
+      "url": "https://metahumotonic.com/projects/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "ed8c2ecfd1f7d405e4ed09eeb7ef94fde5fc545d34622466cb83eb3eb47400c9"
+    },
+    "projects/lakatotree/index.html": {
+      "url": "https://metahumotonic.com/projects/lakatotree/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "537b6ce1829106133f26f4d5d25aa5f28535ced71b5b24fae3a170fa2675dd3b"
+    },
+    "projects/maplelineage/index.html": {
+      "url": "https://metahumotonic.com/projects/maplelineage/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "adc9bc5e485e5015269787b7c6322d9805441a1cae9bf6f00f90e765b7e9f2fe"
+    },
+    "projects/soopoolim/index.html": {
+      "url": "https://metahumotonic.com/projects/soopoolim/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "4c4beebf5b92463b1abe77ccf38833ee131ec963f54b3efe5eefc2a8d73aad88"
+    },
+    "projects/usl/index.html": {
+      "url": "https://metahumotonic.com/projects/usl/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "80ed27f9acf53088beb7c155e01aab5de8b00002671695f1eaf23eec398e8565"
+    },
+    "projects/vexi/index.html": {
+      "url": "https://metahumotonic.com/projects/vexi/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "3636ba6b73df74aacc90b056a73a3e4c0d0931751beff18fd78e0bfc66fe13bb"
+    },
+    "wiki/data.json": {
+      "url": "https://metahumotonic.com/wiki/data.json",
+      "status": 200,
+      "contentType": "application/json",
+      "sha256": "23ee8cbacfa8f49f51d0cfa66556d6509b8e8dffd56739e58898805aa5a586f7"
+    },
+    "wiki/index.html": {
+      "url": "https://metahumotonic.com/wiki/",
+      "status": 200,
+      "contentType": "text/html",
+      "sha256": "62102e30225a3afc7a86b18f1c2643e203ffc554b806075df24da68cd9a0e31f"
+    }
+  }
+}

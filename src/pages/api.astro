@@ -1,231 +1,80 @@
 ---
-// KG: CONTRACT_Web_API, ATOM_Web_API
-import '../styles/cosmos.css';
-import { getKGStats } from '../lib/kg';
-// Longinus drift fix 2026-05-25: SVG 노드 수 하드코딩(547K) → 라이브 fetch.
-const kgStats = await getKGStats();
-const kgNodesK = Math.round(kgStats.nodes / 1000);
+import WorkbenchLayout from '../layouts/WorkbenchLayout.astro';
+import { pageGraph } from '../lib/public-content';
 
-const endpoints = [
-  { method:'GET', path:'/api/stats', desc:'KG 전체 통계 — 라이브 Neo4j', response:'{ nodes, rels, labels, relTypes, domains, skills }' },
-  { method:'GET', path:'/api/domains', desc:'DomainHub 목록 — 라이브', response:'[{ name, displayName, nodeCount, description }]' },
-  { method:'GET', path:'/api/skills', desc:'스킬 목록 (7군단장 + infra/meta)', response:'[{ name, description, category }]' },
-  { method:'POST', path:'/api/feedback', desc:'피드백 접수 — MongoDB 저장 확인·허니팟·레이트리밋', response:'{ ok, id, status: "stored" } · 저장 미확인 시 503' },
-];
-
-const services = [
-  { name:'Neo4j Browser', path:'/neo4j/', port:'7474', desc:'Knowledge Graph 브라우저. Cypher 쿼리 실행.', color:'#67e8f9' },
-  { name:'n8n Workflows', path:'/n8n/', port:'5678', desc:'워크플로우 자동화 플랫폼.', color:'#a78bfa' },
-  { name:'MinIO Console', path:'/minio/', port:'9001', desc:'오브젝트 스토리지 관리. S3 호환.', color:'#fbbf24' },
-  { name:'MinIO S3 API', path:'/s3/', port:'9000', desc:'S3 호환 API 엔드포인트.', color:'#fbbf24' },
-  { name:'Traefik Dashboard', path:'/traefik/', port:'8080', desc:'리버스 프록시 + 라우팅 대시보드.', color:'#34d399' },
-  { name:'Skill Registry', path:'/skills/', port:'-', desc:'Claude Code 스킬 18개 레지스트리.', color:'#f472b6' },
-];
-
-const cyphers = [
-  { title:'전체 통계', query:'MATCH (n) WITH count(n) as nodes\nMATCH ()-[r]->() RETURN nodes, count(r) as rels' },
-  { title:'도메인 목록', query:'MATCH (d:DomainHub)\nRETURN d.displayName, d.nodeCount\nORDER BY d.nodeCount DESC' },
-  { title:'오답노트 조회', query:'MATCH (l:Lesson)\nWHERE l.resolved IS NULL\nRETURN l.name, l.problem, l.severity' },
-  { title:'워크스페이스 온톨로지', query:'MATCH (n:AbstractNode)\nRETURN labels(n), n.name, n.description\nLIMIT 20' },
+const resources = [
+  { label: '연구 데이터', title: 'Research feed', href: '/api/research/summary', note: '공개 연구 요약을 JSON으로 읽습니다.', kind: 'READ ONLY' },
+  { label: '연구 데이터', title: 'Agent feed', href: '/api/research/agent', note: '에이전트가 읽을 수 있는 연구 피드입니다.', kind: 'READ ONLY' },
+  { label: '커뮤니티', title: 'Wiki index', href: '/api/wiki/v1', note: '공개 Community Wiki의 API 시작점입니다.', kind: 'READ ONLY' },
+  { label: '연결 데이터', title: 'Learning graph', href: '/learn/graph.jsonld', note: '철학, 프로그램, 공개 자료의 JSON-LD 그래프입니다.', kind: 'JSON-LD' },
+  { label: '연결 데이터', title: 'USL graph', href: '/learn/usl.json', note: '공개 학습 지도를 USL 입력으로 읽습니다.', kind: 'USL' },
+  { label: 'Agent discovery', title: 'MCP registry', href: '/mcp/', note: '등록 현황을 추측하지 않고, 공개 레지스트리 안내로 연결합니다.', kind: 'DIRECTORY' },
 ];
 ---
 
-<html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>API — MetaHumotonic</title>
-  <meta name="description" content="MetaHumotonic API endpoints, services, and Cypher query examples." />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-</head>
-
-<body>
-  <div class="starfield-bg" aria-hidden="true"></div>
-  <div class="vignette" aria-hidden="true"></div>
-
-  <div class="page-wrap">
-    <nav class="breadcrumb">
-      <a href="/">MetaHumotonic</a> <span>›</span> <span>API</span>
-    </nav>
-
-    <header class="api-header fade-in">
-      <h1><span style="color:#fbbf24">API</span> & Services</h1>
-      <p class="api-desc">MetaHumotonic 서버의 API 엔드포인트, 서비스 접근 경로, Cypher 쿼리 예제.</p>
+<WorkbenchLayout title="공개 API와 데이터 — MetaHumotonic" description="MetaHumotonic의 공개 읽기 전용 API와 JSON-LD·USL 연결 데이터를 한곳에서 찾습니다." path="/api/" structuredData={pageGraph('/api/', '공개 API와 데이터', ['hswm', 'usl', 'projects'])}>
+  <main id="main-content" class="developer-main shell">
+    <nav class="breadcrumb" aria-label="현재 위치"><a href="/">홈</a><span aria-hidden="true">/</span><span aria-current="page">API</span></nav>
+    <header class="developer-hero">
+      <div>
+        <p class="eyebrow">PUBLIC DATA · DEVELOPER ENTRY</p>
+        <h1>읽을 수 있는<br /><em>연결의 표면.</em></h1>
+        <p>이 페이지는 공개적으로 읽을 수 있는 데이터 입구만 모읍니다. 운영 콘솔, 인프라 주소, 자격증명과 연결 방법은 여기에 두지 않습니다.</p>
+      </div>
+      <div class="developer-art" aria-hidden="true"><i></i><i></i><i></i><b>API</b><span>PUBLIC<br />READ</span></div>
     </header>
 
-    {/* JSON API */}
-    <section class="section fade-in">
-      <h2>JSON API</h2>
-      <p class="section-desc">라이브 API — <code>metahumotonic_web_back</code> (FastAPI). Neo4j 실시간 + MongoDB 피드백.</p>
-      <div class="endpoint-list">
-        {endpoints.map(ep => (
-          <div class="endpoint-card">
-            <div class="endpoint-head">
-              <span class="method">{ep.method}</span>
-              <code class="ep-path">{ep.path}</code>
-            </div>
-            <p>{ep.desc}</p>
-            <pre class="ep-response">{ep.response}</pre>
-          </div>
-        ))}
+    <section class="developer-principles" aria-label="공개 API 원칙">
+      <article><span>01</span><h2>읽기 전용부터</h2><p>문서와 연구, 연결 데이터를 확인할 수 있는 입구를 우선 공개합니다.</p></article>
+      <article><span>02</span><h2>상태는 응답으로</h2><p>이 화면은 서비스가 살아 있다고 단정하지 않습니다. 최신 상태는 각 응답에서 확인합니다.</p></article>
+      <article><span>03</span><h2>경계는 분명하게</h2><p>접근 권한이 필요한 운영 기능은 공개 디렉터리에서 분리합니다.</p></article>
+    </section>
+
+    <section class="developer-directory" aria-labelledby="resource-title">
+      <div class="section-heading"><div><p class="eyebrow">PUBLIC DIRECTORY</p><h2 id="resource-title">데이터를 찾는 여섯 길.</h2></div><p>사람은 페이지로, 도구는 JSON과 JSON-LD로<br />같은 공개 자료에 도달합니다.</p></div>
+      <div class="resource-grid">
+        {resources.map((resource, index) => <a class="resource-card" href={resource.href}>
+          <div><span class="mini-label">{String(index + 1).padStart(2, '0')} / {resource.label}</span><span class="resource-kind">{resource.kind}</span></div>
+          <h3>{resource.title}</h3><p>{resource.note}</p><span class="resource-open" aria-hidden="true">↗</span>
+        </a>)}
       </div>
     </section>
 
-    {/* Services */}
-    <section class="section fade-in">
-      <h2>서비스 엔드포인트</h2>
-      <p class="section-desc">Traefik 리버스 프록시 경유. Base: <code>http://bhgman.iptime.org</code></p>
-      <div class="service-grid">
-        {services.map(svc => (
-          <div class="service-card">
-            <div class="svc-head">
-              <span class="svc-dot" style={`background:${svc.color}`}></span>
-              <h3>{svc.name}</h3>
-              <span class="svc-port">:{svc.port}</span>
-            </div>
-            <code class="svc-path">{svc.path}</code>
-            <p>{svc.desc}</p>
-          </div>
-        ))}
-      </div>
-    </section>
+    <aside class="developer-callout"><div><p class="eyebrow">SERVICE DIRECTORY</p><h2>제품과 자료, 개발 표면을<br />한 장의 지도로.</h2></div><div><p>전체 서비스의 공개 접근 경로는 서비스 디렉터리에서 분야별로 정리합니다. 내부 운영 기능은 권한이 필요한 별도 표면으로 남겨 둡니다.</p><a class="text-link" href="/services/">서비스 디렉터리 열기 →</a></div></aside>
+  </main>
+</WorkbenchLayout>
 
-    {/* Cypher 예제 */}
-    <section class="section fade-in">
-      <h2>Cypher 쿼리 예제</h2>
-      <p class="section-desc">Neo4j KG (bolt://localhost:7687) 직접 쿼리.</p>
-      <div class="cypher-list">
-        {cyphers.map(c => (
-          <div class="cypher-card">
-            <h3>{c.title}</h3>
-            <pre><code>{c.query}</code></pre>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* 인프라 다이어그램 — SVG */}
-    <section class="section fade-in">
-      <h2>인프라 구조</h2>
-      <div class="infra-diagram">
-        <svg viewBox="0 0 600 300" class="infra-svg">
-          {/* Internet */}
-          <text x="300" y="25" text-anchor="middle" fill="#4a5578" font-size="11" font-weight="600">Internet (218.233.221.77)</text>
-          <line x1="300" y1="32" x2="300" y2="55" stroke="#4a5578" stroke-width="1" stroke-dasharray="3 3"/>
-
-          {/* Traefik */}
-          <rect x="220" y="55" width="160" height="35" rx="8" fill="rgba(52,211,153,0.1)" stroke="rgba(52,211,153,0.4)" stroke-width="1"/>
-          <text x="300" y="77" text-anchor="middle" fill="#34d399" font-size="11" font-weight="600">Traefik :80</text>
-
-          {/* 분기 라인 */}
-          {[0,1,2,3,4,5].map(i => {
-            const x = 60 + i * 100;
-            return <line x1="300" y1="90" x2={x} y2="130" stroke="rgba(107,76,153,0.3)" stroke-width="0.8"/>;
-          })}
-
-          {/* 서비스들 */}
-          {[
-            {n:'Neo4j',x:60,c:'#67e8f9'},
-            {n:'PostgreSQL',x:160,c:'#a78bfa'},
-            {n:'n8n',x:260,c:'#a78bfa'},
-            {n:'MinIO',x:360,c:'#fbbf24'},
-            {n:'Redis',x:460,c:'#f472b6'},
-            {n:'Kafka',x:560,c:'#34d399'},
-          ].map(s => (
-            <g>
-              <rect x={s.x-40} y="130" width="80" height="30" rx="6" fill="rgba(13,27,42,0.6)" stroke={s.c} stroke-width="0.8" opacity="0.8"/>
-              <text x={s.x} y="150" text-anchor="middle" fill={s.c} font-size="9" font-weight="500">{s.n}</text>
-            </g>
-          ))}
-
-          {/* Storage */}
-          <line x1="300" y1="160" x2="300" y2="195" stroke="rgba(107,76,153,0.3)" stroke-width="0.8" stroke-dasharray="3 3"/>
-          <rect x="170" y="195" width="260" height="30" rx="8" fill="rgba(251,191,36,0.05)" stroke="rgba(251,191,36,0.3)" stroke-width="0.8"/>
-          <text x="300" y="215" text-anchor="middle" fill="#fbbf24" font-size="10">/Volumes/DB_STORAGE (4TB)</text>
-
-          {/* KG */}
-          <line x1="300" y1="225" x2="300" y2="255" stroke="rgba(107,76,153,0.3)" stroke-width="0.8" stroke-dasharray="3 3"/>
-          <rect x="200" y="255" width="200" height="30" rx="8" fill="rgba(167,139,250,0.1)" stroke="rgba(167,139,250,0.4)" stroke-width="1"/>
-          <text x="300" y="275" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="600">Neo4j KG (<tspan data-kg-stat="nodes" data-kg-fmt="k">{kgNodesK}K</tspan>+ nodes)</text>
-        </svg>
-      </div>
-    </section>
-
-    <footer class="page-footer">
-      <a href="/" class="back-link">← Home</a>
-      <a href="/explore" class="back-link">Explore KG →</a>
-    </footer>
-  </div>
-</body>
-</html>
-
-<style is:global>
-  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
-  body { font-family:'Inter',system-ui,sans-serif; background:#050810; color:#e0e6f0; line-height:1.6; overflow-x:hidden; }
-  a { color:inherit; text-decoration:none; }
-  .page-wrap { position:relative; z-index:1; max-width:1000px; margin:0 auto; padding:0 clamp(1rem,3vw,3rem); }
-
-  .breadcrumb { padding:1.5rem 0; font-size:0.85rem; color:#4a5578; }
-  .breadcrumb a { color:#67e8f9; } .breadcrumb a:hover { text-decoration:underline; }
-  .breadcrumb span { margin:0 0.3rem; }
-
-  .api-header { text-align:center; padding:2rem 0 3rem; }
-  .api-header h1 { font-size:clamp(2rem,5vw,3rem); font-weight:800; color:#fff; margin-bottom:1rem; }
-  .api-desc { font-size:1.1rem; color:#8892b0; max-width:600px; margin:0 auto; }
-
-  .section { padding:2rem 0; }
-  .section h2 { font-size:1.3rem; font-weight:700; color:#fff; margin-bottom:0.5rem; }
-  .section-desc { font-size:0.9rem; color:#4a5578; margin-bottom:1.5rem; }
-  .section-desc code { color:#67e8f9; font-size:0.85rem; }
-
-  /* Endpoint */
-  .endpoint-list { display:flex; flex-direction:column; gap:1rem; }
-  .endpoint-card { background:rgba(13,27,42,0.6); border:1px solid rgba(107,76,153,0.15); border-radius:12px; padding:1.25rem; backdrop-filter:blur(8px); }
-  .endpoint-head { display:flex; align-items:center; gap:0.75rem; margin-bottom:0.5rem; }
-  .method { font-size:0.75rem; font-weight:700; color:#050810; background:#34d399; padding:0.15rem 0.5rem; border-radius:4px; }
-  .ep-path { font-size:1rem; color:#67e8f9; }
-  .endpoint-card p { font-size:0.9rem; color:#8892b0; }
-  .ep-response { font-size:0.8rem; color:#a78bfa; background:rgba(0,0,0,0.3); padding:0.5rem 0.75rem; border-radius:6px; margin-top:0.5rem; font-family:'JetBrains Mono',monospace; }
-
-  /* Service */
-  .service-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1rem; }
-  .service-card { background:rgba(13,27,42,0.6); border:1px solid rgba(107,76,153,0.15); border-radius:12px; padding:1rem; backdrop-filter:blur(8px); transition:border-color 0.3s; }
-  .service-card:hover { border-color:rgba(167,139,250,0.3); }
-  .svc-head { display:flex; align-items:center; gap:0.5rem; margin-bottom:0.4rem; }
-  .svc-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
-  .svc-head h3 { font-size:1rem; color:#fff; font-weight:600; }
-  .svc-port { font-size:0.8rem; color:#4a5578; }
-  .svc-path { display:block; font-size:0.85rem; color:#67e8f9; margin-bottom:0.4rem; }
-  .service-card p { font-size:0.85rem; color:#8892b0; }
-
-  /* Cypher */
-  .cypher-list { display:flex; flex-direction:column; gap:1rem; }
-  .cypher-card { background:rgba(13,27,42,0.6); border:1px solid rgba(107,76,153,0.15); border-radius:12px; padding:1rem 1.25rem; backdrop-filter:blur(8px); }
-  .cypher-card h3 { font-size:0.95rem; color:#a78bfa; font-weight:600; margin-bottom:0.5rem; }
-  .cypher-card pre { font-size:0.8rem; color:#67e8f9; font-family:'JetBrains Mono',monospace; overflow-x:auto; line-height:1.5; white-space:pre-wrap; }
-
-  /* Infra */
-  .infra-diagram { max-width:650px; margin:0 auto; }
-  .infra-svg { width:100%; height:auto; }
-
-  .page-footer { display:flex; justify-content:space-between; padding:3rem 0; }
-  .back-link { color:#67e8f9; font-size:0.9rem; font-weight:500; }
-  .back-link:hover { text-decoration:underline; }
-
-  .fade-in { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease,transform 0.6s ease; }
-  .fade-in.visible { opacity:1; transform:none; }
-
-  @media (max-width:480px) {
-    .service-grid { grid-template-columns:1fr; }
-  }
+<style>
+  .developer-main { padding-block: 30px 100px; }
+  .developer-hero { display:grid; grid-template-columns:1.1fr .9fr; gap:70px; align-items:center; padding:50px 0 84px; border-bottom:1px solid var(--border); }
+  .developer-hero h1 { font-size:clamp(44px, 6vw, 76px); font-weight:550; letter-spacing:-.065em; line-height:1.13; }
+  .developer-hero h1 em { color:#566e5c; font-style:normal; }
+  .developer-hero p:last-child { max-width:54ch; margin-top:24px; color:var(--muted); font-size:16px; line-height:1.9; }
+  .developer-art { min-height:310px; position:relative; display:grid; place-items:center; overflow:hidden; border-radius:7px; background:#17221e; color:#e6eee5; }
+  .developer-art i { position:absolute; width:68%; aspect-ratio:1; border:1px solid rgba(206,226,207,.27); border-radius:50%; }
+  .developer-art i:nth-child(2) { width:46%; border-color:rgba(0,229,255,.6); }
+  .developer-art i:nth-child(3) { width:25%; border-color:rgba(255,230,0,.7); }
+  .developer-art b { position:relative; font:500 clamp(40px,6vw,68px)/1 var(--mono); letter-spacing:.1em; }
+  .developer-art span { position:absolute; top:24px; left:25px; font:10px/1.5 var(--mono); letter-spacing:.1em; color:#b4c3b5; }
+  .developer-principles { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-bottom:1px solid var(--border); }
+  .developer-principles article { padding:32px 26px 36px; border-left:1px solid var(--border); }
+  .developer-principles article:first-child { border-left:0; padding-left:0; }
+  .developer-principles article:last-child { padding-right:0; }
+  .developer-principles span { font:11px var(--mono); color:var(--muted); }
+  .developer-principles h2 { margin:19px 0 11px; font-size:22px; letter-spacing:-.04em; }
+  .developer-principles p { color:var(--muted); font-size:14px; line-height:1.75; }
+  .developer-directory { padding-top:94px; }
+  .resource-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-top:1px solid var(--border); border-left:1px solid var(--border); }
+  .resource-card { min-height:240px; position:relative; display:flex; flex-direction:column; padding:25px; border-right:1px solid var(--border); border-bottom:1px solid var(--border); transition:background .18s; }
+  .resource-card:hover { background:var(--surface); }
+  .resource-card > div { display:flex; justify-content:space-between; gap:12px; }
+  .resource-kind { font:10px var(--mono); color:var(--muted); }
+  .resource-card h3 { margin:34px 0 10px; font-size:25px; line-height:1.2; letter-spacing:-.045em; font-weight:550; }
+  .resource-card p { max-width:29ch; color:var(--muted); font-size:14px; line-height:1.75; }
+  .resource-open { margin-top:auto; align-self:flex-end; font-size:21px; }
+  .developer-callout { display:grid; grid-template-columns:1fr 1fr; gap:60px; margin-top:94px; padding:50px; background:#e5ece2; border-radius:7px; }
+  .developer-callout h2 { font-size:clamp(27px,3vw,39px); line-height:1.35; }
+  .developer-callout > div:last-child { color:#4e6254; }
+  .developer-callout .text-link { margin-top:20px; color:var(--text); }
+  @media (max-width:760px) { .developer-hero,.developer-callout { grid-template-columns:1fr; gap:34px; } .developer-hero { padding:32px 0 60px; } .developer-art { min-height:220px; } .developer-principles,.resource-grid { grid-template-columns:1fr; } .developer-principles article,.developer-principles article:first-child,.developer-principles article:last-child { padding:25px 0; border-left:0; border-top:1px solid var(--border); } .developer-principles article:first-child { border-top:0; } .resource-card { min-height:190px; } .developer-callout { margin-top:60px; padding:30px; } }
 </style>
-
-<script>
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, { threshold:0, rootMargin:'0px 0px 50px 0px' });
-  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
-  setTimeout(() => document.querySelectorAll('.fade-in:not(.visible)').forEach(el => el.classList.add('visible')), 1500);
-</script>
-<script src="/js/kg-live.js" defer></script>

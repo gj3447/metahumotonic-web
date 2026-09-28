@@ -1,0 +1,21 @@
+---
+import WorkbenchLayout from '../../layouts/WorkbenchLayout.astro';
+import { pageGraph } from '../../lib/public-content';
+import '../../styles/services.css';
+
+const resources = [
+  { label: 'RESEARCH API', name: '연구 요약', text: '공개 연구 기록의 현재 요약 응답.', href: '/api/research/summary', mark: '◎' },
+  { label: 'AGENT FEED', name: '연구 피드', text: '에이전트가 읽을 수 있는 공개 연구 데이터.', href: '/api/research/agent', mark: '↗' },
+  { label: 'WIKI API', name: 'Community Wiki', text: '공개 커뮤니티 기록 API의 시작점.', href: '/api/wiki/v1', mark: 'W' },
+  { label: 'MCP DISCOVERY', name: 'MCP Manifest', text: '현재 등록된 도구를 응답에서 확인하는 문서.', href: '/api/mcp/manifest', mark: '◇' },
+  { label: 'SEMANTIC WEB', name: '서비스 JSON-LD', text: '서비스와 프로젝트의 공개 의미 그래프.', href: '/services/graph.jsonld', mark: '{ }' },
+  { label: 'USL', name: '서비스 연결', text: '같은 노드와 관계를 USL 입력으로 읽습니다.', href: '/services/usl.json', mark: '⌘' },
+];
+---
+<WorkbenchLayout title="개발자 자료 — MetaHumotonic" description="메타휴모토닉의 공개 API, JSON-LD와 USL 데이터를 읽는 개발자 안내." path="/developers/" structuredData={pageGraph('/developers/', '개발자 자료', ['usl', 'hswm', 'projects'])}>
+  <main id="main-content" class="service-directory developer-guide">
+    <header class="service-hero shell"><div class="service-hero-copy"><nav class="breadcrumb" aria-label="현재 위치"><a href="/">홈</a><span aria-hidden="true">/</span><a href="/services/">서비스</a><span aria-hidden="true">/</span><span aria-current="page">개발자 자료</span></nav><p class="eyebrow">PUBLIC INTERFACES</p><h1>공개된 데이터를,<br /><span>같은 의미로.</span></h1><p class="service-hero-lead">페이지에서 읽던 자료를 API와 그래프로도 살펴보세요. 각 엔드포인트의 최신 내용과 가용성은 실제 응답에서 확인합니다.</p><div class="service-hero-actions"><a class="button button-primary" href="#developer-resources">자료 바로가기 ↓</a><a class="text-link" href="/services/">서비스 전체 보기 →</a></div></div><div class="service-map" aria-hidden="true"><div class="service-map-grid"></div><svg class="service-map-lines" viewBox="0 0 500 420" preserveAspectRatio="none"><path d="M250 210 L104 97 M250 210 L395 95 M250 210 L95 320 M250 210 L400 326" /></svg><div class="service-map-core"><span>{'{}'}</span><small>OPEN DATA</small></div><div class="service-map-node service-map-node--a"><span>01</span><strong>API</strong><small>읽기 응답</small></div><div class="service-map-node service-map-node--b"><span>02</span><strong>JSON-LD</strong><small>의미 그래프</small></div><div class="service-map-node service-map-node--c"><span>03</span><strong>USL</strong><small>관계 연결</small></div><div class="service-map-node service-map-node--d"><span>04</span><strong>MCP</strong><small>도구 발견</small></div></div></header>
+    <section id="developer-resources" class="service-section shell" aria-labelledby="developer-resources-title"><div class="section-heading"><div><p class="eyebrow">READABLE BY PEOPLE & TOOLS</p><h2 id="developer-resources-title">검토된 공개 입구.</h2></div><p>링크는 자료 접근 경로입니다.<br />내부 도구의 사용 권한을 뜻하지 않습니다.</p></div><div class="service-link-grid">{resources.map(resource => <a class="service-link-card" href={resource.href}><span class="service-link-mark" aria-hidden="true">{resource.mark}</span><span class="service-link-content"><span class="mini-label">{resource.label}</span><strong>{resource.name}</strong><span>{resource.text}</span></span><span class="service-link-arrow" aria-hidden="true">↗</span></a>)}</div></section>
+    <section class="service-machine shell" aria-labelledby="developer-boundary-title"><div><p class="eyebrow">ACCESS BOUNDARY</p><h2 id="developer-boundary-title">발견과 사용은<br />서로 다른 단계입니다.</h2><p>공개 그래프는 탐색 경로를 설명합니다. 인증, 도구 실행과 내부 데이터 조회는 각각의 서비스 계약과 권한에 따릅니다.</p></div><div class="service-machine-links"><a href="/mcp/">MCP 안내 <span aria-hidden="true">↗</span></a><a href="/services/data.json">공개 서비스 목록 JSON <span aria-hidden="true">↗</span></a><a href="/learn/graph.jsonld">철학·프로젝트 학습 그래프 <span aria-hidden="true">↗</span></a></div></section>
+  </main>
+</WorkbenchLayout>
