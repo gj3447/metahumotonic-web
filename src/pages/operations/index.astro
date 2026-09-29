@@ -1,0 +1,57 @@
+---
+import WorkbenchLayout from '../../layouts/WorkbenchLayout.astro';
+import { directoryId, directoryInternalId } from '../../lib/service-directory';
+
+const dashboard = 'https://github.com/gj3447/METAHUMOTONIC_DASHBOARD';
+const structuredData = {
+  '@context': 'https://schema.org/',
+  '@id': `${directoryId}-operations`,
+  '@type': 'WebPage',
+  name: 'MetaHumotonic 운영자 안내',
+  url: 'https://metahumotonic.com/operations/',
+  isPartOf: { '@id': directoryId },
+  about: { '@id': directoryInternalId('dashboard') },
+  description: '비공개 운영 대시보드의 접근 안내. 저장소 접근권한은 GitHub에서 확인합니다.',
+};
+---
+<WorkbenchLayout title="운영 대시보드 — MetaHumotonic" description="METAHUMOTONIC_DASHBOARD와 운영자용 자료로 연결되는 입구." path="/operations/" structuredData={structuredData}>
+  <main id="main-content" class="operator-page shell" tabindex="-1">
+    <nav class="operator-breadcrumb" aria-label="현재 위치"><a href="/">홈</a><span aria-hidden="true">/</span><a href="/services/">서비스</a><span aria-hidden="true">/</span><span aria-current="page">운영</span></nav>
+    <header class="operator-heading">
+      <p class="eyebrow">METAHUMOTONIC / OPERATIONS</p>
+      <h1>작업과 자원을,<br /><span>한곳에서.</span></h1>
+      <p class="operator-lead">저장소, 장비, 접속 안내와 CLI 도구를<br class="wide-only" /> METAHUMOTONIC_DASHBOARD에서 찾아보세요.</p>
+    </header>
+    <section class="operator-entry" aria-labelledby="dashboard-title">
+      <div><span class="operator-badge">비공개 · 운영자용</span><h2 id="dashboard-title">운영 대시보드</h2><p>GitHub에 로그인한 뒤, 저장소에 접근할 수 있는 계정으로 열어주세요. 대화형 화면을 실행하는 방법과 접속 안내는 저장소에 있습니다.</p></div>
+      <div class="operator-actions"><a class="button button-primary" href={dashboard} target="_blank" rel="noopener noreferrer">GitHub에서 열기 <span aria-hidden="true">↗</span><span class="sr-only">새 창</span></a><a class="text-link" href={`${dashboard}/blob/main/README.md`} target="_blank" rel="noopener noreferrer">대시보드 실행 안내 <span aria-hidden="true">↗</span><span class="sr-only">새 창</span></a></div>
+    </section>
+    <section class="operator-notes" aria-label="접근 안내">
+      <div><h2>찾고, 확인하고, 연결하기.</h2><p>대시보드는 작업의 출처와 관측 시점을 함께 보여줍니다. 저장소 목록에서 프로젝트를 찾고, 장비와 접근 안내를 따라 필요한 작업으로 이동할 수 있습니다.</p></div>
+      <div><h2>페이지가 열리지 않나요?</h2><p>비공개 저장소는 로그인하지 않았거나 접근권한이 없는 계정에 404로 보일 수 있습니다. 계정을 확인하고, 권한이 필요하면 저장소 관리자에게 문의하세요.</p><a class="text-link" href="/services/">공개 서비스 둘러보기 <span aria-hidden="true">→</span></a></div>
+    </section>
+    <nav class="operator-resources" aria-label="관련 공개 자료"><a href="/developers/">개발자 자료 <span aria-hidden="true">↗</span></a><a href="/mcp/">MCP 안내 <span aria-hidden="true">↗</span></a><a href="/foundation/">Foundation <span aria-hidden="true">↗</span></a></nav>
+  </main>
+</WorkbenchLayout>
+<style>
+  .operator-page{max-width:1120px;padding-block:32px 96px}
+  .operator-breadcrumb{display:flex;gap:14px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:13px}
+  .operator-breadcrumb a{display:inline-flex;align-items:center;min-height:44px}
+  .operator-breadcrumb a:hover{color:var(--accent)}
+  .operator-heading{padding-block:48px 44px;max-width:800px}
+  h1{font-size:clamp(38px,5vw,64px);line-height:1.2;letter-spacing:-.055em;font-weight:550}
+  h1 span{color:var(--mh-cyan)}
+  .operator-lead{margin-top:24px;color:var(--muted);font-size:17px}
+  .operator-entry{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:48px;border-block:1px solid var(--border);padding-block:36px}
+  .operator-badge{display:inline-block;color:var(--mh-yellow);font:12px/1.6 var(--mono);margin-bottom:14px}
+  .operator-entry h2{font-size:28px;margin-bottom:12px}
+  .operator-entry p,.operator-notes p{color:var(--muted);font-size:15px;max-width:58ch}
+  .operator-actions{display:grid;gap:12px;justify-items:start}
+  .operator-notes{display:grid;grid-template-columns:1fr 1fr;gap:56px;padding-block:40px}
+  .operator-notes h2{font-size:19px;letter-spacing:-.025em;margin-bottom:14px}
+  .operator-notes .text-link{margin-top:14px;color:var(--mh-cyan)}
+  .operator-resources{display:flex;gap:16px 36px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:24px}
+  .operator-resources a{display:inline-flex;align-items:center;gap:24px;min-height:44px;font-size:14px}
+  .operator-resources a:hover{color:var(--accent)}
+  @media(max-width:760px){.operator-entry,.operator-notes{grid-template-columns:1fr;gap:28px}.operator-heading{padding-top:30px}.wide-only{display:none}.operator-lead{font-size:16px}.operator-page{padding-bottom:64px}}
+</style>

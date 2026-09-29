@@ -13,7 +13,7 @@ test('the service directory is a reviewed public projection with explicit access
   assert.equal(projection.services.length, services.length);
   assert.equal(new Set(projection.services.map(service => service.id)).size, services.length);
   assert.equal(projection.projects.length, 9);
-  assert.equal(projection.internalSystems.length, 4);
+  assert.equal(projection.internalSystems.length, 5);
   assert.ok(projection.services.every(service => service.access === 'public' && isSafeDirectoryLink(service.href)));
   assert.ok(projection.internalSystems.every(system => system.access === 'internal-auth' && !('href' in system)));
   assert.deepEqual(directoryProjects().filter(project => project.liveHref).map(project => project.id).sort(), ['333', 'soopoolim']);
@@ -29,7 +29,7 @@ test('links fail closed and the graph and USL use the same public identities', (
   const usl = directoryUsl();
   assert.equal(jsonLd['@graph'].length, publicServices.length + directoryProjects().length + internalSystems.length + 2);
   assert.equal(usl.nodes.length, publicServices.length + directoryProjects().length + internalSystems.length + 1);
-  assert.equal(usl.relations.length, usl.nodes.length - 1);
+  assert.equal(usl.relations.length, usl.nodes.length);
   assert.equal(usl.nodes[0].uid, directoryId);
   assert.ok(usl.relations.every(edge => usl.nodes.some(node => node.uid === edge.from_uid) && usl.nodes.some(node => node.uid === edge.to_uid)));
   assert.deepEqual(publicServices.map(service => `${directoryId}-${service.id}`), usl.nodes.slice(1, 1 + publicServices.length).map(node => node.uid));
@@ -45,6 +45,8 @@ test('links fail closed and the graph and USL use the same public identities', (
 test('the rendered hub has every project, verified access paths and data alternatives', async () => {
   const html = await readDist('services/index.html');
   const home = await readDist('index.html');
+  const manifest = JSON.parse(await readDist('SURFACE_MANIFEST.json'));
+  assert.ok(manifest.product_routes.includes('/operations/'));
   const data = JSON.parse(await readDist('services/data.json'));
   const graph = JSON.parse(await readDist('services/graph.jsonld'));
   const usl = JSON.parse(await readDist('services/usl.json'));
@@ -76,4 +78,20 @@ test('obsolete public infrastructure catalog is retired while developer routes r
     assert.match(html, /href="\/services\/"/);
     assert.doesNotMatch(html, /bhgman\.iptime|192\.168\.|\/api\/mcp\/vault|REDIS_PASSWORD/i);
   }
+});
+
+test('operator entry links the private dashboard without publishing its inventory or transport', async () => {
+  const html = await readDist('operations/index.html');
+  const home = await readDist('index.html');
+  const manifest = JSON.parse(await readDist('SURFACE_MANIFEST.json'));
+  assert.ok(manifest.product_routes.includes('/operations/'));
+  const usl = directoryUsl();
+  const entry = directoryJsonLd()['@graph'].find(node => node['@id'] === `${directoryId}-operations`);
+  assert.deepEqual(entry?.['schema:about'], { '@id': directoryInternalId('dashboard') });
+  assert.ok(usl.relations.some(edge => edge.from_uid === `${directoryId}-operations` && edge.to_uid === directoryInternalId('dashboard') && edge.type === 'DESCRIBES_INTERNAL'));
+  assert.match(html, /href="https:\/\/github.com\/gj3447\/METAHUMOTONIC_DASHBOARD"/);
+  assert.match(html, /GitHub에서 열기/);
+  assert.match(html, /접근권한/);
+  assert.match(home, /href="\/operations\/"/);
+  assert.doesNotMatch(html + JSON.stringify(directoryProjection()), /192\.168\.|100\.64\.|127\.0\.0\.1|\/home\/|\/Users\/|qm guest|ssh -|data\/snapshots/);
 });

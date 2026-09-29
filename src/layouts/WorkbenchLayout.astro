@@ -22,6 +22,7 @@ const jsonLd = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" type="application/ld+json" href="https://metahumotonic.com/learn/graph.jsonld" title="MetaHumotonic 공개 학습 그래프" />
+    {path.startsWith('/apostles/') && <link rel="alternate" type="application/ld+json" href="https://metahumotonic.com/apostles/graph.jsonld" title="12사도 문서 연결 그래프" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#080a0d" />
     <meta property="og:title" content={title} />
@@ -42,7 +43,7 @@ const jsonLd = {
     </header>
     <slot />
     <footer class="site-footer"><div class="shell">
-      <div class="footer-top"><div><a href="/" class="footer-wordmark">metahumotonic</a><p>자유에서 시작해, 가능성으로.</p></div><nav class="footer-columns" aria-label="하단 메뉴"><div><span>EXPLORE</span><a href="/services/">서비스 전체</a><a href="/projects/">프로젝트</a><a href="/apostles/">사도</a><a href="/axioms/">선의 공리</a><a href="/agents/">Ultra Safety AI · Agent</a></div><div><span>IDEAS</span><a href="/philosophy/">철학과 사명</a><a href="/foundation/">Foundation · 공개 헌장</a><a href="/learn/">읽기 지도</a><a href="/learn/#watch">영상 읽기 지도</a><a href="/wiki/">Wiki</a><a href="/book/">Book</a></div><div><span>CONNECT</span><a href="https://github.com/gj3447" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://www.youtube.com/channel/UCLVZA8cxVCEqrREfZ7NgcJA" target="_blank" rel="noopener noreferrer">YouTube 채널 ↗</a><a href="/services/graph.jsonld">서비스 그래프 ↗</a></div></nav></div>
+      <div class="footer-top"><div><a href="/" class="footer-wordmark">metahumotonic</a><p>자유에서 시작해, 가능성으로.</p></div><nav class="footer-columns" aria-label="하단 메뉴"><div><span>EXPLORE</span><a href="/services/">서비스 전체</a><a href="/projects/">프로젝트</a><a href="/apostles/">사도</a><a href="/axioms/">선의 공리</a><a href="/agents/">Ultra Safety AI · Agent</a></div><div><span>IDEAS</span><a href="/philosophy/">철학과 사명</a><a href="/foundation/">Foundation · 공개 헌장</a><a href="/learn/">읽기 지도</a><a href="/learn/#watch">영상 읽기 지도</a><a href="/wiki/">Wiki</a><a href="/book/">Book</a></div><div><span>CONNECT</span><a href="https://github.com/gj3447" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://www.youtube.com/channel/UCLVZA8cxVCEqrREfZ7NgcJA" target="_blank" rel="noopener noreferrer">YouTube 채널 ↗</a><a href="/services/graph.jsonld">서비스 그래프 ↗</a><a href="/operations/">운영 대시보드 ↗</a></div></nav></div>
       <div class="footer-bottom"><span>© {new Date().getUTCFullYear()} MetaHumotonic</span><span>기술 · 연구 · 새로운 세계</span></div>
       <p class="footer-boundary">Ultra Safety AI는 연구 목표이며 안전 인증이 아닙니다.</p>
     </div></footer>
