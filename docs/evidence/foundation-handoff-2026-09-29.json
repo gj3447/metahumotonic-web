@@ -1,0 +1,355 @@
+{
+  "schema": "metahumotonic/foundation-handoff-evidence@1",
+  "authority": "SECONDARY_AI_OPERATIONAL_OBSERVATION",
+  "observationStartedAt": "2026-09-29T05:46:26.063Z",
+  "scope": "Foundation public-site handoff; no KG canon publication or backend cutover",
+  "sourceRevision": "6bc8aa2672731655453be8cb1bb2c4accc8a0c65",
+  "sourceFiles": [
+    {
+      "path": "src/pages/foundation/graph.jsonld.ts",
+      "revision": "6bc8aa2672731655453be8cb1bb2c4accc8a0c65",
+      "sha256": "16dcf9c6a32a05b836c3cebbacdf29c7d6c50eb921c785bef233eebd3b96e44e"
+    },
+    {
+      "path": "src/pages/foundation/usl.json.ts",
+      "revision": "6bc8aa2672731655453be8cb1bb2c4accc8a0c65",
+      "sha256": "0bf627fe78ae884bbaf68ce53c27be05b7f2dfefcb41bd419eb70264cb6e807a"
+    },
+    {
+      "path": "src/pages/foundation/index.astro",
+      "revision": "6bc8aa2672731655453be8cb1bb2c4accc8a0c65",
+      "sha256": "ba395c2aab709fc382dd2cabbf13e833e0fed38ee315de225059c36aad173cca"
+    },
+    {
+      "path": "src/data/foundation.json",
+      "revision": "6bc8aa2672731655453be8cb1bb2c4accc8a0c65",
+      "sha256": "a8cf5ed29673a030569b650fe823ed769d9b82d338c60cd7697d638cc8a21aaf"
+    },
+    {
+      "path": "src/data/academic-foundations.json",
+      "revision": "6bc8aa2672731655453be8cb1bb2c4accc8a0c65",
+      "sha256": "c03a73fd1e350a70fce4a6c4c88e98ccc554820326d810e6595ce2240a6ee319"
+    },
+    {
+      "path": "src/data/learning-hub.json",
+      "revision": "6bc8aa2672731655453be8cb1bb2c4accc8a0c65",
+      "sha256": "9dad1022dd1163791e16596cd8ecfe464187aab2bd7da8c8154a06ea5cab8ed0"
+    },
+    {
+      "path": "scripts/verify/learning_publication.py",
+      "revision": "6bc8aa2672731655453be8cb1bb2c4accc8a0c65",
+      "sha256": "6d02f9c12c7a9592f29017b1a2cf3256b62522606dac09dadf16b4ad280a71d4"
+    },
+    {
+      "path": "nginx.conf",
+      "revision": "6bc8aa2672731655453be8cb1bb2c4accc8a0c65",
+      "sha256": "53157b21f83074f94368ec46bea6dd31fd79b50104a0084305cbd2a003889814"
+    }
+  ],
+  "http": [
+    {
+      "scope": "direct-origin",
+      "path": "/",
+      "observedAt": "2026-09-29T05:47:49.793024+00:00",
+      "client": "curl default User-Agent",
+      "status": 200,
+      "contentType": "text/html",
+      "bytes": 120171,
+      "sha256": "34b74258dc5f93004fcc42c63a647bbe6d13f828a70b64d97bdbe3bbf3b53562",
+      "localBuildSha256": "34b74258dc5f93004fcc42c63a647bbe6d13f828a70b64d97bdbe3bbf3b53562",
+      "matchesLocalBuild": true
+    },
+    {
+      "scope": "public-https",
+      "path": "/",
+      "observedAt": "2026-09-29T05:47:50.066960+00:00",
+      "client": "curl default User-Agent",
+      "status": 200,
+      "contentType": "text/html",
+      "bytes": 120171,
+      "sha256": "34b74258dc5f93004fcc42c63a647bbe6d13f828a70b64d97bdbe3bbf3b53562",
+      "localBuildSha256": "34b74258dc5f93004fcc42c63a647bbe6d13f828a70b64d97bdbe3bbf3b53562",
+      "matchesLocalBuild": true
+    },
+    {
+      "scope": "direct-origin",
+      "path": "/foundation/",
+      "observedAt": "2026-09-29T05:47:50.075703+00:00",
+      "client": "curl default User-Agent",
+      "status": 200,
+      "contentType": "text/html",
+      "bytes": 44081,
+      "sha256": "e360ae664b31dd6dd7ffe13219cc4a4ce6bdb55a68ad5c025a954370dfa87dc1",
+      "localBuildSha256": "e360ae664b31dd6dd7ffe13219cc4a4ce6bdb55a68ad5c025a954370dfa87dc1",
+      "matchesLocalBuild": true
+    },
+    {
+      "scope": "public-https",
+      "path": "/foundation/",
+      "observedAt": "2026-09-29T05:47:50.297278+00:00",
+      "client": "curl default User-Agent",
+      "status": 200,
+      "contentType": "text/html",
+      "bytes": 44315,
+      "sha256": "d95e70279cf65e2c6cb2c7d09ca7f69151151c34c1e71adf4e8cb37f9a073951",
+      "localBuildSha256": "e360ae664b31dd6dd7ffe13219cc4a4ce6bdb55a68ad5c025a954370dfa87dc1",
+      "matchesLocalBuild": false
+    },
+    {
+      "scope": "direct-origin",
+      "path": "/foundation/graph.jsonld",
+      "observedAt": "2026-09-29T05:47:50.306028+00:00",
+      "client": "curl default User-Agent",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "bytes": 4434,
+      "sha256": "cb239e34a5d7d5de8cf0c107eefece00ab9c82c0a0869170b752dc37dda226d0",
+      "localBuildSha256": "cb239e34a5d7d5de8cf0c107eefece00ab9c82c0a0869170b752dc37dda226d0",
+      "matchesLocalBuild": true
+    },
+    {
+      "scope": "public-https",
+      "path": "/foundation/graph.jsonld",
+      "observedAt": "2026-09-29T05:47:50.523842+00:00",
+      "client": "curl default User-Agent",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "bytes": 4434,
+      "sha256": "cb239e34a5d7d5de8cf0c107eefece00ab9c82c0a0869170b752dc37dda226d0",
+      "localBuildSha256": "cb239e34a5d7d5de8cf0c107eefece00ab9c82c0a0869170b752dc37dda226d0",
+      "matchesLocalBuild": true
+    },
+    {
+      "scope": "direct-origin",
+      "path": "/foundation/usl.json",
+      "observedAt": "2026-09-29T05:47:50.532310+00:00",
+      "client": "curl default User-Agent",
+      "status": 200,
+      "contentType": "application/json",
+      "bytes": 5972,
+      "sha256": "02f18bb50d896bdb54092b27dde361b0326e8adcabed127ddfd4ad258b92e24e",
+      "localBuildSha256": "02f18bb50d896bdb54092b27dde361b0326e8adcabed127ddfd4ad258b92e24e",
+      "matchesLocalBuild": true
+    },
+    {
+      "scope": "public-https",
+      "path": "/foundation/usl.json",
+      "observedAt": "2026-09-29T05:47:50.741129+00:00",
+      "client": "curl default User-Agent",
+      "status": 200,
+      "contentType": "application/json",
+      "bytes": 5972,
+      "sha256": "02f18bb50d896bdb54092b27dde361b0326e8adcabed127ddfd4ad258b92e24e",
+      "localBuildSha256": "02f18bb50d896bdb54092b27dde361b0326e8adcabed127ddfd4ad258b92e24e",
+      "matchesLocalBuild": true
+    },
+    {
+      "scope": "direct-origin",
+      "path": "/foundation/manifest.json",
+      "observedAt": "2026-09-29T05:47:50.751228+00:00",
+      "client": "curl default User-Agent",
+      "status": 200,
+      "contentType": "application/json",
+      "bytes": 36330,
+      "sha256": "a8cf5ed29673a030569b650fe823ed769d9b82d338c60cd7697d638cc8a21aaf",
+      "localBuildSha256": "a8cf5ed29673a030569b650fe823ed769d9b82d338c60cd7697d638cc8a21aaf",
+      "matchesLocalBuild": true
+    },
+    {
+      "scope": "public-https",
+      "path": "/foundation/manifest.json",
+      "observedAt": "2026-09-29T05:47:50.997667+00:00",
+      "client": "curl default User-Agent",
+      "status": 200,
+      "contentType": "application/json",
+      "bytes": 36330,
+      "sha256": "a8cf5ed29673a030569b650fe823ed769d9b82d338c60cd7697d638cc8a21aaf",
+      "localBuildSha256": "a8cf5ed29673a030569b650fe823ed769d9b82d338c60cd7697d638cc8a21aaf",
+      "matchesLocalBuild": true
+    },
+    {
+      "scope": "direct-origin",
+      "path": "/learn/graph.jsonld",
+      "observedAt": "2026-09-29T05:47:51.007399+00:00",
+      "client": "curl default User-Agent",
+      "status": 200,
+      "contentType": "application/ld+json",
+      "bytes": 78000,
+      "sha256": "c3f41a888c6eb94e9160a396bd68d579d338f3ad38be34bd522c25efe8f5c60f",
+      "localBuildSha256": "c3f41a888c6eb94e9160a396bd68d579d338f3ad38be34bd522c25efe8f5c60f",
+      "matchesLocalBuild": true
+    },
+    {
+      "scope": "public-https",
+      "path": "/learn/graph.jsonld",
+      "observedAt": "2026-09-29T05:47:51.268439+00:00",
+      "client": "curl default User-Agent",
+      "status": 200,
+      "contentType": "application/ld+json",
+      "bytes": 78000,
+      "sha256": "c3f41a888c6eb94e9160a396bd68d579d338f3ad38be34bd522c25efe8f5c60f",
+      "localBuildSha256": "c3f41a888c6eb94e9160a396bd68d579d338f3ad38be34bd522c25efe8f5c60f",
+      "matchesLocalBuild": true
+    },
+    {
+      "scope": "direct-origin",
+      "path": "/services/graph.jsonld",
+      "observedAt": "2026-09-29T05:47:51.277488+00:00",
+      "client": "curl default User-Agent",
+      "status": 200,
+      "contentType": "application/ld+json",
+      "bytes": 13903,
+      "sha256": "03f07cb1e700e8adcb1c71ed79ab7e231942261ba265606c9191d5019ce9caa3",
+      "localBuildSha256": "03f07cb1e700e8adcb1c71ed79ab7e231942261ba265606c9191d5019ce9caa3",
+      "matchesLocalBuild": true
+    },
+    {
+      "scope": "public-https",
+      "path": "/services/graph.jsonld",
+      "observedAt": "2026-09-29T05:47:51.540060+00:00",
+      "client": "curl default User-Agent",
+      "status": 200,
+      "contentType": "application/ld+json",
+      "bytes": 13903,
+      "sha256": "03f07cb1e700e8adcb1c71ed79ab7e231942261ba265606c9191d5019ce9caa3",
+      "localBuildSha256": "03f07cb1e700e8adcb1c71ed79ab7e231942261ba265606c9191d5019ce9caa3",
+      "matchesLocalBuild": true
+    }
+  ],
+  "publicHtmlTransformationNote": "Foundation HTML was previously observed to differ only by Cloudflare email obfuscation; compare content and links as well as hashes. The handoff observation does not infer equality where hashes differ.",
+  "userAgentProbe": [
+    {
+      "userAgent": "Python-urllib/3.13",
+      "status": 403,
+      "contentType": "text/plain; charset=UTF-8",
+      "server": "cloudflare",
+      "observedAt": "2026-09-29T05:47:51.703309+00:00"
+    },
+    {
+      "userAgent": "curl/8.0.1",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "server": "cloudflare",
+      "observedAt": "2026-09-29T05:47:51.960874+00:00"
+    }
+  ],
+  "historicalLocalBrowserQA": {
+    "kind": "prior-run-summary-not-a-new-browser-run",
+    "observedAt": "2026-09-29T03:45:04.610Z",
+    "sourceArtifact": "qa-results/browser-results.json (local untracked QA output)",
+    "sourceSha256": "6c1f571ba46594835c12a1e0f2fc563180531f1e3b76f8f99989272c9569819e",
+    "sizes": [
+      {
+        "width": 1440,
+        "overflow": false,
+        "search": true,
+        "filters": true,
+        "emptyReset": true,
+        "companyNavigation": true,
+        "detail": true
+      },
+      {
+        "width": 768,
+        "overflow": false,
+        "search": true,
+        "filters": true,
+        "emptyReset": true,
+        "companyNavigation": true,
+        "detail": true
+      },
+      {
+        "width": 390,
+        "overflow": false,
+        "search": true,
+        "filters": true,
+        "emptyReset": true,
+        "companyNavigation": true,
+        "detail": true
+      },
+      {
+        "width": 320,
+        "overflow": false,
+        "search": true,
+        "filters": true,
+        "emptyReset": true,
+        "companyNavigation": true,
+        "detail": true
+      }
+    ],
+    "accessibilityScans": 28,
+    "accessibilityViolations": 0,
+    "consoleErrors": [],
+    "functionality": {
+      "soopMath": true,
+      "serviceJump": true,
+      "oneShotSimulation": true,
+      "noJs": true,
+      "localLinks": 42,
+      "learningNoJs": true,
+      "learningKeyboardAndFilters": true
+    },
+    "passed": true
+  },
+  "githubChecks": [
+    {
+      "conclusion": "success",
+      "createdAt": "2026-09-29T03:51:31Z",
+      "databaseId": 36518997997,
+      "headSha": "6bc8aa2672731655453be8cb1bb2c4accc8a0c65",
+      "name": "longinus-drift",
+      "status": "completed",
+      "url": "https://github.com/gj3447/metahumotonic-web/actions/runs/36518997997"
+    },
+    {
+      "conclusion": "success",
+      "createdAt": "2026-09-29T03:51:31Z",
+      "databaseId": 36518998050,
+      "headSha": "6bc8aa2672731655453be8cb1bb2c4accc8a0c65",
+      "name": "build-and-deploy",
+      "status": "completed",
+      "url": "https://github.com/gj3447/metahumotonic-web/actions/runs/36518998050"
+    }
+  ],
+  "deployBranchHead": "66dd1666df6b2cf8d82a96cf6cd8c5a489ae053e",
+  "foundationMainHead": "7d8564e867e0d0c4170d7eb5c3a95005b4683d7c",
+  "observationEndedAt": "2026-09-29T05:50:12.864671+00:00",
+  "liveReleaseState": {
+    "observedAt": "2026-09-29T05:46:26.365Z",
+    "deployCommit": "66dd1666df6b2cf8d82a96cf6cd8c5a489ae053e",
+    "stateFileSha256": "4963991ac1415f40ddf68917bdf5619623748f20d2f214d0d3b9505ab80c95da"
+  },
+  "liveNginx": {
+    "observedAt": "2026-09-29T05:46:26.063Z",
+    "sha256": "12fe4583ad9957b349a29244445e1e01b3404f731120482b659570cdc9a0c032",
+    "foundationJsonLdLocationPresent": false,
+    "configurationManagedSeparatelyFromStaticArtifact": true
+  },
+  "kgLookup": {
+    "observedAt": "2026-09-29T05:47:49.768775+00:00",
+    "queries": [
+      {
+        "query": "MetaHumotonic Foundation",
+        "includePreliminary": true,
+        "result": "NO_MATCH_RETURNED_NOT_PROOF_OF_ABSENCE"
+      }
+    ],
+    "canonReference": {
+      "uid": "sym:AbstractNode:user-canon-ultra-safety-ai-landing-headline-2026-07-23",
+      "uidMatchCount": 1,
+      "uidCollision": false,
+      "returnedAuthorityClass": "SOURCE_DECLARED",
+      "returnedCanonicalScope": "LEGACY_CANONICAL_UNSCOPED",
+      "returnedRecordLifecycle": "ACTIVE",
+      "originalTextProperty": "utterance_verbatim",
+      "originalTextSha256": "ffe2901316baa7b7ee71c1cbf1c3d10ad15eeb160202dc0b7123c1ac123d25cd"
+    },
+    "writesPerformed": false
+  },
+  "liveNginxMount": {
+    "observedAt": "2026-09-29T05:50:12.864671+00:00",
+    "source": "VM100 compose.override.yaml (read-only live inspection)",
+    "sha256": "ad9dc6ae316097177d8ccae93064dee77afd21b72495058de2a1e9b70b952d36",
+    "bindMount": "./nginx.conf:/etc/nginx/conf.d/default.conf:ro",
+    "labelHashesAreNotContentReadback": true
+  }
+}

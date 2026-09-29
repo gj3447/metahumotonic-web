@@ -93,6 +93,10 @@ LakatoTree is the featured flagship repository. Its card describes its public en
 
 The shared dark palette, semantic color roles, graph-display boundaries, and motion budget are documented in [`docs/visual-system.md`](docs/visual-system.md).
 
+The [Foundation handoff](docs/handoffs/FOUNDATION_2026-09-29.md) records the deployed
+Foundation pages and public graph, pinned sources, verification evidence, and the
+remaining live Nginx media-type and public-client access work.
+
 When changing canonical site data, verify its source layer first. Do not promote generated summaries into user canon or rewrite open canon to make the site appear more complete.
 
 ## License

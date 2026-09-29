@@ -1,0 +1,374 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "mh": "https://metahumotonic.com/ns#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "urn:metahumotonic:handoff:foundation:2026-09-29",
+  "@type": "prov:Bundle",
+  "schema:name": "Foundation handoff, 2026-09-29",
+  "schema:description": "Repository-scoped engineering handoff. Standard RDF vocabulary for references and provenance; not a native KG import, legal verdict, SHACL certificate, or access grant.",
+  "@graph": [
+    {
+      "@id": "https://github.com/gj3447/metahumotonic-web",
+      "@type": [
+        "schema:SoftwareSourceCode",
+        "prov:Entity"
+      ],
+      "schema:name": "metahumotonic-web source owner"
+    },
+    {
+      "@id": "https://github.com/gj3447/metahumotonic-foundation",
+      "@type": [
+        "schema:SoftwareSourceCode",
+        "prov:Entity"
+      ],
+      "schema:name": "metahumotonic-foundation source owner"
+    },
+    {
+      "@id": "https://github.com/gj3447/metahumotonic-web/blob/6bc8aa2672731655453be8cb1bb2c4accc8a0c65/src/data/foundation.json",
+      "@type": [
+        "schema:DigitalDocument",
+        "prov:Entity"
+      ],
+      "schema:name": "Pinned public Foundation mission source"
+    },
+    {
+      "@id": "https://github.com/gj3447/metahumotonic-foundation/blob/7d8564e867e0d0c4170d7eb5c3a95005b4683d7c/CHARTER.md",
+      "@type": [
+        "schema:DigitalDocument",
+        "prov:Entity"
+      ],
+      "schema:name": "Pinned Foundation Charter"
+    },
+    {
+      "@id": "https://github.com/gj3447/metahumotonic-web/blob/6bc8aa2672731655453be8cb1bb2c4accc8a0c65/nginx.conf",
+      "@type": [
+        "schema:DigitalDocument",
+        "prov:Entity"
+      ],
+      "schema:name": "Prepared repository Nginx MIME route"
+    },
+    {
+      "@id": "https://github.com/gj3447/metahumotonic-web/blob/6bc8aa2672731655453be8cb1bb2c4accc8a0c65/docs/SERVICE_HUB_2026-09-28.md",
+      "@type": [
+        "schema:DigitalDocument",
+        "prov:Entity"
+      ],
+      "schema:name": "Prior service-hub delivery scope"
+    },
+    {
+      "@id": "sym:AbstractNode:user-canon-ultra-safety-ai-landing-headline-2026-07-23",
+      "@type": [
+        "schema:DigitalDocument",
+        "prov:Entity"
+      ],
+      "schema:name": "KG headline record; original text preserved in owner KG"
+    },
+    {
+      "@id": "https://metahumotonic.com/foundation/#initiative",
+      "@type": [
+        "schema:Project",
+        "prov:Entity"
+      ],
+      "schema:name": "MetaHumotonic Open-Source Foundation Initiative"
+    },
+    {
+      "@id": "https://metahumotonic.com/foundation/#charter",
+      "@type": [
+        "schema:DigitalDocument",
+        "prov:Entity"
+      ],
+      "schema:name": "Foundation charter resource"
+    },
+    {
+      "@id": "https://metahumotonic.com/foundation/#about-page",
+      "@type": [
+        "schema:AboutPage",
+        "prov:Entity"
+      ],
+      "schema:name": "Foundation public page resource"
+    },
+    {
+      "@id": "https://metahumotonic.com/foundation/#research-report",
+      "@type": [
+        "schema:Report",
+        "prov:Entity"
+      ],
+      "schema:name": "Foundation research resource"
+    },
+    {
+      "@id": "https://metahumotonic.com/foundation/graph.jsonld",
+      "@type": [
+        "schema:DigitalDocument",
+        "prov:Entity"
+      ],
+      "schema:name": "Foundation JSON-LD representation"
+    },
+    {
+      "@id": "https://metahumotonic.com/foundation/usl.json",
+      "@type": [
+        "schema:DigitalDocument",
+        "prov:Entity"
+      ],
+      "schema:name": "Foundation USL representation"
+    },
+    {
+      "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#author",
+      "@type": "prov:SoftwareAgent",
+      "schema:name": "Codex, author of this source-scoped handoff",
+      "mh:authority": "SECONDARY_AI"
+    },
+    {
+      "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#handoff",
+      "@type": [
+        "schema:DigitalDocument",
+        "prov:Entity"
+      ],
+      "schema:name": "Foundation website and public graph handoff",
+      "schema:identifier": "docs/handoffs/FOUNDATION_2026-09-29.md",
+      "schema:about": [
+        {
+          "@id": "https://metahumotonic.com/foundation/#initiative"
+        },
+        {
+          "@id": "https://github.com/gj3447/metahumotonic-web"
+        },
+        {
+          "@id": "https://github.com/gj3447/metahumotonic-foundation"
+        }
+      ],
+      "schema:hasPart": [
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#claim-publication"
+        },
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#claim-legal-boundary"
+        },
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#claim-kg-boundary"
+        },
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#claim-backend-scope"
+        },
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#open-altar-meaning"
+        }
+      ],
+      "prov:wasAttributedTo": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#author"
+      },
+      "prov:wasDerivedFrom": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#evidence"
+      },
+      "mh:authority": "SECONDARY_AI",
+      "mh:status": "HANDOFF_RECORDED_WITH_OPEN_OPERATIONS"
+    },
+    {
+      "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#observation",
+      "@type": "prov:Activity",
+      "schema:name": "Bounded HTTP, Git/CI and read-only deployment inspection",
+      "prov:startedAtTime": {
+        "@value": "2026-09-29T05:46:26.063Z",
+        "@type": "xsd:dateTime"
+      },
+      "prov:endedAtTime": {
+        "@value": "2026-09-29T05:50:12.864671+00:00",
+        "@type": "xsd:dateTime"
+      },
+      "prov:used": [
+        {
+          "@id": "https://metahumotonic.com/foundation/graph.jsonld"
+        },
+        {
+          "@id": "https://metahumotonic.com/foundation/usl.json"
+        },
+        {
+          "@id": "https://github.com/gj3447/metahumotonic-web/blob/6bc8aa2672731655453be8cb1bb2c4accc8a0c65/nginx.conf"
+        },
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#live-nginx"
+        }
+      ],
+      "prov:wasAssociatedWith": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#author"
+      }
+    },
+    {
+      "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#evidence",
+      "@type": [
+        "schema:DigitalDocument",
+        "prov:Entity"
+      ],
+      "schema:name": "Time-bounded handoff observations and prior QA summary",
+      "schema:identifier": "docs/evidence/foundation-handoff-2026-09-29.json",
+      "schema:about": [
+        {
+          "@id": "https://metahumotonic.com/foundation/graph.jsonld"
+        },
+        {
+          "@id": "https://metahumotonic.com/foundation/usl.json"
+        },
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#live-nginx"
+        }
+      ],
+      "prov:wasGeneratedBy": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#observation"
+      },
+      "prov:wasAttributedTo": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#author"
+      },
+      "mh:authority": "SECONDARY_AI_OPERATIONAL_OBSERVATION",
+      "mh:status": "POINT_IN_TIME_NOT_CONTINUOUS_HEALTH"
+    },
+    {
+      "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#live-nginx",
+      "@type": [
+        "schema:DigitalDocument",
+        "prov:Entity"
+      ],
+      "schema:name": "VM100 separately managed Nginx configuration",
+      "schema:description": "The active configuration lacks the Foundation JSON-LD MIME location. Exact observed digest is in the evidence artifact. Repository configuration and live configuration are distinct resources.",
+      "schema:potentialAction": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#apply-nginx-mime"
+      }
+    },
+    {
+      "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#claim-publication",
+      "@type": [
+        "schema:CreativeWork",
+        "prov:Entity"
+      ],
+      "schema:about": [
+        {
+          "@id": "https://metahumotonic.com/foundation/#about-page"
+        },
+        {
+          "@id": "https://metahumotonic.com/foundation/graph.jsonld"
+        },
+        {
+          "@id": "https://metahumotonic.com/foundation/usl.json"
+        }
+      ],
+      "schema:text": "Page and graph/USL payloads are deployed and return HTTP 200 to curl. The Foundation JSON-LD payload still has application/octet-stream on direct origin and public HTTPS. Successful content deployment does not complete its HTTP media-type contract.",
+      "prov:wasDerivedFrom": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#evidence"
+      },
+      "mh:authority": "SECONDARY_AI",
+      "mh:status": "DEPLOYED_CONTENT_WITH_OPEN_MIME"
+    },
+    {
+      "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#claim-legal-boundary",
+      "@type": [
+        "schema:CreativeWork",
+        "prov:Entity"
+      ],
+      "schema:about": {
+        "@id": "https://metahumotonic.com/foundation/#initiative"
+      },
+      "schema:text": "The pinned public sources describe PUBLIC_OPEN_SOURCE_INITIATIVE and NOT_YET_LEGALLY_INCORPORATED. This handoff records the source claim, not an independent legal-registry verification or safety certification.",
+      "prov:wasDerivedFrom": [
+        {
+          "@id": "https://github.com/gj3447/metahumotonic-web/blob/6bc8aa2672731655453be8cb1bb2c4accc8a0c65/src/data/foundation.json"
+        },
+        {
+          "@id": "https://github.com/gj3447/metahumotonic-foundation/blob/7d8564e867e0d0c4170d7eb5c3a95005b4683d7c/CHARTER.md"
+        }
+      ],
+      "mh:authority": "SECONDARY_AI_SOURCE_SUMMARY",
+      "mh:status": "SOURCE_DECLARED"
+    },
+    {
+      "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#claim-kg-boundary",
+      "@type": [
+        "schema:CreativeWork",
+        "prov:Entity"
+      ],
+      "schema:about": [
+        {
+          "@id": "https://metahumotonic.com/foundation/graph.jsonld"
+        },
+        {
+          "@id": "sym:AbstractNode:user-canon-ultra-safety-ai-landing-headline-2026-07-23"
+        }
+      ],
+      "schema:text": "Public Foundation and USL projections are not native KG canon. This handoff used read-only KG lookups and performed no KG writes. The exact headline UID is a reference; the Foundation query returned no match, which is not proof of absence.",
+      "prov:wasDerivedFrom": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#evidence"
+      },
+      "mh:authority": "SECONDARY_AI",
+      "mh:status": "NO_KG_CANON_WRITE"
+    },
+    {
+      "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#claim-backend-scope",
+      "@type": [
+        "schema:CreativeWork",
+        "prov:Entity"
+      ],
+      "schema:about": {
+        "@id": "https://github.com/gj3447/metahumotonic-web"
+      },
+      "schema:text": "The work covered static web content, public Foundation projections and Foundation documents. It did not perform a TypeScript/Effect production backend cutover or PostgreSQL/MCP migration. Backend runtime claims require a separate current audit.",
+      "prov:wasDerivedFrom": {
+        "@id": "https://github.com/gj3447/metahumotonic-web/blob/6bc8aa2672731655453be8cb1bb2c4accc8a0c65/docs/SERVICE_HUB_2026-09-28.md"
+      },
+      "mh:authority": "SECONDARY_AI_SCOPE_RECORD",
+      "mh:status": "OUTSIDE_THIS_DELIVERY_NOT_REAUDITED"
+    },
+    {
+      "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#open-altar-meaning",
+      "@type": [
+        "schema:CreativeWork",
+        "prov:Entity"
+      ],
+      "schema:about": {
+        "@id": "https://metahumotonic.com/foundation/#initiative"
+      },
+      "schema:text": "The user's 제단 wording was provisionally interpreted as Foundation/재단 using the available repository context. A separate symbolic altar concept was not established; do not create its canon from this interpretation.",
+      "mh:authority": "SECONDARY_AI_INTERPRETATION",
+      "mh:status": "UNRESOLVED_USER_MEANING",
+      "schema:citation": "Current conversation: user message beginning '그리고 메타휴모토닉 제단이 중요해' and explicitly naming metahumotonic foundation; original message date not provided."
+    },
+    {
+      "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#apply-nginx-mime",
+      "@type": "schema:Action",
+      "schema:name": "Apply and verify Foundation JSON-LD media type",
+      "schema:actionStatus": {
+        "@id": "schema:PotentialActionStatus"
+      },
+      "schema:object": [
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#live-nginx"
+        },
+        {
+          "@id": "https://metahumotonic.com/foundation/graph.jsonld"
+        }
+      ],
+      "schema:subjectOf": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#evidence"
+      },
+      "schema:description": "Responsible role: VM100 operator, unassigned. Prerequisite: an available authorized VM100 management transport. Preserve the live root and existing routes; add only the prepared exact location, validate nginx configuration, reload and verify direct/public application/ld+json plus payload hash and existing home/wiki/learn checks. On failure restore the saved live config and revalidate. The existing user authorization is not revoked; missing transport is not a request to approve the same work again.",
+      "mh:authority": "SECONDARY_AI_HANDOFF_TASK",
+      "mh:status": "OPEN_MISSING_MANAGEMENT_TRANSPORT"
+    },
+    {
+      "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#review-public-client-access",
+      "@type": "schema:Action",
+      "schema:name": "Investigate public graph responses by client User-Agent",
+      "schema:actionStatus": {
+        "@id": "schema:PotentialActionStatus"
+      },
+      "schema:object": {
+        "@id": "https://metahumotonic.com/foundation/graph.jsonld"
+      },
+      "schema:subjectOf": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#evidence"
+      },
+      "schema:description": "Responsible role: public edge operator, unassigned. Python-urllib/3.13 returned 403 with a Cloudflare server header while curl/8.0.1 returned 200 in the same urllib transport. Inspect the matching edge event before attributing a rule or changing policy. Acceptance: document the intended public machine-client policy and verify it with the two probes. No policy change was made in this handoff.",
+      "mh:authority": "SECONDARY_AI_HANDOFF_TASK",
+      "mh:status": "OPEN_INVESTIGATION"
+    }
+  ]
+}
