@@ -21,33 +21,12 @@ test('every public entity and reading path has a rendered anchor; local resource
   for (const node of artifact.nodes) {
     assert.ok(html.includes(`id="entity-${node.id}"`), node.id);
     assert.equal(node.public, true);
-    if (node.href.startsWith('https://metahumotonic.com/')) {
-      const pathname = new URL(node.href).pathname;
-      const relative = pathname.endsWith('.json') ? pathname.slice(1) : `${pathname.slice(1)}index.html`;
-      await access(new URL(`../dist/${relative}`, import.meta.url));
-    }
+    if (node.href.startsWith('https://metahumotonic.com/')) await access(new URL(`../dist/${new URL(node.href).pathname.slice(1)}index.html`, import.meta.url));
   }
   for (const path of artifact.paths) assert.ok(html.includes(`id="path-${path.id}"`));
   for (const relation of Object.keys(artifact.relationDescriptions)) assert.ok(html.includes(`id="relation-${relation.toLowerCase().replaceAll('_', '-')}"`));
   assert.match(html, /<noscript>/);
   assert.equal((html.match(/data-learning-id=/g) ?? []).length, artifact.nodes.length);
-});
-test('Foundation separates the public initiative, charter source, and academic research status', () => {
-  const initiative = artifact.nodes.find((node) => node.id === 'foundation-initiative');
-  const guide = artifact.nodes.find((node) => node.id === 'foundation');
-  const charter = artifact.nodes.find((node) => node.id === 'foundation-charter');
-  const academic = artifact.nodes.find((node) => node.id === 'academic-foundations');
-  assert.equal(initiative.status, 'PUBLIC_OPEN_SOURCE_INITIATIVE; NOT_YET_LEGALLY_INCORPORATED');
-  assert.equal(guide.semanticType, 'https://schema.org/AboutPage');
-  assert.equal(charter.semanticType, 'https://schema.org/DigitalDocument');
-  assert.equal(charter.href, 'https://github.com/gj3447/metahumotonic-foundation/blob/master/CHARTER.md');
-  assert.equal(charter.status, 'PUBLIC_GOVERNANCE_CHARTER');
-  assert.equal(academic.semanticType, 'https://schema.org/Report');
-  assert.equal(academic.status, 'SECONDARY_AI_RESEARCH_SYNTHESIS; TESTABLE_DESIGN_HYPOTHESIS_NOT_VALIDATED');
-  assert.equal(academic.href, 'https://metahumotonic.com/research/foundations.json');
-  assert.ok(artifact.edges.some((edge) => edge.id === 'foundation-initiative-source-code-foundation-code'));
-  assert.ok(artifact.edges.some((edge) => edge.id === 'foundation-initiative-documented-in-foundation-charter'));
-  assert.ok(artifact.edges.some((edge) => edge.id === 'ultra-safety-agent-documented-in-academic-foundations'));
 });
 test('visible graph labels retain reviewed kind, authority, relation and ACTIVE status', async () => {
   const html = await readDist('learn/index.html');

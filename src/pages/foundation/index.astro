@@ -109,6 +109,8 @@ const structuredData = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={foundation._meta.canonical_url} />
+    <link rel="alternate" type="application/ld+json" href="/foundation/graph.jsonld" title="Foundation 공개 의미 그래프" />
+    <link rel="alternate" type="application/json" href="/foundation/usl.json" title="Foundation USL resource map" />
     <link rel="alternate" type="application/json" href="/foundation/manifest.json" title="Agent Commons manifest" />
     <link rel="alternate" type="application/json" href="/research/foundations.json" title="Academic foundations and falsifiable hypotheses" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -155,7 +157,7 @@ const structuredData = {
             <a class="button button--primary" href={foundationRepository}>Public charter & governance ↗</a>
             <a class="button button--quiet" href="#super-safe">헌정 구조 보기</a>
             <a class="button button--quiet" href="/research/foundations.json">학술적 근거와 반증 기준 ↗</a>
-            <a class="button button--quiet" href="/foundation/manifest.json">Machine-readable mission ↗</a>
+            <a class="button button--quiet" href="/foundation/graph.jsonld">공개 그래프 JSON-LD ↗</a>
           </div>
           <p class="hero__honesty">PUBLIC OPEN-SOURCE INITIATIVE · NOT YET LEGALLY INCORPORATED · NOT A SAFETY CERTIFICATION</p>
         </div>
@@ -467,6 +469,8 @@ const structuredData = {
       <span>MetaHumotonic Open-Source Foundation Initiative · Agent Commons</span>
       <span>{foundation._meta.status.replaceAll('_', ' ')}</span>
       <nav>
+        <a href="/foundation/graph.jsonld">Graph JSON-LD</a>
+        <a href="/foundation/usl.json">USL JSON</a>
         <a href="/foundation/manifest.json">Manifest JSON</a>
         <a href={foundationRepository}>Public governance</a>
         <a href="mailto:hi@metahumotonic.com">Contact</a>
