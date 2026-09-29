@@ -56,3 +56,8 @@ test('Foundation USL projection preserves graph identities, status, and directio
   assert.equal(initiativeToCharter?.type, 'https://schema.org/subjectOf');
   assert.ok(usl.relations.every((edge) => usl.nodes.some((node) => node.uid === edge.from_uid) && usl.nodes.some((node) => node.uid === edge.to_uid)));
 });
+
+test('Nginx serves the standalone Foundation graph as JSON-LD', async () => {
+  const config = await readFile(new URL('../nginx.conf', import.meta.url), 'utf8');
+  assert.match(config, /location = \/foundation\/graph\.jsonld\s*\{\s*types \{ \}\s*default_type application\/ld\+json;/);
+});

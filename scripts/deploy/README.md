@@ -26,6 +26,13 @@ The older 2026-07-23 investigation below is preserved as historical evidence.
 
 2026-07-23 실측 기준. **Mac mini 는 경유하지 않는다.**
 
+VM100의 Nginx 설정은 정적 사이트 아티팩트와 별도로
+`/opt/metahumotonic/canary/landing-astro-subpages/nginx.conf`에서 관리한다.
+새 `.jsonld` 주소를 추가할 때는 저장소 `nginx.conf`의 해당 location을 운영
+설정에도 적용하고, Nginx 설정 검사와 reload 후 원본·공개 도메인 모두에서
+`Content-Type: application/ld+json`을 확인해야 한다. GitHub Actions의 정적
+아티팩트 배포만으로 운영 Nginx 설정은 바뀌지 않는다.
+
 ```
 push main ──► GHA build-and-deploy ──► force-push `deploy` 브랜치 (cm.yaml + dist.tar.gz)
                                               │

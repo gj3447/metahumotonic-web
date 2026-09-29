@@ -11,7 +11,7 @@
   "baselines": {
     "Dockerfile": "e04e0f2c8e196ebae4b5c94c6f2af3bee30fc06e39a6419d347f2324e6ccae86",
     "astro.config.mjs": "87a9f4f2a66fd25daf8e80c47020348de09d65ef607499b506f732d477481747",
-    "nginx.conf": "842cf5cff50503bdcb7003702ad5eecb2daa3c2636101686b1d992e5c244d8b9",
+    "nginx.conf": "53157b21f83074f94368ec46bea6dd31fd79b50104a0084305cbd2a003889814",
     "public/.well-known/333-compute.json": "7fff7e528c9c1a11c865510d78ba390f744243ac195f2efbc21ca0628d678ae4",
     "public/js/ogl.umd.js": "6a619c7bb08629d26e025b08f4cea79edc5144d6c72e8e8d5ac47858e27380fc",
     "public/ontology.ttl": "2e7fc1194528be5f1787d8936765dd91340fe39b3493ec5ee4115ab7717a5877",
