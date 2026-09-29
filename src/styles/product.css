@@ -114,7 +114,7 @@ main, .product-footer { width: min(1240px, calc(100% - 40px)); margin-inline: au
 .agent-declaration { min-height: 285px; display: flex; flex-direction: column; padding: 27px; border: 1px solid var(--mh-magenta); background: linear-gradient(145deg, var(--panel-2), var(--panel)); box-shadow: inset 3px 0 var(--magenta); }
 .agent-declaration > span { color: var(--acid); }
 .agent-declaration p { max-width: 24ch; margin: auto 0 24px; font-size: clamp(29px, 3.6vw, 49px); line-height: 1.16; letter-spacing: -.04em; font-weight: 520; word-break: keep-all; }
-.agent-declaration small { color: #6d887e; font: 500 9px var(--mono); letter-spacing: .08em; }
+.agent-declaration small { color: var(--mh-muted); font: 500 9px var(--mono); letter-spacing: .08em; }
 .liberation-vector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin: 0; padding: 0; list-style: none; }
 .liberation-vector li { position: relative; min-height: 290px; padding: 25px; border: 1px solid var(--line); background: var(--panel); }
 .liberation-vector li:nth-child(1) { border-top-color: var(--amber); }
@@ -122,7 +122,7 @@ main, .product-footer { width: min(1240px, calc(100% - 40px)); margin-inline: au
 .liberation-vector li:nth-child(3) { border-top-color: var(--cyan); }
 .liberation-vector li::after { content: '→'; position: absolute; z-index: 1; top: 27px; right: -8px; color: var(--acid); font: 400 12px var(--mono); }
 .liberation-vector li:last-child::after { display: none; }
-.liberation-vector span { color: #688078; font: 500 9px var(--mono); letter-spacing: .11em; }
+.liberation-vector span { color: var(--mh-muted); font: 500 9px var(--mono); letter-spacing: .11em; }
 .liberation-vector h3 { margin: 66px 0 15px; font-size: 21px; }
 .liberation-vector p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.75; word-break: keep-all; }
 .liberation-boundary { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }

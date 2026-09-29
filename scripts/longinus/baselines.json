@@ -37,9 +37,9 @@
     "src/pages/explore.astro": "a660fce7fddc14e94cecb5346e24180ca996c4041204211205dc1fe0200d9d47",
     "src/pages/book/index.astro": "4a7519d94e65b0799354441f4f890bc727c1b48587cb188b1af8aece9e14091e",
     "src/pages/compute.astro": "6057df0076fa0069b3a9d5a60352c404aad264f2b798af1abadfa0f10fe99d13",
-    "src/pages/foundation/index.astro": "1004d447e0a3470bfc307f833636b98f59aa759293bc53e249ea04837820bd14",
+    "src/pages/foundation/index.astro": "2ea9e27b6c96e36df8bf7222aafeae02ea57c8b3295e4752fa28204357f3b6b9",
     "src/pages/foundation/manifest.json.ts": "a2f839188b9bd697d85f383580a319b8f180fdff7c8e857c3ff7fb569d190087",
-    "src/pages/index.astro": "7dda7586854236df9b5495774c99e4b7554a90d4d6ba832a3df069261dbdec16",
+    "src/pages/index.astro": "be99ed1123cddfb2dca746776ac6e2facfc8dfe46a5dc4256433e57e4778125a",
     "src/pages/research.astro": "9b27dc6c6c7c3088691de9608d22c6326b8c721d71bd663ac0fefcae61c4bf96",
     "src/pages/research/foundations.json.ts": "5711c504e5a195612c48c1e297b1712470891d9e967bcbb14d315cce7c9181f5",
     "src/pages/research/hswm/index.astro": "8323b1e939392bce64176e0ef6abf7c62929be56833b32dcff17e330d9a03267",
@@ -52,7 +52,7 @@
     "src/styles/cosmos.css": "e00dad40b17fe05020ddec2af3909579fa774d7a92c680d0500a556010b7171b",
     "src/styles/compute.css": "5d0075e5a489bec96a44f9f3606fab4231f81a10ca2c88d6342294c6b13f0ccb",
     "src/styles/landing.css": "fea4ce52608dbdaac0604cdbab78a711adc69a9ac2945551e91cc47c1dec4aa9",
-    "src/styles/product.css": "e0c32259c0aac5c962b1dcb49e0415756c063f3289eb64683609f762f3002add",
+    "src/styles/product.css": "8a4ed71ea21612d8ae686aea16a1a4388363a14a525c9da9bdfdc2794771a600",
     ".github/workflows/build-and-deploy.yml": "e3c817011b91264448e4a1f6aecdeb91972139e4fd5752a9df84e4aee2f48438"
   }
 }

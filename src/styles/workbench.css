@@ -106,6 +106,19 @@
   .company-copy .company-lead { font-size: 23px; line-height: 1.75; letter-spacing: -.03em; margin-bottom: 24px; }
   .company-copy > p { color: var(--muted); font-size: 15px; }
   .company-links { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 28px; }
+  .foundation-home { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(36px, 6vw, 92px); padding-block: 84px; border-bottom: 1px solid var(--border); }
+  .foundation-home__intro { border-left: 3px solid var(--mh-cyan); padding-left: 24px; }
+  .foundation-home__intro > p:not(.eyebrow) { max-width: 52ch; margin-top: 24px; color: var(--muted); font-size: 15px; }
+  .foundation-home__status { display: inline-block; margin-top: 24px; padding: 7px 10px; border: 1px solid var(--mh-yellow); color: var(--mh-yellow); font: 500 11px/1.5 var(--mono); }
+  .foundation-home__roles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .foundation-home__roles article { min-width: 0; padding: 24px; border: 1px solid var(--mh-line); background: var(--mh-surface); }
+  .foundation-home__roles article:first-child { border-top: 2px solid var(--mh-cyan); }
+  .foundation-home__roles article:last-child { border-top: 2px solid var(--mh-magenta); }
+  .foundation-home__roles span { color: var(--muted); font: 500 10px/1.5 var(--mono); letter-spacing: .06em; }
+  .foundation-home__roles h3 { margin-top: 32px; font-size: 18px; font-weight: 560; letter-spacing: -.03em; }
+  .foundation-home__roles p { margin-top: 9px; color: var(--muted); font-size: 13px; }
+  .foundation-home__details > p { margin-top: 20px; color: var(--muted); font-size: 13px; }
+  .foundation-home__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 22px; margin-top: 23px; }
   .open-section { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; padding-block: 100px; }
   .open-section h2 + p { color: var(--muted); font-size: 15px; margin-top: 24px; }
   .open-links { align-self: center; }
@@ -184,7 +197,7 @@
     .site-nav { gap: 20px; }
     .hero { gap: 30px; padding-block: 55px; }
     .desktop-break { display: none; }
-    .research-grid, .company-section, .open-section { gap: 40px; }
+    .research-grid, .company-section, .foundation-home, .open-section { gap: 40px; }
     .footer-columns { gap: 30px; }
     .project-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   }
@@ -208,7 +221,7 @@
     .brand-artwork-signature { bottom: 15px; right: 16px; }
     .chapter-nav a { padding: 22px 18px; }
     .chapter-nav strong { font-size: 14px; }
-    .products-section, .research-section, .company-section, .open-section { padding-block: 70px; }
+    .products-section, .research-section, .company-section, .foundation-home, .open-section { padding-block: 70px; }
     .product-showcase { gap: 20px; }
     .product-feature h3 { font-size: 23px; }
     .product-tagline { font-size: 14px; }
@@ -247,8 +260,9 @@
     .chapter-nav a > span:last-child { grid-column: 2; grid-row: 1/3; align-self: center; }
     .chapter-nav strong { font-size: 15px; }
     .section-heading { align-items: start; flex-direction: column; gap: 18px; margin-bottom: 28px; }
-    .products-section, .research-section, .company-section, .open-section { padding-block: 55px; }
-    .product-showcase, .research-grid, .company-section, .open-section { grid-template-columns: 1fr; gap: 38px; }
+    .products-section, .research-section, .company-section, .foundation-home, .open-section { padding-block: 55px; }
+    .product-showcase, .research-grid, .company-section, .foundation-home, .open-section { grid-template-columns: 1fr; gap: 38px; }
+    .foundation-home__roles { grid-template-columns: 1fr; }
     .product-meta { margin-top: 18px; }
     .product-feature h3 { font-size: 26px; }
     .product-tagline { font-size: 15px; }

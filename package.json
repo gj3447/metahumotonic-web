@@ -13,6 +13,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "prebuild:kg": "node scripts/prebuild/dump-kg.mjs",
+    "refresh:learning-graph": "node scripts/build/refresh-learning-projections.mjs",
     "test:compute-consent": "node --test tests/compute-consent.test.mjs",
     "test:site-surface": "node --test tests/surface-split.test.mjs",
     "test:wiki-community": "node --test tests/wiki-community.test.mjs",

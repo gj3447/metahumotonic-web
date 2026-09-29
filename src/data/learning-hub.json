@@ -86,16 +86,72 @@
     {
       "id": "foundation",
       "kind": "article",
-      "title": "공개 헌장",
-      "summary": "자유·경제·합의가 어떤 사명과 운영 원칙으로 이어지는지 읽습니다.",
+      "title": "Foundation · 공개 사명과 운영 설계",
+      "summary": "사명, 운영 원칙, 공개 기여와 안전 가설의 한계를 안내하는 공개 웹 가이드입니다.",
       "href": "https://metahumotonic.com/foundation/",
       "public": true,
       "authority": "PRIMARY_SOURCE",
       "reviewedAt": "2026-09-27",
+      "semanticType": "https://schema.org/AboutPage",
+      "status": "PUBLIC_MISSION_AND_OPERATING_DESIGN",
       "sources": [
         {
-          "label": "Foundation",
+          "label": "Foundation 공개 사명과 운영 설계",
           "url": "https://metahumotonic.com/foundation/"
+        }
+      ]
+    },
+    {
+      "id": "foundation-initiative",
+      "kind": "article",
+      "title": "MetaHumotonic Open-Source Foundation Initiative",
+      "summary": "공개 프로토콜·거버넌스·적합성·공개 영수증을 위한 공공 기반 이니셔티브입니다. 법인 재단으로는 아직 설립되지 않았습니다.",
+      "href": "https://metahumotonic.com/foundation/",
+      "public": true,
+      "authority": "PRIMARY_SOURCE",
+      "reviewedAt": "2026-09-27",
+      "semanticType": "https://schema.org/Project",
+      "status": "PUBLIC_OPEN_SOURCE_INITIATIVE; NOT_YET_LEGALLY_INCORPORATED",
+      "sources": [
+        {
+          "label": "Foundation initiative와 법적 경계",
+          "url": "https://metahumotonic.com/foundation/"
+        }
+      ]
+    },
+    {
+      "id": "academic-foundations",
+      "kind": "article",
+      "title": "Academic foundations · 연구 근거와 가설",
+      "summary": "공개 사명과 구별되는 연구 종합입니다. 안전 가설은 검증 대상이며 안전 인증이나 실증 결과가 아닙니다.",
+      "href": "https://metahumotonic.com/research/foundations.json",
+      "public": true,
+      "authority": "EDITORIAL_SUMMARY",
+      "reviewedAt": "2026-09-27",
+      "semanticType": "https://schema.org/Report",
+      "status": "SECONDARY_AI_RESEARCH_SYNTHESIS; TESTABLE_DESIGN_HYPOTHESIS_NOT_VALIDATED",
+      "sources": [
+        {
+          "label": "공개 연구 근거와 반증 조건",
+          "url": "https://metahumotonic.com/research/foundations.json"
+        }
+      ]
+    },
+    {
+      "id": "foundation-charter",
+      "kind": "article",
+      "title": "Foundation Charter · CHARTER.md",
+      "summary": "공개 Foundation 거버넌스 저장소에 게시된 헌장 원문입니다. 공개 이니셔티브의 원칙과 변경 가능한 운영 기준을 기록합니다.",
+      "href": "https://github.com/gj3447/metahumotonic-foundation/blob/master/CHARTER.md",
+      "public": true,
+      "authority": "PRIMARY_SOURCE",
+      "reviewedAt": "2026-09-27",
+      "semanticType": "https://schema.org/DigitalDocument",
+      "status": "PUBLIC_GOVERNANCE_CHARTER",
+      "sources": [
+        {
+          "label": "공개 CHARTER.md 원문",
+          "url": "https://github.com/gj3447/metahumotonic-foundation/blob/master/CHARTER.md"
         }
       ]
     },
@@ -876,6 +932,46 @@
       "source": "https://metahumotonic.com/foundation/"
     },
     {
+      "id": "foundation-initiative-documented-in-foundation-charter",
+      "from": "foundation-initiative",
+      "to": "foundation-charter",
+      "relation": "DOCUMENTED_IN",
+      "label": "공개 헌장 원문에 이니셔티브 원칙을 기록합니다",
+      "status": "ACTIVE",
+      "authority": "PRIMARY_SOURCE",
+      "source": "https://github.com/gj3447/metahumotonic-foundation/blob/master/CHARTER.md"
+    },
+    {
+      "id": "foundation-initiative-source-code-foundation-code",
+      "from": "foundation-initiative",
+      "to": "foundation-code",
+      "relation": "SOURCE_CODE",
+      "label": "공개 거버넌스 원문과 변경 이력",
+      "status": "ACTIVE",
+      "authority": "PRIMARY_SOURCE",
+      "source": "https://github.com/gj3447/metahumotonic-foundation"
+    },
+    {
+      "id": "foundation-explore-next-academic-foundations",
+      "from": "foundation",
+      "to": "academic-foundations",
+      "relation": "EXPLORE_NEXT",
+      "label": "사명과 연구 가설의 경계를 확인하기",
+      "status": "ACTIVE",
+      "authority": "EDITORIAL_SUMMARY",
+      "source": "https://metahumotonic.com/research/foundations.json"
+    },
+    {
+      "id": "ultra-safety-agent-documented-in-academic-foundations",
+      "from": "ultra-safety-agent",
+      "to": "academic-foundations",
+      "relation": "DOCUMENTED_IN",
+      "label": "연구 근거·반증 조건·검증 상태 읽기",
+      "status": "ACTIVE",
+      "authority": "EDITORIAL_SUMMARY",
+      "source": "https://metahumotonic.com/research/foundations.json"
+    },
+    {
       "id": "foundation-source-code-foundation-code",
       "from": "foundation",
       "to": "foundation-code",
@@ -1637,7 +1733,10 @@
       "steps": [
         "freedom",
         "foundation",
-        "foundation-code"
+        "foundation-initiative",
+        "foundation-charter",
+        "foundation-code",
+        "academic-foundations"
       ]
     },
     {
@@ -1689,7 +1788,7 @@
       ]
     }
   ],
-  "sourceDigest": "sha256:5933313125cc604c8ba3d4a017c17e6a1b6690878369b1282d0f38d8655a71e1",
+  "sourceDigest": "sha256:ea766f65becd169034e8465ae2755a55cbd3147ff038382473fda6b9ce1864a0",
   "relationDescriptions": {
     "INTRODUCES": "소개 페이지가 이 항목을 안내합니다. 구현·소속·동일성 관계를 뜻하지 않습니다.",
     "DEFINES": "원문이 개념의 정의를 제시합니다.",
@@ -1708,7 +1807,7 @@
       "prov": "http://www.w3.org/ns/prov#"
     },
     "@id": "https://metahumotonic.com/learn/graph.jsonld",
-    "mh:sourceDigest": "sha256:5933313125cc604c8ba3d4a017c17e6a1b6690878369b1282d0f38d8655a71e1",
+    "mh:sourceDigest": "sha256:ea766f65becd169034e8465ae2755a55cbd3147ff038382473fda6b9ce1864a0",
     "@graph": [
       {
         "@id": "https://metahumotonic.com/learn/",
@@ -1900,8 +1999,8 @@
       {
         "@id": "https://metahumotonic.com/learn/#entity-foundation",
         "@type": "LearningResource",
-        "name": "공개 헌장",
-        "description": "자유·경제·합의가 어떤 사명과 운영 원칙으로 이어지는지 읽습니다.",
+        "name": "Foundation · 공개 사명과 운영 설계",
+        "description": "사명, 운영 원칙, 공개 기여와 안전 가설의 한계를 안내하는 공개 웹 가이드입니다.",
         "url": "https://metahumotonic.com/foundation/",
         "mh:authority": "PRIMARY_SOURCE",
         "mh:reviewedAt": "2026-09-27",
@@ -1910,11 +2009,76 @@
             "@id": "https://metahumotonic.com/foundation/"
           }
         ],
+        "additionalType": "https://schema.org/AboutPage",
+        "mh:status": "PUBLIC_MISSION_AND_OPERATING_DESIGN",
+        "https://metahumotonic.com/learn/#relation-source-code": [
+          {
+            "@id": "https://metahumotonic.com/learn/#entity-foundation-code"
+          }
+        ],
+        "https://metahumotonic.com/learn/#relation-explore-next": [
+          {
+            "@id": "https://metahumotonic.com/learn/#entity-academic-foundations"
+          }
+        ]
+      },
+      {
+        "@id": "https://metahumotonic.com/learn/#entity-foundation-initiative",
+        "@type": "LearningResource",
+        "name": "MetaHumotonic Open-Source Foundation Initiative",
+        "description": "공개 프로토콜·거버넌스·적합성·공개 영수증을 위한 공공 기반 이니셔티브입니다. 법인 재단으로는 아직 설립되지 않았습니다.",
+        "url": "https://metahumotonic.com/foundation/",
+        "mh:authority": "PRIMARY_SOURCE",
+        "mh:reviewedAt": "2026-09-27",
+        "prov:wasDerivedFrom": [
+          {
+            "@id": "https://metahumotonic.com/foundation/"
+          }
+        ],
+        "additionalType": "https://schema.org/Project",
+        "mh:status": "PUBLIC_OPEN_SOURCE_INITIATIVE; NOT_YET_LEGALLY_INCORPORATED",
+        "https://metahumotonic.com/learn/#relation-documented-in": [
+          {
+            "@id": "https://metahumotonic.com/learn/#entity-foundation-charter"
+          }
+        ],
         "https://metahumotonic.com/learn/#relation-source-code": [
           {
             "@id": "https://metahumotonic.com/learn/#entity-foundation-code"
           }
         ]
+      },
+      {
+        "@id": "https://metahumotonic.com/learn/#entity-academic-foundations",
+        "@type": "LearningResource",
+        "name": "Academic foundations · 연구 근거와 가설",
+        "description": "공개 사명과 구별되는 연구 종합입니다. 안전 가설은 검증 대상이며 안전 인증이나 실증 결과가 아닙니다.",
+        "url": "https://metahumotonic.com/research/foundations.json",
+        "mh:authority": "EDITORIAL_SUMMARY",
+        "mh:reviewedAt": "2026-09-27",
+        "prov:wasDerivedFrom": [
+          {
+            "@id": "https://metahumotonic.com/research/foundations.json"
+          }
+        ],
+        "additionalType": "https://schema.org/Report",
+        "mh:status": "SECONDARY_AI_RESEARCH_SYNTHESIS; TESTABLE_DESIGN_HYPOTHESIS_NOT_VALIDATED"
+      },
+      {
+        "@id": "https://metahumotonic.com/learn/#entity-foundation-charter",
+        "@type": "LearningResource",
+        "name": "Foundation Charter · CHARTER.md",
+        "description": "공개 Foundation 거버넌스 저장소에 게시된 헌장 원문입니다. 공개 이니셔티브의 원칙과 변경 가능한 운영 기준을 기록합니다.",
+        "url": "https://github.com/gj3447/metahumotonic-foundation/blob/master/CHARTER.md",
+        "mh:authority": "PRIMARY_SOURCE",
+        "mh:reviewedAt": "2026-09-27",
+        "prov:wasDerivedFrom": [
+          {
+            "@id": "https://github.com/gj3447/metahumotonic-foundation/blob/master/CHARTER.md"
+          }
+        ],
+        "additionalType": "https://schema.org/DigitalDocument",
+        "mh:status": "PUBLIC_GOVERNANCE_CHARTER"
       },
       {
         "@id": "https://metahumotonic.com/learn/#entity-system",
@@ -2380,6 +2544,9 @@
           }
         ],
         "https://metahumotonic.com/learn/#relation-documented-in": [
+          {
+            "@id": "https://metahumotonic.com/learn/#entity-academic-foundations"
+          },
           {
             "@id": "https://metahumotonic.com/learn/#entity-foundation"
           }
@@ -3082,6 +3249,82 @@
         "mh:authority": "EDITORIAL_SUMMARY",
         "prov:wasDerivedFrom": {
           "@id": "https://metahumotonic.com/foundation/"
+        }
+      },
+      {
+        "@id": "https://metahumotonic.com/learn/#edge-foundation-initiative-documented-in-foundation-charter",
+        "@type": "rdf:Statement",
+        "rdf:subject": {
+          "@id": "https://metahumotonic.com/learn/#entity-foundation-initiative"
+        },
+        "rdf:predicate": {
+          "@id": "https://metahumotonic.com/learn/#relation-documented-in"
+        },
+        "rdf:object": {
+          "@id": "https://metahumotonic.com/learn/#entity-foundation-charter"
+        },
+        "description": "공개 헌장 원문에 이니셔티브 원칙을 기록합니다",
+        "mh:status": "ACTIVE",
+        "mh:authority": "PRIMARY_SOURCE",
+        "prov:wasDerivedFrom": {
+          "@id": "https://github.com/gj3447/metahumotonic-foundation/blob/master/CHARTER.md"
+        }
+      },
+      {
+        "@id": "https://metahumotonic.com/learn/#edge-foundation-initiative-source-code-foundation-code",
+        "@type": "rdf:Statement",
+        "rdf:subject": {
+          "@id": "https://metahumotonic.com/learn/#entity-foundation-initiative"
+        },
+        "rdf:predicate": {
+          "@id": "https://metahumotonic.com/learn/#relation-source-code"
+        },
+        "rdf:object": {
+          "@id": "https://metahumotonic.com/learn/#entity-foundation-code"
+        },
+        "description": "공개 거버넌스 원문과 변경 이력",
+        "mh:status": "ACTIVE",
+        "mh:authority": "PRIMARY_SOURCE",
+        "prov:wasDerivedFrom": {
+          "@id": "https://github.com/gj3447/metahumotonic-foundation"
+        }
+      },
+      {
+        "@id": "https://metahumotonic.com/learn/#edge-foundation-explore-next-academic-foundations",
+        "@type": "rdf:Statement",
+        "rdf:subject": {
+          "@id": "https://metahumotonic.com/learn/#entity-foundation"
+        },
+        "rdf:predicate": {
+          "@id": "https://metahumotonic.com/learn/#relation-explore-next"
+        },
+        "rdf:object": {
+          "@id": "https://metahumotonic.com/learn/#entity-academic-foundations"
+        },
+        "description": "사명과 연구 가설의 경계를 확인하기",
+        "mh:status": "ACTIVE",
+        "mh:authority": "EDITORIAL_SUMMARY",
+        "prov:wasDerivedFrom": {
+          "@id": "https://metahumotonic.com/research/foundations.json"
+        }
+      },
+      {
+        "@id": "https://metahumotonic.com/learn/#edge-ultra-safety-agent-documented-in-academic-foundations",
+        "@type": "rdf:Statement",
+        "rdf:subject": {
+          "@id": "https://metahumotonic.com/learn/#entity-ultra-safety-agent"
+        },
+        "rdf:predicate": {
+          "@id": "https://metahumotonic.com/learn/#relation-documented-in"
+        },
+        "rdf:object": {
+          "@id": "https://metahumotonic.com/learn/#entity-academic-foundations"
+        },
+        "description": "연구 근거·반증 조건·검증 상태 읽기",
+        "mh:status": "ACTIVE",
+        "mh:authority": "EDITORIAL_SUMMARY",
+        "prov:wasDerivedFrom": {
+          "@id": "https://metahumotonic.com/research/foundations.json"
         }
       },
       {
@@ -4552,7 +4795,28 @@
             "@type": "ListItem",
             "position": 3,
             "item": {
+              "@id": "https://metahumotonic.com/learn/#entity-foundation-initiative"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "item": {
+              "@id": "https://metahumotonic.com/learn/#entity-foundation-charter"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "item": {
               "@id": "https://metahumotonic.com/learn/#entity-foundation-code"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "item": {
+              "@id": "https://metahumotonic.com/learn/#entity-academic-foundations"
             }
           }
         ]
@@ -4793,10 +5057,45 @@
       {
         "uid": "https://metahumotonic.com/learn/#entity-foundation",
         "properties": {
-          "name": "공개 헌장",
+          "name": "Foundation · 공개 사명과 운영 설계",
           "kind": "article",
           "locator": "https://metahumotonic.com/foundation/",
-          "authority": "PRIMARY_SOURCE"
+          "authority": "PRIMARY_SOURCE",
+          "semanticType": "https://schema.org/AboutPage",
+          "status": "PUBLIC_MISSION_AND_OPERATING_DESIGN"
+        }
+      },
+      {
+        "uid": "https://metahumotonic.com/learn/#entity-foundation-initiative",
+        "properties": {
+          "name": "MetaHumotonic Open-Source Foundation Initiative",
+          "kind": "article",
+          "locator": "https://metahumotonic.com/foundation/",
+          "authority": "PRIMARY_SOURCE",
+          "semanticType": "https://schema.org/Project",
+          "status": "PUBLIC_OPEN_SOURCE_INITIATIVE; NOT_YET_LEGALLY_INCORPORATED"
+        }
+      },
+      {
+        "uid": "https://metahumotonic.com/learn/#entity-academic-foundations",
+        "properties": {
+          "name": "Academic foundations · 연구 근거와 가설",
+          "kind": "article",
+          "locator": "https://metahumotonic.com/research/foundations.json",
+          "authority": "EDITORIAL_SUMMARY",
+          "semanticType": "https://schema.org/Report",
+          "status": "SECONDARY_AI_RESEARCH_SYNTHESIS; TESTABLE_DESIGN_HYPOTHESIS_NOT_VALIDATED"
+        }
+      },
+      {
+        "uid": "https://metahumotonic.com/learn/#entity-foundation-charter",
+        "properties": {
+          "name": "Foundation Charter · CHARTER.md",
+          "kind": "article",
+          "locator": "https://github.com/gj3447/metahumotonic-foundation/blob/master/CHARTER.md",
+          "authority": "PRIMARY_SOURCE",
+          "semanticType": "https://schema.org/DigitalDocument",
+          "status": "PUBLIC_GOVERNANCE_CHARTER"
         }
       },
       {
@@ -5249,6 +5548,42 @@
         "type": "DOCUMENTED_IN",
         "properties": {
           "description": "{\"label\":\"사명과 원칙 읽기\",\"meaning\":\"개념을 설명하는 공개 원문입니다.\",\"status\":\"ACTIVE\",\"authority\":\"EDITORIAL_SUMMARY\",\"source\":\"https://metahumotonic.com/foundation/\"}"
+        }
+      },
+      {
+        "uid": "https://metahumotonic.com/learn/#edge-foundation-initiative-documented-in-foundation-charter",
+        "from_uid": "https://metahumotonic.com/learn/#entity-foundation-initiative",
+        "to_uid": "https://metahumotonic.com/learn/#entity-foundation-charter",
+        "type": "DOCUMENTED_IN",
+        "properties": {
+          "description": "{\"label\":\"공개 헌장 원문에 이니셔티브 원칙을 기록합니다\",\"meaning\":\"개념을 설명하는 공개 원문입니다.\",\"status\":\"ACTIVE\",\"authority\":\"PRIMARY_SOURCE\",\"source\":\"https://github.com/gj3447/metahumotonic-foundation/blob/master/CHARTER.md\"}"
+        }
+      },
+      {
+        "uid": "https://metahumotonic.com/learn/#edge-foundation-initiative-source-code-foundation-code",
+        "from_uid": "https://metahumotonic.com/learn/#entity-foundation-initiative",
+        "to_uid": "https://metahumotonic.com/learn/#entity-foundation-code",
+        "type": "SOURCE_CODE",
+        "properties": {
+          "description": "{\"label\":\"공개 거버넌스 원문과 변경 이력\",\"meaning\":\"프로그램 또는 헌장의 공개 저장소입니다.\",\"status\":\"ACTIVE\",\"authority\":\"PRIMARY_SOURCE\",\"source\":\"https://github.com/gj3447/metahumotonic-foundation\"}"
+        }
+      },
+      {
+        "uid": "https://metahumotonic.com/learn/#edge-foundation-explore-next-academic-foundations",
+        "from_uid": "https://metahumotonic.com/learn/#entity-foundation",
+        "to_uid": "https://metahumotonic.com/learn/#entity-academic-foundations",
+        "type": "EXPLORE_NEXT",
+        "properties": {
+          "description": "{\"label\":\"사명과 연구 가설의 경계를 확인하기\",\"meaning\":\"편집자가 추천하는 다음 읽기입니다. 동일성·인과·구현 의존성을 뜻하지 않습니다.\",\"status\":\"ACTIVE\",\"authority\":\"EDITORIAL_SUMMARY\",\"source\":\"https://metahumotonic.com/research/foundations.json\"}"
+        }
+      },
+      {
+        "uid": "https://metahumotonic.com/learn/#edge-ultra-safety-agent-documented-in-academic-foundations",
+        "from_uid": "https://metahumotonic.com/learn/#entity-ultra-safety-agent",
+        "to_uid": "https://metahumotonic.com/learn/#entity-academic-foundations",
+        "type": "DOCUMENTED_IN",
+        "properties": {
+          "description": "{\"label\":\"연구 근거·반증 조건·검증 상태 읽기\",\"meaning\":\"개념을 설명하는 공개 원문입니다.\",\"status\":\"ACTIVE\",\"authority\":\"EDITORIAL_SUMMARY\",\"source\":\"https://metahumotonic.com/research/foundations.json\"}"
         }
       },
       {

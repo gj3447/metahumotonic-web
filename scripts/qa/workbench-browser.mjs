@@ -161,7 +161,7 @@ try {
         results.accessibility.push({ page: route, width, violations: scan.violations.map(v => ({ id: v.id, impact: v.impact, nodes: v.nodes.map(n => ({ target: n.target, summary: n.failureSummary })) })) });
       }
     }
-    for (const route of ['/apostles/', '/axioms/', '/philosophy/', '/agents/', '/apostles/orbital-cloud/']) {
+    for (const route of ['/apostles/', '/axioms/', '/philosophy/', '/agents/', '/foundation/', '/apostles/orbital-cloud/']) {
       await page.goto(origin + route);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), false, `content overflow ${route} ${width}`);
       if (route === '/apostles/') assert.equal(await page.locator('[data-apostle]').count(), 12);

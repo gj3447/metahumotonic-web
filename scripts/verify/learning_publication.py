@@ -23,7 +23,7 @@ FILES = ("index.html", "learn/index.html", "learn/data.json", "learn/graph.jsonl
 RELATIONS = {
     "INTRODUCES": ({"article"}, {"concept", "project", "apostle"}),
     "DEFINES": ({"article"}, {"concept"}),
-    "DOCUMENTED_IN": ({"concept", "project", "apostle"}, {"article"}),
+    "DOCUMENTED_IN": ({"concept", "project", "apostle", "article"}, {"article"}),
     "SOURCE_CODE": ({"project", "article"}, {"repository"}),
     "PUBLISHES": ({"channel"}, {"video"}),
     "EXPLORE_NEXT": ({"concept", "article", "project", "repository", "channel", "video", "apostle"}, {"concept", "article", "project", "repository", "channel", "video", "apostle"}),
@@ -57,13 +57,13 @@ def public_url(value: str) -> bool:
     if url.scheme != "https" or url.netloc != url.hostname or url.geturl() != value:
         return False
     if url.hostname == "metahumotonic.com":
-        path = bool(re.fullmatch(r"/(?:wiki/(?:axioms|authority|worldview|apostles(?:/[a-z0-9-]+)?)|projects(?:/[a-z0-9-]+)?|apostles(?:/[a-z0-9-]+)?|research/(?:hswm|lakatotree)|axioms|philosophy|agents|book|foundation|system)/", url.path))
+        path = bool(re.fullmatch(r"/(?:wiki/(?:axioms|authority|worldview|apostles(?:/[a-z0-9-]+)?)|projects(?:/[a-z0-9-]+)?|apostles(?:/[a-z0-9-]+)?|research/(?:hswm|lakatotree)|axioms|philosophy|agents|book|foundation|system)/", url.path)) or url.path == "/research/foundations.json"
         fragment = not url.fragment or (url.path in {"/axioms/", "/wiki/axioms/"} and bool(re.fullmatch(r"axiom-(?:[1-9]|1[0-2])", url.fragment)))
         return not url.query and path and fragment
     if url.fragment:
         return False
     if url.hostname == "github.com":
-        return not url.query and bool(re.fullmatch(r"/gj3447(?:/[A-Za-z0-9_.-]+)?", url.path))
+        return not url.query and (bool(re.fullmatch(r"/gj3447(?:/[A-Za-z0-9_.-]+)?", url.path)) or url.path == "/gj3447/metahumotonic-foundation/blob/master/CHARTER.md")
     if url.hostname == "www.youtube.com":
         return (not url.query and bool(re.fullmatch(r"/(?:@[A-Za-z0-9_.-]+(?:/videos)?|channel/UC[A-Za-z0-9_-]+)", url.path))) or (url.path == "/watch" and bool(re.fullmatch(r"v=[A-Za-z0-9_-]{11}", url.query)))
     return False
@@ -123,8 +123,10 @@ def verify(blobs: dict[str, bytes], manifest: dict, source: dict | None = None) 
     edition = date.fromisoformat(catalog["edition"])
     require(all(node["public"] is True and date.fromisoformat(node["reviewedAt"]) <= edition for node in nodes.values()), "private or future-reviewed entity")
     for node in nodes.values():
-        require(set(node) == {"id", "kind", "title", "summary", "href", "public", "authority", "reviewedAt", "sources"}, "unexpected entity fields")
+        require(set(node) <= {"id", "kind", "title", "summary", "href", "public", "authority", "reviewedAt", "sources", "semanticType", "status"} and {"id", "kind", "title", "summary", "href", "public", "authority", "reviewedAt", "sources"} <= set(node), "unexpected entity fields")
         require(node["authority"] in {"PRIMARY_SOURCE", "EDITORIAL_SUMMARY"} and public_url(node["href"]), "invalid entity authority or locator")
+        require(not node.get("semanticType") or node["semanticType"] in {"https://schema.org/AboutPage", "https://schema.org/DigitalDocument", "https://schema.org/Project", "https://schema.org/Report"}, "unknown semantic entity type")
+        require(not node.get("status") or (isinstance(node["status"], str) and node["status"].strip()), "invalid entity status")
         require(0 < len(node["sources"]) <= 8 and len({item["url"] for item in node["sources"]}) == len(node["sources"]), "missing or duplicate evidence")
         require(all(set(item) == {"label", "url"} and public_url(item["url"]) for item in node["sources"]), "invalid public evidence")
         address = urlsplit(node["href"])
@@ -133,7 +135,7 @@ def verify(blobs: dict[str, bytes], manifest: dict, source: dict | None = None) 
         elif node["kind"] in {"video", "channel"}:
             require(address.hostname == "www.youtube.com" and (address.path == "/watch" if node["kind"] == "video" else bool(re.fullmatch(r"/(?:@[A-Za-z0-9_.-]+|channel/UC[A-Za-z0-9_-]+)", address.path))), "wrong media locator kind")
         else:
-            require(node["kind"] in {"concept", "article", "project", "apostle"} and address.hostname == "metahumotonic.com", "wrong public entity kind")
+            require(node["kind"] in {"concept", "article", "project", "apostle"} and (address.hostname == "metahumotonic.com" or (node["kind"] == "article" and address.hostname == "github.com" and address.path == "/gj3447/metahumotonic-foundation/blob/master/CHARTER.md")), "wrong public entity kind")
     for edge in catalog["edges"]:
         require(set(edge) == {"id", "from", "to", "relation", "label", "status", "authority", "source"} and public_url(edge["source"]), "invalid relationship fields or source")
         require(edge["authority"] in {"PRIMARY_SOURCE", "EDITORIAL_SUMMARY"}, "invalid relationship authority")
@@ -157,9 +159,15 @@ def verify(blobs: dict[str, bytes], manifest: dict, source: dict | None = None) 
         entity = graph[iri(node["id"])]
         types = {"apostle": "DefinedTerm", "concept": "DefinedTerm", "article": "LearningResource", "project": "SoftwareApplication", "repository": "SoftwareSourceCode", "channel": "CollectionPage", "video": "VideoObject"}
         require(entity["@type"] == types[node["kind"]] and entity["mh:reviewedAt"] == node["reviewedAt"], "JSON-LD entity kind or review date changed")
-        require(resources[iri(node["id"])]["properties"] == {"name": node["title"], "kind": node["kind"], "locator": node["href"], "authority": node["authority"]}, "USL representation changed")
+        expected_properties = {"name": node["title"], "kind": node["kind"], "locator": node["href"], "authority": node["authority"]}
+        if node.get("semanticType"):
+            expected_properties["semanticType"] = node["semanticType"]
+        if node.get("status"):
+            expected_properties["status"] = node["status"]
+        require(resources[iri(node["id"])]["properties"] == expected_properties, "USL representation changed")
         require(resources[iri(node["id"])]["properties"]["locator"] == entity["url"] == node["href"], "entity address changed")
         require(entity["name"] == node["title"] and entity["description"] == node["summary"] and entity["mh:authority"] == node["authority"], "entity representation changed")
+        require(entity.get("additionalType") == node.get("semanticType") and entity.get("mh:status") == node.get("status"), "entity semantic type or status changed")
         require(entity["prov:wasDerivedFrom"] == [{"@id": source["url"]} for source in node["sources"]], "entity provenance changed")
         expected_about = [{"@id": iri(edge["to"])} for edge in catalog["edges"] if edge["from"] == node["id"] and edge["relation"] == "INTRODUCES" and edge["status"] == "ACTIVE"]
         require(entity.get("about", []) == expected_about, "standard about relation changed")
