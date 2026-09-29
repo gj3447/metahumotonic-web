@@ -28,6 +28,17 @@ test('every public entity and reading path has a rendered anchor; local resource
   assert.match(html, /<noscript>/);
   assert.equal((html.match(/data-learning-id=/g) ?? []).length, artifact.nodes.length);
 });
+test('visible graph labels retain reviewed kind, authority, relation and ACTIVE status', async () => {
+  const html = await readDist('learn/index.html');
+  assert.match(html, /class="semantic-legend"/);
+  for (const node of artifact.nodes) {
+    assert.ok(html.includes(`data-learning-id="${node.id}" data-kind="${node.kind}" data-authority="${node.authority}"`), node.id);
+  }
+  for (const edge of artifact.edges) {
+    const marker = `id="edge-${edge.id}" data-edge-relation="${edge.relation}" data-edge-status="${edge.status}"`;
+    assert.equal(html.includes(marker), edge.status === 'ACTIVE', edge.id);
+  }
+});
 test('home exposes beginner, source-code and actual video paths without loading third-party players', async () => {
   const html = await readDist('index.html');
   assert.match(html, /처음이라면 여기부터/);

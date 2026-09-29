@@ -467,11 +467,7 @@ const worldview = worldviewData.worldview;
   }
   .mh-portal__chevron {
     font-size: 12px;
-    animation: mh-bounce 2.4s ease-in-out infinite;
-  }
-  @keyframes mh-bounce {
-    0%, 100% { transform: translateY(0); opacity: 0.35; }
-    50% { transform: translateY(4px); opacity: 0.7; }
+    color: var(--mh-cyan);
   }
   @media (prefers-reduced-motion: reduce) {
     .mh-portal__chevron { animation: none; }
@@ -531,6 +527,24 @@ const worldview = worldviewData.worldview;
     .mh-guide li { border-right: 0 !important; border-bottom: 1px solid rgba(14,14,12,0.08); }
     .mh-guide li:last-child { border-bottom: 0; }
   }
+
+  /* The Book keeps its dense editorial layout, now on the shared dark spectrum. */
+  .mh-harness__tag, .mh-harness__tag em, .mh-harness__core, .mh-portal__tag, .mh-portal__tag em, .mh-portal__lede, .mh-ventures__eyebrow, .mh-repos__eyebrow, .mh-portal__ventures-eyebrow, .mh-portal__venture-tagline, .mh-ventures__tagline, .mh-repos__tagline, .mh-repos__tags, .mh-portal__essence-preview, .mh-portal__epithet, .mh-portal__hint, .mh-guide a > span:first-child, .mh-guide__hint { color: var(--mh-muted); }
+  .mh-harness__btn, .mh-ventures__item, .mh-repos__item, .mh-portal__venture, .mh-portal__cell { border-color: var(--mh-line); background: var(--mh-surface); color: var(--mh-ink); }
+  .mh-harness__btn:hover, .mh-repos__item:hover, .mh-portal__tile:hover, .mh-guide a:hover { background: var(--mh-surface-raised); }
+  .mh-harness__btn--core { border-color: var(--mh-cyan); background: var(--mh-cyan-soft); }
+  .mh-nav a[data-priority="core"], .mh-portal__num, .mh-portal__icon, .mh-portal__open { color: var(--mh-cyan); }
+  .mh-ventures__title, .mh-repos__title, .mh-portal__venture-title, .mh-portal__name, .mh-guide em { color: var(--mh-ink); }
+  .mh-portal__grid, .mh-guide { background: var(--mh-line); border-color: var(--mh-line); }
+  .mh-portal__cell { background: var(--mh-surface); }
+  .mh-portal__tile:is([data-apostle-id="1"], [data-apostle-id="4"], [data-apostle-id="7"], [data-apostle-id="10"]) { border-left-color: var(--mh-cyan); }
+  .mh-portal__tile:is([data-apostle-id="2"], [data-apostle-id="5"], [data-apostle-id="8"], [data-apostle-id="11"]) { border-left-color: var(--mh-magenta); }
+  .mh-portal__tile:is([data-apostle-id="3"], [data-apostle-id="6"], [data-apostle-id="9"], [data-apostle-id="12"]) { border-left-color: var(--mh-yellow); }
+  .mh-portal__open { background: var(--mh-surface-raised); }
+  .mh-portal__chevron { animation: none; color: var(--mh-cyan); }
+  :global(.mh-axiom__priority) { color: var(--mh-cyan) !important; }
+  .mh-ventures__id, .mh-ventures__status, .mh-repos__id { color: var(--mh-cyan) !important; }
+  .mh-repos__item[data-highlight="true"] { background: var(--mh-surface-raised); }
 </style>
 <!-- KG: ATOM_Landing_CosmosRefactor — inline style extracted to landing.css -->
 

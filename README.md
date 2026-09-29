@@ -91,6 +91,8 @@ LakatoTree is the featured flagship repository. Its card describes its public en
 - `public/` — static assets, ontology exports, and machine-readable discovery files.
 - `scripts/` and `gates/` — KG prebuild, Longinus drift checks, and ooptdd build-trace verification.
 
+The shared dark palette, semantic color roles, graph-display boundaries, and motion budget are documented in [`docs/visual-system.md`](docs/visual-system.md).
+
 When changing canonical site data, verify its source layer first. Do not promote generated summaries into user canon or rewrite open canon to make the site appear more complete.
 
 ## License

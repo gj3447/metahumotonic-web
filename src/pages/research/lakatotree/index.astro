@@ -101,27 +101,27 @@ const description = 'LakatoTree is Gyeongjun Ra’s deterministic verdict engine
   .project-hero .mh-part-title { font-size: clamp(28px, 5vw, 46px); letter-spacing: -0.03em; }
   .project-hero .mh-part-gloss { max-width: 68ch; font-size: 12px; }
   .project-actions { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 10px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; }
-  .project-actions a { color: #1d4ed8; border-bottom-color: rgba(29,78,216,0.3); }
+  .project-actions a { color: var(--mh-cyan); border-bottom-color: var(--mh-cyan); }
 
   .project-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 8px; padding-top: 8px; }
   .project-card, .project-limits, .project-boundary {
-    border: 1px solid #d9ceb0; border-left: 3px solid #2563eb;
-    background: rgba(255,255,255,0.38); padding: 10px 12px;
+    border: 1px solid var(--mh-line); border-left: 3px solid var(--mh-cyan);
+    background: var(--mh-surface); padding: 10px 12px;
   }
-  .project-card h2, .project-limits h2, .project-boundary h2 { font-size: 14px; line-height: 1.3; margin: 0 0 5px; color: #1a1815; }
-  .project-card > p:last-child, .project-boundary > p:last-child { color: #4a4338; font-size: 11px; line-height: 1.55; }
+  .project-card h2, .project-limits h2, .project-boundary h2 { font-size: 14px; line-height: 1.3; margin: 0 0 5px; color: var(--mh-ink); }
+  .project-card > p:last-child, .project-boundary > p:last-child { color: var(--mh-muted); font-size: 11px; line-height: 1.55; }
   .project-loop { list-style: none; display: grid; gap: 5px; }
-  .project-loop li { display: grid; grid-template-columns: 118px 1fr; gap: 8px; padding-top: 5px; border-top: 1px dotted #d9ceb0; }
+  .project-loop li { display: grid; grid-template-columns: 118px 1fr; gap: 8px; padding-top: 5px; border-top: 1px dotted var(--mh-line); }
   .project-loop li:first-child { border-top: 0; padding-top: 0; }
-  .project-loop span { color: #1d4ed8; font-size: 10.5px; font-weight: 600; }
-  .project-loop p { color: #4a4338; font-size: 10.5px; line-height: 1.45; }
+  .project-loop span { color: var(--mh-cyan); font-size: 10.5px; font-weight: 600; }
+  .project-loop p { color: var(--mh-muted); font-size: 10.5px; line-height: 1.45; }
 
   .project-limits { margin-top: 0; }
-  .project-limits ul { margin: 4px 0 0 18px; color: #4a4338; font-size: 11px; line-height: 1.55; }
+  .project-limits ul { margin: 4px 0 0 18px; color: var(--mh-muted); font-size: 11px; line-height: 1.55; }
   .project-limits li + li { margin-top: 4px; }
-  .project-boundary { margin-top: 8px; border-left-color: #7a1f1f; }
-  .project-footer { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #d9ceb0; font-size: 10.5px; }
-  .project-footer a { color: #4a4338; }
+  .project-boundary { margin-top: 8px; border-left-color: var(--mh-magenta); }
+  .project-footer { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--mh-line); font-size: 10.5px; }
+  .project-footer a { color: var(--mh-cyan); }
 
   @media (max-width: 680px) {
     .mh-topbar { position: absolute; padding: 18px 16px; }

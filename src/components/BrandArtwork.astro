@@ -1,17 +1,17 @@
 ---
 // The existing C/M/Y/W, 2×2 hollow-ring mark, drawn as a scalable brand illustration.
-const rings = [{ x: 217, y: 201, color: '#00e5ff' }, { x: 403, y: 201, color: '#ff2bd6' },
-  { x: 217, y: 387, color: '#ffe600' }, { x: 403, y: 387, color: '#f4f7ff' }];
+const rings = [{ x: 217, y: 201, color: 'var(--mh-cyan)' }, { x: 403, y: 201, color: 'var(--mh-magenta)' },
+  { x: 217, y: 387, color: 'var(--mh-yellow)' }, { x: 403, y: 387, color: 'var(--mh-paper)' }];
 ---
 <div class="brand-artwork" aria-hidden="true">
   <svg viewBox="0 0 620 588" fill="none">
     <defs>
-      <radialGradient id="brand-atmosphere"><stop stop-color="#344b43" /><stop offset="1" stop-color="#111b18" /></radialGradient>
+      <radialGradient id="brand-atmosphere"><stop stop-color="#1b2027" /><stop offset="1" stop-color="#080a0d" /></radialGradient>
       <filter id="brand-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="11" /></filter>
       <linearGradient id="ring-light" x1="0" y1="0" x2="1" y2="1"><stop stop-color="white" stop-opacity=".8" /><stop offset=".45" stop-color="white" stop-opacity="0" /><stop offset="1" stop-color="white" stop-opacity=".3" /></linearGradient>
     </defs>
     <rect width="620" height="588" fill="url(#brand-atmosphere)" />
-    <g stroke="#8caa98" opacity=".1">
+    <g stroke="var(--mh-line-strong)" opacity=".18">
       <circle cx="310" cy="294" r="264" /><circle cx="310" cy="294" r="280" />
       <path d="M310 0V588M0 294H620" />
     </g>

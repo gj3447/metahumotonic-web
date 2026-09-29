@@ -4,20 +4,20 @@ const { kind } = Astro.props;
 ---
 <div class={`product-art product-art--${kind}`} aria-hidden="true">
   {kind === 'soopoolim' && <svg viewBox="0 0 440 280" fill="none">
-    <g stroke="#bad3bd" stroke-width="1"><path d="M74 196L146 91L233 142L335 70M146 91L290 215L365 166M233 142L74 196M233 142L365 166M233 142L290 215" /></g>
-    <g fill="#d8e8d6" stroke="#99b29f"><circle cx="74" cy="196" r="19" /><circle cx="146" cy="91" r="30" /><circle cx="335" cy="70" r="16" /><circle cx="290" cy="215" r="24" /><circle cx="365" cy="166" r="20" /></g>
-    <circle cx="233" cy="142" r="48" fill="#245c43" /><path d="M222 157V129l23 14-23 14Z" fill="#e4efdb" />
-    <circle cx="233" cy="142" r="62" stroke="#749781" stroke-dasharray="2 7" />
+    <g stroke="var(--mh-cyan)" stroke-opacity=".6" stroke-width="1"><path d="M74 196L146 91L233 142L335 70M146 91L290 215L365 166M233 142L74 196M233 142L365 166M233 142L290 215" /></g>
+    <g fill="var(--mh-surface-raised)" stroke="var(--mh-cyan)"><circle cx="74" cy="196" r="19" /><circle cx="146" cy="91" r="30" /><circle cx="335" cy="70" r="16" /><circle cx="290" cy="215" r="24" /><circle cx="365" cy="166" r="20" /></g>
+    <circle cx="233" cy="142" r="48" fill="var(--mh-magenta)" /><path d="M222 157V129l23 14-23 14Z" fill="var(--mh-on-accent)" />
+    <circle cx="233" cy="142" r="62" stroke="var(--mh-magenta)" stroke-dasharray="2 7" />
   </svg>}
   {kind === 'vexi' && <svg viewBox="0 0 440 280" fill="none">
-    <g transform="translate(110 46) rotate(-12 65 93)"><rect width="130" height="186" rx="9" fill="#d7c5a3" stroke="#b19a77" /><circle cx="65" cy="76" r="31" stroke="#9e835d" /><path d="m65 53 7 16 17 7-17 7-7 16-7-16-17-7 17-7 7-16Z" fill="#9e835d" /><path d="M24 139h82M24 151h49" stroke="#9e835d" /></g>
-    <g transform="translate(217 58) rotate(12 65 93)"><rect width="130" height="186" rx="9" fill="#644b3a" stroke="#76583f" /><path d="m65 38 10 27 28 10-28 11-10 28-10-28-27-11 27-10 10-27Z" fill="#edd49d" /><path d="M24 139h82M24 151h49" stroke="#d6b786" /></g>
+    <g transform="translate(110 46) rotate(-12 65 93)"><rect width="130" height="186" rx="9" fill="var(--mh-surface-raised)" stroke="var(--mh-yellow)" /><circle cx="65" cy="76" r="31" stroke="var(--mh-yellow)" /><path d="m65 53 7 16 17 7-17 7-7 16-7-16-17-7 17-7 7-16Z" fill="var(--mh-yellow)" /><path d="M24 139h82M24 151h49" stroke="var(--mh-yellow)" /></g>
+    <g transform="translate(217 58) rotate(12 65 93)"><rect width="130" height="186" rx="9" fill="var(--mh-surface)" stroke="var(--mh-magenta)" /><path d="m65 38 10 27 28 10-28 11-10 28-10-28-27-11 27-10 10-27Z" fill="var(--mh-magenta)" /><path d="M24 139h82M24 151h49" stroke="var(--mh-magenta)" /></g>
   </svg>}
   {kind === 'maplelineage' && <svg viewBox="0 0 440 280" fill="none">
-    <circle cx="301" cy="77" r="37" fill="#e8d4ac" />
-    <path d="M0 220 105 87 212 219 298 119 440 245V280H0Z" fill="#becabd" /><path d="m0 240 154-84 92 67 90-32 104 62v27H0Z" fill="#6e8d79" />
-    <path d="M0 271 180 214l100 25 160-20v61H0Z" fill="#355b4d" />
-    <path d="m151 175 14-63 14 63h-28Zm-67 46 18-79 18 79H84Zm262-11 20-91 20 91h-40Z" fill="#355b4d" />
-    <path d="m246 280 5-37 28-16-6-12" stroke="#d8d3b5" stroke-width="9" />
+    <circle cx="301" cy="77" r="37" fill="var(--mh-magenta)" />
+    <path d="M0 220 105 87 212 219 298 119 440 245V280H0Z" fill="var(--mh-line-strong)" /><path d="m0 240 154-84 92 67 90-32 104 62v27H0Z" fill="var(--mh-line)" />
+    <path d="M0 271 180 214l100 25 160-20v61H0Z" fill="var(--mh-surface)" />
+    <path d="m151 175 14-63 14 63h-28Zm-67 46 18-79 18 79H84Zm262-11 20-91 20 91h-40Z" fill="var(--mh-bg)" />
+    <path d="m246 280 5-37 28-16-6-12" stroke="var(--mh-cyan)" stroke-width="9" />
   </svg>}
 </div>

@@ -112,7 +112,7 @@ const jsonLd = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="theme-color" content="#f5f1e8" />
+    <meta name="theme-color" content="#080a0d" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -213,7 +213,7 @@ const jsonLd = {
           provenance·schema·outcome gate 뒤에만 durable H/W로 승격한다.
         </p>
 
-        <div class="hub-neural-loop" aria-label="token에서 다음 activation까지의 학습 폐루프">
+        <div class="hub-neural-loop" aria-label="token에서 다음 activation까지의 학습 폐루프" tabindex="0">
           <span>LLM token event</span><i>→</i>
           <span>sparse n-ary activation</span><i>→</i>
           <span>typed LLM cell</span><i>→</i>
@@ -230,7 +230,7 @@ const jsonLd = {
             기억, 유용한 route, 실행 권한도 서로 다르다. 하나의 scalar로 합치면 인기와 진리,
             효용과 권한이 섞이므로 연산별 channel을 분리한다.
           </p>
-          <code>semantic compatibility ≠ causal efficacy ≠ truth/support ≠ activation ≠ permission</code>
+          <code tabindex="0">semantic compatibility ≠ causal efficacy ≠ truth/support ≠ activation ≠ permission</code>
         </div>
         <div class="hub-weights">
           {weightChannels.map(([symbol, name, detail]) => (
@@ -549,6 +549,7 @@ const jsonLd = {
   .hub-footer { display: grid; grid-template-columns: auto 1fr auto; gap: 28px; align-items: end; padding: 55px 0 0; border-top: 1px solid rgba(14,14,12,.17); }
   .hub-footer p { font: 12px/1.8 'JetBrains Mono', monospace; }
   .hub-footer nav { display: flex; flex-direction: column; gap: 7px; font: 11px 'JetBrains Mono', monospace; }
+  .hub-footer nav a { display: inline-flex; align-items: center; min-height: 24px; }
   @media (max-width: 900px) {
     .hub-section__head { grid-template-columns: 1fr; }
     .hub-section__head > span { margin-bottom: 0; }
@@ -595,4 +596,16 @@ const jsonLd = {
     .hub-transition > i { transform: rotate(90deg); width: min-content; justify-self: center; }
     .hub-footer { grid-template-columns: 1fr; align-items: start; }
   }
+
+  /* Inline editorial surface inherits the shared dark spectrum from landing.css. */
+  .hub-body { background: var(--mh-bg); color: var(--mh-ink); }
+  .hub-sub, .hub-authority span, .hub-principles small, .hub-state__grid p, .hub-signal-note, .hub-weights p, .hub-clocks p, .hub-planes p, .hub-swm-phases p, .hub-prior p, .hub-members p, .hub-equation figcaption, .hub-loop span, .hub-phases p, .hub-transition span, .hub-boundary__grid p { color: var(--mh-muted); }
+  .hub-section, .hub-principles, .hub-state, .hub-weights, .hub-planes, .hub-swm-phases, .hub-prior, .hub-members, .hub-loop, .hub-phases, .hub-footer, .hub-neural-loop, .hub-river__flow { border-color: var(--mh-line); }
+  .hub-principles li, .hub-state__grid article, .hub-weights article, .hub-planes article, .hub-swm-phases li, .hub-prior a, .hub-members article, .hub-loop li, .hub-phases li { border-color: var(--mh-line); background: var(--mh-surface); }
+  .hub-clocks article, .hub-transition > div, .hub-boundary__grid article, .hub-equation > div, .hub-equation > strong { border-color: var(--mh-line); background: var(--mh-surface); }
+  .hub-authority, .hub-weight-intro code, .hub-note { border-color: var(--mh-magenta); background: var(--mh-magenta-soft); }
+  .hub-state > code { border-color: var(--mh-line); background: var(--mh-surface-raised); }
+  .hub-kicker, .hub-section__head > span, .hub-authority strong, .hub-principles b, .hub-state__grid b, .hub-weights b, .hub-clocks b, .hub-signal-note strong, .hub-neural-loop strong, .hub-neural-loop i, .hub-planes small, .hub-roadmap__head small, .hub-swm-phases b, .hub-prior__head small, .hub-prior small, .hub-prior span, .hub-members span, .hub-transition small, .hub-equation > span, .hub-river__flow i, .hub-loop b, .hub-phases b, .hub-transition > i, .hub-nonclaims li::before { color: var(--mh-cyan); }
+  .hub-closure, .hub-weight-intro code, .hub-note { border-left-color: var(--mh-magenta); }
+  .hub-prior a:hover { background: var(--mh-surface-raised); }
 </style>

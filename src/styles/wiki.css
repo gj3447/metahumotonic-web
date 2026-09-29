@@ -1,40 +1,44 @@
 :root {
-  --sl-color-accent-low: #21133d;
-  --sl-color-accent: #a78bfa;
-  --sl-color-accent-high: #eee8ff;
-  --sl-color-white: #f4f7ff;
+  --sl-color-accent-low: color-mix(in srgb, var(--mh-magenta, #ff2bd6) 17%, var(--mh-bg, #080a0d));
+  --sl-color-accent: var(--mh-cyan, #00e5ff);
+  --sl-color-accent-high: var(--mh-paper, #f4f7ff);
+  --sl-color-white: var(--mh-paper, #f4f7ff);
   --sl-color-gray-1: #d8deef;
   --sl-color-gray-2: #aab5cf;
   --sl-color-gray-3: #707d9e;
   --sl-color-gray-4: #39445f;
-  --sl-color-gray-5: #20293d;
-  --sl-color-gray-6: #111827;
-  --sl-color-black: #050810;
+  --sl-color-gray-5: color-mix(in srgb, var(--mh-line, #38414c) 68%, var(--mh-bg, #080a0d));
+  --sl-color-gray-6: var(--mh-surface, #11151a);
+  --sl-color-black: var(--mh-bg, #080a0d);
   --sl-font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --wiki-cyan: #67e8f9;
-  --wiki-purple: #a78bfa;
-  --wiki-gold: #fbbf24;
+  --wiki-cyan: var(--mh-cyan, #00e5ff);
+  --wiki-purple: var(--mh-magenta, #ff2bd6);
+  --wiki-gold: var(--mh-yellow, #ffe600);
 }
 
 :root[data-theme='light'] {
-  --sl-color-accent-low: #eee8ff;
-  --sl-color-accent: #6d28d9;
-  --sl-color-accent-high: #251047;
+  color-scheme: light;
+  --sl-color-accent-low: #d9f5f7;
+  --sl-color-accent: #006f7d;
+  --sl-color-accent-high: #073640;
   --sl-color-white: #101525;
   --sl-color-gray-1: #28344d;
   --sl-color-gray-2: #4b5873;
-  --sl-color-gray-3: #73809b;
+  --sl-color-gray-3: #5d6982;
   --sl-color-gray-4: #aab4c7;
   --sl-color-gray-5: #dce2ed;
   --sl-color-gray-6: #eff2f7;
   --sl-color-gray-7: #f7f9fc;
   --sl-color-black: #ffffff;
+  --wiki-cyan: #006f7d;
+  --wiki-purple: #9a176f;
+  --wiki-gold: #725600;
 }
 
 body {
   background-image:
-    radial-gradient(circle at 75% 5%, rgb(103 232 249 / 0.06), transparent 28rem),
-    radial-gradient(circle at 10% 35%, rgb(167 139 250 / 0.08), transparent 34rem);
+    radial-gradient(circle at 75% 5%, color-mix(in srgb, var(--wiki-cyan) 12%, transparent), transparent 28rem),
+    radial-gradient(circle at 10% 35%, color-mix(in srgb, var(--wiki-purple) 11%, transparent), transparent 34rem);
 }
 
 .site-title {
@@ -107,8 +111,8 @@ body {
 .wiki-button:hover { border-color: var(--wiki-cyan); }
 .wiki-button--primary {
   border-color: transparent;
-  background: linear-gradient(120deg, #7c3aed, #0891b2);
-  color: white;
+  background: linear-gradient(120deg, var(--wiki-purple), var(--wiki-cyan));
+  color: var(--mh-on-accent, #080a0d);
 }
 
 .wiki-stat-grid {
@@ -153,7 +157,7 @@ body {
   padding: 1.3rem;
   border: 1px solid var(--sl-color-gray-5);
   border-radius: 1rem;
-  background: linear-gradient(150deg, rgb(167 139 250 / 0.08), rgb(103 232 249 / 0.02));
+  background: linear-gradient(150deg, color-mix(in srgb, var(--wiki-purple) 8%, transparent), color-mix(in srgb, var(--wiki-cyan) 3%, transparent));
   color: inherit;
   text-decoration: none;
   transition: transform 160ms ease, border-color 160ms ease;
@@ -179,7 +183,7 @@ body {
 }
 .wiki-authority small { color: var(--sl-color-gray-3); font-family: var(--sl-font); }
 .wiki-authority__dot { width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--wiki-purple); }
-.wiki-authority[data-authority='CANONICAL_USER'] .wiki-authority__dot { background: var(--wiki-gold); box-shadow: 0 0 0.8rem rgb(251 191 36 / 0.5); }
+.wiki-authority[data-authority='CANONICAL_USER'] .wiki-authority__dot { background: var(--wiki-gold); box-shadow: 0 0 0.8rem color-mix(in srgb, var(--wiki-gold) 50%, transparent); }
 .wiki-authority--compact small { display: none; }
 
 .wiki-apostle-strip {
@@ -210,9 +214,9 @@ body {
   gap: 0.75rem;
   margin: 3rem 0;
   padding: 1.2rem;
-  border: 1px solid rgb(103 232 249 / 0.25);
+  border: 1px solid color-mix(in srgb, var(--wiki-cyan) 30%, transparent);
   border-radius: 0.9rem;
-  background: rgb(103 232 249 / 0.04);
+  background: color-mix(in srgb, var(--wiki-cyan) 5%, transparent);
 }
 .wiki-boundary p { flex: 1 1 22rem; margin: 0; }
 
@@ -270,7 +274,7 @@ body {
   border-radius: 0.9rem;
 }
 .wiki-worldview-grid article { position: relative; overflow: hidden; }
-.wiki-worldview-grid__num { position: absolute; top: 0.65rem; right: 0.85rem; color: rgb(167 139 250 / 0.2); font-size: 3rem; font-weight: 800; }
+.wiki-worldview-grid__num { position: absolute; top: 0.65rem; right: 0.85rem; color: color-mix(in srgb, var(--wiki-purple) 20%, transparent); font-size: 3rem; font-weight: 800; }
 .wiki-worldview-grid h2 { margin: 0.25rem 0; font-size: 1.2rem; }
 .wiki-worldview-grid article > p:not(.wiki-kicker) { color: var(--sl-color-gray-2); }
 .wiki-term-cloud { padding-top: 0.85rem; border-top: 1px solid var(--sl-color-gray-5); color: var(--sl-color-gray-3); font-size: 0.8rem; line-height: 1.65; }
@@ -316,9 +320,9 @@ body {
   right: -7rem;
   width: 24rem;
   height: 24rem;
-  border: 1px solid rgb(103 232 249 / 0.16);
+  border: 1px solid color-mix(in srgb, var(--wiki-cyan) 18%, transparent);
   border-radius: 50%;
-  background: radial-gradient(circle, rgb(103 232 249 / 0.08), transparent 65%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--wiki-cyan) 9%, transparent), transparent 65%);
   content: '';
 }
 
@@ -371,7 +375,7 @@ body {
   padding: clamp(1rem, 3vw, 1.5rem);
   border: 1px solid var(--ontology-border);
   border-radius: 1rem;
-  background: linear-gradient(135deg, rgb(167 139 250 / 0.08), rgb(103 232 249 / 0.04));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--wiki-purple) 8%, transparent), color-mix(in srgb, var(--wiki-cyan) 4%, transparent));
 }
 
 .ontology-auth h2 { margin-top: 0; }
@@ -411,7 +415,7 @@ body {
 .ontology-search input { flex: 1 1 18rem; }
 .ontology-auth input:focus,
 .ontology-search input:focus,
-.ontology-search select:focus { border-color: var(--wiki-cyan); box-shadow: 0 0 0 3px rgb(103 232 249 / 0.12); }
+.ontology-search select:focus { border-color: var(--wiki-cyan); box-shadow: 0 0 0 3px color-mix(in srgb, var(--wiki-cyan) 14%, transparent); }
 
 .ontology-status {
   min-height: 1.2rem;

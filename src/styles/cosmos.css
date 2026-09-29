@@ -5,15 +5,34 @@
    Refined from v2 348줄 → ~190줄.
    ========================================================================== */
 
+@import './tokens.css';
+
+/* Compatibility aliases keep legacy public graph pages on the shared brand
+   spectrum while their content and interaction contracts remain unchanged. */
+:root {
+  --cosmos-void: var(--mh-bg);
+  --cosmos-deep: var(--mh-surface);
+  --cosmos-card: var(--mh-surface-raised);
+  --cosmos-text: var(--mh-ink);
+  --cosmos-text-dim: var(--mh-muted);
+  --cosmos-text-muted: var(--mh-muted);
+  --cosmos-border: var(--mh-line);
+  --cosmos-accent-cyan: var(--mh-cyan);
+  --cosmos-accent-pink: var(--mh-magenta);
+  --cosmos-accent-purple: var(--mh-magenta);
+  --cosmos-gold: var(--mh-yellow);
+  --cosmos-starlight: var(--mh-paper);
+}
+
 /* ---------- Canvas starfield background ---------- */
 .starfield-bg {
   position: fixed;
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(ellipse 80% 60% at 50% 35%, rgba(99, 102, 241, 0.10) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 70% 70%, rgba(99, 102, 241, 0.05) 0%, transparent 55%),
-    linear-gradient(180deg, #050507 0%, #000000 70%);
+    radial-gradient(ellipse 80% 60% at 50% 35%, var(--mh-cyan-soft) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 70% 70%, var(--mh-magenta-soft) 0%, transparent 55%),
+    linear-gradient(180deg, var(--mh-bg) 0%, #000 70%);
   pointer-events: none;
 }
 
@@ -48,16 +67,16 @@
 /* ---------- Dark accent variables (액자 섹션 전용) ---------- */
 .mh-frame--dark,
 [data-theme="dark"] {
-  --bg-0: #000000;
-  --bg-1: #0a0a0a;
-  --bg-2: #161618;
-  --text: #e8e8ea;
-  --text-dim: #86868b;
-  --accent: #6366f1;
-  --accent-soft: rgba(99, 102, 241, 0.18);
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.14);
-  --highlight: rgba(255, 255, 255, 0.06);
+  --bg-0: var(--mh-bg);
+  --bg-1: var(--mh-surface);
+  --bg-2: var(--mh-surface-raised);
+  --text: var(--mh-ink);
+  --text-dim: var(--mh-muted);
+  --accent: var(--mh-cyan);
+  --accent-soft: var(--mh-cyan-soft);
+  --border: var(--mh-line);
+  --border-strong: var(--mh-line-strong);
+  --highlight: rgb(255 255 255 / 0.06);
   --radius: 8px;
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -124,7 +143,7 @@
   border: 0;
 }
 *:focus-visible {
-  outline: 1px solid var(--accent, #6366f1);
+  outline: 2px solid var(--mh-focus);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -132,8 +151,8 @@
   position: absolute;
   top: -100%; left: 0;
   padding: 0.75rem 1.5rem;
-  background: var(--accent, #6366f1);
-  color: #000;
+  background: var(--mh-focus);
+  color: var(--mh-on-accent);
   font-weight: 500;
   z-index: 100;
   transition: top 160ms;

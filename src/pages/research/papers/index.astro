@@ -49,7 +49,7 @@ const jsonLd = {
     <link rel="canonical" href="https://metahumotonic.com/research/papers/" />
     <link rel="alternate" type="application/json" href="/research/program.json" title="MetaHumotonic research programme" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="theme-color" content="#07110f" />
+    <meta name="theme-color" content="#080a0d" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -201,15 +201,15 @@ const jsonLd = {
   }
   .papers-hero h1 em { color: var(--acid); font-style: normal; }
   .papers-hero__lede { max-width: 730px; margin: 30px 0 0; color: var(--muted); font-size: 16px; line-height: 1.85; word-break: keep-all; }
-  .publication-boundary { padding: 29px; border: 1px solid rgba(245,199,111,.36); background: rgba(11,25,22,.82); box-shadow: inset 3px 0 var(--amber); }
+  .publication-boundary { padding: 29px; border: 1px solid var(--mh-yellow); background: var(--panel); box-shadow: inset 3px 0 var(--amber); }
   .publication-boundary > span { color: var(--amber); font: 500 9px var(--mono); letter-spacing: .13em; }
   .publication-boundary strong { display: block; margin: 45px 0 16px; font-size: 27px; }
   .publication-boundary p { color: var(--muted); font-size: 13px; line-height: 1.75; }
-  .publication-boundary small { display: block; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); color: #698078; font: 400 9px/1.65 var(--mono); }
+  .publication-boundary small { display: block; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font: 400 9px/1.65 var(--mono); }
   .authored-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .paper-card { padding: 27px; border: 1px solid var(--line); background: rgba(11,25,22,.82); }
+  .paper-card { padding: 27px; border: 1px solid var(--line); background: var(--panel); }
   .paper-card[data-paper-status='SUBMISSION_READY'] { border-top-color: var(--acid); }
-  .paper-card[data-paper-status='FIX_FIRST'] { border-top-color: #ff7878; }
+  .paper-card[data-paper-status='FIX_FIRST'] { border-top-color: var(--mh-magenta); }
   .paper-card header { display: flex; justify-content: space-between; gap: 18px; color: var(--muted); font: 500 9px var(--mono); letter-spacing: .1em; }
   .paper-card__publication { margin: 48px 0 7px; color: var(--amber); font: 500 9px var(--mono); letter-spacing: .09em; }
   .paper-card h3 { margin: 0; font-size: 28px; line-height: 1.15; }

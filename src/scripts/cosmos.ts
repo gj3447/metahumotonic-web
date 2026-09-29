@@ -6,6 +6,9 @@
 const PHI = 1.618033988749895;
 const SPIRAL_B = Math.log(PHI) / (Math.PI / 2);
 const TAU = Math.PI * 2;
+const MAX_DPR = 1.5;
+const FRAME_INTERVAL = 1000 / 30;
+const NORMAL_STAR_COUNT = 72;
 
 interface Particle {
   angle: number;
@@ -53,7 +56,8 @@ function initCosmos(): void {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let prefersReducedMotion = motionQuery.matches;
 
   let W = 0;
   let H = 0;
@@ -61,7 +65,7 @@ function initCosmos(): void {
   let cy = 0;
 
   function resize(): void {
-    const dpr = window.devicePixelRatio || 1;
+    const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
     // position:fixed canvas는 offsetWidth가 기본값(300x150) 반환하므로 window 크기 사용
     W = window.innerWidth;
     H = window.innerHeight;
@@ -82,15 +86,17 @@ function initCosmos(): void {
   let mouseActive = false;
 
   canvas!.style.pointerEvents = 'none'; // 아래 콘텐츠 클릭 가능
-  document.addEventListener('mousemove', (e) => {
+  const onMouseMove = (e: MouseEvent): void => {
     mouseX = e.clientX;
     mouseY = e.clientY;
     mouseActive = true;
-  });
-  document.addEventListener('mouseleave', () => { mouseActive = false; });
+  };
+  const onMouseLeave = (): void => { mouseActive = false; };
+  document.addEventListener('mousemove', onMouseMove, { passive: true });
+  document.addEventListener('mouseleave', onMouseLeave);
 
   // --- Stars ---
-  const STAR_COUNT = prefersReducedMotion ? 40 : 120;
+  const STAR_COUNT = prefersReducedMotion ? 32 : NORMAL_STAR_COUNT;
   const stars: Star[] = Array.from({ length: STAR_COUNT }, () => {
     const sizeClass = Math.random();
     const size = sizeClass < 0.5 ? 1 : sizeClass < 0.8 ? 1.5 : sizeClass < 0.95 ? 2 : 3;
@@ -116,14 +122,8 @@ function initCosmos(): void {
     }
   }
 
-  if (prefersReducedMotion) {
-    drawStars(0);
-    initCounters();
-    return;
-  }
-
   // --- Particles ---
-  const TRAIL_LENGTH = 40;
+  const TRAIL_LENGTH = 20;
 
   function createParticle(i: number): Particle {
     const isSpiral = i < 2;
@@ -139,13 +139,13 @@ function initCosmos(): void {
     };
   }
 
-  let particles: Particle[] = Array.from({ length: 4 }, (_, i) => createParticle(i));
+  let particles: Particle[] = Array.from({ length: 3 }, (_, i) => createParticle(i));
 
   // Recreate particles on resize to recalculate semiMajor
   const origResize = resize;
   resize = () => {
     origResize();
-    particles = Array.from({ length: 4 }, (_, i) => createParticle(i));
+    particles = Array.from({ length: 3 }, (_, i) => createParticle(i));
   };
   // Re-attach
   window.removeEventListener('resize', origResize);
@@ -155,7 +155,7 @@ function initCosmos(): void {
   const shootingStars: ShootingStar[] = [];
 
   function maybeSpawnShootingStar(): void {
-    if (Math.random() > 0.03 || shootingStars.length >= 3) return;
+    if (Math.random() > 0.015 || shootingStars.length >= 1) return;
     const angle = Math.random() * TAU;
     const speed = 4 + Math.random() * 6;
     shootingStars.push({
@@ -291,8 +291,39 @@ function initCosmos(): void {
 
   // --- Animation loop ---
   let frameId = 0;
+  let running = false;
+  let lastFrameAt = 0;
+  let inViewport = true;
+
+  function drawStatic(): void {
+    ctx!.clearRect(0, 0, W, H);
+    drawStars(0);
+  }
+
+  function stop(): void {
+    running = false;
+    if (frameId) cancelAnimationFrame(frameId);
+    frameId = 0;
+  }
+
+  function start(): void {
+    if (running || prefersReducedMotion || document.hidden || !inViewport) return;
+    running = true;
+    lastFrameAt = 0;
+    frameId = requestAnimationFrame(frame);
+  }
 
   function frame(time: number): void {
+    if (!running) return;
+    if (prefersReducedMotion || document.hidden || !inViewport) {
+      stop();
+      return;
+    }
+    if (time - lastFrameAt < FRAME_INTERVAL) {
+      frameId = requestAnimationFrame(frame);
+      return;
+    }
+    lastFrameAt = time;
     const t = time * 0.001;
     // clearRect는 CSS 픽셀 좌표 (setTransform으로 스케일 적용됨)
     ctx!.clearRect(0, 0, W, H);
@@ -337,12 +368,40 @@ function initCosmos(): void {
     frameId = requestAnimationFrame(frame);
   }
 
-  frameId = requestAnimationFrame(frame);
+  const onVisibilityChange = (): void => {
+    if (document.hidden) stop();
+    else start();
+  };
+  const onMotionChange = (event: MediaQueryListEvent): void => {
+    prefersReducedMotion = event.matches;
+    if (prefersReducedMotion) {
+      stop();
+      drawStatic();
+    } else {
+      start();
+    }
+  };
+  const viewportObserver = new IntersectionObserver((entries) => {
+    inViewport = entries.some((entry) => entry.isIntersecting);
+    if (inViewport) start();
+    else stop();
+  });
+  viewportObserver.observe(canvas);
+  document.addEventListener('visibilitychange', onVisibilityChange);
+  motionQuery.addEventListener('change', onMotionChange);
+
+  if (prefersReducedMotion) drawStatic();
+  else start();
 
   // Cleanup on page navigation (Astro View Transitions)
   document.addEventListener('astro:before-swap', () => {
-    cancelAnimationFrame(frameId);
+    stop();
     window.removeEventListener('resize', resize);
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseleave', onMouseLeave);
+    document.removeEventListener('visibilitychange', onVisibilityChange);
+    motionQuery.removeEventListener('change', onMotionChange);
+    viewportObserver.disconnect();
   }, { once: true });
 
   initCounters();

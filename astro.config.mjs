@@ -26,9 +26,10 @@ export default defineConfig({
       locales: {
         root: { label: '한국어', lang: 'ko' },
       },
-      customCss: ['/src/styles/wiki.css'],
+      customCss: ['/src/styles/tokens.css', '/src/styles/wiki.css'],
       components: {
         SiteTitle: './src/components/wiki/WikiSiteTitle.astro',
+        ThemeProvider: './src/components/wiki/WikiThemeProvider.astro',
       },
       sidebar: wikiSidebar,
       social: [

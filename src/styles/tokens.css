@@ -1,0 +1,31 @@
+/* MetaHumotonic semantic spectrum. Keep meaning in labels and structure, not color alone. */
+:root {
+  color-scheme: dark;
+
+  --mh-bg: #080a0d;
+  --mh-surface: #11151a;
+  --mh-surface-raised: #1b2027;
+  --mh-paper: #f4f7ff;
+  --mh-ink: #f4f7ff;
+  --mh-muted: #aeb8c5;
+  --mh-line: #38414c;
+  --mh-line-strong: #8391a2;
+  --mh-on-accent: #080a0d;
+
+  --mh-cyan: #00e5ff;
+  --mh-yellow: #ffe600;
+  --mh-magenta: #ff2bd6;
+  --mh-cyan-soft: rgb(0 229 255 / 0.12);
+  --mh-yellow-soft: rgb(255 230 0 / 0.12);
+  --mh-magenta-soft: rgb(255 43 214 / 0.12);
+
+  --mh-link: var(--mh-cyan);
+  --mh-principle: var(--mh-yellow);
+  --mh-world: var(--mh-magenta);
+  --mh-focus: var(--mh-yellow);
+
+  --mh-content: 1280px;
+  --mh-gutter: clamp(20px, 5vw, 48px);
+  --mh-font: Pretendard, Inter, 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mh-mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+}
