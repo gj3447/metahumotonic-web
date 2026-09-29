@@ -159,9 +159,14 @@
       "prov:wasAttributedTo": {
         "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#author"
       },
-      "prov:wasDerivedFrom": {
-        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#evidence"
-      },
+      "prov:wasDerivedFrom": [
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#evidence"
+        },
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#operations-evidence-0846"
+        }
+      ],
       "mh:authority": "SECONDARY_AI",
       "mh:status": "HANDOFF_RECORDED_WITH_OPEN_OPERATIONS"
     },
@@ -346,9 +351,17 @@
           "@id": "https://metahumotonic.com/foundation/graph.jsonld"
         }
       ],
-      "schema:subjectOf": {
-        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#evidence"
-      },
+      "schema:subjectOf": [
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#evidence"
+        },
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#operations-evidence-0846"
+        },
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#nginx-mime-patch"
+        }
+      ],
       "schema:description": "Responsible role: VM100 operator, unassigned. Prerequisite: an available authorized VM100 management transport. Preserve the live root and existing routes; add only the prepared exact location, validate nginx configuration, reload and verify direct/public application/ld+json plus payload hash and existing home/wiki/learn checks. On failure restore the saved live config and revalidate. The existing user authorization is not revoked; missing transport is not a request to approve the same work again.",
       "mh:authority": "SECONDARY_AI_HANDOFF_TASK",
       "mh:status": "OPEN_MISSING_MANAGEMENT_TRANSPORT"
@@ -356,19 +369,135 @@
     {
       "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#review-public-client-access",
       "@type": "schema:Action",
-      "schema:name": "Investigate public graph responses by client User-Agent",
+      "schema:name": "Resolve Cloudflare browser-signature rejection for public Foundation data",
       "schema:actionStatus": {
         "@id": "schema:PotentialActionStatus"
       },
-      "schema:object": {
-        "@id": "https://metahumotonic.com/foundation/graph.jsonld"
-      },
-      "schema:subjectOf": {
-        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#evidence"
-      },
-      "schema:description": "Responsible role: public edge operator, unassigned. Python-urllib/3.13 returned 403 with a Cloudflare server header while curl/8.0.1 returned 200 in the same urllib transport. Inspect the matching edge event before attributing a rule or changing policy. Acceptance: document the intended public machine-client policy and verify it with the two probes. No policy change was made in this handoff.",
+      "schema:object": [
+        {
+          "@id": "https://metahumotonic.com/foundation/graph.jsonld"
+        },
+        {
+          "@id": "https://metahumotonic.com/foundation/usl.json"
+        },
+        {
+          "@id": "https://metahumotonic.com/foundation/manifest.json"
+        }
+      ],
+      "schema:subjectOf": [
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#evidence"
+        },
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#operations-evidence-0846"
+        },
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#cloudflare-bic-rule"
+        }
+      ],
+      "schema:description": "Responsible role: public edge operator, unassigned. At 08:41-08:46 UTC all three public Foundation data paths returned 403 to default Python urllib; GET bodies reported Cloudflare error 1010. Direct origin GET/HEAD returned 200. Official documentation identifies browser-signature rejection and recommends inspecting Browser Integrity Check. This is a diagnosis from responses and documentation, not a live account-rule readback. A narrow GET/HEAD rule draft is ready; inspect the matching event and current configuration rules before applying. Acceptance: default machine clients receive 200 with expected media types and unchanged payloads; record actual applied rule and readback. No edge policy write has occurred.",
       "mh:authority": "SECONDARY_AI_HANDOFF_TASK",
-      "mh:status": "OPEN_INVESTIGATION"
+      "mh:status": "OPEN_DIAGNOSED_MISSING_EDGE_CONNECTION"
+    },
+    {
+      "@id": "https://metahumotonic.com/foundation/manifest.json",
+      "@type": [
+        "schema:DigitalDocument",
+        "prov:Entity"
+      ],
+      "schema:name": "Foundation public manifest representation"
+    },
+    {
+      "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#operations-observation-0841",
+      "@type": "prov:Activity",
+      "schema:name": "Origin/public GET/HEAD and browser-signature diagnosis",
+      "prov:startedAtTime": {
+        "@value": "2026-09-29T08:41:26.846400+00:00",
+        "@type": "xsd:dateTime"
+      },
+      "prov:used": [
+        {
+          "@id": "https://metahumotonic.com/foundation/graph.jsonld"
+        },
+        {
+          "@id": "https://metahumotonic.com/foundation/usl.json"
+        },
+        {
+          "@id": "https://metahumotonic.com/foundation/manifest.json"
+        },
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#live-nginx"
+        }
+      ],
+      "prov:wasAssociatedWith": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#author"
+      }
+    },
+    {
+      "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#operations-evidence-0846",
+      "@type": [
+        "schema:DigitalDocument",
+        "prov:Entity"
+      ],
+      "schema:name": "Operational continuation: HTTP probes, scoped proposals and patch validation",
+      "schema:identifier": "docs/evidence/foundation-operations-2026-09-29.json",
+      "schema:about": [
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#apply-nginx-mime"
+        },
+        {
+          "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#review-public-client-access"
+        }
+      ],
+      "prov:wasGeneratedBy": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#operations-observation-0841"
+      },
+      "prov:wasAttributedTo": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#author"
+      },
+      "mh:authority": "SECONDARY_AI_OPERATIONAL_OBSERVATION",
+      "mh:status": "POINT_IN_TIME_NO_PRODUCTION_WRITE"
+    },
+    {
+      "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#nginx-mime-patch",
+      "@type": [
+        "schema:DigitalDocument",
+        "prov:Entity"
+      ],
+      "schema:name": "Minimal patch against observed VM100 Nginx configuration",
+      "schema:identifier": "docs/handoffs/foundation-operations-2026-09-29/nginx-foundation-mime.patch",
+      "schema:about": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#live-nginx"
+      },
+      "prov:wasDerivedFrom": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#operations-evidence-0846"
+      },
+      "prov:wasAttributedTo": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#author"
+      },
+      "mh:authority": "SECONDARY_AI_CHANGE_PROPOSAL",
+      "mh:status": "PREPARED_NOT_APPLIED"
+    },
+    {
+      "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#cloudflare-bic-rule",
+      "@type": [
+        "schema:DigitalDocument",
+        "prov:Entity"
+      ],
+      "schema:name": "Scoped Cloudflare Browser Integrity Check configuration rule draft",
+      "schema:identifier": "docs/handoffs/foundation-operations-2026-09-29/cloudflare-foundation-bic.rule.json",
+      "schema:about": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#review-public-client-access"
+      },
+      "prov:wasDerivedFrom": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#operations-evidence-0846"
+      },
+      "prov:wasAttributedTo": {
+        "@id": "urn:metahumotonic:handoff:foundation:2026-09-29#author"
+      },
+      "schema:citation": "https://developers.cloudflare.com/rules/configuration-rules/create-api/",
+      "mh:authority": "SECONDARY_AI_CHANGE_PROPOSAL",
+      "mh:status": "DRAFT_PENDING_LIVE_POLICY_READBACK"
     }
   ]
 }

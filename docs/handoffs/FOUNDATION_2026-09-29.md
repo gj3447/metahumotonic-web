@@ -4,6 +4,7 @@
 
 - 기계용 관계와 작업: [인수인계 JSON-LD](foundation-2026-09-29.jsonld)
 - 시각·해시·HTTP·CI 근거: [검증 관측 JSON](../evidence/foundation-handoff-2026-09-29.json)
+- 운영 재개 관측·설정안: [08:41–08:46 UTC 근거 JSON](../evidence/foundation-operations-2026-09-29.json), 아래 6절
 - 재개 순서: 적용 대상의 instruction-routing → 해당 소유자 규칙 → 이 문서의 열린 작업과 완료 조건
 - 관측 기준: **2026-09-29 05:46–05:50 UTC**. 아래 상태는 그때의 관측이며 상시 가용성 보장이 아니다.
 
@@ -81,9 +82,9 @@ location = /foundation/graph.jsonld {
 
 ### B. 공개 기계 클라이언트 접근
 
-- 담당 역할: **공개 엣지 운영자, 미배정**. 상태 `OPEN_INVESTIGATION`.
+- 담당 역할: **공개 엣지 운영자, 미배정**. 08:46 UTC 후속 상태 `OPEN_DIAGNOSED_MISSING_EDGE_CONNECTION`.
 - 같은 Python urllib 전송에서 User-Agent만 달리했을 때 `Python-urllib/3.13`은 403, `curl/8.0.1`은 200이었다. 403 응답의 server 헤더는 Cloudflare다.
-- 구체적인 WAF 규칙 원인은 아직 조회하지 않았다. 다음 운영자는 해당 요청의 엣지 이벤트와 의도한 공개 기계 접근 정책을 확인한다.
+- 후속 요청의 본문에서 Cloudflare `error code: 1010`을 확인했다. 공식 문서상 브라우저 서명 차단이며 Browser Integrity Check 점검 대상이다. 실제 계정의 규칙·이벤트는 아직 조회하지 않았다. 아래 6절의 좁은 설정안을 적용하기 전에 해당 요청의 엣지 이벤트와 규칙 순서를 확인한다.
 - 완료 조건: 의도한 정책과 근거를 기록하고 동일 요청을 재검증한다. 사용자 에이전트 위장으로 정책 문제가 해결됐다고 기록하지 않는다.
 
 ### C. 별도 후속 범위
@@ -135,10 +136,72 @@ python3 scripts/verify/learning_publication.py --base-url "$ORIGIN_URL" --expect
 
 검증 질문은 “무엇이 배포됐는가”, “어떤 원문·리비전에 근거하는가”, “MIME 수정 대상과 완료 조건은 무엇인가”, “무엇이 아직 해석·후속 작업인가”, “KG/백엔드 전환까지 완료됐는가”다. JSON 구문, RDF 파싱, ID 고유성, 참조 무결성, 열린 작업의 대상·근거·상태를 확인한다. RDF 파싱 성공만으로 SHACL·OWL 또는 전체 표준 적합성 인증을 주장하지 않는다.
 
-이번 인수인계 검증은 PASS다. 25개 개체 ID, 41개 참조, 2개 열린 작업의 대상·근거·상태,
+최초 05:50 인수인계 검증은 PASS였다. 당시 25개 개체 ID, 41개 참조, 2개 열린 작업의 대상·근거·상태,
 위 다섯 확인 질문과 문서의 로컬 링크를 검사했다. RDFLib는 142개 quad를 읽었고,
 그중 명명 그래프 내부는 139개 triple이다. 코드 변경이 없는 기록 작업이므로 제품 전체
 테스트를 재실행한 것으로 주장하지 않는다.
 
-- 인수인계 JSON-LD SHA-256: `215d67aeb2f811426cb652e8a97eab684c94eb5c0fed3f311a39da5a77d785c6`
+- 최초 인수인계 JSON-LD SHA-256 (운영 재개 전, Git 이력): `215d67aeb2f811426cb652e8a97eab684c94eb5c0fed3f311a39da5a77d785c6`
 - 검증 관측 JSON SHA-256: `2769c0d2c64410e4a477d68931f6f77edd1507be21a8ae015c22a3633751419f`
+
+## 6. 운영 재개 — 08:41–08:46 UTC
+
+운영 변경은 **아직 적용하지 않았다**. Relay Admin의 실행 대상은 `dev-01`뿐이며
+`cpu-edge-01`/VM100은 파일 읽기만 가능했다. Cloudflare 관리 연결도 제공되지 않았다.
+기존 사용자 승인은 유효하며, 필요한 것은 대상 서버·엣지의 실제 관리 연결이다.
+
+Foundation의 `/foundation/graph.jsonld`, `/foundation/usl.json`,
+`/foundation/manifest.json`에 기본 `Python-urllib/3.13`으로 GET·HEAD를 요청했다.
+원본은 6건 모두 200, 공개 주소는 6건 모두 403이었다. 공개 GET 본문 3건은 모두
+`error code: 1010`이었다. 앞선 동일 urllib 전송의 User-Agent 대조에서는
+`curl/8.0.1`이 200을 받았다. 모든 시각·CF-Ray·본문 해시는
+[운영 관측 JSON](../evidence/foundation-operations-2026-09-29.json)에 보존했다.
+
+[Cloudflare 1010 문서](https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1010/)
+와 [BIC 문서](https://developers.cloudflare.com/waf/tools/browser-integrity-check/)에
+따라 브라우저 서명 차단으로 진단했다. 특정 계정 규칙을 확인한 것은 아니다.
+
+### 준비한 Nginx 변경
+
+[최소 패치](foundation-operations-2026-09-29/nginx-foundation-mime.patch)는
+08:41에 읽은 운영 설정에 Foundation exact location만 추가한다. 기준 파일 해시는
+`12fe4583ad9957b349a29244445e1e01b3404f731120482b659570cdc9a0c032`,
+적용 후보 해시는 `08b03a4c8b62cbd141c52964c2ce14e8bf5102890204ac17a58da779f0ddad3d`다.
+설정 복사본에서 패치 적용·결과 일치·역패치 복구를 검사했다. 운영 `nginx -t`와 reload는 미실행이다.
+
+관리 연결이 생기면 현재 파일 해시와 컨테이너 mount를 다시 확인한다. 변경됐으면 최신 파일을
+기준으로 diff를 다시 만든다. 백업 후 후보를 검사하고, 단일 파일 bind mount의 inode를
+보존하여 반영하거나 소유자의 컨테이너 재생성 절차를 사용한다. 컨테이너가 읽는
+`/etc/nginx/conf.d/default.conf`가 후보와 일치하는지 확인한 뒤 `nginx -t`·reload를 수행한다.
+실패 시 백업 내용 복구 → 컨테이너 내용 확인 → 검사 → reload 순서로 되돌린다.
+
+### 준비한 Cloudflare 변경
+
+[규칙 초안 JSON](foundation-operations-2026-09-29/cloudflare-foundation-bic.rule.json)은
+`metahumotonic.com`의 위 세 경로, GET·HEAD에만 `bic: false`를 설정한다.
+공개 데이터의 일반 기계 클라이언트 접근이 목적이며, User-Agent별 위장 조건은 없다.
+zone의 `http_config_settings` phase, `set_config` action에 넣는 **단일 rule 객체**다.
+[공식 API 절차](https://developers.cloudflare.com/rules/configuration-rules/create-api/)와
+[설정 명세](https://developers.cloudflare.com/rules/configuration-rules/settings/#browser-integrity-check)를 확인했다.
+
+적용 순서:
+
+1. 관측 JSON의 CF-Ray와 시각으로 차단 이벤트를 조회하고 현재 zone·BIC·configuration rules를 저장한다.
+2. `metahumotonic_foundation_public_data_bic` ref의 기존 규칙을 확인하여 중복을 피한다.
+   현재 규칙 목록과 순서를 유지하며 해당 규칙만 추가·수정한다. 초안 하나로 전체 ruleset을 덮어쓰지 않는다.
+3. Cloudflare Trace와 readback으로 세 경로의 GET·HEAD에만 설정이 적용되는지 확인한다.
+   다른 호스트·경로·메서드는 이 규칙과 일치하지 않아야 한다. 뒤의 규칙이 BIC를 다시 켜는지도 확인한다.
+4. 기본 Python urllib와 curl로 원본·공개 200, graph의 `application/ld+json`, 나머지 JSON의
+   `application/json`, GET 본문 해시·개체·관계를 확인한다. 기존 홈·wiki·learn 검사도 실행한다.
+5. 실패 시 이번에 만든 규칙만 제거하거나 이전 규칙 내용·순서로 복구하고 재확인한다.
+   관련 없는 WAF·rate limit·challenge 설정까지 끄지 않는다.
+
+두 작업은 각각 실제 응답과 설정 readback으로 완료 처리한다. 저장소 커밋, 패치 검사,
+Cloudflare 초안 JSON의 구문 통과는 운영 적용 증거가 아니다.
+
+운영 재개 후 로컬 검증: **PASS**. 개체 ID 30개, 참조 63개, 열린 작업 2개,
+RDF quad 189개(명명 그래프 triple 186개)를 확인했다. 두 작업의 대상·근거·미적용 상태,
+이전 해석·KG·백엔드 범위 보존, 설정안 파일 해시와 참조 경로도 검사했다.
+
+- 갱신된 인수인계 JSON-LD SHA-256: `bb19360c5ad60e214b280a014f2dd687f0735c6cd7321818555741ae98383c40`
+- 운영 재개 관측 JSON SHA-256: `6509e55fbf1c6ac8ad3d82a06e3c86b30095c73e2b6dbfb6433d42e8f4115bb7`

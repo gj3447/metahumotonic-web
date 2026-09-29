@@ -1,0 +1,10 @@
+{
+  "ref": "metahumotonic_foundation_public_data_bic",
+  "description": "Allow standard machine clients to read the three public Foundation data resources",
+  "expression": "(http.host eq \"metahumotonic.com\" and http.request.method in {\"GET\" \"HEAD\"} and http.request.uri.path in {\"/foundation/graph.jsonld\" \"/foundation/usl.json\" \"/foundation/manifest.json\"})",
+  "action": "set_config",
+  "action_parameters": {
+    "bic": false
+  },
+  "enabled": true
+}

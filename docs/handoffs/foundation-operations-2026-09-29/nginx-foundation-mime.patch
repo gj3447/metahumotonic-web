@@ -1,0 +1,16 @@
+--- a/nginx.conf
++++ b/nginx.conf
+@@ -26,6 +26,13 @@
+     # Public service directory JSON-LD representation.
+     location = /services/graph.jsonld {
+         types { application/ld+json jsonld; }
++        default_type application/ld+json;
++        try_files $uri =404;
++    }
++
++    # Public Foundation JSON-LD representation.
++    location = /foundation/graph.jsonld {
++        types { }
+         default_type application/ld+json;
+         try_files $uri =404;
+     }

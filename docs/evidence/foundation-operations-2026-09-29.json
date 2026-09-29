@@ -1,0 +1,265 @@
+{
+  "schemaVersion": "metahumotonic-foundation-operations/v1",
+  "authority": "SECONDARY_AI_OPERATIONAL_OBSERVATION",
+  "scope": "Repository-owned continuation of the Foundation handoff; no native KG write",
+  "observationStartedAt": "2026-09-29T08:46:35.367453+00:00",
+  "lastRequestStartedAt": "2026-09-29T08:46:36.306195+00:00",
+  "liveChangesApplied": false,
+  "probes": [
+    {
+      "scope": "origin",
+      "url": "http://192.168.0.24:18080/foundation/graph.jsonld",
+      "method": "GET",
+      "userAgent": "Python-urllib/3.13",
+      "observedAt": "2026-09-29T08:46:35.367453+00:00",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "server": "nginx/1.27.5",
+      "cfRay": null,
+      "bodyBytes": 4434,
+      "bodySha256": "cb239e34a5d7d5de8cf0c107eefece00ab9c82c0a0869170b752dc37dda226d0"
+    },
+    {
+      "scope": "origin",
+      "url": "http://192.168.0.24:18080/foundation/graph.jsonld",
+      "method": "HEAD",
+      "userAgent": "Python-urllib/3.13",
+      "observedAt": "2026-09-29T08:46:35.369647+00:00",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "server": "nginx/1.27.5",
+      "cfRay": null,
+      "bodyBytes": 0,
+      "bodySha256": null
+    },
+    {
+      "scope": "origin",
+      "url": "http://192.168.0.24:18080/foundation/usl.json",
+      "method": "GET",
+      "userAgent": "Python-urllib/3.13",
+      "observedAt": "2026-09-29T08:46:35.370122+00:00",
+      "status": 200,
+      "contentType": "application/json",
+      "server": "nginx/1.27.5",
+      "cfRay": null,
+      "bodyBytes": 5972,
+      "bodySha256": "02f18bb50d896bdb54092b27dde361b0326e8adcabed127ddfd4ad258b92e24e"
+    },
+    {
+      "scope": "origin",
+      "url": "http://192.168.0.24:18080/foundation/usl.json",
+      "method": "HEAD",
+      "userAgent": "Python-urllib/3.13",
+      "observedAt": "2026-09-29T08:46:35.370527+00:00",
+      "status": 200,
+      "contentType": "application/json",
+      "server": "nginx/1.27.5",
+      "cfRay": null,
+      "bodyBytes": 0,
+      "bodySha256": null
+    },
+    {
+      "scope": "origin",
+      "url": "http://192.168.0.24:18080/foundation/manifest.json",
+      "method": "GET",
+      "userAgent": "Python-urllib/3.13",
+      "observedAt": "2026-09-29T08:46:35.370875+00:00",
+      "status": 200,
+      "contentType": "application/json",
+      "server": "nginx/1.27.5",
+      "cfRay": null,
+      "bodyBytes": 36330,
+      "bodySha256": "a8cf5ed29673a030569b650fe823ed769d9b82d338c60cd7697d638cc8a21aaf"
+    },
+    {
+      "scope": "origin",
+      "url": "http://192.168.0.24:18080/foundation/manifest.json",
+      "method": "HEAD",
+      "userAgent": "Python-urllib/3.13",
+      "observedAt": "2026-09-29T08:46:35.371391+00:00",
+      "status": 200,
+      "contentType": "application/json",
+      "server": "nginx/1.27.5",
+      "cfRay": null,
+      "bodyBytes": 0,
+      "bodySha256": null
+    },
+    {
+      "scope": "public",
+      "url": "https://metahumotonic.com/foundation/graph.jsonld",
+      "method": "GET",
+      "userAgent": "Python-urllib/3.13",
+      "observedAt": "2026-09-29T08:46:35.371749+00:00",
+      "status": 403,
+      "contentType": "text/plain; charset=UTF-8",
+      "server": "cloudflare",
+      "cfRay": "a429b7e0889fe2f5-HKG",
+      "bodyBytes": 17,
+      "bodySha256": "2938e9f1284180959e33ab1718d0793a72ff6e4cdb8108c34dcd14e69446de5c",
+      "errorExcerpt": "error code: 1010\n"
+    },
+    {
+      "scope": "public",
+      "url": "https://metahumotonic.com/foundation/graph.jsonld",
+      "method": "HEAD",
+      "userAgent": "Python-urllib/3.13",
+      "observedAt": "2026-09-29T08:46:35.520398+00:00",
+      "status": 403,
+      "contentType": "text/plain; charset=UTF-8",
+      "server": "cloudflare",
+      "cfRay": "a429b7e1dc7512c1-NRT",
+      "bodyBytes": 0,
+      "bodySha256": null
+    },
+    {
+      "scope": "public",
+      "url": "https://metahumotonic.com/foundation/usl.json",
+      "method": "GET",
+      "userAgent": "Python-urllib/3.13",
+      "observedAt": "2026-09-29T08:46:35.730221+00:00",
+      "status": 403,
+      "contentType": "text/plain; charset=UTF-8",
+      "server": "cloudflare",
+      "cfRay": "a429b7e30a26e2fa-HKG",
+      "bodyBytes": 17,
+      "bodySha256": "2938e9f1284180959e33ab1718d0793a72ff6e4cdb8108c34dcd14e69446de5c",
+      "errorExcerpt": "error code: 1010\n"
+    },
+    {
+      "scope": "public",
+      "url": "https://metahumotonic.com/foundation/usl.json",
+      "method": "HEAD",
+      "userAgent": "Python-urllib/3.13",
+      "observedAt": "2026-09-29T08:46:35.937065+00:00",
+      "status": 403,
+      "contentType": "text/plain; charset=UTF-8",
+      "server": "cloudflare",
+      "cfRay": "a429b7e429aa855e-HKG",
+      "bodyBytes": 0,
+      "bodySha256": null
+    },
+    {
+      "scope": "public",
+      "url": "https://metahumotonic.com/foundation/manifest.json",
+      "method": "GET",
+      "userAgent": "Python-urllib/3.13",
+      "observedAt": "2026-09-29T08:46:36.104078+00:00",
+      "status": 403,
+      "contentType": "text/plain; charset=UTF-8",
+      "server": "cloudflare",
+      "cfRay": "a429b7e559159cf5-HKG",
+      "bodyBytes": 17,
+      "bodySha256": "2938e9f1284180959e33ab1718d0793a72ff6e4cdb8108c34dcd14e69446de5c",
+      "errorExcerpt": "error code: 1010\n"
+    },
+    {
+      "scope": "public",
+      "url": "https://metahumotonic.com/foundation/manifest.json",
+      "method": "HEAD",
+      "userAgent": "Python-urllib/3.13",
+      "observedAt": "2026-09-29T08:46:36.306195+00:00",
+      "status": 403,
+      "contentType": "text/plain; charset=UTF-8",
+      "server": "cloudflare",
+      "cfRay": "a429b7e66fbe9b48-HKG",
+      "bodyBytes": 0,
+      "bodySha256": null
+    }
+  ],
+  "priorControlledUserAgentProbe": [
+    {
+      "scope": "origin",
+      "observedAt": "2026-09-29T08:41:26.846400+00:00",
+      "userAgent": "Python-urllib/3.13",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "server": "nginx/1.27.5",
+      "cfRay": null,
+      "cfMitigated": null,
+      "bodyBytes": 4434,
+      "entities": 4
+    },
+    {
+      "scope": "public",
+      "observedAt": "2026-09-29T08:41:27.012457+00:00",
+      "userAgent": "Python-urllib/3.13",
+      "status": 403,
+      "contentType": "text/plain; charset=UTF-8",
+      "server": "cloudflare",
+      "cfRay": "a429b0585c849b87-HKG",
+      "cfMitigated": null,
+      "bodyBytes": 17,
+      "errorExcerpt": "error code: 1010\n"
+    },
+    {
+      "scope": "public-control",
+      "observedAt": "2026-09-29T08:41:27.205542+00:00",
+      "userAgent": "curl/8.0.1",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "server": "cloudflare",
+      "cfRay": "a429b0594f350d54-NRT",
+      "cfMitigated": null,
+      "bodyBytes": 4434,
+      "entities": 4
+    }
+  ],
+  "liveNginx": {
+    "machine": "cpu-edge-01",
+    "path": "/opt/metahumotonic/canary/landing-astro-subpages/nginx.conf",
+    "sha256": "12fe4583ad9957b349a29244445e1e01b3404f731120482b659570cdc9a0c032",
+    "observedAt": "2026-09-29T08:41:28.479Z",
+    "foundationExactLocationPresent": false,
+    "access": "READ_DOCUMENT_PROVENANCE"
+  },
+  "diagnosis": {
+    "origin": "All three Foundation resources returned 200 for GET/HEAD. graph.jsonld still has application/octet-stream.",
+    "public": "All six default Python urllib public requests returned 403. All three GET error bodies contained error code: 1010.",
+    "inference": "The public/origin difference and official Error 1010 documentation indicate browser-signature rejection at Cloudflare. Browser Integrity Check is the documented configuration to inspect; the live zone setting, event and matching rule have not been read.",
+    "limitation": "This is a bounded observation from this network, not proof of every client or edge location."
+  },
+  "access": {
+    "managementExecutionTargets": [
+      "dev-01"
+    ],
+    "missing": [
+      "Authorized execution transport to VM100 cpu-edge-01",
+      "metahumotonic.com Cloudflare configuration connection"
+    ],
+    "userAuthorization": "Already present in the conversation. No repeat approval is required.",
+    "productionWritesPerformed": false
+  },
+  "proposedChanges": [
+    {
+      "artifact": "docs/handoffs/foundation-operations-2026-09-29/nginx-foundation-mime.patch",
+      "status": "PREPARED_NOT_APPLIED",
+      "target": "/opt/metahumotonic/canary/landing-astro-subpages/nginx.conf",
+      "preconditionSha256": "12fe4583ad9957b349a29244445e1e01b3404f731120482b659570cdc9a0c032",
+      "sha256": "c41a53e9feda196a18e1535a814a76af863caac325ca09dc17add791965cb132"
+    },
+    {
+      "artifact": "docs/handoffs/foundation-operations-2026-09-29/cloudflare-foundation-bic.rule.json",
+      "status": "DRAFT_PENDING_LIVE_POLICY_READBACK",
+      "phase": "http_config_settings",
+      "kind": "zone",
+      "scope": "Exact hostname, GET/HEAD, three observed public Foundation data paths",
+      "precondition": "Read the matching event and current configuration rules/ordering before merging; do not replace unrelated rules",
+      "sha256": "19bcdd62cd1ec46c9606c702dd6ee779a3d41bef30fd1c53e79ac7cedb7f8975"
+    }
+  ],
+  "sources": [
+    "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1010/",
+    "https://developers.cloudflare.com/waf/tools/browser-integrity-check/",
+    "https://developers.cloudflare.com/rules/configuration-rules/create-api/",
+    "https://developers.cloudflare.com/rules/configuration-rules/settings/"
+  ],
+  "localValidation": {
+    "check": "patch apply, exact result and rollback on observed configuration copy",
+    "result": "PASS",
+    "nginxSyntaxCheck": "NOT_RUN_NO_TARGET_EXECUTION",
+    "liveReload": "NOT_RUN",
+    "beforeSha256": "12fe4583ad9957b349a29244445e1e01b3404f731120482b659570cdc9a0c032",
+    "candidateSha256": "08b03a4c8b62cbd141c52964c2ce14e8bf5102890204ac17a58da779f0ddad3d",
+    "patchSha256": "c41a53e9feda196a18e1535a814a76af863caac325ca09dc17add791965cb132"
+  }
+}
