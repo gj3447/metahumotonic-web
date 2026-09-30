@@ -21,9 +21,19 @@ digest·자리 식별자·연결 범위를 검사한다. 선택된 노드와 미
 
 전체 KG → manifest → API → 웹 계약은 `metahumotonic_web_back` 저장소의
 `docs/APOSTLE_WEB_GRAPH.md`에 있다. 연결 명세는 Relay KG 초안으로 저장하고
-웹 플랫폼·백엔드에 PROPOSED 참조 두 개를 연결했다. 기존 12사도 대상으로의
-직접 ABOUT edge는 writer의 `Target is not available` 제한으로 미완료다.
-원본 정전 변경과 운영 배포는 수행하지 않았다.
+웹 플랫폼·백엔드에 PROPOSED 참조 두 개를 연결했다. 일반 초안 writer가
+legacy `UNKNOWN` 대상으로의 연결을 거부해, 사용자 실행 승인 후 SYMPOSIUM의
+기존 번들 publisher로 원본 12사도 두 노드에 ABOUT 참조를 추가했다.
+네 관계 모두 `SECONDARY_AI/PROPOSED`이며 원본 속성과 정전은 변경하지 않았다.
+번들·영수증은 SYMPOSIUM 커밋 `b2ea5aa`에 있다.
+
+2026-09-30 프런트엔드 `a90c173`, 백엔드 `99abb0d`의 코드를 운영에 배포했다.
+[공개 그래프](https://metahumotonic.com/apostles/graph.jsonld)는
+`200 application/ld+json`이며 원본·공개 응답과 빌드 파일의 SHA-256이 같다:
+`7f5a4cad8cd7fe8169552ac3a20910590c3178b577e36eb12f0f75c42047199e`.
+내부 snapshot은 운영에 미설정되어 ontology API는 직접 접근 `503`, 공개 접근
+`404`다. 내부 탐색기 활성화와 공개 RDF 배포를 구분한다. 공개 사도·위키·학습
+지도 연결은 내부 API 없이 제공한다.
 
 ## 검증
 
