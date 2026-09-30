@@ -20,7 +20,10 @@ digest·자리 식별자·연결 범위를 검사한다. 선택된 노드와 미
 `INTERNAL_ONLY` 그대로다.
 
 전체 KG → manifest → API → 웹 계약은 `metahumotonic_web_back` 저장소의
-`docs/APOSTLE_WEB_GRAPH.md`에 있다. 원본 KG 쓰기와 공개 배포는 별도 작업이다.
+`docs/APOSTLE_WEB_GRAPH.md`에 있다. 연결 명세는 Relay KG 초안으로 저장하고
+웹 플랫폼·백엔드에 PROPOSED 참조 두 개를 연결했다. 기존 12사도 대상으로의
+직접 ABOUT edge는 writer의 `Target is not available` 제한으로 미완료다.
+원본 정전 변경과 운영 배포는 수행하지 않았다.
 
 ## 검증
 
