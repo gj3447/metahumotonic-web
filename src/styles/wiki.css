@@ -537,7 +537,9 @@ body {
 .ontology-conflict-notice { padding-left: 0.8rem; border-left: 3px solid #f87171; color: var(--sl-color-gray-2); }
 .ontology-candidates { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; }
 .ontology-candidates article { display: flex; flex-direction: column; gap: 0.55rem; padding: 0.85rem; border: 1px solid var(--sl-color-gray-5); border-radius: 0.7rem; }
-.ontology-candidates small { color: var(--sl-color-gray-3); }
+.ontology-candidates small { color: var(--sl-color-gray-3); overflow-wrap: anywhere; }
+.ontology-web-references { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+.ontology-web-references p { flex-basis: 100%; margin: 0; color: var(--sl-color-gray-2); }
 
 .ontology-neighbor-list { display: grid; gap: 0.5rem; }
 .ontology-neighbor {

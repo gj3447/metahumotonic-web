@@ -2,6 +2,7 @@
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import WikiAuthorityBadge from '../../../components/wiki/WikiAuthorityBadge.astro';
 import { wikiApostles, wikiAuthority, wikiSidebar } from '../../../lib/wiki';
+import { pageGraph } from '../../../lib/public-content';
 
 export function getStaticPaths() {
   return wikiApostles.map((apostle) => ({
@@ -13,14 +14,7 @@ export function getStaticPaths() {
 type Apostle = (typeof wikiApostles)[number];
 const { apostle } = Astro.props as { apostle: Apostle };
 const canonical = new URL(apostle.canonicalUrl, Astro.site);
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'DefinedTerm',
-  name: apostle.name,
-  description: apostle.essence,
-  url: canonical.href,
-  inDefinedTermSet: 'https://metahumotonic.com/wiki/apostles/',
-};
+const jsonLd = pageGraph(apostle.canonicalUrl, apostle.name, [apostle.id]);
 ---
 
 <StarlightPage
@@ -29,6 +23,7 @@ const jsonLd = {
     description: apostle.essence,
     head: [
       { tag: 'link', attrs: { rel: 'canonical', href: canonical.href } },
+      { tag: 'link', attrs: { rel: 'alternate', type: 'application/ld+json', href: '/apostles/graph.jsonld' } },
       { tag: 'script', attrs: { type: 'application/ld+json' }, content: JSON.stringify(jsonLd) },
     ],
   }}
@@ -48,10 +43,11 @@ const jsonLd = {
   <dl class="wiki-fact-grid">
     <div><dt>역할</dt><dd>{apostle.role}</dd></div>
     <div><dt>정전 상태</dt><dd>{apostle.status}</dd></div>
-    <div><dt>KG ID</dt><dd><code>{apostle.id}</code></dd></div>
+    <div><dt>공개 항목 ID</dt><dd><code>{apostle.id}</code></dd></div>
   </dl>
 
   <h2>본질</h2>
+  {apostle.number === 9 && <p class="wiki-boundary">기존 공개판의 예수 항목입니다. 아텐과 동일시하거나 KG의 9번 자리 선택을 확정하지 않습니다.</p>}
   <p class="wiki-essence">{apostle.essence}</p>
 
   <h2>공개 본문</h2>
@@ -63,5 +59,6 @@ const jsonLd = {
       검증 전 AI 해석은 노출하지 않습니다.
     </p>
     <a href={apostle.sourceUrl}>기존 사도 상세 표면 보기 →</a>
+    <a href="/apostles/graph.jsonld">사도·문서·출처의 연결 데이터 →</a>
   </aside>
 </StarlightPage>

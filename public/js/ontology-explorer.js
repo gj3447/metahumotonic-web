@@ -52,6 +52,65 @@
   let activeKey = '';
   let searchCursor = null;
   let lastSearch = null;
+  let webReferences = new Map();
+
+  function renderWebReferences(publicId) {
+    const reference = webReferences.get(publicId);
+    if (!reference) return;
+    const section = element('aside', 'ontology-web-references');
+    section.append(element('p', '', reference.mapping_status === 'CONFLICT_REFERENCE_ONLY'
+      ? '기존 공개판 참고 문서입니다. 이 링크가 미결 후보를 선택하지는 않습니다.'
+      : '이 존재를 소개하는 공개 문서와 연결 데이터입니다.'));
+    for (const [field, label] of [['page_url', '사도 이야기'], ['wiki_url', '위키 출처'], ['graph_url', '연결 데이터']]) {
+      const link = element('a', 'wiki-button', label);
+      link.href = reference[field];
+      // An ordinary navigation never forwards the internal API key.
+      link.referrerPolicy = 'no-referrer';
+      section.append(link);
+    }
+    detail.append(section);
+  }
+
+  function readWebReferences(body, release) {
+    if (body.meta?.content_sha256 !== release.meta.content_sha256
+      || body.meta?.projection_id !== projectionId
+      || body.meta?.publication_status !== expectedPublicationStatus
+      || body.meta?.release_state !== expectedReleaseState
+      || body.meta?.schema_version !== expectedSchemaVersion
+      || body.data?.mapping_version !== 'apostle-web-references/v1') {
+      throw new Error('웹 연결과 ontology release가 일치하지 않습니다.');
+    }
+    const slots = release.data.collections.apostles;
+    const items = body.data.items;
+    if (!Array.isArray(items) || items.length !== 12
+      || new Set(items.map(item => item.public_id)).size !== 12) {
+      throw new Error('웹 연결의 12개 자리 식별자가 올바르지 않습니다.');
+    }
+    const refs = new Map();
+    for (const item of items) {
+      const slot = slots.find(slot => slot.public_id === item.public_id);
+      const ref = item.web_reference;
+      if (!slot || slot.position !== item.position || slot.selection_state !== item.selection_state
+        || ref?.identity_equivalence !== false || ref?.authority !== 'EDITORIAL_SUMMARY'
+        || ref.mapping_status !== (slot.selection_state === 'CONFLICT_PENDING' ? 'CONFLICT_REFERENCE_ONLY' : 'EDITORIAL_REFERENCE')
+        || ref.concept_iri !== `https://metahumotonic.com/learn/#entity-apostle-${slot.position}`) {
+        throw new Error('웹 연결의 식별자 또는 권위 범위가 올바르지 않습니다.');
+      }
+      for (const [field, pattern] of [
+        ['page_url', /^\/apostles\/[a-z0-9-]+\/$/],
+        ['wiki_url', /^\/wiki\/apostles\/[a-z0-9-]+\/$/],
+        ['graph_url', /^\/apostles\/graph\.jsonld$/],
+      ]) {
+        const url = new URL(ref[field]);
+        if (url.origin !== 'https://metahumotonic.com' || url.username || url.password
+          || url.search || url.hash || !pattern.test(url.pathname)) {
+          throw new Error('허용되지 않은 웹 연결입니다.');
+        }
+      }
+      refs.set(item.public_id, ref);
+    }
+    return refs;
+  }
 
   class OntologyApiError extends Error {
     constructor(statusCode, body) {
@@ -314,6 +373,7 @@
     ];
     detail.classList.remove('ontology-panel--empty', 'ontology-panel--conflict');
     detail.replaceChildren(header, definitionList(rows));
+    renderWebReferences(item.public_id);
   }
 
   function renderPendingConflict(payload) {
@@ -336,6 +396,7 @@
     detail.classList.remove('ontology-panel--empty');
     detail.classList.add('ontology-panel--conflict');
     detail.replaceChildren(header, notice, candidates);
+    renderWebReferences(payload.public_id);
   }
 
   function renderNeighbors(items) {
@@ -445,6 +506,7 @@
     try {
       const body = await api(`/releases/${encodeURIComponent(projectionId)}`);
       validatePinnedRelease(body);
+      webReferences = readWebReferences(await api('/apostles'), body);
       renderRelease(body.data, body.meta);
       writeSessionKey(activeKey);
       keyInput.value = '';
@@ -455,6 +517,7 @@
       if (selectedId && publicIdPattern.test(selectedId)) await loadNode(selectedId);
     } catch (error) {
       activeKey = '';
+      webReferences.clear();
       writeSessionKey('');
       workspace.hidden = true;
       disconnectButton.hidden = true;
@@ -470,6 +533,7 @@
 
   function disconnect() {
     activeKey = '';
+    webReferences.clear();
     writeSessionKey('');
     keyInput.value = '';
     workspace.hidden = true;

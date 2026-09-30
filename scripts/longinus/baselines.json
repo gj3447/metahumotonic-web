@@ -2,7 +2,7 @@
   "_meta": {
     "purpose": "Longinus drift-monitoring baseline manifest — committed sha256 of KG-bound source files.",
     "source": "longinus-web-binding-2026-05-25 (KG ReferenceSite binding_state=LIVE)",
-    "generated_at": "2026-09-29",
+    "generated_at": "2026-09-30",
     "policy": "Intent-tagged update: when you intentionally change a tracked file, run `node scripts/longinus/drift-check.mjs --update` in the SAME commit. CI fails if a tracked file's sha256 differs from this manifest without a manifest update (= unexpected drift).",
     "granularity": "file-level sha256 (v1). Future upgrade: per-AST-block hashing (tree-sitter) to exclude whitespace/comment noise — PROM16 D3/D4 consensus.",
     "goodhart_safeguard": "hash match is necessary not sufficient; pair with periodic manual spot-check (PROM16 D1 consensus).",
@@ -11,14 +11,14 @@
   "baselines": {
     "Dockerfile": "e04e0f2c8e196ebae4b5c94c6f2af3bee30fc06e39a6419d347f2324e6ccae86",
     "astro.config.mjs": "87a9f4f2a66fd25daf8e80c47020348de09d65ef607499b506f732d477481747",
-    "nginx.conf": "53157b21f83074f94368ec46bea6dd31fd79b50104a0084305cbd2a003889814",
+    "nginx.conf": "9162bb49dffc7488843c84f2681814f3dbe24b7b133d9415f05d5613705e6df9",
     "public/.well-known/333-compute.json": "7fff7e528c9c1a11c865510d78ba390f744243ac195f2efbc21ca0628d678ae4",
     "public/js/ogl.umd.js": "6a619c7bb08629d26e025b08f4cea79edc5144d6c72e8e8d5ac47858e27380fc",
     "public/ontology.ttl": "2e7fc1194528be5f1787d8936765dd91340fe39b3493ec5ee4115ab7717a5877",
     "public/robots.txt": "e1e66d6b07cfa1202d341692e250070d2ef1a5a485113bc613a72a3eb17e6c9e",
     "public/llms.txt": "f154a8441945ce6b973217ae4571040965c8375083160be666b422c45f6fb031",
     "public/sitemap.xml": "a1a9707f3b4734d8d5c45bee603864817e2c401a27b794c9f7b111657cf89e47",
-    "scripts/build/assemble-site.mjs": "9f396651bb144fb0484069ed8cc5fa6459d2f37dc7aceb2f93292edbcf47aab9",
+    "scripts/build/assemble-site.mjs": "6f1b3a3559ccbe4d69c057738961cae6098c8f1e4c32e300f153ec32448352e8",
     "src/components/ApostleSection.astro": "7294ecc97fd3c4558854c3c5556864e8d201a1ba9fe02ef08c2267ec44989681",
     "src/components/AxiomSection.astro": "b245351a3be9775ac614855453085eacaca1f263f414f40a74c8b708299cf59c",
     "src/components/ConceptProgram.astro": "5f8e70b4360f1dd6105b91507f17cffbc196aa43ef902ba085b6ac82007398cf",
@@ -31,7 +31,7 @@
     "src/layouts/BaseLayout.astro": "2d5171e068e5ed22e3f767338aceb6bf618228396c4d53fedf00f969662abf05",
     "src/lib/kg.ts": "243e358d5d13a3f946a961d9be6b2903f698c28128168c98e27ac5b8628c1b12",
     "src/pages/api.astro": "8df448afd42cad32914da7f7aebaffe5ce8f23ad5db4461e06d88eb84a131def",
-    "src/pages/apostles/[slug].astro": "a7bf1975508f6179708e13e80ab122e68e096b38f9db45e38b38b2fba91bd25e",
+    "src/pages/apostles/[slug].astro": "3bfcd5fb73c10ac2d83326ad7f8cff7e923079cec2c8b625cc2e169ec6371a60",
     "src/pages/apostles/index.astro": "004f8e02be86207d275d6b2e806ce7eea8366503eed3f93023c55683358bdfb6",
     "src/pages/domains/[name].astro": "21de6dbc0bb22a60ad3290845bbe68d404b399e98a54fbe19b05c4de8994f36d",
     "src/pages/explore.astro": "a660fce7fddc14e94cecb5346e24180ca996c4041204211205dc1fe0200d9d47",
@@ -53,6 +53,6 @@
     "src/styles/compute.css": "5d0075e5a489bec96a44f9f3606fab4231f81a10ca2c88d6342294c6b13f0ccb",
     "src/styles/landing.css": "fea4ce52608dbdaac0604cdbab78a711adc69a9ac2945551e91cc47c1dec4aa9",
     "src/styles/product.css": "8a4ed71ea21612d8ae686aea16a1a4388363a14a525c9da9bdfdc2794771a600",
-    ".github/workflows/build-and-deploy.yml": "e3c817011b91264448e4a1f6aecdeb91972139e4fd5752a9df84e4aee2f48438"
+    ".github/workflows/build-and-deploy.yml": "4ddb1574a99b7c25eb757464de9b2b60e0dcff4cab642ec8cfdea750b4848db2"
   }
 }

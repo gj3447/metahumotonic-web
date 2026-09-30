@@ -34,6 +34,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+
       - name: Verify consent and surface contracts
         run: npm run test:release && npm run verify:drift
 
@@ -41,9 +44,6 @@ jobs:
       # GENERATOR(Node) → build-trace.jsonl → VERIFIER(Python ooptdd). RED 면 배포 안 함.
       - name: Emit ooptdd build-trace (측정 GENERATOR)
         run: node scripts/ooptdd/emit-build-trace.mjs
-
-      - name: Setup uv
-        uses: astral-sh/setup-uv@v5
 
       - name: Verify build-trace gate (측정 VERIFIER — silent gap이면 RED)
         run: uv run --python 3.12 --with pyyaml python scripts/ooptdd/verify-build-trace.py
