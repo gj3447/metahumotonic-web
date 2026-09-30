@@ -39,6 +39,7 @@ export const services: readonly DirectoryService[] = [
   { id: 'youtube', name: 'YouTube', description: '영상에서 질문을 찾고 관련 글로 이어가기.', href: 'https://www.youtube.com/channel/UCLVZA8cxVCEqrREfZ7NgcJA', group: 'developer', access: 'public', label: '외부 링크', mark: '▷', verifiedAt: directoryEdition },
   { id: 'api', name: '개발자 자료', description: '공개 API와 JSON-LD·USL 데이터의 읽기 경로.', href: '/developers/', group: 'developer', access: 'public', label: '개발자 안내', mark: '{ }', verifiedAt: directoryEdition },
   { id: 'mcp', name: 'MCP', description: '에이전트용 발견 문서와 레지스트리 상태 확인.', href: '/mcp/', group: 'developer', access: 'public', label: '발견 문서', mark: '◇', verifiedAt: directoryEdition },
+  { id: 'operations', name: '운영 대시보드', description: 'METAHUMOTONIC_DASHBOARD와 운영자용 자료로 연결되는 안내.', href: '/operations/', group: 'developer', access: 'public', label: '운영자 안내', mark: '↗', verifiedAt: '2026-09-29' },
 ];
 
 export const internalSystems = [
@@ -46,6 +47,7 @@ export const internalSystems = [
   { id: 'kg-usl', name: 'KG · USL', role: '지식 그래프와 의미 연결', note: '사내 권한 범위' },
   { id: 'data', name: 'PostgreSQL · 데이터', role: '도메인별 저장소와 이력', note: '사내 권한 범위' },
   { id: 'mcp-ops', name: 'MCP · 서버 운영', role: '도구 연결과 배포 관측', note: '사내 권한 범위' },
+  { id: 'dashboard', name: 'METAHUMOTONIC_DASHBOARD', role: '저장소·장비·접속 안내를 연결하는 비공개 운영 색인', note: 'GitHub 저장소 접근권한 필요' },
 ] as const;
 
 const allowedExternal = new Set([
@@ -85,7 +87,7 @@ export const directoryJsonLd = () => ({
   '@graph': [
     { '@id': directoryId, '@type': 'schema:CollectionPage', 'schema:name': 'MetaHumotonic 서비스', 'schema:url': `${directoryOrigin}/services/`, 'schema:inLanguage': 'ko', 'schema:isPartOf': { '@id': `${directoryOrigin}/#website` }, 'schema:dateModified': directoryEdition, 'schema:mainEntity': { '@id': `${directoryId}-list` } },
     { '@id': `${directoryId}-list`, '@type': 'schema:ItemList', 'schema:itemListElement': publicDirectoryServices().map((service, index) => ({ '@type': 'schema:ListItem', 'schema:position': index + 1, 'schema:item': { '@id': `${directoryId}-${service.id}` } })) },
-    ...publicDirectoryServices().map(service => ({ '@id': `${directoryId}-${service.id}`, '@type': 'schema:WebPage', 'schema:name': service.name, 'schema:description': service.description, 'schema:url': absoluteDirectoryHref(service.href), 'schema:dateModified': service.verifiedAt, ...(service.id === 'projects' ? { 'schema:hasPart': directoryProjects().map(project => ({ '@id': directoryProjectId(project.id) })) } : {}), 'prov:wasDerivedFrom': { '@id': `${directoryOrigin}/services/data.json` } })),
+    ...publicDirectoryServices().map(service => ({ '@id': `${directoryId}-${service.id}`, '@type': 'schema:WebPage', 'schema:name': service.name, 'schema:description': service.description, 'schema:url': absoluteDirectoryHref(service.href), 'schema:dateModified': service.verifiedAt, ...(service.id === 'projects' ? { 'schema:hasPart': directoryProjects().map(project => ({ '@id': directoryProjectId(project.id) })) } : {}), ...(service.id === 'operations' ? { 'schema:about': { '@id': directoryInternalId('dashboard') } } : {}), 'prov:wasDerivedFrom': { '@id': `${directoryOrigin}/services/data.json` } })),
     ...directoryProjects().map(project => ({ '@id': directoryProjectId(project.id), '@type': 'schema:WebPage', 'schema:name': project.name, 'schema:description': project.summary, 'schema:url': absoluteDirectoryHref(project.href), ...(learningNodeIds.has(project.id) ? { 'schema:about': { '@id': `${directoryOrigin}/learn/#entity-${project.id}` } } : {}), 'prov:wasDerivedFrom': { '@id': `${directoryOrigin}/projects/data.json` } })),
     ...internalSystems.map(system => ({ '@id': directoryInternalId(system.id), '@type': 'schema:Service', 'schema:name': system.name, 'schema:description': system.role, 'schema:audience': { '@type': 'schema:Audience', 'schema:audienceType': '사내 인증' }, 'prov:wasDerivedFrom': { '@id': `${directoryOrigin}/services/data.json` } })),
   ],
@@ -99,6 +101,7 @@ export const directoryUsl = () => ({
     ...internalSystems.map(system => ({ uid: directoryInternalId(system.id), properties: { name: system.name, kind: 'internal-capability', access: 'internal-auth', authority: 'EDITORIAL_SUMMARY' } })),
   ],
   relations: [
+    { uid: `${directoryId}-edge-operations-dashboard`, from_uid: `${directoryId}-operations`, to_uid: directoryInternalId('dashboard'), type: 'DESCRIBES_INTERNAL', properties: { description: JSON.stringify({ label: '운영 대시보드 안내', meaning: '공개 운영자 안내가 설명하는 비공개 대시보드 역할입니다. 내부 데이터나 실행 권한은 포함하지 않습니다.', status: 'ACTIVE', authority: 'EDITORIAL_SUMMARY', source: `${directoryOrigin}/operations/` }) } },
     ...publicDirectoryServices().map(service => ({ uid: `${directoryId}-edge-${service.id}`, from_uid: directoryId, to_uid: `${directoryId}-${service.id}`, type: 'DISCOVERS', properties: { description: JSON.stringify({ label: '서비스로 이동', meaning: '공개 디렉터리에서 검토된 접근 경로를 안내합니다. 운영 상태나 접근 권한을 보증하지 않습니다.', status: 'ACTIVE', authority: 'EDITORIAL_SUMMARY', source: `${directoryOrigin}/services/data.json` }) } })),
     ...directoryProjects().map(project => ({ uid: `${directoryId}-edge-project-${project.id}`, from_uid: `${directoryId}-projects`, to_uid: directoryProjectId(project.id), type: 'INTRODUCES', properties: { description: JSON.stringify({ label: '프로젝트 소개', meaning: '프로젝트 목록에서 각 작업의 공개 소개로 연결합니다. 실행 가능성을 보증하지 않습니다.', status: 'ACTIVE', authority: 'EDITORIAL_SUMMARY', source: `${directoryOrigin}/projects/data.json` }) } })),
     ...internalSystems.map(system => ({ uid: `${directoryId}-edge-internal-${system.id}`, from_uid: directoryId, to_uid: directoryInternalId(system.id), type: 'DESCRIBES_INTERNAL', properties: { description: JSON.stringify({ label: '내부 역할 설명', meaning: '사내 시스템의 역할만 소개합니다. 접속 경로나 권한은 제공하지 않습니다.', status: 'ACTIVE', authority: 'EDITORIAL_SUMMARY', source: `${directoryOrigin}/services/data.json` }) } })),

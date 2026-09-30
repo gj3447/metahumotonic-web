@@ -18,7 +18,7 @@
     "public/robots.txt": "e1e66d6b07cfa1202d341692e250070d2ef1a5a485113bc613a72a3eb17e6c9e",
     "public/llms.txt": "f154a8441945ce6b973217ae4571040965c8375083160be666b422c45f6fb031",
     "public/sitemap.xml": "a1a9707f3b4734d8d5c45bee603864817e2c401a27b794c9f7b111657cf89e47",
-    "scripts/build/assemble-site.mjs": "6f1b3a3559ccbe4d69c057738961cae6098c8f1e4c32e300f153ec32448352e8",
+    "scripts/build/assemble-site.mjs": "4cfefd911a4550f2a3b6070e6d454463e791292264c4cde68e6c023ad9b210db",
     "src/components/ApostleSection.astro": "7294ecc97fd3c4558854c3c5556864e8d201a1ba9fe02ef08c2267ec44989681",
     "src/components/AxiomSection.astro": "b245351a3be9775ac614855453085eacaca1f263f414f40a74c8b708299cf59c",
     "src/components/ConceptProgram.astro": "5f8e70b4360f1dd6105b91507f17cffbc196aa43ef902ba085b6ac82007398cf",
