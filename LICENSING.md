@@ -1,22 +1,11 @@
 # Licensing
 
-This repository is intentionally published under a mixed-license model. The
-license that applies depends on the material:
+**MetaHumotonic License 1.2** — [LICENSE](LICENSE); [scope, prior grants and third-party notices](LICENSE-NOTICE.md).
 
-| Material | License |
-| --- | --- |
-| Original source code, build scripts, configuration, and documentation about operating the software | [MIT](LICENSE) |
-| Original MetaHumotonic text, visual material, ontology content, and knowledge-graph dataset where copyright subsists | [Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/) |
-| `_vendor/ooptdd/**` | [Apache License 2.0](_vendor/ooptdd/LICENSE), with its [NOTICE](_vendor/ooptdd/NOTICE) |
-| `public/js/ogl.umd.js` (OGL 0.0.42) | [MIT](LICENSES/OGL-0.0.42-MIT.txt), Copyright (c) 2019 Nathan Gordon |
-| `@astrojs/starlight` 0.41.7 (Starlight wiki UI) | [MIT](LICENSES/STARLIGHT-0.41.7-MIT.txt), Copyright (c) 2023 Astro contributors |
-| Other third-party dependencies | Their respective upstream licenses |
+지정한 하드웨어의 접근권한과 전체 관리 권한을 합의한 명세서에 따라 공유하고, **CHU의 일부가 된다**는 참여 원칙을 적용합니다. 실제 접근에는 별도 승인이 필요합니다.
 
-For CC BY-SA material, attribute **Gyeongjun Ra (라경준)** and link to
-<https://metahumotonic.com/> and the CC BY-SA 4.0 license. The dataset also
-declares this license in [`public/void.ttl`](public/void.ttl).
+Source-available; not OSI-approved. Existing grants and separately licensed material remain valid.
 
-The canon labels used by this project describe provenance and editorial
-authority. They do not change the permissions granted by the applicable
-license. The licenses do not grant trademark rights or imply endorsement by
-the project operator.
+Copyright stays with its original holders. Existing commercial agreements and
+prior grants are preserved. See [LICENSE-NOTICE.md](LICENSE-NOTICE.md) for the
+current scope and the [previous licensing statement](licenses/pre-mhl-2026-10-07/LICENSING.md).

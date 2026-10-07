@@ -1,0 +1,31 @@
+{
+  "schema": "metahumotonic-license-adoption/v1",
+  "date": "2026-10-07",
+  "repository": "gj3447/metahumotonic-web",
+  "base_commit": "6f71140fb9c1851297277d5babd53b9d8beb7beb",
+  "base_tree": "ae0eb4be899c1c13134a1256420b6fa6d551c7db",
+  "license": "LicenseRef-MetaHumotonic-1.2",
+  "license_path": "LICENSE",
+  "license_sha256": "dc4439a4bc7ea4cb913ba3a5a9ff679a1dc148a03f77a6deba82758c5a92b5a3",
+  "mode": "MHL_DEFAULT_WITH_PRESERVED_GRANTS",
+  "user_verbatim": "우리 모든 publci 을 메타휴모토닉 라이센스로 변경해줘 ㅇ",
+  "source_authority": "USER_PRIMARY",
+  "drafting_author": "OpenAI Codex",
+  "drafting_authority": "SECONDARY_AI",
+  "prior_grants_preserved": true,
+  "actual_hardware_access_granted": false,
+  "third_party_boundary": "Existing CC BY-SA 4.0 grants for text, art and datasets, Apache-2.0 for _vendor/ooptdd, and MIT notices for OGL/Starlight remain. Existing public/void.ttl dataset declarations are unchanged.",
+  "preserved_files": [
+    {
+      "original_path": "LICENSE",
+      "path": "licenses/pre-mhl-2026-10-07/LICENSE",
+      "sha256": "ebe3af13c56905125bdc5b499e4eaf10626deff90eab18db4d6f1448e49131a0"
+    },
+    {
+      "original_path": "LICENSING.md",
+      "path": "licenses/pre-mhl-2026-10-07/LICENSING.md",
+      "sha256": "71c1eeb4d5a01a4be1b4568247e0054832eb50b54f27dbf2ceab2ce9d66d0cb2"
+    }
+  ],
+  "publication_tracking": "This is the prepared adoption record. Git history and remote readback establish publication; no full copyright audit or legal review is claimed."
+}
