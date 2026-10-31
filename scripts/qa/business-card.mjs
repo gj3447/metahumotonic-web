@@ -2,8 +2,9 @@
 import { chromium } from 'playwright';
 import AxeBuilder from '@axe-core/playwright';
 import { createServer } from 'node:http';
-import { readFile, mkdir, writeFile } from 'node:fs/promises';
+import { readFile, mkdir, writeFile, chmod } from 'node:fs/promises';
 import { resolve, extname } from 'node:path';
+import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
 
 const target = 'https://metahumotonic.com/card/ra/';
@@ -11,7 +12,7 @@ const root = resolve('public');
 const output = process.env.STORAGE_ARTIFACT_DIR;
 assert.ok(output, 'Run through proxmox-scratch to retain screenshots within capacity limits');
 await mkdir(output, { recursive: true });
-const files = ['index.html', 'card.css', 'card.js', 'qr.png', 'qr.svg', 'contact.vcf'];
+const files = ['index.html', 'card.css', 'card.js', 'qr.png', 'qr.svg', 'contact.vcf', 'card.png'];
 const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'application/javascript', '.svg': 'image/svg+xml', '.png': 'image/png', '.vcf': 'text/vcard; charset=utf-8' };
 const server = createServer(async (req, res) => {
   const path = new URL(req.url, 'http://localhost').pathname;
@@ -25,15 +26,33 @@ const url = process.argv.includes('--public') ? target : `http://127.0.0.1:${ser
 const report = { url, checkedAt: new Date().toISOString(), viewports: [], assets: [], checks: [], errors: [] };
 let browser;
 try {
-  for (const file of files) {
-    const response = await fetch(url + file);
-    assert.equal(response.status, 200, file);
-    assert.deepEqual(Buffer.from(await response.arrayBuffer()), await readFile(resolve(root, 'card/ra', file)), `served bytes: ${file}`);
-    if (file === 'qr.png') assert.match(response.headers.get('content-type'), /^image\/png/);
-    report.assets.push(file);
-  }
   if (process.env.STORAGE_MEMORY_TMPDIR) process.env.TMPDIR = process.env.STORAGE_MEMORY_TMPDIR;
   browser = await chromium.launch({ args: ['--disable-dev-shm-usage'] });
+  if (process.argv.includes('--export-image')) {
+    assert.ok(!process.argv.includes('--public'), 'Export from reviewed local source only');
+    const context = await browser.newContext({ viewport: { width: 960, height: 800 }, deviceScaleFactor: 2 });
+    const page = await context.newPage();
+    await page.goto(url, { waitUntil: 'networkidle' });
+    await page.evaluate(() => document.fonts.ready);
+    const bounds = await page.locator('.business-card').boundingBox();
+    assert.equal(bounds.width, 720);
+    assert.equal(bounds.height, 400);
+    const destination = resolve(root, 'card/ra/card.png');
+    await page.locator('.business-card').screenshot({ path: destination });
+    await chmod(destination, 0o644);
+    await context.close();
+    report.checks.push('1440x800 business-card image export');
+  }
+  const stylesheet = (await readFile(resolve(root, 'card/ra/index.html'), 'utf8')).match(/href="([^\"]*card\.css[^\"]*)"/)[1];
+  for (const file of files) {
+    const assetUrl = new URL(file === 'card.css' ? stylesheet : file, url);
+    const response = await fetch(assetUrl);
+    assert.equal(response.status, 200, file);
+    const hash = bytes => createHash('sha256').update(bytes).digest('hex');
+    assert.equal(hash(Buffer.from(await response.arrayBuffer())), hash(await readFile(resolve(root, 'card/ra', file))), `served bytes: ${assetUrl}`);
+    if (file === 'qr.png') assert.match(response.headers.get('content-type'), /^image\/png/);
+    report.assets.push(assetUrl.pathname + assetUrl.search);
+  }
   for (const width of [390, 320, 768, 1280]) {
     const context = await browser.newContext({ viewport: { width, height: 844 }, isMobile: width < 400, hasTouch: width < 400, reducedMotion: 'reduce' });
     const page = await context.newPage();
@@ -42,6 +61,8 @@ try {
     assert.equal(await page.locator('h1').textContent(), '라경준');
     assert.ok(await page.locator('.qr-image img').evaluate(img => img.complete && img.naturalWidth > 200));
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `overflow ${width}`);
+    const card = await page.locator('.business-card').boundingBox();
+    assert.ok(Math.abs(card.width / card.height - 1.8) < 0.03, `business-card proportion at ${width}: ${JSON.stringify(card)}`);
     const accessibility = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
     assert.deepEqual(accessibility.violations.map(v => v.id), [], `accessibility ${width}`);
     await page.screenshot({ path: resolve(output, `card-${width}.png`), fullPage: true });
@@ -70,12 +91,15 @@ try {
       await page.locator('a[href="./contact.vcf"]').tap();
       const download = await downloadEvent;
       assert.match(download.suggestedFilename(), /\.vcf$/);
+      const cardDownloadEvent = page.waitForEvent('download');
+      await page.locator('a[href="./card.png"]').tap();
+      assert.match((await cardDownloadEvent).suggestedFilename(), /명함\.png$/);
       await page.evaluate(() => {
         const sizes = [...document.querySelectorAll('body *')].map(el => [el, parseFloat(getComputedStyle(el).fontSize) * 2]);
         for (const [el, size] of sizes) el.style.fontSize = `${size}px`;
       });
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), 'enlarged text overflow');
-      report.checks.push('keyboard', 'touch', 'clipboard', 'manual-copy fallback', 'native-share payload', 'share cancellation', 'vCard download', 'enlarged text');
+      report.checks.push('keyboard', 'touch', 'clipboard', 'manual-copy fallback', 'native-share payload', 'share cancellation', 'vCard download', 'card image download', 'enlarged text');
     }
     report.viewports.push({ width, accessibilityViolations: 0 });
     await context.close();

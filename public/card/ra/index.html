@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080a0d">
+  <meta name="theme-color" content="#171817">
   <title>라경준 · 대표이사 | 메타휴모토닉</title>
   <meta name="description" content="메타휴모토닉 대표이사 라경준의 디지털 명함. QR로 공유하고 연락처에 저장하세요.">
   <link rel="canonical" href="https://metahumotonic.com/card/ra/">
@@ -13,40 +13,37 @@
   <meta property="og:title" content="라경준 · 대표이사 | 메타휴모토닉">
   <meta property="og:description" content="메타휴모토닉 · MetaHumotonic — 디지털 명함">
   <meta property="og:url" content="https://metahumotonic.com/card/ra/">
-  <meta property="og:image" content="https://metahumotonic.com/card/ra/qr.png">
-  <meta property="og:image:alt" content="라경준의 디지털 명함으로 연결되는 QR 코드">
-  <link rel="stylesheet" href="./card.css">
+  <meta property="og:image" content="https://metahumotonic.com/card/ra/card.png">
+  <meta property="og:image:width" content="1440">
+  <meta property="og:image:height" content="800">
+  <meta property="og:image:alt" content="메타휴모토닉 대표이사 라경준의 가로형 명함">
+  <link rel="stylesheet" href="./card.css?v=20261031">
   <script src="./card.js" defer></script>
 </head>
 <body>
-  <main class="business-card" aria-label="라경준 디지털 명함">
-    <header class="brand">
-      <img src="/favicon.svg" width="48" height="48" alt="">
-      <div><p class="wordmark">MetaHumotonic</p><p class="company">메타휴모토닉</p></div>
-    </header>
-
-    <section class="identity" aria-labelledby="name">
-      <p class="eyebrow">대표이사 <span lang="en">CEO</span></p>
-      <h1 id="name">라경준</h1>
-      <p class="english-name" lang="en">Gyeongjun Ra</p>
-    </section>
-
-    <a class="website" href="https://metahumotonic.com/">
-      <span><span class="link-label">WEBSITE</span><span>metahumotonic.com</span></span>
-      <span class="arrow" aria-hidden="true">↗</span>
-    </a>
-
-    <section class="qr-section" aria-labelledby="qr-title">
-      <a class="qr-image" href="./qr.png" aria-label="명함 QR 이미지 크게 보기">
-        <img src="./qr.png" width="246" height="246" alt="https://metahumotonic.com/card/ra/ 로 연결되는 QR 코드">
-      </a>
-      <h2 id="qr-title">만나서 반갑습니다.</h2>
-      <p class="qr-help">카메라로 QR을 비추면 명함이 열립니다.</p>
-      <a class="qr-download" href="./qr.png" download="메타휴모토닉-라경준-QR.png">QR 이미지 저장 <span aria-hidden="true">↓</span></a>
-    </section>
+  <main class="card-shell" aria-label="라경준 디지털 명함">
+    <div class="card-frame">
+      <article class="business-card" aria-labelledby="name">
+        <header class="brand">
+          <div><p class="company">메타휴모토닉</p><p class="wordmark" lang="en">MetaHumotonic</p></div>
+          <img src="/favicon.svg" width="44" height="44" alt="">
+        </header>
+        <section class="identity" aria-labelledby="name">
+          <div class="name-line"><h1 id="name">라경준</h1><p class="role">대표이사</p></div>
+          <p class="english-name" lang="en">Gyeongjun Ra <span>CEO</span></p>
+        </section>
+        <a class="website" href="https://metahumotonic.com/">metahumotonic.com</a>
+        <div class="qr-section">
+          <a class="qr-image" href="./qr.png" aria-label="명함 QR 이미지 크게 보기">
+            <img src="./qr.png" width="148" height="148" alt="https://metahumotonic.com/card/ra/ 로 연결되는 QR 코드">
+          </a>
+          <p class="qr-caption">SCAN TO CONNECT</p>
+        </div>
+      </article>
+    </div>
 
     <div class="actions">
-      <a class="button primary" href="./contact.vcf" download="라경준.vcf">연락처에 저장 <span aria-hidden="true">＋</span></a>
+      <a class="button primary" href="./card.png" download="메타휴모토닉-라경준-명함.png">명함 이미지 저장 <span aria-hidden="true">↓</span></a>
       <button class="button secondary" id="share" type="button" hidden>명함 공유 <span aria-hidden="true">↗</span></button>
     </div>
     <p class="status" id="status" role="status" aria-live="polite"></p>
@@ -54,7 +51,11 @@
       <label for="card-url">아래 주소를 길게 눌러 복사하세요.</label>
       <input id="card-url" type="url" readonly value="https://metahumotonic.com/card/ra/">
     </div>
-    <footer><a href="https://metahumotonic.com/card/ra/">metahumotonic.com/card/ra</a></footer>
+    <footer class="secondary-actions">
+      <a href="./contact.vcf" download="라경준.vcf">연락처에 저장</a>
+      <span aria-hidden="true">·</span>
+      <a href="./qr.png" download="메타휴모토닉-라경준-QR.png">QR만 저장</a>
+    </footer>
   </main>
 </body>
 </html>
